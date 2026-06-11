@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Battle Royale — Last One Standing</title>
+<style>
+  html, body { margin: 0; padding: 0; overflow: hidden; background: #111; font-family: 'Segoe UI', Arial, sans-serif; }
+  canvas { display: block; cursor: crosshair; }
+  #hud {
+    position: fixed; top: 10px; left: 10px; color: #fff; pointer-events: none;
+    text-shadow: 0 1px 3px #000; font-size: 15px; line-height: 1.5;
+  }
+  #killfeed {
+    position: fixed; top: 10px; right: 230px; color: #fff; text-align: right;
+    pointer-events: none; text-shadow: 0 1px 3px #000; font-size: 13px;
+  }
+  #overlay {
+    position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; background: rgba(0,0,0,.75); color: #fff; text-align: center;
+  }
+  #overlay h1 { font-size: 56px; margin: 0 0 10px; letter-spacing: 2px; }
+  #overlay p { font-size: 18px; max-width: 560px; line-height: 1.6; margin: 6px 0; }
+  #overlay button {
+    margin-top: 24px; font-size: 22px; padding: 14px 44px; border: none; border-radius: 8px;
+    background: #ffd700; color: #222; font-weight: bold; cursor: pointer;
+  }
+  #overlay button:hover { background: #ffe44d; }
+  .gold { color: #ffd700; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<div id="hud"></div>
+<div id="killfeed"></div>
+<div id="overlay">
+  <h1 class="gold">BATTLE ROYALE</h1>
+  <p>You drop onto an island with <b>19 other fighters</b>. Loot weapons, build walls, and stay out of the storm. Last one standing wins the <span class="gold">Victory Royale</span>.</p>
+  <p><b>WASD</b> move &nbsp;•&nbsp; <b>Mouse</b> aim &nbsp;•&nbsp; <b>Click</b> shoot &nbsp;•&nbsp; <b>Q / Right-click</b> build wall (10 wood)<br>
+     <b>E</b> use medkit &nbsp;•&nbsp; <b>F</b> drink shield potion &nbsp;•&nbsp; Shoot trees for wood</p>
+  <button id="startBtn">DROP IN</button>
+</div>
+<script>
+(() => {
+"use strict";
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+const hud = document.getElementById("hud");
+const killfeed = document.getElementById("killfeed");
+const overlay = document.getElementById("overlay");
+
+const WORLD = 3200;
+const TOTAL_PLAYERS = 20;
+
+const WEAPONS = {
+  pistol:  { name: "Pistol",  dmg: 14, rate: 320, speed: 12, spread: 0.05, color: "#bbb",    range: 520 },
+  smg:     { name: "SMG",     dmg: 9,  rate: 90,  speed: 13, spread: 0.10, color: "#4fc3f7", range: 420 },
+  ar:      { name: "Rifle",   dmg: 20, rate: 200, speed: 15, spread: 0.04, color: "#81c784", range: 650 },
+  shotgun: { name: "Shotgun", dmg: 11, rate: 700, speed: 11, spread: 0.16, color: "#ff8a65", range: 300, pellets: 5 },
+  sniper:  { name: "Sniper",  dmg: 75, rate: 1300,speed: 22, spread: 0.005,color: "#ba68c8", range: 1100 },
+};
+const LOOT_WEAPONS = ["smg", "ar", "shotgun", "sniper"];
+const BOT_NAMES = ["Raptor","Ghost","Blaze","Viper","Nova","Drift","Onyx","Echo","Frost","Rex",
+                   "Hawk","Slate","Pixel","Comet","Jolt","Mako","Cinder","Wren","Bolt"];
+
+let players, bullets, walls, props, pickups, storm, feed, camera, keys, mouse;
+let lastTime, fireHeld, gameState = "menu";
+
+// --- tiny sound effects (WebAudio bleeps) ---
+let audioCtx = null;
+function beep(freq, dur, vol, type) {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = type || "square"; o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime + dur);
+  } catch (e) { /* no audio */ }
+}
+
+function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+addEventListener("resize", resize); resize();
+
+function rand(a, b) { return a + Math.random() * (b - a); }
+function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+function newPlayer(isHuman, i) {
+  const ang = rand(0, Math.PI * 2), r = rand(400, WORLD / 2 - 250);
+  return {
+    isHuman, name: isHuman ? "You" : BOT_NAMES[i % BOT_NAMES.length],
+    x: WORLD / 2 + Math.cos(ang) * r, y: WORLD / 2 + Math.sin(ang) * r,
+    vx: 0, vy: 0, radius: 16, hp: 100, shield: 0, alive: true,
+    weapon: "pistol", wood: isHuman ? 30 : 0, medkits: 0, potions: 0,
+    aim: 0, lastShot: 0, kills: 0,
+    botTarget: null, botWander: rand(0, Math.PI * 2), botTimer: 0,
+    color: isHuman ? "#ffd700" : `hsl(${(i * 47) % 360}, 60%, 55%)`,
+  };
+}
+
+function reset() {
+  players = [];
+  players.push(newPlayer(true, 0));
+  for (let i = 0; i < TOTAL_PLAYERS - 1; i++) players.push(newPlayer(false, i));
+  bullets = []; walls = []; pickups = []; feed = [];
+  keys = {}; mouse = { x: 0, y: 0 }; fireHeld = false;
+
+  // trees and rocks
+  props = [];
+  for (let i = 0; i < 130; i++) {
+    const tree = Math.random() < 0.7;
+    props.push({
+      x: rand(150, WORLD - 150), y: rand(150, WORLD - 150),
+      radius: tree ? rand(22, 34) : rand(26, 42),
+      hp: tree ? 60 : 120, tree,
+    });
+  }
+  // loot on the ground
+  for (let i = 0; i < 70; i++) {
+    const roll = Math.random();
+    let kind;
+    if (roll < 0.5) kind = LOOT_WEAPONS[Math.floor(Math.random() * LOOT_WEAPONS.length)];
+    else if (roll < 0.7) kind = "medkit";
+    else if (roll < 0.9) kind = "potion";
+    else kind = "wood";
+    pickups.push({ x: rand(120, WORLD - 120), y: rand(120, WORLD - 120), kind });
+  }
+
+  storm = {
+    x: WORLD / 2, y: WORLD / 2, radius: WORLD * 0.75,
+    targetX: rand(WORLD * 0.3, WORLD * 0.7), targetY: rand(WORLD * 0.3, WORLD * 0.7),
+    targetRadius: WORLD * 0.32, phase: 1, timer: 20, shrinking: false, dps: 2,
+  };
+  camera = { x: players[0].x, y: players[0].y };
+  lastTime = performance.now();
+}
+
+function addFeed(text) {
+  feed.push({ text, t: 6 });
+  if (feed.length > 6) feed.shift();
+}
+
+const me = () => players[0];
+
+// ---------- input ----------
+addEventListener("keydown", e => {
+  keys[e.code] = true;
+  if (gameState !== "playing") return;
+  if (e.code === "KeyQ") buildWall(me());
+  if (e.code === "KeyE") useMedkit(me());
+  if (e.code === "KeyF") usePotion(me());
+});
+addEventListener("keyup", e => keys[e.code] = false);
+addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+addEventListener("mousedown", e => {
+  if (gameState !== "playing") return;
+  if (e.button === 0) fireHeld = true;
+  if (e.button === 2) buildWall(me());
+});
+addEventListener("mouseup", e => { if (e.button === 0) fireHeld = false; });
+addEventListener("contextmenu", e => e.preventDefault());
+
+document.getElementById("startBtn").addEventListener("click", () => {
+  reset();
+  gameState = "playing";
+  overlay.classList.add("hidden");
+  beep(440, 0.15, 0.1); beep(660, 0.2, 0.1);
+});
+
+// ---------- actions ----------
+function buildWall(p) {
+  if (!p.alive || p.wood < 10) return;
+  const wx = p.x + Math.cos(p.aim) * 70, wy = p.y + Math.sin(p.aim) * 70;
+  for (const w of walls) if (Math.hypot(w.x - wx, w.y - wy) < 50) return;
+  p.wood -= 10;
+  walls.push({ x: wx, y: wy, hp: 150, owner: p, half: 32 });
+  beep(220, 0.08, 0.08, "triangle");
+}
+function useMedkit(p) {
+  if (!p.alive || p.medkits <= 0 || p.hp >= 100) return;
+  p.medkits--; p.hp = Math.min(100, p.hp + 50);
+  beep(523, 0.15, 0.1, "sine");
+}
+function usePotion(p) {
+  if (!p.alive || p.potions <= 0 || p.shield >= 100) return;
+  p.potions--; p.shield = Math.min(100, p.shield + 50);
+  beep(659, 0.15, 0.1, "sine");
+}
+
+function shoot(p, now) {
+  const w = WEAPONS[p.weapon];
+  if (now - p.lastShot < w.rate) return;
+  p.lastShot = now;
+  const pellets = w.pellets || 1;
+  for (let i = 0; i < pellets; i++) {
+    const a = p.aim + rand(-w.spread, w.spread);
+    bullets.push({
+      x: p.x + Math.cos(a) * (p.radius + 6), y: p.y + Math.sin(a) * (p.radius + 6),
+      vx: Math.cos(a) * w.speed, vy: Math.sin(a) * w.speed,
+      dmg: w.dmg, owner: p, life: w.range / w.speed, color: w.color,
+    });
+  }
+  if (p.isHuman) beep(p.weapon === "sniper" ? 120 : 180 + Math.random() * 60, 0.06, 0.06);
+}
+
+function damage(target, amount, attacker) {
+  if (!target.alive) return;
+  const absorbed = Math.min(target.shield, amount);
+  target.shield -= absorbed;
+  target.hp -= (amount - absorbed);
+  if (target.hp <= 0) {
+    target.alive = false;
+    if (attacker && attacker.alive) attacker.kills++;
+    const by = attacker ? attacker.name : "the storm";
+    addFeed(`${by} eliminated ${target.name}`);
+    if (target.isHuman || (attacker && attacker.isHuman)) beep(90, 0.3, 0.12, "sawtooth");
+    // drop loot
+    pickups.push({ x: target.x, y: target.y, kind: target.weapon === "pistol" ? "medkit" : target.weapon });
+  }
+}
+
+function pickUp(p, item) {
+  if (WEAPONS[item.kind]) {
+    p.weapon = item.kind;
+    if (p.isHuman) { addFeed(`Picked up ${WEAPONS[item.kind].name}`); beep(700, 0.1, 0.08, "sine"); }
+  } else if (item.kind === "medkit") p.medkits++;
+  else if (item.kind === "potion") p.potions++;
+  else if (item.kind === "wood") p.wood += 30;
+  if (p.isHuman && !WEAPONS[item.kind]) beep(800, 0.08, 0.06, "sine");
+}
+
+// ---------- bot AI ----------
+function botThink(p, dt, now) {
+  p.botTimer -= dt;
+  // find nearest visible enemy
+  let nearest = null, best = 600;
+  for (const o of players) {
+    if (o === p || !o.alive) continue;
+    const d = dist(p, o);
+    if (d < best) { best = d; nearest = o; }
+  }
+  let moveAng;
+  const distToStormCenter = Math.hypot(p.x - storm.x, p.y - storm.y);
+  if (distToStormCenter > storm.radius - 200) {
+    // run from the storm above all else
+    moveAng = Math.atan2(storm.y - p.y, storm.x - p.x);
+  } else if (nearest) {
+    p.aim = Math.atan2(nearest.y - p.y, nearest.x - p.x) + rand(-0.09, 0.09);
+    const w = WEAPONS[p.weapon];
+    if (best < w.range * 0.9) shoot(p, now);
+    // keep distance: strafe at mid range, close in if shotgun/pistol
+    const wantClose = (p.weapon === "shotgun" || p.weapon === "pistol") ? 160 : 320;
+    moveAng = best > wantClose ? p.aim : p.aim + Math.PI + rand(-0.6, 0.6);
+    if (p.botTimer <= 0) { p.botWander = rand(-0.9, 0.9); p.botTimer = rand(0.4, 1.1); }
+    moveAng += p.botWander * 0.5;
+  } else {
+    // wander, drift toward loot or storm center
+    if (p.botTimer <= 0) {
+      p.botTimer = rand(1, 3);
+      let target = null, td = 500;
+      for (const it of pickups) {
+        const d = dist(p, it);
+        if (d < td && (WEAPONS[it.kind] ? p.weapon === "pistol" : true)) { td = d; target = it; }
+      }
+      p.botWander = target ? Math.atan2(target.y - p.y, target.x - p.x)
+                           : Math.atan2(storm.y - p.y, storm.x - p.x) + rand(-1.6, 1.6);
+    }
+    moveAng = p.botWander;
+    p.aim = moveAng;
+  }
+  // heal when safe
+  if (!nearest) { useMedkit(p); usePotion(p); }
+  p.vx = Math.cos(moveAng) * 3.1;
+  p.vy = Math.sin(moveAng) * 3.1;
+}
+
+// ---------- update ----------
+function update(dt, now) {
+  const p = me();
+
+  // human movement + aim
+  if (p.alive) {
+    let dx = (keys.KeyD ? 1 : 0) - (keys.KeyA ? 1 : 0);
+    let dy = (keys.KeyS ? 1 : 0) - (keys.KeyW ? 1 : 0);
+    const len = Math.hypot(dx, dy) || 1;
+    p.vx = dx / len * 3.6; p.vy = dy / len * 3.6;
+    p.aim = Math.atan2(mouse.y - canvas.height / 2, mouse.x - canvas.width / 2);
+    if (fireHeld) shoot(p, now);
+  }
+
+  // bots
+  for (const b of players) if (!b.isHuman && b.alive) botThink(b, dt, now);
+
+  // move + collide with props/walls/world bounds
+  for (const pl of players) {
+    if (!pl.alive) continue;
+    pl.x = clamp(pl.x + pl.vx, pl.radius, WORLD - pl.radius);
+    pl.y = clamp(pl.y + pl.vy, pl.radius, WORLD - pl.radius);
+    for (const pr of props) {
+      const d = dist(pl, pr), min = pl.radius + pr.radius;
+      if (d < min && d > 0) {
+        pl.x += (pl.x - pr.x) / d * (min - d);
+        pl.y += (pl.y - pr.y) / d * (min - d);
+      }
+    }
+    for (const w of walls) {
+      const cx = clamp(pl.x, w.x - w.half, w.x + w.half);
+      const cy = clamp(pl.y, w.y - w.half, w.y + w.half);
+      const d = Math.hypot(pl.x - cx, pl.y - cy);
+      if (d < pl.radius && d > 0) {
+        pl.x += (pl.x - cx) / d * (pl.radius - d);
+        pl.y += (pl.y - cy) / d * (pl.radius - d);
+      }
+    }
+    // pickups
+    for (let i = pickups.length - 1; i >= 0; i--) {
+      if (dist(pl, pickups[i]) < pl.radius + 14) {
+        pickUp(pl, pickups[i]);
+        pickups.splice(i, 1);
+      }
+    }
+    // storm damage
+    if (Math.hypot(pl.x - storm.x, pl.y - storm.y) > storm.radius) {
+      pl.hp -= storm.dps * dt;
+      if (pl.hp <= 0 && pl.alive) { pl.alive = false; addFeed(`The storm eliminated ${pl.name}`); }
+    }
+  }
+
+  // bullets
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    const b = bullets[i];
+    b.x += b.vx; b.y += b.vy; b.life--;
+    let dead = b.life <= 0 || b.x < 0 || b.y < 0 || b.x > WORLD || b.y > WORLD;
+    if (!dead) for (const pl of players) {
+      if (!pl.alive || pl === b.owner) continue;
+      if (dist(b, pl) < pl.radius) { damage(pl, b.dmg, b.owner); dead = true; break; }
+    }
+    if (!dead) for (let j = props.length - 1; j >= 0; j--) {
+      const pr = props[j];
+      if (dist(b, pr) < pr.radius) {
+        pr.hp -= b.dmg; dead = true;
+        if (pr.tree) b.owner.wood += 5;
+        if (pr.hp <= 0) props.splice(j, 1);
+        break;
+      }
+    }
+    if (!dead) for (let j = walls.length - 1; j >= 0; j--) {
+      const w = walls[j];
+      if (Math.abs(b.x - w.x) < w.half && Math.abs(b.y - w.y) < w.half) {
+        w.hp -= b.dmg; dead = true;
+        if (w.hp <= 0) walls.splice(j, 1);
+        break;
+      }
+    }
+    if (dead) bullets.splice(i, 1);
+  }
+
+  // storm phases: pause, then shrink toward target
+  storm.timer -= dt;
+  if (!storm.shrinking && storm.timer <= 0) {
+    storm.shrinking = true;
+    storm.timer = 18;
+    addFeed("The storm is closing in!");
+    if (p.alive) beep(150, 0.4, 0.1, "sawtooth");
+  }
+  if (storm.shrinking) {
+    const t = dt / Math.max(storm.timer, 0.001);
+    storm.radius += (storm.targetRadius - storm.radius) * Math.min(t, 1);
+    storm.x += (storm.targetX - storm.x) * Math.min(t, 1);
+    storm.y += (storm.targetY - storm.y) * Math.min(t, 1);
+    if (storm.timer <= 0) {
+      storm.shrinking = false;
+      storm.phase++;
+      storm.timer = Math.max(8, 16 - storm.phase * 2);
+      storm.dps = 2 + storm.phase * 2;
+      storm.targetRadius = Math.max(60, storm.radius * 0.55);
+      const shift = storm.radius * 0.25;
+      storm.targetX = clamp(storm.x + rand(-shift, shift), 300, WORLD - 300);
+      storm.targetY = clamp(storm.y + rand(-shift, shift), 300, WORLD - 300);
+    }
+  }
+
+  // feed timers
+  for (let i = feed.length - 1; i >= 0; i--) { feed[i].t -= dt; if (feed[i].t <= 0) feed.splice(i, 1); }
+
+  // camera follows player (or storm center when dead)
+  const focus = p.alive ? p : storm;
+  camera.x += (focus.x - camera.x) * 0.1;
+  camera.y += (focus.y - camera.y) * 0.1;
+
+  // win / lose
+  const alive = players.filter(x => x.alive);
+  if (gameState === "playing") {
+    if (p.alive && alive.length === 1) endGame(true);
+    else if (!p.alive) endGame(false);
+  }
+}
+
+function endGame(won) {
+  gameState = "over";
+  const placement = players.filter(x => x.alive).length + (won ? 0 : 1);
+  overlay.classList.remove("hidden");
+  overlay.querySelector("h1").textContent = won ? "#1 VICTORY ROYALE!" : "ELIMINATED";
+  overlay.querySelector("h1").style.color = won ? "#ffd700" : "#ff5252";
+  const ps = overlay.querySelectorAll("p");
+  ps[0].innerHTML = won
+    ? `You outlasted all ${TOTAL_PLAYERS - 1} opponents with <b>${me().kills}</b> elimination${me().kills === 1 ? "" : "s"}.`
+    : `You placed <b>#${placement}</b> of ${TOTAL_PLAYERS} with <b>${me().kills}</b> elimination${me().kills === 1 ? "" : "s"}.`;
+  ps[1].innerHTML = "";
+  document.getElementById("startBtn").textContent = "PLAY AGAIN";
+  if (won) { beep(523, 0.2, 0.12); setTimeout(() => beep(659, 0.2, 0.12), 200); setTimeout(() => beep(784, 0.4, 0.12), 400); }
+}
+
+// ---------- render ----------
+function worldToScreen(x, y) {
+  return [x - camera.x + canvas.width / 2, y - camera.y + canvas.height / 2];
+}
+
+function draw() {
+  const W = canvas.width, H = canvas.height;
+  // ground
+  ctx.fillStyle = "#3e7a3a";
+  ctx.fillRect(0, 0, W, H);
+  // grid for motion feel
+  ctx.strokeStyle = "rgba(0,0,0,0.08)"; ctx.lineWidth = 1;
+  const grid = 160;
+  const ox = (-camera.x + W / 2) % grid, oy = (-camera.y + H / 2) % grid;
+  ctx.beginPath();
+  for (let x = ox; x < W; x += grid) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+  for (let y = oy; y < H; y += grid) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+  ctx.stroke();
+  // world border
+  const [bx, by] = worldToScreen(0, 0);
+  ctx.strokeStyle = "#1b3a1a"; ctx.lineWidth = 8;
+  ctx.strokeRect(bx, by, WORLD, WORLD);
+
+  // pickups
+  for (const it of pickups) {
+    const [x, y] = worldToScreen(it.x, it.y);
+    if (x < -30 || y < -30 || x > W + 30 || y > H + 30) continue;
+    if (WEAPONS[it.kind]) {
+      ctx.fillStyle = WEAPONS[it.kind].color;
+      ctx.fillRect(x - 12, y - 5, 24, 10);
+      ctx.fillStyle = "#222"; ctx.fillRect(x - 2, y - 9, 5, 6);
+    } else if (it.kind === "medkit") {
+      ctx.fillStyle = "#fff"; ctx.fillRect(x - 10, y - 10, 20, 20);
+      ctx.fillStyle = "#e53935"; ctx.fillRect(x - 7, y - 2, 14, 5); ctx.fillRect(x - 2, y - 7, 5, 14);
+    } else if (it.kind === "potion") {
+      ctx.fillStyle = "#2196f3";
+      ctx.beginPath(); ctx.arc(x, y + 3, 8, 0, 7); ctx.fill();
+      ctx.fillRect(x - 3, y - 11, 6, 8);
+    } else { // wood
+      ctx.fillStyle = "#8d6e63"; ctx.fillRect(x - 11, y - 6, 22, 12);
+      ctx.strokeStyle = "#5d4037"; ctx.strokeRect(x - 11, y - 6, 22, 12);
+    }
+  }
+
+  // walls
+  for (const w of walls) {
+    const [x, y] = worldToScreen(w.x, w.y);
+    ctx.fillStyle = w.owner.isHuman ? "#a1887f" : "#8d6e63";
+    ctx.fillRect(x - w.half, y - w.half, w.half * 2, w.half * 2);
+    ctx.strokeStyle = "#4e342e"; ctx.lineWidth = 3;
+    ctx.strokeRect(x - w.half, y - w.half, w.half * 2, w.half * 2);
+    // damage bar
+    if (w.hp < 150) {
+      ctx.fillStyle = "#222"; ctx.fillRect(x - w.half, y - w.half - 8, w.half * 2, 4);
+      ctx.fillStyle = "#ffb300"; ctx.fillRect(x - w.half, y - w.half - 8, w.half * 2 * w.hp / 150, 4);
+    }
+  }
+
+  // props
+  for (const pr of props) {
+    const [x, y] = worldToScreen(pr.x, pr.y);
+    if (x < -60 || y < -60 || x > W + 60 || y > H + 60) continue;
+    if (pr.tree) {
+      ctx.fillStyle = "#5d4037";
+      ctx.beginPath(); ctx.arc(x, y, pr.radius * 0.35, 0, 7); ctx.fill();
+      ctx.fillStyle = "rgba(34,94,38,0.92)";
+      ctx.beginPath(); ctx.arc(x, y, pr.radius, 0, 7); ctx.fill();
+    } else {
+      ctx.fillStyle = "#9e9e9e";
+      ctx.beginPath(); ctx.arc(x, y, pr.radius, 0, 7); ctx.fill();
+      ctx.fillStyle = "#bdbdbd";
+      ctx.beginPath(); ctx.arc(x - pr.radius * 0.25, y - pr.radius * 0.25, pr.radius * 0.5, 0, 7); ctx.fill();
+    }
+  }
+
+  // bullets
+  for (const b of bullets) {
+    const [x, y] = worldToScreen(b.x, b.y);
+    ctx.strokeStyle = b.color; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(x - b.vx * 1.5, y - b.vy * 1.5); ctx.lineTo(x, y); ctx.stroke();
+  }
+
+  // players
+  for (const pl of players) {
+    if (!pl.alive) continue;
+    const [x, y] = worldToScreen(pl.x, pl.y);
+    if (x < -50 || y < -50 || x > W + 50 || y > H + 50) continue;
+    // body
+    ctx.fillStyle = pl.color;
+    ctx.beginPath(); ctx.arc(x, y, pl.radius, 0, 7); ctx.fill();
+    ctx.strokeStyle = "rgba(0,0,0,0.4)"; ctx.lineWidth = 2; ctx.stroke();
+    // gun
+    ctx.strokeStyle = "#333"; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.moveTo(x, y);
+    ctx.lineTo(x + Math.cos(pl.aim) * (pl.radius + 12), y + Math.sin(pl.aim) * (pl.radius + 12));
+    ctx.stroke();
+    // name + bars
+    ctx.fillStyle = "#fff"; ctx.font = "12px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(pl.name, x, y - pl.radius - 16);
+    ctx.fillStyle = "#222"; ctx.fillRect(x - 18, y - pl.radius - 12, 36, 5);
+    ctx.fillStyle = "#66bb6a"; ctx.fillRect(x - 18, y - pl.radius - 12, 36 * pl.hp / 100, 5);
+    if (pl.shield > 0) {
+      ctx.fillStyle = "#42a5f5"; ctx.fillRect(x - 18, y - pl.radius - 6, 36 * pl.shield / 100, 3);
+    }
+  }
+
+  // storm: darken everything outside the safe circle
+  const [sx, sy] = worldToScreen(storm.x, storm.y);
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 0, W, H);
+  ctx.arc(sx, sy, storm.radius, 0, Math.PI * 2, true);
+  ctx.fillStyle = "rgba(120, 40, 170, 0.42)";
+  ctx.fill("evenodd");
+  ctx.restore();
+  ctx.strokeStyle = "rgba(200, 80, 255, 0.9)"; ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.arc(sx, sy, storm.radius, 0, 7); ctx.stroke();
+
+  // minimap
+  const mm = 180, mx = W - mm - 14, my2 = 14, s = mm / WORLD;
+  ctx.fillStyle = "rgba(0,0,0,0.55)"; ctx.fillRect(mx, my2, mm, mm);
+  ctx.strokeStyle = "#fff"; ctx.lineWidth = 1; ctx.strokeRect(mx, my2, mm, mm);
+  ctx.strokeStyle = "rgba(200,80,255,0.95)";
+  ctx.beginPath(); ctx.arc(mx + storm.x * s, my2 + storm.y * s, storm.radius * s, 0, 7); ctx.stroke();
+  ctx.strokeStyle = "rgba(255,255,255,0.55)";
+  ctx.beginPath(); ctx.arc(mx + storm.targetX * s, my2 + storm.targetY * s, storm.targetRadius * s, 0, 7); ctx.stroke();
+  for (const pl of players) {
+    if (!pl.alive) continue;
+    ctx.fillStyle = pl.isHuman ? "#ffd700" : "#ff5252";
+    ctx.beginPath(); ctx.arc(mx + pl.x * s, my2 + pl.y * s, pl.isHuman ? 4 : 2.5, 0, 7); ctx.fill();
+  }
+
+  // HUD
+  const p = me();
+  const aliveCount = players.filter(x => x.alive).length;
+  hud.innerHTML =
+    `<b style="font-size:20px">❤ ${Math.ceil(Math.max(0, p.hp))}</b> &nbsp;` +
+    `<b style="font-size:20px;color:#64b5f6">🛡 ${Math.ceil(p.shield)}</b><br>` +
+    `🔫 ${WEAPONS[p.weapon].name} &nbsp;|&nbsp; 🪵 ${p.wood} &nbsp;|&nbsp; ➕ ${p.medkits} (E) &nbsp;|&nbsp; 🧪 ${p.potions} (F)<br>` +
+    `👥 ${aliveCount} alive &nbsp;|&nbsp; 💀 ${p.kills} kills &nbsp;|&nbsp; ` +
+    `⛈ ${storm.shrinking ? "SHRINKING" : "moves in " + Math.ceil(storm.timer) + "s"}`;
+  killfeed.innerHTML = feed.map(f => f.text).join("<br>");
+}
+
+// ---------- main loop ----------
+function loop(now) {
+  requestAnimationFrame(loop);
+  if (gameState === "menu") return;
+  const dt = Math.min((now - lastTime) / 1000, 0.05);
+  lastTime = now;
+  if (gameState === "playing") update(dt, now);
+  draw();
+}
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
