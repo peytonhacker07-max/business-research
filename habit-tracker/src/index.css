@@ -1,0 +1,650 @@
+/* ============================================================
+   Daily — "paper and ink" habit tracker
+   Quiet, warm, flat. No shadows, no gradients.
+   ============================================================ */
+
+:root {
+  --paper: #f7f4ec;
+  --paper-2: #f1ede2; /* very subtly darker surface */
+  --ink: #2c2a26; /* warm dark gray, not pure black */
+  --ink-soft: #6b665d; /* muted secondary text */
+  --ink-faint: #a8a293; /* tertiary / placeholders */
+  --line: #e0dacb; /* thin 1px borders */
+  --line-strong: #cfc8b6;
+  --accent: #1f5e54; /* deep teal — the "done" color */
+  --accent-ink: #143f38;
+  --accent-wash: #e6ede9; /* faint teal tint for fills */
+  --danger: #9b4a3a;
+
+  --tap: 46px; /* minimum tap target */
+  --radius: 12px;
+  --maxw: 480px;
+
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, "Roboto Mono", "Menlo", "Consolas",
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* iOS standalone safe areas */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Accessible, visible focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- App shell ---------- */
+
+.app {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  padding: 28px 20px 8px;
+}
+.app-header .eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 2px;
+}
+.app-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.view {
+  flex: 1;
+  padding: 8px 20px 96px;
+}
+
+.view-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+  margin: 24px 0 12px;
+}
+
+/* ---------- Bottom nav ---------- */
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--maxw);
+  display: flex;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 20;
+}
+.nav button {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px 0 12px;
+  color: var(--ink-faint);
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-height: var(--tap);
+  letter-spacing: 0.02em;
+}
+.nav button .nav-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+.nav button.active {
+  color: var(--accent);
+}
+
+/* ---------- Progress ring ---------- */
+
+.ring-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0 8px;
+}
+.ring {
+  position: relative;
+  width: 188px;
+  height: 188px;
+}
+.ring svg {
+  transform: rotate(-90deg);
+  display: block;
+}
+.ring-track {
+  fill: none;
+  stroke: var(--line);
+}
+.ring-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.ring-count {
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
+.ring-count .of {
+  color: var(--ink-faint);
+  font-size: 26px;
+}
+.ring-label {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+.ring-all-done {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---------- Habit list (Today) ---------- */
+
+.habit-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  text-align: left;
+  min-height: 64px;
+  color: var(--ink);
+  transition: border-color 150ms ease, background 150ms ease;
+}
+.habit-row.done {
+  background: var(--accent-wash);
+  border-color: var(--accent-wash);
+}
+.habit-check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--line-strong);
+  background: none;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: transparent;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+.habit-row.done .habit-check {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+.habit-emoji {
+  font-size: 22px;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.habit-body {
+  flex: 1;
+  min-width: 0;
+}
+.habit-name {
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.habit-row.done .habit-name {
+  color: var(--accent-ink);
+}
+.habit-streak {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+.habit-streak .num {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* reorder + edit controls */
+.habit-row .row-tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.icon-btn {
+  background: none;
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: var(--ink-faint);
+}
+.icon-btn:hover {
+  color: var(--ink);
+  background: var(--paper-2);
+}
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--tap);
+  padding: 0 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+}
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+.btn.block {
+  width: 100%;
+}
+.btn.ghost {
+  border-color: transparent;
+  color: var(--ink-soft);
+}
+.btn.danger {
+  color: var(--danger);
+  border-color: transparent;
+}
+
+.add-habit-btn {
+  margin-top: 6px;
+}
+
+/* ---------- Empty state ---------- */
+
+.empty {
+  text-align: center;
+  color: var(--ink-soft);
+  padding: 40px 16px;
+}
+.empty .mark {
+  font-size: 40px;
+}
+.empty h2 {
+  font-size: 18px;
+  color: var(--ink);
+  margin: 12px 0 4px;
+}
+.empty p {
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+
+/* ---------- Modal ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 42, 38, 0.32);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 40;
+  padding: 0;
+}
+@media (min-width: 540px) {
+  .modal-backdrop {
+    align-items: center;
+    padding: 20px;
+  }
+}
+.modal {
+  background: var(--paper);
+  width: 100%;
+  max-width: var(--maxw);
+  border-radius: 18px 18px 0 0;
+  border: 1px solid var(--line);
+  padding: 22px 20px calc(22px + env(safe-area-inset-bottom));
+}
+@media (min-width: 540px) {
+  .modal {
+    border-radius: 18px;
+  }
+}
+.modal h2 {
+  font-size: 20px;
+  margin: 0 0 18px;
+}
+.field {
+  margin-bottom: 16px;
+}
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.field input[type="text"] {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  min-height: var(--tap);
+}
+.field input::placeholder {
+  color: var(--ink-faint);
+}
+.field input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+.emoji-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.emoji-pick {
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  display: grid;
+  place-items: center;
+}
+.emoji-pick.selected {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.modal-actions .btn {
+  flex: 1;
+}
+.modal-actions.split {
+  justify-content: space-between;
+}
+
+/* ---------- Heatmap (History) ---------- */
+
+.heatmap-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.heatmap-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.heatmap-head .title {
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.heatmap-head .pct {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.heatmap-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+  overflow-x: auto;
+}
+.heat-cell {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+}
+.heat-cell.lvl-future {
+  background: transparent;
+  border-color: transparent;
+}
+.heat-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--ink-faint);
+}
+.heat-legend .heat-cell {
+  width: 11px;
+  height: 11px;
+}
+
+/* ---------- Analytics ---------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.stat-box {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.stat-box .stat-num {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+}
+.stat-box .stat-cap {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+.range-tabs {
+  display: inline-flex;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.range-tabs button {
+  background: none;
+  border: none;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  min-height: 40px;
+}
+.range-tabs button.active {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.chart-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.chart-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+}
+.line-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.line-chart .grid-line {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.line-chart .area {
+  fill: var(--accent-wash);
+}
+.line-chart .line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.line-chart .axis-label {
+  fill: var(--ink-faint);
+  font-size: 10px;
+  font-family: var(--font-ui);
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.bar-row .bar-label {
+  flex: 0 0 38%;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bar-track {
+  display: block;
+  flex: 1;
+  height: 10px;
+  background: var(--paper-2);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 5px;
+  transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bar-row .bar-pct {
+  flex: 0 0 42px;
+  text-align: right;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.streak-list .bar-row .bar-pct {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
