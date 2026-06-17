@@ -4,7 +4,9 @@ import { activeHabits, currentStreak, isDone, todayProgress } from "../lib/strea
 import { formatLong } from "../lib/dates";
 import ProgressRing from "./ProgressRing";
 import HabitFormModal from "./HabitFormModal";
+import RemindersModal from "./RemindersModal";
 import {
+  BellIcon,
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
@@ -20,6 +22,7 @@ export default function TodayView({ api }: { api: AppApi }) {
 
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<Habit | null>(null);
+  const [reminders, setReminders] = useState(false);
 
   return (
     <div className="view">
@@ -119,6 +122,15 @@ export default function TodayView({ api }: { api: AppApi }) {
           </button>
         </>
       )}
+
+      <button
+        className="btn ghost block reminders-btn"
+        onClick={() => setReminders(true)}
+      >
+        <BellIcon className="" /> Daily reminders
+      </button>
+
+      {reminders && <RemindersModal onClose={() => setReminders(false)} />}
 
       {adding && (
         <HabitFormModal

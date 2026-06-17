@@ -1,0 +1,46 @@
+name: Send daily habit reminders
+
+on:
+  schedule:
+    # Times are UTC. We list the UTC times for both CDT (UTC-5) and CST (UTC-6)
+    # so reminders land at 8:00 AM, 1:00 PM and 9:00 PM Central year-round;
+    # send.mjs checks the real America/Chicago hour and sends exactly once.
+    - cron: "0 13 * * *" # 8:00 AM CDT
+    - cron: "0 14 * * *" # 8:00 AM CST
+    - cron: "0 18 * * *" # 1:00 PM CDT
+    - cron: "0 19 * * *" # 1:00 PM CST
+    - cron: "0 2 * * *" # 9:00 PM CDT (previous day UTC)
+    - cron: "0 3 * * *" # 9:00 PM CST (previous day UTC)
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Send a test reminder right now (ignores the schedule)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: notify/package-lock.json
+
+      - name: Install dependencies
+        working-directory: notify
+        run: npm ci
+
+      - name: Send reminders
+        working-directory: notify
+        env:
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          PUSH_SUBSCRIPTION: ${{ secrets.PUSH_SUBSCRIPTION }}
+          FORCE_TEST: ${{ inputs.test }}
+        run: npm run send

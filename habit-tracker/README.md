@@ -77,6 +77,27 @@ vercel --prod     # promote to a production URL
 (The same settings work on Netlify: build `npm run build`, publish `dist`,
 base directory `habit-tracker`.)
 
+## Daily reminder notifications (optional)
+
+The app can send push reminders at **8:00 AM, 1:00 PM, and 9:00 PM Central**
+(handles daylight saving automatically). It's free — a scheduled GitHub Actions
+workflow (`.github/workflows/notify.yml`) sends them via Web Push using the
+sender in [`../notify`](../notify).
+
+One-time setup:
+
+1. On your phone, open the app (added to your Home Screen) → **Daily reminders**
+   → **Enable reminders on this device**, allow notifications, then **Copy code**.
+2. In the repo: **Settings → Secrets and variables → Actions → New repository secret**:
+   - `PUSH_SUBSCRIPTION` — paste the copied code.
+   - `VAPID_PRIVATE_KEY` — the private key that matches the public key in
+     `src/lib/push.ts` / `notify/send.mjs` (generate a pair with
+     `cd notify && npx web-push generate-vapid-keys` if you ever need new keys).
+3. Test it: **Actions → "Send daily habit reminders" → Run workflow → test = true**.
+
+> iOS requires the app to be installed to the Home Screen (iOS 16.4+). The free
+> scheduler may deliver a few minutes after the listed time.
+
 ## Project layout
 
 ```

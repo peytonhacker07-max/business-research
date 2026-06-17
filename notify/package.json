@@ -1,0 +1,13 @@
+{
+  "name": "daily-notify",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Scheduled sender for Daily habit-tracker push reminders.",
+  "scripts": {
+    "send": "node send.mjs"
+  },
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}
