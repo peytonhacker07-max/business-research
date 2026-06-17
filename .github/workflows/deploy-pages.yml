@@ -2,7 +2,7 @@ name: Deploy habit tracker to GitHub Pages
 
 on:
   push:
-    branches: [claude/gracious-tesla-o75o2n]
+    branches: [main]
     paths:
       - "habit-tracker/**"
       - ".github/workflows/deploy-pages.yml"
