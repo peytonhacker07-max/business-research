@@ -211,4 +211,8 @@ footer a { color: var(--cream); }
   nav ul { display: none; }
   .grid-3, .grid-2, .steps, .footer-grid { grid-template-columns: 1fr; }
   .hero h1 { font-size: 2rem; }
+  .nav-wrap { padding: 12px 16px; gap: 10px; }
+  .logo { font-size: 1.05rem; flex-shrink: 1; min-width: 0; }
+  .logo-img { height: 30px; width: 30px; flex-shrink: 0; }
+  .nav-cta { padding: 8px 14px; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0; }
 }
