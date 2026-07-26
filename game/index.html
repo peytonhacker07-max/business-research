@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>STORM ROYALE - Battle Royale Mini Game</title>
+<style>
+  :root {
+    --hp: #3ddc6b;
+    --shield: #4fc3f7;
+    --gold: #ffd23f;
+    --panel: rgba(9, 14, 22, 0.72);
+    --panel-line: rgba(255, 255, 255, 0.14);
+    --gap: 12px;
+    --ui: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    margin: 0; padding: 0; height: 100%; overflow: hidden;
+    background: #0a0f16; color: #eef3f9;
+    font-family: var(--ui);
+    user-select: none; -webkit-user-select: none;
+  }
+
+  canvas#game { display: block; width: 100vw; height: 100vh; }
+
+  /* ---------------- HUD ---------------- */
+
+  #hud { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-radius: 4px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .label {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #9fb0c4; font-weight: 700;
+  }
+
+  /* health + shield, bottom left */
+  #vitals {
+    position: absolute; left: 18px; bottom: 18px; width: 268px;
+    padding: 9px 10px 10px;
+  }
+  .bar {
+    position: relative; height: 15px; border-radius: 3px;
+    background: rgba(0,0,0,0.55); overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .bar + .bar { margin-top: 5px; }
+  .bar .fill { position: absolute; inset: 0; width: 0%; transition: width 0.12s linear; }
+  #sh-fill { background: linear-gradient(180deg, #7fdcff, var(--shield)); }
+  #hp-fill { background: linear-gradient(180deg, #6bf09a, var(--hp)); }
+  .bar .num {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    font-size: 11px; font-weight: 800; text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+    letter-spacing: 0.04em;
+  }
+  .bar .cap {
+    position: absolute; left: 7px; top: 50%; transform: translateY(-50%);
+    font-size: 9px; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.72);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+  }
+
+  /* materials */
+  #mats { display: flex; gap: 6px; margin-bottom: 7px; }
+  .mat {
+    flex: 1; display: flex; align-items: center; gap: 5px;
+    padding: 4px 6px; border-radius: 3px;
+    background: rgba(0,0,0,0.42); border: 1px solid transparent;
+    font-size: 12px; font-weight: 800;
+  }
+  .mat.active { border-color: var(--gold); background: rgba(255,210,63,0.14); }
+  .mat i { width: 10px; height: 10px; border-radius: 2px; display: block; }
+  .mat[data-mat="wood"] i { background: #c08d4e; }
+  .mat[data-mat="brick"] i { background: #9b8f80; }
+  .mat[data-mat="metal"] i { background: #8fa2b8; }
+
+  /* weapon slots, bottom right */
+  #weaponry { position: absolute; right: 18px; bottom: 18px; text-align: right; }
+  #ammoline {
+    display: flex; align-items: baseline; justify-content: flex-end; gap: 6px;
+    margin-bottom: 4px;
+  }
+  #weapon-name {
+    font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.9); margin-bottom: 2px;
+  }
+  #ammo-mag { font-size: 30px; font-weight: 900; line-height: 1; text-shadow: 0 2px 6px rgba(0,0,0,0.9); }
+  #ammo-res { font-size: 14px; font-weight: 700; color: #9fb0c4; }
+
+  #slots { display: flex; gap: 5px; }
+  .slot {
+    position: relative; width: 62px; height: 46px; border-radius: 3px;
+    background: var(--panel); border: 1px solid var(--panel-line);
+    display: flex; align-items: center; justify-content: center; padding: 2px;
+    overflow: hidden;
+  }
+  .slot.active { border-color: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,0.35), 0 0 14px rgba(120,190,255,0.35); }
+  .slot .slot-key {
+    position: absolute; top: 2px; left: 4px; font-size: 9px; font-weight: 800; color: #7f8fa3;
+  }
+  .slot .slot-name {
+    font-size: 8px; font-weight: 800; letter-spacing: 0.05em; text-align: center;
+    line-height: 1.15; color: #dbe5f0; padding: 0 3px; word-break: break-word;
+  }
+  .slot .slot-rarity { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: transparent; }
+
+  #buildbar { display: none; gap: 5px; justify-content: flex-end; margin-bottom: 5px; }
+  .bslot {
+    width: 46px; height: 34px; border-radius: 3px; background: var(--panel);
+    border: 1px solid var(--panel-line); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 1px;
+  }
+  .bslot.active { border-color: var(--gold); background: rgba(255,210,63,0.16); }
+  .bslot span { font-size: 8px; font-weight: 800; letter-spacing: 0.06em; color: #cfdae6; }
+  .bslot b { font-size: 9px; color: #7f8fa3; }
+
+  /* top left: storm */
+  #stormbox { position: absolute; left: 18px; top: 16px; padding: 7px 12px; min-width: 150px; }
+  #storm-time { font-size: 21px; font-weight: 900; letter-spacing: 0.04em; }
+  #storm-time.urgent { color: #d79bff; text-shadow: 0 0 12px rgba(190,120,255,0.7); }
+
+  /* top right: counters */
+  #counters { position: absolute; right: 18px; top: 16px; display: flex; gap: 8px; }
+  .counter { padding: 7px 14px; text-align: center; min-width: 74px; }
+  .counter .v { font-size: 21px; font-weight: 900; line-height: 1; }
+  .counter.kills .v { color: var(--gold); }
+
+  /* minimap */
+  #minimap-wrap {
+    position: absolute; right: 18px; top: 74px; width: 176px; height: 176px;
+    border-radius: 50%; overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.18);
+    box-shadow: 0 8px 26px rgba(0,0,0,0.55);
+  }
+  #minimap { width: 100%; height: 100%; display: block; }
+
+  /* compass */
+  #compass {
+    position: absolute; left: 50%; top: 12px; transform: translateX(-50%);
+    width: 340px; height: 26px; border-radius: 3px;
+    background-image: repeating-linear-gradient(90deg,
+      rgba(255,255,255,0.5) 0 1px, transparent 1px 60px);
+    background-color: rgba(9,14,22,0.55);
+    border: 1px solid var(--panel-line);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+  }
+  #compass::after {
+    content: ""; position: absolute; left: 50%; top: -4px; transform: translateX(-50%);
+    border-left: 5px solid transparent; border-right: 5px solid transparent;
+    border-top: 7px solid #fff;
+  }
+
+  /* kill feed */
+  #killfeed {
+    position: absolute; right: 18px; top: 262px; width: 250px;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+  }
+  .kf-row {
+    display: flex; align-items: center; gap: 6px; padding: 4px 9px;
+    background: rgba(9,14,22,0.72); border-left: 3px solid #5a6b80; border-radius: 3px;
+    font-size: 11px; font-weight: 700;
+    animation: kfIn 0.22s ease-out;
+  }
+  .kf-row.me { border-left-color: var(--gold); background: rgba(50,36,6,0.8); }
+  .kf-k { color: #fff; }
+  .kf-v { color: #b6c2d1; }
+  .kf-i { color: #ff6b6b; font-size: 10px; }
+  @keyframes kfIn { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+
+  /* crosshair */
+  #crosshair {
+    position: absolute; left: 50%; top: 50%; width: 44px; height: 44px;
+    transform: translate(-50%, -50%);
+  }
+  #crosshair i {
+    position: absolute; background: rgba(255,255,255,0.92);
+    box-shadow: 0 0 2px rgba(0,0,0,0.9);
+  }
+  #crosshair .t { left: 50%; top: calc(50% - var(--gap) - 8px); width: 2px; height: 8px; margin-left: -1px; }
+  #crosshair .b { left: 50%; top: calc(50% + var(--gap)); width: 2px; height: 8px; margin-left: -1px; }
+  #crosshair .l { top: 50%; left: calc(50% - var(--gap) - 8px); height: 2px; width: 8px; margin-top: -1px; }
+  #crosshair .r { top: 50%; left: calc(50% + var(--gap)); height: 2px; width: 8px; margin-top: -1px; }
+  #crosshair .dot { left: 50%; top: 50%; width: 2px; height: 2px; margin: -1px 0 0 -1px; border-radius: 50%; }
+
+  #hitmarker {
+    position: absolute; left: 50%; top: 50%; width: 26px; height: 26px;
+    transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.08s;
+  }
+  #hitmarker i { position: absolute; width: 9px; height: 2px; background: #fff; }
+  #hitmarker.head i { background: var(--gold); height: 3px; }
+  #hitmarker i:nth-child(1) { top: 3px; left: 3px; transform: rotate(45deg); }
+  #hitmarker i:nth-child(2) { top: 3px; right: 3px; transform: rotate(-45deg); }
+  #hitmarker i:nth-child(3) { bottom: 3px; left: 3px; transform: rotate(-45deg); }
+  #hitmarker i:nth-child(4) { bottom: 3px; right: 3px; transform: rotate(45deg); }
+
+  #scope {
+    display: none; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 50% 50%, transparent 0 27vh, rgba(0,0,0,0.96) 27.4vh 100%);
+  }
+  #scope::before, #scope::after {
+    content: ""; position: absolute; background: rgba(20,20,20,0.9);
+  }
+  #scope::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+  #scope::after { top: 50%; left: 0; right: 0; height: 1px; }
+
+  #flash {
+    position: absolute; inset: 0; opacity: 0; pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, transparent 35%, rgba(190,20,20,0.85) 100%);
+    transition: opacity 0.1s linear;
+  }
+  #storm-vignette {
+    position: absolute; inset: 0; opacity: 0; pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, transparent 22%, rgba(120,40,210,0.55) 100%);
+    transition: opacity 0.35s linear;
+  }
+
+  #prompt {
+    display: none; position: absolute; left: 50%; top: 58%; transform: translateX(-50%);
+    padding: 7px 14px; background: rgba(9,14,22,0.82); border: 1px solid var(--panel-line);
+    border-radius: 4px; font-size: 13px; font-weight: 700; white-space: nowrap;
+  }
+  #prompt .key {
+    display: inline-block; min-width: 20px; padding: 1px 5px; margin-right: 5px;
+    background: #fff; color: #10151c; border-radius: 3px; font-weight: 900; text-align: center;
+  }
+
+  #toast {
+    position: absolute; left: 50%; top: 17%; transform: translateX(-50%);
+    text-align: center; opacity: 0;
+  }
+  #toast.show { animation: toastIn 2.6s ease-out forwards; }
+  @keyframes toastIn {
+    0% { opacity: 0; transform: translate(-50%, 12px); }
+    12% { opacity: 1; transform: translate(-50%, 0); }
+    76% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  .t-title {
+    font-size: 26px; font-weight: 900; letter-spacing: 0.08em;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.9); transform: skewX(-7deg);
+  }
+  .t-sub { font-size: 12px; font-weight: 700; color: #b6c2d1; letter-spacing: 0.08em; margin-top: 2px; }
+
+  #bus-hint {
+    display: none; position: absolute; left: 50%; bottom: 16%; transform: translateX(-50%);
+    text-align: center;
+  }
+  #bus-hint .big {
+    font-size: 20px; font-weight: 900; letter-spacing: 0.1em; transform: skewX(-7deg);
+    text-shadow: 0 3px 12px rgba(0,0,0,0.9);
+  }
+  #bus-hint .small { font-size: 12px; color: #b6c2d1; font-weight: 700; margin-top: 4px; }
+
+  /* ---------------- overlays ---------------- */
+
+  .overlay {
+    position: fixed; inset: 0; z-index: 30; display: none;
+    align-items: center; justify-content: center; flex-direction: column;
+    background: radial-gradient(ellipse at 50% 40%, rgba(24,44,80,0.86), rgba(6,9,14,0.96));
+    backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+  }
+  #menu { display: flex; }
+
+  .brand {
+    font-size: clamp(34px, 8vw, 82px); font-weight: 900; letter-spacing: 0.06em;
+    transform: skewX(-8deg); line-height: 0.95; text-align: center;
+    background: linear-gradient(180deg, #fff 20%, #79c8ff 65%, #4f8fe0 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 6px 22px rgba(60,140,255,0.45));
+  }
+  .brand small {
+    display: block; font-size: 13px; letter-spacing: 0.42em; font-weight: 800;
+    color: #8fb6e0; transform: skewX(8deg); margin-top: 10px;
+    -webkit-text-fill-color: #8fb6e0;
+  }
+
+  .btn {
+    pointer-events: auto; cursor: pointer; border: none;
+    font-family: var(--ui); font-weight: 900; letter-spacing: 0.12em;
+    text-transform: uppercase; border-radius: 4px;
+    transition: transform 0.08s ease, filter 0.12s ease;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn.primary {
+    padding: 15px 52px; font-size: 17px; color: #08111c;
+    background: linear-gradient(180deg, #ffe07a, #f0a02a);
+    box-shadow: 0 8px 24px rgba(240,160,42,0.35);
+  }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn.ghost {
+    padding: 9px 20px; font-size: 11px; color: #cfdae6;
+    background: rgba(255,255,255,0.08); border: 1px solid var(--panel-line);
+  }
+
+  .controls {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+    gap: 6px 22px; max-width: 760px; margin: 26px auto 0; padding: 0 20px;
+  }
+  .controls div { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: #b6c2d1; }
+  .controls b {
+    color: #fff; background: rgba(255,255,255,0.1); border: 1px solid var(--panel-line);
+    border-radius: 3px; padding: 0 6px; font-size: 11px; white-space: nowrap;
+  }
+
+  #result .brand { font-size: clamp(30px, 6.5vw, 64px); }
+  #result.win .brand { background: linear-gradient(180deg, #fff6d0 20%, #ffd23f 60%, #e08c14 100%); -webkit-background-clip: text; background-clip: text; }
+  #result.lose .brand { background: linear-gradient(180deg, #fff 20%, #ff8f8f 65%, #c94a4a 100%); -webkit-background-clip: text; background-clip: text; }
+  #result-sub { font-size: 13px; color: #b6c2d1; margin-top: 10px; font-weight: 600; }
+  .stats { display: flex; gap: 34px; margin: 26px 0 28px; }
+  .stat { text-align: center; }
+  .stat .v { font-size: 32px; font-weight: 900; }
+  .stat .k { font-size: 10px; letter-spacing: 0.18em; color: #8fa0b4; font-weight: 800; margin-top: 2px; }
+
+  #loading { display: none; }
+  .spinner {
+    width: 42px; height: 42px; border-radius: 50%; margin-bottom: 16px;
+    border: 3px solid rgba(255,255,255,0.16); border-top-color: #79c8ff;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  #bigmap { background: rgba(4,7,11,0.92); }
+  #bigmap-canvas {
+    width: min(78vh, 78vw); height: min(78vh, 78vw);
+    border: 2px solid rgba(255,255,255,0.2); border-radius: 6px;
+  }
+  #bigmap .hint { margin-top: 14px; font-size: 12px; color: #9fb0c4; font-weight: 700; letter-spacing: 0.12em; }
+
+  /* ---------------- touch ---------------- */
+
+  #stick {
+    display: none; position: fixed; width: 120px; height: 120px; z-index: 20;
+    border-radius: 50%; border: 2px solid rgba(255,255,255,0.25);
+    background: rgba(0,0,0,0.22); pointer-events: none;
+  }
+  #knob {
+    position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px;
+    border-radius: 50%; background: rgba(255,255,255,0.45);
+  }
+  #touchui { display: none; position: fixed; inset: 0; z-index: 15; pointer-events: none; }
+  body.touch #touchui { display: block; }
+  .tbtn {
+    position: absolute; pointer-events: auto; border-radius: 50%;
+    background: rgba(9,14,22,0.6); border: 1px solid rgba(255,255,255,0.22);
+    color: #eef3f9; font-size: 10px; font-weight: 800; letter-spacing: 0.05em;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+  }
+  #t-fire { right: 22px; bottom: 130px; width: 84px; height: 84px; font-size: 12px; background: rgba(190,40,40,0.55); }
+  #t-aim { right: 118px; bottom: 190px; width: 58px; height: 58px; }
+  #t-jump { right: 118px; bottom: 118px; width: 58px; height: 58px; }
+  #t-build { right: 22px; bottom: 228px; width: 54px; height: 54px; }
+  #t-ramp { right: 84px; bottom: 262px; width: 50px; height: 50px; }
+  #t-mat { right: 22px; bottom: 292px; width: 50px; height: 50px; }
+  #t-swap { left: 22px; bottom: 200px; width: 54px; height: 54px; }
+  #t-use { left: 86px; bottom: 240px; width: 54px; height: 54px; }
+  #t-reload { left: 22px; bottom: 268px; width: 50px; height: 50px; }
+
+  body.touch #compass, body.touch #killfeed { display: none; }
+  @media (max-width: 720px) {
+    #minimap-wrap { width: 116px; height: 116px; top: 64px; right: 12px; }
+    #vitals { width: 208px; left: 12px; bottom: 12px; }
+    #weaponry { right: 12px; bottom: 12px; }
+    .slot { width: 48px; height: 38px; }
+    #counters { right: 12px; top: 12px; }
+    .counter { min-width: 56px; padding: 5px 9px; }
+    .counter .v { font-size: 16px; }
+    #stormbox { left: 12px; top: 12px; min-width: 118px; padding: 5px 9px; }
+    #storm-time { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="game"></canvas>
+
+<div id="hud">
+  <div id="crosshair"><i class="t"></i><i class="b"></i><i class="l"></i><i class="r"></i><i class="dot"></i></div>
+  <div id="hitmarker"><i></i><i></i><i></i><i></i></div>
+  <div id="scope"></div>
+  <div id="flash"></div>
+  <div id="storm-vignette"></div>
+
+  <div id="compass"></div>
+
+  <div id="stormbox" class="panel">
+    <div class="label" id="storm-label">Storm closes in</div>
+    <div id="storm-time">0:00</div>
+  </div>
+
+  <div id="counters">
+    <div class="counter panel kills"><div class="v" id="kills">0</div><div class="label">Elims</div></div>
+    <div class="counter panel"><div class="v" id="alive">50</div><div class="label">Alive</div></div>
+  </div>
+
+  <div id="minimap-wrap" class="panel"><canvas id="minimap" width="176" height="176"></canvas></div>
+
+  <div id="killfeed"></div>
+
+  <div id="vitals" class="panel">
+    <div id="mats">
+      <div class="mat active" data-mat="wood"><i></i><span id="mat-wood">0</span></div>
+      <div class="mat" data-mat="brick"><i></i><span id="mat-brick">0</span></div>
+      <div class="mat" data-mat="metal"><i></i><span id="mat-metal">0</span></div>
+    </div>
+    <div class="bar"><div class="fill" id="sh-fill"></div><div class="cap">SHIELD</div><div class="num" id="sh-num">0</div></div>
+    <div class="bar"><div class="fill" id="hp-fill" style="width:100%"></div><div class="cap">HEALTH</div><div class="num" id="hp-num">100</div></div>
+  </div>
+
+  <div id="weaponry">
+    <div id="weapon-name">Harvesting Tool</div>
+    <div id="ammoline"><div id="ammo-mag"></div><div id="ammo-res"></div></div>
+    <div id="buildbar">
+      <div class="bslot active" data-type="wall"><span>WALL</span><b>Z</b></div>
+      <div class="bslot" data-type="floor"><span>FLOOR</span><b>X</b></div>
+      <div class="bslot" data-type="ramp"><span>RAMP</span><b>C</b></div>
+      <div class="bslot" data-type="cone"><span>CONE</span><b>V</b></div>
+    </div>
+    <div id="slots">
+      <div class="slot active" id="slot0"><div class="slot-key">1</div><div class="slot-name">PICKAXE</div><div class="slot-rarity"></div></div>
+      <div class="slot" id="slot1"><div class="slot-key">2</div><div class="slot-name"></div><div class="slot-rarity"></div></div>
+      <div class="slot" id="slot2"><div class="slot-key">3</div><div class="slot-name"></div><div class="slot-rarity"></div></div>
+      <div class="slot" id="slot3"><div class="slot-key">4</div><div class="slot-name"></div><div class="slot-rarity"></div></div>
+      <div class="slot" id="slot4"><div class="slot-key">5</div><div class="slot-name"></div><div class="slot-rarity"></div></div>
+    </div>
+  </div>
+
+  <div id="prompt"></div>
+  <div id="toast"></div>
+  <div id="bus-hint">
+    <div class="big">PRESS SPACE TO DROP</div>
+    <div class="small">You jump automatically at the end of the route</div>
+  </div>
+</div>
+
+<div id="touchui">
+  <div class="tbtn" id="t-fire">FIRE</div>
+  <div class="tbtn" id="t-aim">AIM</div>
+  <div class="tbtn" id="t-jump">JUMP</div>
+  <div class="tbtn" id="t-build">WALL</div>
+  <div class="tbtn" id="t-ramp">RAMP</div>
+  <div class="tbtn" id="t-mat">MAT</div>
+  <div class="tbtn" id="t-swap">SWAP</div>
+  <div class="tbtn" id="t-use">USE</div>
+  <div class="tbtn" id="t-reload">RELOAD</div>
+</div>
+<div id="stick"><div id="knob"></div></div>
+
+<div id="menu" class="overlay">
+  <div class="brand">STORM ROYALE<small>LAST ONE STANDING</small></div>
+  <div style="margin-top:30px; display:flex; gap:12px; align-items:center;">
+    <button class="btn primary" id="btn-play">DROP IN</button>
+    <button class="btn ghost" id="btn-sound">SOUND: ON</button>
+  </div>
+  <div class="controls">
+    <div><span>Move</span><b>W A S D</b></div>
+    <div><span>Sprint / Crouch</span><b>Shift / Ctrl</b></div>
+    <div><span>Jump</span><b>Space</b></div>
+    <div><span>Fire / Aim</span><b>LMB / RMB</b></div>
+    <div><span>Reload</span><b>R</b></div>
+    <div><span>Interact</span><b>E</b></div>
+    <div><span>Weapons</span><b>1 - 5 / Wheel</b></div>
+    <div><span>Build</span><b>Z X C V</b></div>
+    <div><span>Cycle material</span><b>F</b></div>
+    <div><span>Exit build</span><b>Q</b></div>
+    <div><span>Full map</span><b>M</b></div>
+    <div><span>Harvest</span><b>1 + LMB</b></div>
+  </div>
+  <div style="margin-top:22px; font-size:11px; color:#7f8fa3; letter-spacing:0.06em; text-align:center; max-width:560px; padding:0 20px;">
+    50 drop, 1 walks away. Harvest wood, brick and metal, build cover under fire,
+    and stay ahead of the storm.
+  </div>
+</div>
+
+<div id="loading" class="overlay">
+  <div class="spinner"></div>
+  <div style="font-size:12px; letter-spacing:0.24em; font-weight:800; color:#9fb0c4;">GENERATING ISLAND</div>
+</div>
+
+<div id="pause" class="overlay">
+  <div class="brand" style="font-size:clamp(26px,5vw,48px)">PAUSED</div>
+  <div style="margin-top:24px"><button class="btn primary" id="btn-resume">RESUME</button></div>
+  <div style="margin-top:14px; font-size:11px; color:#7f8fa3; letter-spacing:0.1em;">CLICK THE SCREEN TO RECAPTURE THE MOUSE</div>
+</div>
+
+<div id="result" class="overlay">
+  <div class="brand" id="result-title">#1 VICTORY ROYALE</div>
+  <div id="result-sub"></div>
+  <div class="stats">
+    <div class="stat"><div class="v" id="result-place">1</div><div class="k">PLACE</div></div>
+    <div class="stat"><div class="v" id="result-kills">0</div><div class="k">ELIMS</div></div>
+    <div class="stat"><div class="v" id="result-time">0:00</div><div class="k">SURVIVED</div></div>
+  </div>
+  <button class="btn primary" id="btn-again">PLAY AGAIN</button>
+</div>
+
+<div id="bigmap" class="overlay">
+  <canvas id="bigmap-canvas" width="640" height="640"></canvas>
+  <div class="hint">PRESS M TO CLOSE</div>
+</div>
+
+<script src="vendor/three.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/textures.js"></script>
+<script src="js/world.js"></script>
+<script src="js/build.js"></script>
+<script src="js/weapons.js"></script>
+<script src="js/character.js"></script>
+<script src="js/loot.js"></script>
+<script src="js/bots.js"></script>
+<script src="js/player.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

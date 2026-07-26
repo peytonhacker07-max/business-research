@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "habit-tracker/**"
+      - "game/**"
       - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
@@ -39,6 +40,10 @@ jobs:
         env:
           VITE_BASE: /business-research/
         run: npm run build
+
+      # Storm Royale is static, so it just rides along under /game/
+      - name: Add Storm Royale
+        run: cp -r game habit-tracker/dist/game
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
