@@ -40,6 +40,17 @@
   };
   var keys = {};
 
+  /* Pointer lock can reject (no gesture, or the user pressed Esc recently).
+     Never let that surface as an unhandled rejection - the canvas click retries. */
+  function requestLock() {
+    var canvas = Game.renderer && Game.renderer.domElement;
+    if (!canvas || document.pointerLockElement === canvas) return;
+    try {
+      var r = canvas.requestPointerLock();
+      if (r && typeof r.catch === 'function') r.catch(function () {});
+    } catch (e) { /* retried on the next canvas click */ }
+  }
+
   function bindInput() {
     var canvas = Game.renderer.domElement;
 
@@ -257,15 +268,18 @@
 
     document.getElementById('btn-play').addEventListener('click', function () {
       Audio2.resume(); Audio2.uiClick();
+      /* Safari only grants pointer lock inside the gesture itself, so ask now. */
+      requestLock();
       startMatch();
     });
     document.getElementById('btn-again').addEventListener('click', function () {
       Audio2.uiClick();
+      requestLock();
       startMatch();
     });
     document.getElementById('btn-resume').addEventListener('click', function () {
       Audio2.uiClick();
-      Game.renderer.domElement.requestPointerLock();
+      requestLock();
     });
     var soundBtn = document.getElementById('btn-sound');
     soundBtn.addEventListener('click', function () {
@@ -1263,8 +1277,9 @@
     var playing = Game.state === 'playing';
     if (playing || Game.state === 'bus') Game.time += dt;
 
-    /* one shared raycast target list per frame */
+    /* one shared raycast target list per frame; the camera gets a cheaper one */
     Game.rayTargets = World.hittables.concat(Build.meshes);
+    Game.camTargets = (World.camHittables || World.hittables).concat(Build.meshes);
 
     if (Game.state === 'bus') {
       updateBus(dt);

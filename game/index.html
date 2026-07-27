@@ -508,6 +508,26 @@
   <div class="hint">PRESS M TO CLOSE</div>
 </div>
 
+<!-- This page needs js/ and vendor/ beside it. Saving index.html on its own
+     leaves the menu rendering but nothing behind it, so say so out loud. -->
+<script>
+window.addEventListener('load', function () {
+  if (typeof THREE !== 'undefined' && typeof Game !== 'undefined') return;
+  var m = document.getElementById('menu');
+  if (!m) return;
+  var w = document.createElement('div');
+  w.style.cssText = 'margin-top:26px;max-width:600px;padding:16px 20px;text-align:center;' +
+    'background:rgba(120,20,20,0.35);border:1px solid rgba(255,120,120,0.5);border-radius:5px;' +
+    'font-size:13px;line-height:1.55;color:#ffd7d7;font-weight:600;';
+  w.innerHTML = 'The game code did not load, so <b>DROP IN</b> will not do anything.<br>' +
+    'This page is only the menu &mdash; it needs the <b>js/</b> and <b>vendor/</b> folders ' +
+    'sitting next to it.<br><br>Download the whole <b>game</b> folder, or use the ' +
+    'single-file build <b>storm-royale.html</b>, which has everything baked in.';
+  m.appendChild(w);
+  var b = document.getElementById('btn-play');
+  if (b) { b.disabled = true; b.style.opacity = '0.4'; b.style.cursor = 'not-allowed'; }
+});
+</script>
 <script src="vendor/three.min.js"></script>
 <script src="js/util.js"></script>
 <script src="js/audio.js"></script>

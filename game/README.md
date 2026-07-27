@@ -8,14 +8,26 @@ Built with Three.js. No build step, no external requests — open `index.html` a
 
 ## Play
 
-Serve the folder over HTTP and open it:
+**Easiest — one file.** Download `storm-royale.html` and double-click it. Everything
+(Three.js, all game code, CSS) is inlined into that single 0.8 MB file, so it runs from
+`file://` with no server, no install and no network.
+
+**From the repo.** Open `game/index.html`. This version needs the `js/` and `vendor/`
+folders sitting beside it — saving `index.html` on its own gives you the menu and a dead
+`DROP IN` button (the page will tell you so). To serve it over HTTP instead:
 
 ```bash
 npx http-server . -p 8080     # then visit http://localhost:8080/game/  (from the repo root)
 ```
 
-Opening `index.html` directly from disk also works, since everything is plain
-`<script>` tags with a vendored copy of Three.js.
+### Rebuilding the single-file version
+
+`storm-royale.html` is generated. After editing anything under `js/`, `vendor/` or
+`index.html`, regenerate it:
+
+```bash
+node game/build-single.js
+```
 
 ## Controls
 
@@ -74,6 +86,8 @@ with the Web Audio API. Nothing is fetched at runtime.
 ## Layout
 
 ```
+storm-royale.html   generated single-file build - the one to hand to people
+build-single.js     regenerates the above
 index.html          HUD markup and styling
 vendor/three.min.js Three.js r149 (vendored)
 js/util.js          math, seeded RNG, value noise

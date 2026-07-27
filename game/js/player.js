@@ -8,7 +8,11 @@
   var MAT_CAP = 500;
 
   var _v = new THREE.Vector3(), _v2 = new THREE.Vector3(), _v3 = new THREE.Vector3();
+  var _v4 = new THREE.Vector3(), _probe = new THREE.Vector3(), _probeDir = new THREE.Vector3();
   var _ray = new THREE.Raycaster();
+
+  /* Lateral / vertical offsets approximating the near plane's corners. */
+  var PROBES = [[0, 0], [0.34, 0], [-0.34, 0], [0, 0.26], [0, -0.26]];
 
   function Player(scene) {
     this.scene = scene;
@@ -488,18 +492,39 @@
       this.camPivot.position.z - dirZ * dist + rightZ * shoulder
     );
 
-    /* Pull the camera in if geometry is between it and the player. */
+    /* Pull the camera in if geometry is between it and the player. A single ray
+       misses walls beside the lens, so probe the corners of the near plane too. */
+    var resolved = dist;
     if (dist > 0.2) {
       _v2.subVectors(desired, this.camPivot.position);
       var len = _v2.length();
       _v2.divideScalar(len);
-      _ray.set(this.camPivot.position, _v2);
-      _ray.far = len + 0.35;
-      var hits = _ray.intersectObjects(Game.rayTargets, false);
-      if (hits.length) {
-        var d = Math.max(0.55, hits[0].distance - 0.35);
-        desired.copy(this.camPivot.position).addScaledVector(_v2, d);
+
+      var upX = -dirX * dirY, upY = 1 - dirY * dirY, upZ = -dirZ * dirY;
+      var upLen = Math.hypot(upX, upY, upZ) || 1;
+      upX /= upLen; upY /= upLen; upZ /= upLen;
+
+      /* Probe the AABB registry rather than raycasting meshes - the terrain
+         alone is 51k triangles and this runs five times a frame. */
+      var pv = this.camPivot.position;
+      var best = len;
+      for (var pi = 0; pi < PROBES.length; pi++) {
+        var ox = PROBES[pi][0], oy = PROBES[pi][1];
+        _probe.copy(desired)
+          .addScaledVector(_v3.set(rightX, 0, rightZ), ox)
+          .addScaledVector(_v4.set(upX, upY, upZ), oy);
+        _probeDir.subVectors(_probe, pv);
+        var plen = _probeDir.length();
+        _probeDir.divideScalar(plen);
+        var hit = World.rayDistance(pv.x, pv.y, pv.z, _probeDir.x, _probeDir.y, _probeDir.z, plen);
+        if (hit < plen) best = Math.min(best, hit - 0.42);
       }
+      resolved = U.clamp(best, 0.4, len);
+      if (resolved < len) desired.copy(pv).addScaledVector(_v2, resolved);
+
+      /* Terrain isn't in the registry, so keep the lens above the ground. */
+      var groundY = World.heightAt(desired.x, desired.z) + 0.45;
+      if (desired.y < groundY) desired.y = Math.min(pv.y + 0.9, groundY);
     }
 
     camera.position.lerp(desired, 1 - Math.exp(-26 * dt));
@@ -519,6 +544,8 @@
 
     /* hide our own head when scoped in */
     this.char.head.visible = !(sniperScope && this.adsAmount > 0.7);
+    /* Jammed into a corner the camera sits inside us, so drop to first person. */
+    this.char.root.visible = resolved > 0.95;
   };
 
   Player.prototype.reset = function (x, y, z) {

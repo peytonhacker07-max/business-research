@@ -60,14 +60,9 @@
   Bot.prototype.canSee = function (targetPos, maxDist) {
     this.eye(_v1);
     _v2.copy(targetPos); _v2.y += 1.2;
-    _v3.subVectors(_v2, _v1);
-    var dist = _v3.length();
+    var dist = _v1.distanceTo(_v2);
     if (dist > maxDist) return false;
-    _v3.divideScalar(dist);
-    _ray.set(_v1, _v3);
-    _ray.far = dist - 0.6;
-    var hits = _ray.intersectObjects(Game.rayTargets, false);
-    return hits.length === 0;
+    return !World.rayBlocked(_v1.x, _v1.y, _v1.z, _v2.x, _v2.y, _v2.z);
   };
 
   Bot.prototype.damage = function (amount, fromPos, attacker) {

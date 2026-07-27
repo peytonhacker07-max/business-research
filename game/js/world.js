@@ -225,6 +225,100 @@
     }
   };
 
+  /* Fast line-of-sight against the AABB registry plus the terrain surface.
+     Three.js raycasting has to walk ~1500 instanced props triangle by triangle;
+     this walks a handful of hash cells instead, so bots can afford to call it. */
+  var EPS = 1e-6;
+  function slabHit(ox, oy, oz, idx, idy, idz, b, maxT) {
+    var t1 = (b.x0 - ox) * idx, t2 = (b.x1 - ox) * idx;
+    var tmin = Math.min(t1, t2), tmax = Math.max(t1, t2);
+    t1 = (b.y0 - oy) * idy; t2 = (b.y1 - oy) * idy;
+    tmin = Math.max(tmin, Math.min(t1, t2)); tmax = Math.min(tmax, Math.max(t1, t2));
+    t1 = (b.z0 - oz) * idz; t2 = (b.z1 - oz) * idz;
+    tmin = Math.max(tmin, Math.min(t1, t2)); tmax = Math.min(tmax, Math.max(t1, t2));
+    return tmax >= Math.max(tmin, 0) && tmin <= maxT;
+  }
+
+  /* Nearest AABB entry distance along a ray, or maxDist if nothing is hit.
+     Used by the camera, so it must stay cheap enough to run every frame. */
+  var seenCells2 = [];
+  World.rayDistance = function (ox, oy, oz, dx, dy, dz, maxDist) {
+    var idx = 1 / (Math.abs(dx) < EPS ? (dx < 0 ? -EPS : EPS) : dx);
+    var idy = 1 / (Math.abs(dy) < EPS ? (dy < 0 ? -EPS : EPS) : dy);
+    var idz = 1 / (Math.abs(dz) < EPS ? (dz < 0 ? -EPS : EPS) : dz);
+    var best = maxDist;
+
+    seenCells2.length = 0;
+    var steps = Math.min(24, Math.max(2, Math.ceil(maxDist / (CELL * 0.5))));
+    for (var c = 0; c <= steps; c++) {
+      var ct = (c / steps) * maxDist;
+      var cx = Math.floor((ox + dx * ct) / CELL);
+      var cz = Math.floor((oz + dz * ct) / CELL);
+      for (var ax = -1; ax <= 1; ax++) {
+        for (var az = -1; az <= 1; az++) {
+          var k = key(cx + ax, cz + az);
+          if (seenCells2.indexOf(k) >= 0) continue;
+          seenCells2.push(k);
+          var arr = grid.get(k);
+          if (!arr) continue;
+          for (var i = 0; i < arr.length; i++) {
+            var b = arr[i];
+            var t1 = (b.x0 - ox) * idx, t2 = (b.x1 - ox) * idx;
+            var tmin = Math.min(t1, t2), tmax = Math.max(t1, t2);
+            t1 = (b.y0 - oy) * idy; t2 = (b.y1 - oy) * idy;
+            tmin = Math.max(tmin, Math.min(t1, t2)); tmax = Math.min(tmax, Math.max(t1, t2));
+            t1 = (b.z0 - oz) * idz; t2 = (b.z1 - oz) * idz;
+            tmin = Math.max(tmin, Math.min(t1, t2)); tmax = Math.min(tmax, Math.max(t1, t2));
+            if (tmax >= Math.max(tmin, 0) && tmin < best) best = Math.max(0, tmin);
+          }
+        }
+      }
+    }
+    return best;
+  };
+
+  var seenCells = [];
+  World.rayBlocked = function (ox, oy, oz, tx, ty, tz) {
+    var dx = tx - ox, dy = ty - oy, dz = tz - oz;
+    var dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    if (dist < 0.01) return false;
+    dx /= dist; dy /= dist; dz /= dist;
+
+    /* Terrain: if the ray dips under the surface anywhere, it's blocked. */
+    var steps = Math.min(48, Math.max(4, Math.ceil(dist / 2.5)));
+    for (var s = 1; s < steps; s++) {
+      var t = (s / steps) * dist;
+      var px = ox + dx * t, py = oy + dy * t, pz = oz + dz * t;
+      if (py < World.heightAt(px, pz)) return true;
+    }
+
+    var idx = 1 / (Math.abs(dx) < EPS ? (dx < 0 ? -EPS : EPS) : dx);
+    var idy = 1 / (Math.abs(dy) < EPS ? (dy < 0 ? -EPS : EPS) : dy);
+    var idz = 1 / (Math.abs(dz) < EPS ? (dz < 0 ? -EPS : EPS) : dz);
+
+    seenCells.length = 0;
+    var cellSteps = Math.min(96, Math.max(2, Math.ceil(dist / (CELL * 0.5))));
+    for (var c = 0; c <= cellSteps; c++) {
+      var ct = (c / cellSteps) * dist;
+      var cx = Math.floor((ox + dx * ct) / CELL);
+      var cz = Math.floor((oz + dz * ct) / CELL);
+      /* Cover the 3x3 neighbourhood so boxes straddling a border aren't missed. */
+      for (var ax = -1; ax <= 1; ax++) {
+        for (var az = -1; az <= 1; az++) {
+          var k = key(cx + ax, cz + az);
+          if (seenCells.indexOf(k) >= 0) continue;
+          seenCells.push(k);
+          var arr = grid.get(k);
+          if (!arr) continue;
+          for (var i = 0; i < arr.length; i++) {
+            if (slabHit(ox, oy, oz, idx, idy, idz, arr[i], dist)) return true;
+          }
+        }
+      }
+    }
+    return false;
+  };
+
   /* Ceiling check so you can't jump through a floor above you. */
   World.ceilingAt = function (x, z, y) {
     Colliders.query(x, z, 0.9, qbuf);
@@ -442,6 +536,11 @@
     scene.add(trunks); scene.add(canopies);
     World.hittables.push(trunks, canopies);
     World.treeMeshes = [trunks, canopies];
+    /* Instanced props are far too costly to probe every frame - the camera
+       uses the cheaper list and tolerates the odd branch clipping the lens. */
+    World.camHittables = World.hittables.filter(function (m) {
+      return m !== trunks && m !== canopies;
+    });
 
     /* Rocks */
     var rockGeo = new THREE.IcosahedronGeometry(1.35, 0);
