@@ -1,11 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Habit } from "../lib/types";
 
-const SUGGESTED_EMOJI = [
-  "✅", "💧", "🏃", "📚", "🧘", "💪", "🥗", "😴",
-  "✍️", "🎯", "🌱", "🎸", "🧹", "💊", "☀️", "🚭",
-];
-
 interface Props {
   /** When provided, the modal is in edit mode. */
   habit?: Habit;
@@ -16,7 +11,6 @@ interface Props {
 
 export default function HabitFormModal({ habit, onSave, onDelete, onClose }: Props) {
   const [name, setName] = useState(habit?.name ?? "");
-  const [icon, setIcon] = useState(habit?.icon ?? "");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -32,7 +26,7 @@ export default function HabitFormModal({ habit, onSave, onDelete, onClose }: Pro
     e.preventDefault();
     const trimmed = name.trim();
     if (!trimmed) return;
-    onSave(trimmed, icon.trim());
+    onSave(trimmed, "");
   };
 
   return (
@@ -63,32 +57,6 @@ export default function HabitFormModal({ habit, onSave, onDelete, onClose }: Pro
             autoComplete="off"
             onChange={(e) => setName(e.target.value)}
           />
-        </div>
-
-        <div className="field">
-          <label>Icon (optional)</label>
-          <div className="emoji-row">
-            <button
-              type="button"
-              className={"emoji-pick" + (icon === "" ? " selected" : "")}
-              aria-pressed={icon === ""}
-              onClick={() => setIcon("")}
-              title="No icon"
-            >
-              –
-            </button>
-            {SUGGESTED_EMOJI.map((e) => (
-              <button
-                key={e}
-                type="button"
-                className={"emoji-pick" + (icon === e ? " selected" : "")}
-                aria-pressed={icon === e}
-                onClick={() => setIcon(e)}
-              >
-                {e}
-              </button>
-            ))}
-          </div>
         </div>
 
         <div className="modal-actions">

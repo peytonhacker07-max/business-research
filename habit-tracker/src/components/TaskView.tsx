@@ -93,7 +93,7 @@ export default function TaskView({ api }: { api: AppApi }) {
                       <ChevronDownIcon className="" />
                     </button>
                     <button className="icon-btn" onClick={() => api.deleteTodo(todo.id)}>
-                      <span style={{ fontSize: 14, lineHeight: 1 }}>✕</span>
+                      <span style={{ fontSize: 14, lineHeight: 1 }}>×</span>
                     </button>
                   </div>
                 </div>
@@ -155,7 +155,6 @@ export default function TaskView({ api }: { api: AppApi }) {
 
       {active.length === 0 && completed.length === 0 && (
         <div className="empty">
-          <div className="mark">✓</div>
           <h2>No tasks yet</h2>
           <p>Add one to get started.</p>
         </div>

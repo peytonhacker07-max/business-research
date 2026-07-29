@@ -31,7 +31,6 @@ export default function TodayView({ api }: { api: AppApi }) {
 
       {habits.length === 0 ? (
         <div className="empty">
-          <div className="mark">🌱</div>
           <h2>Start your first habit</h2>
           <p>Pick one small thing to do every day.</p>
           <button className="btn primary" onClick={() => setAdding(true)}>
