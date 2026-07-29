@@ -6,9 +6,23 @@
     <title>Daily — Habit Tracker</title>
     <meta name="description" content="A quiet daily habit tracker. Build streaks, one day at a time." />
 
+    <!-- Apply any saved theme before first paint, so there's no flash of the
+         wrong theme (light/dark). Falls back to system preference via CSS. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("daily.theme");
+          if (t === "dark" || t === "light") {
+            document.documentElement.setAttribute("data-theme", t);
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#F7F4EC" />
+    <meta name="theme-color" content="#F7F4EC" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1c1a17" media="(prefers-color-scheme: dark)" />
 
     <!-- iOS home screen support -->
     <meta name="apple-mobile-web-app-capable" content="yes" />

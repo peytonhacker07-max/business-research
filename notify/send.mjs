@@ -49,14 +49,30 @@ function currentHourInTimezone(tz) {
 
 function loadSubscriptions() {
   const raw = process.env.PUSH_SUBSCRIPTION;
-  if (!raw) throw new Error("PUSH_SUBSCRIPTION secret is not set.");
+  if (!raw) return null;
   const parsed = JSON.parse(raw);
   return Array.isArray(parsed) ? parsed : [parsed];
 }
 
 async function main() {
   const privateKey = process.env.VAPID_PRIVATE_KEY;
-  if (!privateKey) throw new Error("VAPID_PRIVATE_KEY secret is not set.");
+  const subscriptions = loadSubscriptions();
+
+  // Reminders haven't been set up yet (the app-side "Enable reminders" +
+  // GitHub secrets steps aren't both done). Skip quietly instead of failing
+  // the workflow — this runs several times a day, and a hard failure would
+  // just pile up red X's in the Actions tab with nothing actionable to do
+  // about it until the one-time setup is finished.
+  if (!privateKey || !subscriptions) {
+    console.log(
+      "Reminders aren't configured yet (missing " +
+        [!privateKey && "VAPID_PRIVATE_KEY", !subscriptions && "PUSH_SUBSCRIPTION"]
+          .filter(Boolean)
+          .join(" and ") +
+        "). Skipping — see habit-tracker/README.md for one-time setup.",
+    );
+    return;
+  }
 
   // Manual test run (workflow_dispatch with test=true) sends immediately,
   // bypassing the time gate, so reminders can be verified end-to-end.
@@ -80,7 +96,6 @@ async function main() {
 
   webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC_KEY, privateKey);
 
-  const subscriptions = loadSubscriptions();
   const payload = JSON.stringify({
     title: message.title,
     body: message.body,

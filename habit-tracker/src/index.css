@@ -26,6 +26,38 @@
     monospace;
 }
 
+/* Dark theme — same "paper and ink" personality, inked paper instead of
+   cream. Applies automatically by system preference, or when the toggle
+   sets data-theme explicitly (which always wins over the media query). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1c1a17;
+    --paper-2: #262420;
+    --ink: #ece7dc;
+    --ink-soft: #a39c8d;
+    --ink-faint: #6f6a5f;
+    --line: #3a362f;
+    --line-strong: #4a453c;
+    --accent: #3fae9c;
+    --accent-ink: #8fe0d0;
+    --accent-wash: #1f2f2b;
+    --danger: #e0806a;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #1c1a17;
+  --paper-2: #262420;
+  --ink: #ece7dc;
+  --ink-soft: #a39c8d;
+  --ink-faint: #6f6a5f;
+  --line: #3a362f;
+  --line-strong: #4a453c;
+  --accent: #3fae9c;
+  --accent-ink: #8fe0d0;
+  --accent-wash: #1f2f2b;
+  --danger: #e0806a;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -83,12 +115,20 @@ button {
 .app-header {
   padding: 28px 20px 8px;
 }
+.app-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .app-header .eyebrow {
   font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-soft);
   margin: 0 0 2px;
+}
+.theme-toggle {
+  margin: -6px -6px 0 0;
 }
 .app-header h1 {
   font-size: 26px;

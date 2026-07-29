@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import TodayView from "./components/TodayView";
 import HistoryView from "./components/HistoryView";
 import AnalyticsView from "./components/AnalyticsView";
+import ThemeToggle from "./components/ThemeToggle";
 
 export default function App() {
   const api = useAppData();
@@ -13,7 +14,10 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <p className="eyebrow">Daily</p>
+        <div className="app-header-row">
+          <p className="eyebrow">Daily</p>
+          <ThemeToggle />
+        </div>
         <h1>
           {view === "today"
             ? "Today"
