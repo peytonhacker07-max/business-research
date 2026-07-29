@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  DEMO BARBERSHOP SITE — reusable template
+  ============================================================
+  This is a SAMPLE site to show a shop owner what theirs could look like.
+  To re-skin it for a new shop, change only the marked [[ ]] spots below:
+    - [[SHOP NAME]]        the business name
+    - [[PHONE]]            phone number (appears twice: link + display)
+    - [[ADDRESS]]          street address
+    - [[CITY]]             city
+    - [[BOOK URL]]         Square/Booksy/Calendly booking link
+    - [[MAP QUERY]]        address for the Google map link
+  Everything else can stay. The reviews are SAMPLE text meant to be
+  replaced with the shop's real Google reviews before it goes live.
+  ============================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wampler's Barber Co — Kingsport, TN</title>
+<style>
+  :root{
+    --bg:#12100e; --panel:#1b1815; --line:#2e2925;
+    --text:#f3ede4; --muted:#b3a794; --gold:#c9a04e; --gold-2:#e0be74;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  h1,h2,h3{font-weight:800;letter-spacing:.5px;line-height:1.15}
+  .eyebrow{color:var(--gold);font-size:13px;letter-spacing:3px;text-transform:uppercase;font-weight:700}
+  .btn{display:inline-block;background:var(--gold);color:#1a140a;font-weight:800;padding:15px 26px;border-radius:8px;font-size:16px;transition:transform .1s ease,background .2s}
+  .btn:active{transform:scale(.97)}
+  .btn.ghost{background:transparent;color:var(--gold);border:2px solid var(--gold)}
+  /* sticky call/book bar for phones */
+  .stickybar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;padding:12px;background:rgba(18,16,14,.96);border-top:1px solid var(--line);backdrop-filter:blur(6px);z-index:50}
+  .stickybar a{flex:1;text-align:center;padding:14px;border-radius:8px;font-weight:800}
+  .stickybar .call{background:var(--panel);color:var(--gold);border:1px solid var(--gold)}
+  .stickybar .book{background:var(--gold);color:#1a140a}
+  /* hero */
+  .hero{padding-top:70px;text-align:center;background:radial-gradient(1200px 400px at 50% -10%, rgba(201,160,78,.14), transparent)}
+  .hero h1{font-size:clamp(34px,8vw,60px);margin:14px 0 8px}
+  .hero p.tag{color:var(--muted);font-size:18px;margin-bottom:8px}
+  .stars{color:var(--gold-2);font-size:20px;letter-spacing:2px}
+  .rating-line{color:var(--muted);font-size:15px;margin:6px 0 26px}
+  .hero .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  /* generic grid */
+  .grid{display:grid;gap:14px}
+  @media(min-width:620px){.grid.two{grid-template-columns:1fr 1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .price-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px dashed var(--line)}
+  .price-row:last-child{border-bottom:none}
+  .price-row .p{color:var(--gold-2);font-weight:800;white-space:nowrap;padding-left:14px}
+  .price-row .d{color:var(--muted);font-size:13px}
+  h2.section-title{font-size:28px;margin-bottom:6px}
+  .section-sub{color:var(--muted);margin-bottom:26px}
+  /* hours */
+  .hours .price-row .p{color:var(--text);font-weight:600}
+  .open-flag{display:inline-block;background:rgba(80,160,90,.15);color:#7dd18a;border:1px solid #2f6b39;font-size:13px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+  /* reviews */
+  .review p{font-style:italic;color:var(--text)}
+  .review .who{color:var(--muted);font-style:normal;font-size:14px;margin-top:10px}
+  .review .stars{font-size:15px}
+  /* gallery */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .gallery .ph{aspect-ratio:1;border-radius:8px;background:linear-gradient(135deg,#241f1a,#161310);display:flex;align-items:center;justify-content:center;color:#5c5348;font-size:12px;text-align:center;border:1px solid var(--line);padding:6px}
+  footer{padding:34px 0 100px;text-align:center;color:var(--muted);font-size:14px}
+  .demo-note{background:#2a2212;border:1px solid var(--gold);color:var(--gold-2);font-size:13px;text-align:center;padding:10px;position:sticky;top:0;z-index:60}
+</style>
+</head>
+<body>
+
+<!-- Remove this banner before showing a real client / going live -->
+<div class="demo-note">SAMPLE SITE — built to show what your shop's site could look like</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Kingsport&#39;s Barbershop</p>
+    <h1>Wampler&#39;s Barber Co</h1>
+    <p class="tag">Classic cuts, hot-towel shaves, and fades that turn heads.</p>
+    <div class="stars">★★★★★</div>
+    <p class="rating-line">4.9 on Google · 265 reviews</p>
+    <div class="cta">
+      <a class="btn" href="[[BOOK URL]]">Book an Appointment</a>
+      <a class="btn ghost" href="tel:+14234061662">Call (423) 406-1662</a>
+    </div>
+  </div>
+</header>
+
+<!-- SERVICES -->
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Services &amp; Prices</h2>
+    <p class="section-sub">Walk-ins welcome. Appointments recommended on weekends.</p>
+    <div class="card">
+      <div class="price-row"><div><strong>Haircut</strong><div class="d">Classic or modern, your call</div></div><div class="p">$30</div></div>
+      <div class="price-row"><div><strong>Skin Fade</strong><div class="d">Sharp, blended, clean</div></div><div class="p">$35</div></div>
+      <div class="price-row"><div><strong>Beard Trim &amp; Line-Up</strong><div class="d">Shaped and detailed</div></div><div class="p">$20</div></div>
+      <div class="price-row"><div><strong>Hot-Towel Straight Razor Shave</strong><div class="d">The full experience</div></div><div class="p">$40</div></div>
+      <div class="price-row"><div><strong>Cut + Beard Combo</strong><div class="d">Best value</div></div><div class="p">$45</div></div>
+      <div class="price-row"><div><strong>Kids Cut (12 &amp; under)</strong></div><div class="p">$25</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours">
+  <div class="wrap">
+    <span class="open-flag">● Open Today</span>
+    <h2 class="section-title">Hours</h2>
+    <p class="section-sub">Come see us — we&#39;re easy to find in downtown Kingsport.</p>
+    <div class="card">
+      <div class="price-row"><div>Monday – Friday</div><div class="p">9:00 AM – 6:00 PM</div></div>
+      <div class="price-row"><div>Saturday</div><div class="p">8:00 AM – 3:00 PM</div></div>
+      <div class="price-row"><div>Sunday</div><div class="p">Closed</div></div>
+    </div>
+    <p style="margin-top:16px">
+      <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Wamplers+Barber+Co+Kingsport+TN">Get Directions →</a>
+    </p>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section>
+  <div class="wrap">
+    <h2 class="section-title">What People Say</h2>
+    <p class="section-sub">4.9 stars across 265 Google reviews.</p>
+    <div class="grid two">
+      <div class="card review">
+        <div class="stars">★★★★★</div>
+        <p>&ldquo;Best barbershop in the Tri-Cities. Been coming here for years and never left disappointed.&rdquo;</p>
+        <div class="who">— sample review, replace with a real one</div>
+      </div>
+      <div class="card review">
+        <div class="stars">★★★★★</div>
+        <p>&ldquo;Walked in, got the cleanest fade I&#39;ve ever had. These guys are real barbers.&rdquo;</p>
+        <div class="who">— sample review, replace with a real one</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <h2 class="section-title">The Shop</h2>
+    <p class="section-sub">Swap these for real photos of the shop and fresh cuts.</p>
+    <div class="gallery">
+      <div class="ph">shop front</div>
+      <div class="ph">a clean fade</div>
+      <div class="ph">the chairs</div>
+      <div class="ph">beard work</div>
+      <div class="ph">the crew</div>
+      <div class="ph">detail shot</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section style="text-align:center">
+  <div class="wrap">
+    <h2 class="section-title">Ready for a fresh cut?</h2>
+    <p class="section-sub">Book online in 30 seconds, or give us a call.</p>
+    <div class="cta" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn" href="[[BOOK URL]]">Book Now</a>
+      <a class="btn ghost" href="tel:+14234061662">Call (423) 406-1662</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Wampler&#39;s Barber Co · Downtown Kingsport, TN<br>
+    (423) 406-1662
+  </div>
+</footer>
+
+<!-- STICKY MOBILE BAR -->
+<div class="stickybar">
+  <a class="call" href="tel:+14234061662">📞 Call</a>
+  <a class="book" href="[[BOOK URL]]">Book Appointment</a>
+</div>
+
+</body>
+</html>
