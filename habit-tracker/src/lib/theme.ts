@@ -4,13 +4,13 @@
 
 export type ThemeChoice = "light" | "dark" | "system";
 
-export type ColorScheme = "teal" | "blue" | "pink" | "green" | "purple" | "orange" | "red";
+export type ColorScheme = "teal" | "blue" | "pink" | "black" | "purple" | "orange" | "red";
 
 export const COLOR_SCHEMES: Record<ColorScheme, { name: string; primary: string; dark: string }> = {
   teal: { name: "Teal & Black", primary: "#1f5e54", dark: "#0d2820" },
   blue: { name: "Blue & Black", primary: "#1e4d8b", dark: "#0a2540" },
   pink: { name: "Pink & White", primary: "#d946a6", dark: "#6b1b47" },
-  green: { name: "All Green", primary: "#16a34a", dark: "#14532d" },
+  black: { name: "All Black", primary: "#1a1a1a", dark: "#0a0a0a" },
   purple: { name: "Purple & Black", primary: "#7c3aed", dark: "#3f1f6f" },
   orange: { name: "Orange & Black", primary: "#ea580c", dark: "#5a2506" },
   red: { name: "Red & Black", primary: "#dc2626", dark: "#6b1616" },
