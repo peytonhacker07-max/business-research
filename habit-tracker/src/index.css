@@ -11,9 +11,11 @@
   --ink-faint: #a8a293; /* tertiary / placeholders */
   --line: #e0dacb; /* thin 1px borders */
   --line-strong: #cfc8b6;
-  --accent: #1f5e54; /* deep teal — the "done" color */
-  --accent-ink: #143f38;
-  --accent-wash: #e6ede9; /* faint teal tint for fills */
+  --color-primary: #1f5e54; /* deep teal — default, can be overridden */
+  --color-primary-dark: #0d2820;
+  --accent: var(--color-primary);
+  --accent-ink: var(--color-primary-dark);
+  --accent-wash: #e6ede9; /* faint tint for fills */
   --danger: #9b4a3a;
 
   --tap: 46px; /* minimum tap target */
@@ -38,8 +40,6 @@
     --ink-faint: #6f6a5f;
     --line: #3a362f;
     --line-strong: #4a453c;
-    --accent: #3fae9c;
-    --accent-ink: #8fe0d0;
     --accent-wash: #1f2f2b;
     --danger: #e0806a;
   }
@@ -52,8 +52,6 @@
   --ink-faint: #6f6a5f;
   --line: #3a362f;
   --line-strong: #4a453c;
-  --accent: #3fae9c;
-  --accent-ink: #8fe0d0;
   --accent-wash: #1f2f2b;
   --danger: #e0806a;
 }

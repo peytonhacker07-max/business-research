@@ -7,6 +7,7 @@ import HistoryView from "./components/HistoryView";
 import AnalyticsView from "./components/AnalyticsView";
 import TaskView from "./components/TaskView";
 import ThemeToggle from "./components/ThemeToggle";
+import ColorSchemeSelector from "./components/ColorSchemeSelector";
 
 export default function App() {
   const api = useAppData();
@@ -17,7 +18,10 @@ export default function App() {
       <header className="app-header">
         <div className="app-header-row">
           <p className="eyebrow">Daily</p>
-          <ThemeToggle />
+          <div style={{ display: "flex", gap: 8 }}>
+            <ColorSchemeSelector />
+            <ThemeToggle />
+          </div>
         </div>
         <h1>
           {view === "today"
