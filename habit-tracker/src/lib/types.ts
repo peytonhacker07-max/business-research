@@ -26,11 +26,20 @@ export interface Goal {
   order: number;
 }
 
+export interface Todo {
+  id: string;
+  text: string;
+  done: boolean;
+  createdAt: string; // YYYY-MM-DD
+  order: number;
+}
+
 export interface AppData {
   habits: Habit[];
   /** Map of `${habitId}|${date}` -> Completion. Only `completed: true` entries kept. */
   completions: Record<string, Completion>;
   goals?: Goal[];
+  todos: Todo[];
 }
 
-export type ViewName = "today" | "history" | "analytics";
+export type ViewName = "today" | "history" | "analytics" | "todos";

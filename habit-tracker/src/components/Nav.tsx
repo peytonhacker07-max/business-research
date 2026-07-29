@@ -1,5 +1,5 @@
 import type { ViewName } from "../lib/types";
-import { AnalyticsIcon, HistoryIcon, TodayIcon } from "./Icons";
+import { AnalyticsIcon, HistoryIcon, TodayIcon, ChecklistIcon } from "./Icons";
 
 interface Props {
   view: ViewName;
@@ -10,6 +10,7 @@ const ITEMS: { name: ViewName; label: string; Icon: typeof TodayIcon }[] = [
   { name: "today", label: "Today", Icon: TodayIcon },
   { name: "history", label: "History", Icon: HistoryIcon },
   { name: "analytics", label: "Analytics", Icon: AnalyticsIcon },
+  { name: "todos", label: "Tasks", Icon: ChecklistIcon },
 ];
 
 export default function Nav({ view, onChange }: Props) {

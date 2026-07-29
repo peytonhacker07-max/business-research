@@ -2,7 +2,7 @@ import type { AppData } from "./types";
 
 const STORAGE_KEY = "daily.habit-tracker.v1";
 
-const EMPTY: AppData = { habits: [], completions: {} };
+const EMPTY: AppData = { habits: [], completions: {}, todos: [] };
 
 /** Load app data from localStorage, tolerating missing or corrupted data. */
 export function loadData(): AppData {
@@ -54,7 +54,19 @@ function normalize(data: unknown): AppData {
     }
   }
 
-  return { habits, completions };
+  const todos = Array.isArray(d.todos)
+    ? d.todos
+        .filter((t) => t && typeof t.id === "string" && typeof t.text === "string")
+        .map((t, i) => ({
+          id: t.id,
+          text: t.text,
+          done: Boolean(t.done),
+          createdAt: typeof t.createdAt === "string" ? t.createdAt : "",
+          order: typeof t.order === "number" ? t.order : i,
+        }))
+    : [];
+
+  return { habits, completions, todos };
 }
 
 let timer: ReturnType<typeof setTimeout> | undefined;

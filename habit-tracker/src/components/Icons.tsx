@@ -149,3 +149,11 @@ export function AutoIcon({ className }: Props) {
     </svg>
   );
 }
+
+export function ChecklistIcon({ className }: Props) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M3.5 5v14c0 1 .5 1.5 1.5 1.5h14c1 0 1.5-.5 1.5-1.5V5M8 10l2 2 4-4M8 17l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}

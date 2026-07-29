@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { AppData, Habit } from "./types";
+import type { AppData, Habit, Todo } from "./types";
 import { completionKey, loadData, saveData } from "./storage";
 import { todayKey } from "./dates";
 
@@ -18,6 +18,10 @@ export interface AppApi {
   deleteHabit: (id: string) => void;
   moveHabit: (id: string, dir: -1 | 1) => void;
   toggleCompletion: (habitId: string, date: string) => void;
+  addTodo: (text: string) => void;
+  deleteTodo: (id: string) => void;
+  toggleTodo: (id: string) => void;
+  reorderTodos: (id: string, dir: -1 | 1) => void;
 }
 
 export function useAppData(): AppApi {
@@ -82,7 +86,7 @@ export function useAppData(): AppApi {
       for (const key of Object.keys(completions)) {
         if (completions[key].habitId === id) delete completions[key];
       }
-      return { habits: d.habits.filter((h) => h.id !== id), completions };
+      return { ...d, habits: d.habits.filter((h) => h.id !== id), completions };
     });
   }, []);
 
@@ -116,6 +120,53 @@ export function useAppData(): AppApi {
     });
   }, []);
 
+  const addTodo = useCallback((text: string) => {
+    setData((d) => {
+      const maxOrder = d.todos.reduce((m, t) => Math.max(m, t.order), -1);
+      const todo: Todo = {
+        id: uid(),
+        text: text.trim(),
+        done: false,
+        createdAt: todayKey(),
+        order: maxOrder + 1,
+      };
+      return { ...d, todos: [...d.todos, todo] };
+    });
+  }, []);
+
+  const deleteTodo = useCallback((id: string) => {
+    setData((d) => ({
+      ...d,
+      todos: d.todos.filter((t) => t.id !== id),
+    }));
+  }, []);
+
+  const toggleTodo = useCallback((id: string) => {
+    setData((d) => ({
+      ...d,
+      todos: d.todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+    }));
+  }, []);
+
+  const reorderTodos = useCallback((id: string, dir: -1 | 1) => {
+    setData((d) => {
+      const todos = [...d.todos].sort((a, b) => a.order - b.order);
+      const idx = todos.findIndex((t) => t.id === id);
+      const swapIdx = idx + dir;
+      if (idx === -1 || swapIdx < 0 || swapIdx >= todos.length) return d;
+      const a = todos[idx];
+      const b = todos[swapIdx];
+      return {
+        ...d,
+        todos: d.todos.map((t) => {
+          if (t.id === a.id) return { ...t, order: b.order };
+          if (t.id === b.id) return { ...t, order: a.order };
+          return t;
+        }),
+      };
+    });
+  }, []);
+
   return {
     data,
     today,
@@ -124,5 +175,9 @@ export function useAppData(): AppApi {
     deleteHabit,
     moveHabit,
     toggleCompletion,
+    addTodo,
+    deleteTodo,
+    toggleTodo,
+    reorderTodos,
   };
 }

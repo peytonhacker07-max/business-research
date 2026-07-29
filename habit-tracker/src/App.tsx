@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import TodayView from "./components/TodayView";
 import HistoryView from "./components/HistoryView";
 import AnalyticsView from "./components/AnalyticsView";
+import TaskView from "./components/TaskView";
 import ThemeToggle from "./components/ThemeToggle";
 
 export default function App() {
@@ -23,13 +24,16 @@ export default function App() {
             ? "Today"
             : view === "history"
               ? "History"
-              : "Analytics"}
+              : view === "analytics"
+                ? "Analytics"
+                : "Task List"}
         </h1>
       </header>
 
       {view === "today" && <TodayView api={api} />}
       {view === "history" && <HistoryView api={api} />}
       {view === "analytics" && <AnalyticsView api={api} />}
+      {view === "todos" && <TaskView api={api} />}
 
       <Nav view={view} onChange={setView} />
     </div>
