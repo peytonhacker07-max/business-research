@@ -6,6 +6,7 @@ import TodayView from "./components/TodayView";
 import HistoryView from "./components/HistoryView";
 import AnalyticsView from "./components/AnalyticsView";
 import TaskView from "./components/TaskView";
+import HealthView from "./components/HealthView";
 import ThemeToggle from "./components/ThemeToggle";
 import ColorSchemeSelector from "./components/ColorSchemeSelector";
 
@@ -30,7 +31,9 @@ export default function App() {
               ? "History"
               : view === "analytics"
                 ? "Analytics"
-                : "Task List"}
+                : view === "todos"
+                  ? "Task List"
+                  : "Health"}
         </h1>
       </header>
 
@@ -38,6 +41,7 @@ export default function App() {
       {view === "history" && <HistoryView api={api} />}
       {view === "analytics" && <AnalyticsView api={api} />}
       {view === "todos" && <TaskView api={api} />}
+      {view === "health" && <HealthView api={api} />}
 
       <Nav view={view} onChange={setView} />
     </div>

@@ -2,6 +2,7 @@ export interface Habit {
   id: string;
   name: string;
   icon: string; // emoji or single char; may be empty
+  healthBenefits?: string; // AI-generated health benefits
   createdAt: string; // YYYY-MM-DD
   archived: boolean;
   order: number; // for manual reordering
@@ -42,4 +43,4 @@ export interface AppData {
   todos: Todo[];
 }
 
-export type ViewName = "today" | "history" | "analytics" | "todos";
+export type ViewName = "today" | "history" | "analytics" | "todos" | "health";

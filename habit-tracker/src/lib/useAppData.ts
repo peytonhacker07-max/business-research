@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { AppData, Habit, Todo } from "./types";
 import { completionKey, loadData, saveData } from "./storage";
 import { todayKey } from "./dates";
+import { generateHealthBenefits } from "./healthBenefits";
 
 function uid(): string {
   return (
@@ -57,17 +58,31 @@ export function useAppData(): AppApi {
   }, []);
 
   const addHabit = useCallback((name: string, icon: string) => {
+    const habitId = uid();
+    const trimmedName = name.trim();
+
     setData((d) => {
       const maxOrder = d.habits.reduce((m, h) => Math.max(m, h.order), -1);
       const habit: Habit = {
-        id: uid(),
-        name: name.trim(),
+        id: habitId,
+        name: trimmedName,
         icon: icon.trim(),
         createdAt: todayKey(),
         archived: false,
         order: maxOrder + 1,
       };
       return { ...d, habits: [...d.habits, habit] };
+    });
+
+    generateHealthBenefits(trimmedName).then((benefits) => {
+      if (benefits) {
+        setData((d) => ({
+          ...d,
+          habits: d.habits.map((h) =>
+            h.id === habitId ? { ...h, healthBenefits: benefits } : h,
+          ),
+        }));
+      }
     });
   }, []);
 
