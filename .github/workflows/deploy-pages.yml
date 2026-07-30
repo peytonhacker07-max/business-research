@@ -38,6 +38,7 @@ jobs:
         working-directory: habit-tracker
         env:
           VITE_BASE: /business-research/
+          VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
         run: npm run build
 
       - name: Configure Pages
