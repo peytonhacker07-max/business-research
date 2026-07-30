@@ -3,8 +3,9 @@ const API_URL = "https://api.anthropic.com/v1/messages";
 
 export async function generateHealthBenefits(habitName: string): Promise<string> {
   if (!API_KEY) {
-    console.warn("API key not found. Health benefits will not be generated.");
-    return "";
+    const msg = "API key not configured.";
+    console.warn(msg);
+    return msg;
   }
 
   try {
@@ -28,14 +29,17 @@ export async function generateHealthBenefits(habitName: string): Promise<string>
     });
 
     if (!response.ok) {
-      console.error("API error:", response.status);
-      return "";
+      const errorText = await response.text();
+      const msg = `API error ${response.status}: ${errorText}`;
+      console.error(msg);
+      return msg;
     }
 
     const data = await response.json();
-    return data.content[0]?.text || "";
+    return data.content[0]?.text || "No benefits generated.";
   } catch (error) {
-    console.error("Failed to generate health benefits:", error);
-    return "";
+    const msg = `Failed: ${error instanceof Error ? error.message : String(error)}`;
+    console.error(msg);
+    return msg;
   }
 }
