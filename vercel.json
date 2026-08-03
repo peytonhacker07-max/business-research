@@ -1,4 +1,0 @@
-{
-  "buildCommand": "cd habit-tracker && npm run build",
-  "outputDirectory": "habit-tracker/dist"
-}
