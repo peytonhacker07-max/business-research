@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { AppData, Habit, Todo } from "./types";
 import { completionKey, loadData, saveData } from "./storage";
 import { todayKey } from "./dates";
-import { generateHealthBenefits } from "./healthBenefits";
 
 function uid(): string {
   return (
@@ -72,17 +71,6 @@ export function useAppData(): AppApi {
         order: maxOrder + 1,
       };
       return { ...d, habits: [...d.habits, habit] };
-    });
-
-    generateHealthBenefits(trimmedName).then((benefits) => {
-      if (benefits) {
-        setData((d) => ({
-          ...d,
-          habits: d.habits.map((h) =>
-            h.id === habitId ? { ...h, healthBenefits: benefits } : h,
-          ),
-        }));
-      }
     });
   }, []);
 
