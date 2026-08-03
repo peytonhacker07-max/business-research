@@ -16,7 +16,12 @@ export function fromKey(key: string): Date {
 }
 
 export function todayKey(): string {
-  return toKey(new Date());
+  const now = new Date();
+  // Reset day at 2:00 AM instead of midnight
+  if (now.getHours() < 2) {
+    now.setDate(now.getDate() - 1);
+  }
+  return toKey(now);
 }
 
 export function addDays(d: Date, n: number): Date {
