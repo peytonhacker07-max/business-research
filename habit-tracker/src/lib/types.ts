@@ -40,6 +40,8 @@ export interface AppData {
   completions: Record<string, Completion>;
   goals?: Goal[];
   todos: Todo[];
+  /** Map of date (YYYY-MM-DD) -> note content. */
+  notes: Record<string, string>;
 }
 
-export type ViewName = "today" | "history" | "analytics" | "todos";
+export type ViewName = "today" | "history" | "analytics" | "todos" | "notes";
