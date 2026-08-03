@@ -22,6 +22,7 @@ export interface AppApi {
   deleteTodo: (id: string) => void;
   toggleTodo: (id: string) => void;
   reorderTodos: (id: string, dir: -1 | 1) => void;
+  setNote: (date: string, content: string) => void;
 }
 
 export function useAppData(): AppApi {
@@ -170,6 +171,18 @@ export function useAppData(): AppApi {
     });
   }, []);
 
+  const setNote = useCallback((date: string, content: string) => {
+    setData((d) => {
+      const notes = { ...d.notes };
+      if (content) {
+        notes[date] = content;
+      } else {
+        delete notes[date];
+      }
+      return { ...d, notes };
+    });
+  }, []);
+
   return {
     data,
     today,
@@ -182,5 +195,6 @@ export function useAppData(): AppApi {
     deleteTodo,
     toggleTodo,
     reorderTodos,
+    setNote,
   };
 }
