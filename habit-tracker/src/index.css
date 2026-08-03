@@ -249,19 +249,19 @@ button {
 .habit-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
 }
 
 .habit-row {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   background: none;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 12px 14px;
+  padding: 10px 12px;
   text-align: left;
-  min-height: 64px;
+  min-height: 56px;
   color: var(--ink);
   transition: border-color 150ms ease, background 150ms ease;
 }
@@ -270,8 +270,8 @@ button {
   border-color: var(--accent-wash);
 }
 .habit-check {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 2px solid var(--line-strong);
   background: none;
@@ -297,7 +297,7 @@ button {
   min-width: 0;
 }
 .habit-name {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
@@ -307,7 +307,7 @@ button {
   color: var(--accent-ink);
 }
 .habit-streak {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--ink-soft);
   margin-top: 2px;
 }
@@ -326,9 +326,9 @@ button {
 .icon-btn {
   background: none;
   border: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
   display: grid;
   place-items: center;
   color: var(--ink-faint);
