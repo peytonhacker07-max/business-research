@@ -39,7 +39,7 @@ export default function TodayView({ api }: { api: AppApi }) {
         </div>
       ) : (
         <>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          <ul className="habit-list" style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {habits.map((habit, i) => {
               const doneToday = isDone(data, habit.id, today);
               const streak = currentStreak(data, habit.id);

@@ -246,16 +246,20 @@ button {
 
 /* ---------- Habit list (Today) ---------- */
 
+.habit-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 .habit-row {
   display: flex;
   align-items: center;
   gap: 14px;
-  width: 100%;
   background: none;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 12px 14px;
-  margin-bottom: 10px;
   text-align: left;
   min-height: 64px;
   color: var(--ink);
