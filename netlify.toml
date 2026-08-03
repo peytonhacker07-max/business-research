@@ -1,0 +1,12 @@
+[build]
+  command = "cd habit-tracker && npm run build"
+  functions = "netlify/functions"
+  publish = "habit-tracker/dist"
+
+[build.environment]
+  VITE_BASE = "/business-research/"
+
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
