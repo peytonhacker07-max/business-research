@@ -255,13 +255,13 @@ button {
 .habit-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: none;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 10px 12px;
+  padding: 8px 10px;
   text-align: left;
-  min-height: 56px;
+  min-height: 52px;
   color: var(--ink);
   transition: border-color 150ms ease, background 150ms ease;
 }
@@ -287,8 +287,8 @@ button {
   color: var(--paper);
 }
 .habit-emoji {
-  font-size: 22px;
-  width: 28px;
+  font-size: 18px;
+  width: 22px;
   text-align: center;
   flex-shrink: 0;
 }
@@ -320,18 +320,19 @@ button {
 .habit-row .row-tools {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 0px;
   flex-shrink: 0;
 }
 .icon-btn {
   background: none;
   border: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
   display: grid;
   place-items: center;
   color: var(--ink-faint);
+  padding: 0;
 }
 .icon-btn:hover {
   color: var(--ink);
@@ -342,8 +343,8 @@ button {
   cursor: default;
 }
 .icon-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
 }
 
 /* ---------- Buttons ---------- */
