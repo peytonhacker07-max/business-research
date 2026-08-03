@@ -1,6 +1,6 @@
 export async function generateHealthBenefits(habitName: string): Promise<string> {
   try {
-    const response = await fetch("/api/health-benefits", {
+    const response = await fetch("/.netlify/functions/health-benefits", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
