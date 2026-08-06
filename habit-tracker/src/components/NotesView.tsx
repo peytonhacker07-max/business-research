@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { AppApi } from "../lib/useAppData";
 import { addDays, formatLong, toKey, fromKey } from "../lib/dates";
-import { ChevronUpIcon, ChevronDownIcon } from "./Icons";
 
 export default function NotesView({ api }: { api: AppApi }) {
   const { data, today } = api;
@@ -26,27 +25,30 @@ export default function NotesView({ api }: { api: AppApi }) {
 
   return (
     <div className="view">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, gap: 12 }}>
         <button
           onClick={handlePrevDay}
           style={{
             background: "none",
-            border: "none",
+            border: "1px solid var(--line)",
             color: "var(--ink)",
             cursor: "pointer",
-            padding: "8px",
-            display: "grid",
-            placeItems: "center",
-            transform: "rotate(90deg)",
+            padding: "8px 12px",
+            borderRadius: "8px",
+            fontSize: "14px",
+            fontWeight: "500",
           }}
         >
-          <ChevronDownIcon className="" />
+          ← Yesterday
         </button>
 
         <div style={{ textAlign: "center", flex: 1 }}>
           <p className="view-title" style={{ marginTop: 0, marginBottom: 4 }}>
             {formatLong(viewDateObj)}
           </p>
+          {isToday && <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: 0 }}>
+            Today
+          </p>}
           {!isToday && <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: 0 }}>
             {isFuture ? "Future" : "Past"}
           </p>}
@@ -57,17 +59,17 @@ export default function NotesView({ api }: { api: AppApi }) {
           disabled={isFuture}
           style={{
             background: "none",
-            border: "none",
+            border: isFuture ? "1px solid var(--line-strong)" : "1px solid var(--line)",
             color: isFuture ? "var(--ink-faint)" : "var(--ink)",
-            cursor: isFuture ? "default" : "pointer",
-            padding: "8px",
-            display: "grid",
-            placeItems: "center",
+            cursor: isFuture ? "not-allowed" : "pointer",
+            padding: "8px 12px",
+            borderRadius: "8px",
+            fontSize: "14px",
+            fontWeight: "500",
             opacity: isFuture ? 0.5 : 1,
-            transform: "rotate(-90deg)",
           }}
         >
-          <ChevronUpIcon className="" />
+          Tomorrow →
         </button>
       </div>
 
