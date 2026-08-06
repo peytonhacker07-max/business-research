@@ -33,7 +33,7 @@ export default function App() {
                 ? "Analytics"
                 : view === "todos"
                   ? "Task List"
-                  : "Notes"}
+                  : "Journal"}
         </h1>
       </header>
 
