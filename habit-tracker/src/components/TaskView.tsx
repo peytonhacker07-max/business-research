@@ -1,9 +1,11 @@
 import { useState } from "react";
 import type { AppApi } from "../lib/useAppData";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon, PlusIcon } from "./Icons";
+import { todayKey } from "../lib/dates";
 
 export default function TaskView({ api }: { api: AppApi }) {
-  const todos = api.data.todos.sort((a, b) => a.order - b.order);
+  const today = todayKey();
+  const todos = api.data.todos.filter((t) => t.createdAt === today).sort((a, b) => a.order - b.order);
   const active = todos.filter((t) => !t.done);
   const completed = todos.filter((t) => t.done);
   const [input, setInput] = useState("");
