@@ -44,4 +44,4 @@ export interface AppData {
   notes: Record<string, string>;
 }
 
-export type ViewName = "today" | "history" | "analytics" | "todos" | "notes";
+export type ViewName = "today" | "analytics" | "todos" | "notes";
