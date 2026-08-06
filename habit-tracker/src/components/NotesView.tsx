@@ -1,100 +1,123 @@
 import { useState } from "react";
 import type { AppApi } from "../lib/useAppData";
-import { addDays, formatLong, toKey, fromKey } from "../lib/dates";
+import { lastNDays, fromKey, formatLong } from "../lib/dates";
 
 export default function NotesView({ api }: { api: AppApi }) {
   const { data, today } = api;
-  const [viewDate, setViewDate] = useState<string>(today);
-  const note = data.notes[viewDate] || "";
+  const [editingDate, setEditingDate] = useState<string>(today);
+  const editingNote = data.notes[editingDate] || "";
 
-  const viewDateObj = fromKey(viewDate);
-  const todayObj = fromKey(today);
-
-  const handlePrevDay = () => {
-    const prev = addDays(fromKey(viewDate), -1);
-    setViewDate(toKey(prev));
-  };
-
-  const handleNextDay = () => {
-    const next = addDays(fromKey(viewDate), 1);
-    setViewDate(toKey(next));
-  };
-
-  const isToday = viewDate === today;
-  const isFuture = viewDateObj > todayObj;
+  const pastDates = lastNDays(30).filter((d) => d < today).reverse();
 
   return (
-    <div className="view">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, gap: 12 }}>
-        <button
-          onClick={handlePrevDay}
-          style={{
-            background: "none",
-            border: "1px solid var(--line)",
-            color: "var(--ink)",
-            cursor: "pointer",
-            padding: "8px 12px",
-            borderRadius: "8px",
-            fontSize: "14px",
-            fontWeight: "500",
-          }}
-        >
-          ← Yesterday
-        </button>
-
-        <div style={{ textAlign: "center", flex: 1 }}>
-          <p className="view-title" style={{ marginTop: 0, marginBottom: 4 }}>
-            {formatLong(viewDateObj)}
-          </p>
-          {isToday && <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: 0 }}>
+    <div className="view" style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+      <div style={{ flex: 1, overflowY: "auto" }}>
+        <div style={{ padding: "16px 12px 12px" }}>
+          <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12, color: "var(--ink)" }}>
             Today
-          </p>}
-          {!isToday && <p style={{ fontSize: 12, color: "var(--ink-soft)", margin: 0 }}>
-            {isFuture ? "Future" : "Past"}
-          </p>}
-        </div>
+          </h2>
 
-        <button
-          onClick={handleNextDay}
-          disabled={isFuture}
-          style={{
-            background: "none",
-            border: isFuture ? "1px solid var(--line-strong)" : "1px solid var(--line)",
-            color: isFuture ? "var(--ink-faint)" : "var(--ink)",
-            cursor: isFuture ? "not-allowed" : "pointer",
-            padding: "8px 12px",
-            borderRadius: "8px",
-            fontSize: "14px",
-            fontWeight: "500",
-            opacity: isFuture ? 0.5 : 1,
-          }}
-        >
-          Tomorrow →
-        </button>
+          <div
+            onClick={() => setEditingDate(today)}
+            style={{
+              background: editingDate === today ? "var(--accent-wash)" : "var(--paper-2)",
+              border: editingDate === today ? "1px solid var(--accent)" : "1px solid var(--line)",
+              borderRadius: "12px",
+              padding: "12px",
+              cursor: "pointer",
+              transition: "all 150ms",
+              marginBottom: 16,
+            }}
+          >
+            <div style={{ fontSize: 12, fontWeight: 600, color: "var(--accent)", marginBottom: 6 }}>
+              {formatLong(new Date())}
+            </div>
+            <div
+              style={{
+                fontSize: 13,
+                color: data.notes[today] ? "var(--ink)" : "var(--ink-faint)",
+                lineHeight: 1.4,
+                maxHeight: 60,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+              }}
+            >
+              {data.notes[today] || "No entry yet. Click to write..."}
+            </div>
+          </div>
+
+          {pastDates.length > 0 && (
+            <>
+              <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12, color: "var(--ink)" }}>
+                Past Entries
+              </h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {pastDates.map((date) => (
+                  <div
+                    key={date}
+                    onClick={() => setEditingDate(date)}
+                    style={{
+                      background: editingDate === date ? "var(--accent-wash)" : "var(--paper-2)",
+                      border: editingDate === date ? "1px solid var(--accent)" : "1px solid var(--line)",
+                      borderLeft: "3px solid var(--accent)",
+                      borderRadius: "8px",
+                      padding: "12px",
+                      cursor: "pointer",
+                      transition: "all 150ms",
+                    }}
+                  >
+                    <div style={{ fontSize: 12, fontWeight: 600, color: "var(--accent)", marginBottom: 4 }}>
+                      {formatLong(fromKey(date))}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 12,
+                        color: data.notes[date] ? "var(--ink-soft)" : "var(--ink-faint)",
+                        lineHeight: 1.4,
+                        maxHeight: 50,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                      }}
+                    >
+                      {data.notes[date] || "Empty entry"}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
-      <textarea
-        value={note}
-        onChange={(e) => api.setNote(viewDate, e.target.value)}
-        placeholder={isToday ? "Write your thoughts for today..." : "View notes from this day..."}
-        className="note-textarea"
-        disabled={isFuture}
-        style={{
-          width: "100%",
-          height: "calc(100vh - 280px)",
-          padding: "12px",
-          border: `1px solid var(--line)`,
-          borderRadius: "var(--radius)",
-          fontSize: "15px",
-          fontFamily: "inherit",
-          color: "var(--ink)",
-          backgroundColor: "var(--paper)",
-          resize: "none",
-          boxSizing: "border-box",
-          opacity: isFuture ? 0.6 : 1,
-          cursor: isFuture ? "not-allowed" : "text",
-        }}
-      />
+      <div style={{ borderTop: "1px solid var(--line)", padding: "12px", background: "var(--paper-2)" }}>
+        <p style={{ fontSize: 12, color: "var(--ink-soft)", marginBottom: 8, margin: 0 }}>
+          {editingDate === today ? "Today's Entry" : formatLong(fromKey(editingDate))}
+        </p>
+        <textarea
+          value={editingNote}
+          onChange={(e) => api.setNote(editingDate, e.target.value)}
+          placeholder="Write your thoughts..."
+          style={{
+            width: "100%",
+            height: 120,
+            padding: "12px",
+            border: "1px solid var(--line)",
+            borderRadius: "8px",
+            fontSize: "14px",
+            fontFamily: "inherit",
+            color: "var(--ink)",
+            backgroundColor: "var(--paper)",
+            resize: "none",
+            boxSizing: "border-box",
+          }}
+        />
+      </div>
     </div>
   );
 }
