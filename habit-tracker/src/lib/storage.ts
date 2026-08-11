@@ -9,6 +9,7 @@ const EMPTY: AppData = {
   notes: {},
   workoutEntries: [],
   bodyWeight: {},
+  workoutFocus: {},
 };
 
 /** Load app data from localStorage, tolerating missing or corrupted data. */
@@ -111,7 +112,16 @@ function normalize(data: unknown): AppData {
     }
   }
 
-  return { habits, completions, todos, notes, workoutEntries, bodyWeight };
+  const workoutFocus: AppData["workoutFocus"] = {};
+  if (d.workoutFocus && typeof d.workoutFocus === "object") {
+    for (const [date, text] of Object.entries(d.workoutFocus)) {
+      if (typeof text === "string") {
+        workoutFocus[date] = text;
+      }
+    }
+  }
+
+  return { habits, completions, todos, notes, workoutEntries, bodyWeight, workoutFocus };
 }
 
 let timer: ReturnType<typeof setTimeout> | undefined;

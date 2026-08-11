@@ -163,6 +163,27 @@ function DaySection({ api }: { api: AppApi }) {
         }}
       >
         <p style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-soft)", margin: "0 0 10px" }}>
+          FOCUS
+        </p>
+        <input
+          className="workout-name-input"
+          style={{ marginBottom: 0 }}
+          type="text"
+          placeholder="e.g. Chest & Back, Legs, Push Day"
+          value={data.workoutFocus[selectedDate] || ""}
+          onChange={(e) => api.setWorkoutFocus(selectedDate, e.target.value)}
+        />
+      </div>
+
+      <div
+        style={{
+          border: "1px solid var(--line)",
+          borderRadius: 12,
+          padding: 14,
+          marginBottom: 14,
+        }}
+      >
+        <p style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-soft)", margin: "0 0 10px" }}>
           BODY WEIGHT
         </p>
         <div className="workout-add-row" style={{ marginBottom: 0 }}>

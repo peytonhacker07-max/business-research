@@ -26,6 +26,7 @@ export interface AppApi {
   addWorkoutEntry: (date: string, exercise: string, sets: number, reps: number, weight: number) => void;
   deleteWorkoutEntry: (id: string) => void;
   setBodyWeight: (date: string, weight: number) => void;
+  setWorkoutFocus: (date: string, text: string) => void;
 }
 
 export function useAppData(): AppApi {
@@ -216,6 +217,18 @@ export function useAppData(): AppApi {
     setData((d) => ({ ...d, bodyWeight: { ...d.bodyWeight, [date]: weight } }));
   }, []);
 
+  const setWorkoutFocus = useCallback((date: string, text: string) => {
+    setData((d) => {
+      const workoutFocus = { ...d.workoutFocus };
+      if (text) {
+        workoutFocus[date] = text;
+      } else {
+        delete workoutFocus[date];
+      }
+      return { ...d, workoutFocus };
+    });
+  }, []);
+
   return {
     data,
     today,
@@ -232,5 +245,6 @@ export function useAppData(): AppApi {
     addWorkoutEntry,
     deleteWorkoutEntry,
     setBodyWeight,
+    setWorkoutFocus,
   };
 }

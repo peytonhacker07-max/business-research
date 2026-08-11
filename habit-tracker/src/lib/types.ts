@@ -56,6 +56,8 @@ export interface AppData {
   workoutEntries: WorkoutEntry[];
   /** Map of date (YYYY-MM-DD) -> body weight in lb. */
   bodyWeight: Record<string, number>;
+  /** Map of date (YYYY-MM-DD) -> what the workout focused on, e.g. "Chest & Back". */
+  workoutFocus: Record<string, string>;
 }
 
 export type ViewName = "today" | "analytics" | "todos" | "notes" | "workout";
