@@ -10,8 +10,8 @@ export default function NotesView({ api }: { api: AppApi }) {
   const pastDates = lastNDays(30).filter((d) => d < today).reverse();
 
   return (
-    <div className="view" style={{ display: "flex", flexDirection: "column", gap: 0, padding: 0 }}>
-      <div style={{ padding: "12px", borderBottom: "1px solid var(--line)", background: "var(--paper-2)" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", gap: 0, padding: 0 }}>
+      <div style={{ padding: "12px", borderBottom: "1px solid var(--line)", background: "var(--paper-2)", flexShrink: 0 }}>
         <p style={{ fontSize: 12, color: "var(--ink-soft)", marginBottom: 8, margin: 0 }}>
           {editingDate === today ? "Today's Entry" : formatLong(fromKey(editingDate))}
         </p>
