@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { AppApi } from "../lib/useAppData";
-import { fromKey, monthShort } from "../lib/dates";
+import { fromKey, formatLong, monthShort } from "../lib/dates";
 import { PlusIcon } from "./Icons";
 
 type SubView = "log" | "progress" | "weight";
@@ -76,6 +76,18 @@ function LogSection({ api }: { api: AppApi }) {
     .filter((w) => w.date === today)
     .sort((a, b) => a.order - b.order);
 
+  const pastByDate = useMemo(() => {
+    const map = new Map<string, typeof data.workoutEntries>();
+    for (const w of data.workoutEntries) {
+      if (w.date === today) continue;
+      if (!map.has(w.date)) map.set(w.date, []);
+      map.get(w.date)!.push(w);
+    }
+    return Array.from(map.entries())
+      .sort((a, b) => (a[0] < b[0] ? 1 : a[0] > b[0] ? -1 : 0))
+      .slice(0, 14);
+  }, [data.workoutEntries, today]);
+
   const handleAdd = () => {
     const name = exercise.trim();
     const s = parseInt(sets, 10);
@@ -142,6 +154,48 @@ function LogSection({ api }: { api: AppApi }) {
             </button>
           </div>
         ))
+      )}
+
+      {pastByDate.length > 0 && (
+        <>
+          <p style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-soft)", margin: "18px 0 8px" }}>
+            PAST SESSIONS
+          </p>
+          {pastByDate.map(([date, entries]) => (
+            <div
+              key={date}
+              style={{
+                border: "1px solid var(--line)",
+                borderRadius: 12,
+                padding: 12,
+                marginBottom: 8,
+              }}
+            >
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--accent)", marginBottom: 6 }}>
+                {formatLong(fromKey(date))}
+              </div>
+              {[...entries]
+                .sort((a, b) => a.order - b.order)
+                .map((e) => (
+                  <div
+                    key={e.id}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: 8,
+                      fontSize: 13,
+                      padding: "4px 0",
+                    }}
+                  >
+                    <span>{e.exercise}</span>
+                    <span className="mono" style={{ color: "var(--ink-soft)", flexShrink: 0 }}>
+                      {e.sets} × {e.reps} @ {e.weight} lb
+                    </span>
+                  </div>
+                ))}
+            </div>
+          ))}
+        </>
       )}
     </div>
   );
