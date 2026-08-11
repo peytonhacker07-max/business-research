@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { AppApi } from "../lib/useAppData";
-import { fromKey, formatLong, monthShort } from "../lib/dates";
-import { PlusIcon } from "./Icons";
+import { addDays, fromKey, formatLong, monthShort, toKey } from "../lib/dates";
+import { ChevronDownIcon, PlusIcon } from "./Icons";
 
-type SubView = "log" | "progress" | "weight";
+type SubView = "day" | "progress";
 
 /** Hand-rolled SVG line chart for an arbitrary labeled value series. */
 function SimpleLineChart({ series }: { series: { label: string; value: number }[] }) {
@@ -65,28 +65,26 @@ function SimpleLineChart({ series }: { series: { label: string; value: number }[
   );
 }
 
-function LogSection({ api }: { api: AppApi }) {
+/** Calendar-style day view: pick a date, log weight + exercises for it, page back through history. */
+function DaySection({ api }: { api: AppApi }) {
   const { data, today } = api;
+  const [selectedDate, setSelectedDate] = useState(today);
+  const isToday = selectedDate === today;
+
+  const goPrev = () => setSelectedDate(toKey(addDays(fromKey(selectedDate), -1)));
+  const goNext = () => {
+    if (isToday) return;
+    setSelectedDate(toKey(addDays(fromKey(selectedDate), 1)));
+  };
+
+  const entries = data.workoutEntries
+    .filter((w) => w.date === selectedDate)
+    .sort((a, b) => a.order - b.order);
+
   const [exercise, setExercise] = useState("");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
-
-  const todayEntries = data.workoutEntries
-    .filter((w) => w.date === today)
-    .sort((a, b) => a.order - b.order);
-
-  const pastByDate = useMemo(() => {
-    const map = new Map<string, typeof data.workoutEntries>();
-    for (const w of data.workoutEntries) {
-      if (w.date === today) continue;
-      if (!map.has(w.date)) map.set(w.date, []);
-      map.get(w.date)!.push(w);
-    }
-    return Array.from(map.entries())
-      .sort((a, b) => (a[0] < b[0] ? 1 : a[0] > b[0] ? -1 : 0))
-      .slice(0, 14);
-  }, [data.workoutEntries, today]);
 
   const handleAdd = () => {
     const name = exercise.trim();
@@ -94,109 +92,154 @@ function LogSection({ api }: { api: AppApi }) {
     const r = parseInt(reps, 10);
     const w = parseFloat(weight);
     if (!name || !s || !r || !w) return;
-    api.addWorkoutEntry(name, s, r, w);
+    api.addWorkoutEntry(selectedDate, name, s, r, w);
     setExercise("");
     setSets("");
     setReps("");
     setWeight("");
   };
 
+  const [weightInput, setWeightInput] = useState("");
+  useEffect(() => {
+    const w = data.bodyWeight[selectedDate];
+    setWeightInput(w ? String(w) : "");
+  }, [selectedDate, data.bodyWeight]);
+
+  const handleSaveWeight = () => {
+    const w = parseFloat(weightInput);
+    if (!w) return;
+    api.setBodyWeight(selectedDate, w);
+  };
+
   return (
     <div>
-      <input
-        className="workout-name-input"
-        type="text"
-        placeholder="Exercise name"
-        value={exercise}
-        onChange={(e) => setExercise(e.target.value)}
-      />
-      <div className="workout-add-row">
-        <input
-          type="number"
-          placeholder="Sets"
-          value={sets}
-          onChange={(e) => setSets(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Reps"
-          value={reps}
-          onChange={(e) => setReps(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Lb"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-        />
-      </div>
-      <button className="btn primary block" onClick={handleAdd} style={{ marginBottom: 18 }}>
-        <PlusIcon className="" />
-        Add Exercise
-      </button>
-
-      {todayEntries.length === 0 ? (
-        <div className="empty">
-          <h2>No exercises logged</h2>
-          <p>Add your first lift above to start today's session.</p>
-        </div>
-      ) : (
-        todayEntries.map((entry) => (
-          <div key={entry.id} className="habit-row" style={{ marginBottom: 8 }}>
-            <div className="habit-body">
-              <div className="habit-name">{entry.exercise}</div>
-              <div className="habit-streak mono">
-                {entry.sets} × {entry.reps} @ {entry.weight} lb
-              </div>
-            </div>
-            <button className="icon-btn" onClick={() => api.deleteWorkoutEntry(entry.id)}>
-              <span style={{ fontSize: 14, lineHeight: 1 }}>×</span>
-            </button>
-          </div>
-        ))
-      )}
-
-      {pastByDate.length > 0 && (
-        <>
-          <p style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-soft)", margin: "18px 0 8px" }}>
-            PAST SESSIONS
-          </p>
-          {pastByDate.map(([date, entries]) => (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 18,
+        }}
+      >
+        <button className="icon-btn" onClick={goPrev} style={{ width: 32, height: 32 }}>
+          <span style={{ display: "flex", transform: "rotate(90deg)" }}>
+            <ChevronDownIcon className="" />
+          </span>
+        </button>
+        <div style={{ textAlign: "center" }}>
+          {isToday && (
             <div
-              key={date}
               style={{
-                border: "1px solid var(--line)",
-                borderRadius: 12,
-                padding: 12,
-                marginBottom: 8,
+                fontSize: 11,
+                fontWeight: 700,
+                color: "var(--accent)",
+                letterSpacing: "0.06em",
+                marginBottom: 2,
               }}
             >
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--accent)", marginBottom: 6 }}>
-                {formatLong(fromKey(date))}
-              </div>
-              {[...entries]
-                .sort((a, b) => a.order - b.order)
-                .map((e) => (
-                  <div
-                    key={e.id}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: 8,
-                      fontSize: 13,
-                      padding: "4px 0",
-                    }}
-                  >
-                    <span>{e.exercise}</span>
-                    <span className="mono" style={{ color: "var(--ink-soft)", flexShrink: 0 }}>
-                      {e.sets} × {e.reps} @ {e.weight} lb
-                    </span>
-                  </div>
-                ))}
+              TODAY
             </div>
-          ))}
-        </>
-      )}
+          )}
+          <div style={{ fontSize: 17, fontWeight: 700 }}>{formatLong(fromKey(selectedDate))}</div>
+        </div>
+        <button
+          className="icon-btn"
+          onClick={goNext}
+          disabled={isToday}
+          style={{ width: 32, height: 32 }}
+        >
+          <span style={{ display: "flex", transform: "rotate(-90deg)" }}>
+            <ChevronDownIcon className="" />
+          </span>
+        </button>
+      </div>
+
+      <div
+        style={{
+          border: "1px solid var(--line)",
+          borderRadius: 12,
+          padding: 14,
+          marginBottom: 14,
+        }}
+      >
+        <p style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-soft)", margin: "0 0 10px" }}>
+          BODY WEIGHT
+        </p>
+        <div className="workout-add-row" style={{ marginBottom: 0 }}>
+          <input
+            type="number"
+            step="0.1"
+            placeholder="Weight (lb)"
+            value={weightInput}
+            onChange={(e) => setWeightInput(e.target.value)}
+            style={{ flex: 3, textAlign: "left" }}
+          />
+          <button className="btn primary" style={{ flex: 1, padding: 0 }} onClick={handleSaveWeight}>
+            Save
+          </button>
+        </div>
+      </div>
+
+      <div style={{ border: "1px solid var(--line)", borderRadius: 12, padding: 14 }}>
+        <p style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-soft)", margin: "0 0 10px" }}>
+          WORKOUT
+        </p>
+        <input
+          className="workout-name-input"
+          type="text"
+          placeholder="Exercise name"
+          value={exercise}
+          onChange={(e) => setExercise(e.target.value)}
+        />
+        <div className="workout-add-row">
+          <input
+            type="number"
+            placeholder="Sets"
+            value={sets}
+            onChange={(e) => setSets(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Reps"
+            value={reps}
+            onChange={(e) => setReps(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Lb"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+          />
+        </div>
+        <button className="btn primary block" onClick={handleAdd} style={{ marginBottom: entries.length ? 14 : 0 }}>
+          <PlusIcon className="" />
+          Add Exercise
+        </button>
+
+        {entries.length === 0 ? (
+          <p style={{ fontSize: 13, color: "var(--ink-faint)", textAlign: "center", margin: 0 }}>
+            Nothing logged {isToday ? "yet today" : "for this day"}.
+          </p>
+        ) : (
+          entries.map((entry, i) => (
+            <div
+              key={entry.id}
+              className="habit-row"
+              style={{ marginBottom: i === entries.length - 1 ? 0 : 8 }}
+            >
+              <div className="habit-body">
+                <div className="habit-name">{entry.exercise}</div>
+                <div className="habit-streak mono">
+                  {entry.sets} × {entry.reps} @ {entry.weight} lb
+                </div>
+              </div>
+              <button className="icon-btn" onClick={() => api.deleteWorkoutEntry(entry.id)}>
+                <span style={{ fontSize: 14, lineHeight: 1 }}>×</span>
+              </button>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
@@ -216,7 +259,7 @@ function ProgressSection({ api }: { api: AppApi }) {
     return (
       <div className="empty">
         <h2>No progress yet</h2>
-        <p>Log a few sessions in the Log tab and your chart will show up here.</p>
+        <p>Log a few sessions in the Day tab and your chart will show up here.</p>
       </div>
     );
   }
@@ -274,76 +317,13 @@ function ProgressSection({ api }: { api: AppApi }) {
   );
 }
 
-function WeightSection({ api }: { api: AppApi }) {
-  const { data, today } = api;
-  const [input, setInput] = useState<string>(() =>
-    data.bodyWeight[today] ? String(data.bodyWeight[today]) : "",
-  );
-
-  const entries = Object.entries(data.bodyWeight).sort((a, b) =>
-    a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0,
-  );
-  const series = entries.map(([date, value]) => {
-    const d = fromKey(date);
-    return { label: `${monthShort(d.getMonth())} ${d.getDate()}`, value };
-  });
-  const recent = [...entries].reverse().slice(0, 10);
-
-  const handleSave = () => {
-    const w = parseFloat(input);
-    if (!w) return;
-    api.setBodyWeight(today, w);
-  };
-
-  return (
-    <div>
-      <div className="workout-add-row">
-        <input
-          type="number"
-          step="0.1"
-          placeholder="Today's weight (lb)"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          style={{ flex: 3, textAlign: "left" }}
-        />
-        <button className="btn primary" style={{ flex: 1, padding: 0 }} onClick={handleSave}>
-          Save
-        </button>
-      </div>
-
-      {series.length > 0 && (
-        <div className="chart-card">
-          <h3>Body Weight</h3>
-          <SimpleLineChart series={series} />
-        </div>
-      )}
-
-      {recent.length > 0 && (
-        <div className="weight-card">
-          {recent.map(([date, w]) => {
-            const d = fromKey(date);
-            return (
-              <div key={date} className="weight-log-row">
-                <span className="d">
-                  {monthShort(d.getMonth())} {d.getDate()}
-                </span>
-                <span className="w mono">{w} lb</span>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
-
 export default function WorkoutView({ api }: { api: AppApi }) {
-  const [sub, setSub] = useState<SubView>("log");
+  const [sub, setSub] = useState<SubView>("day");
 
   return (
     <div className="view">
       <div className="range-tabs" role="tablist" aria-label="Workout section">
-        {(["log", "progress", "weight"] as SubView[]).map((s) => (
+        {(["day", "progress"] as SubView[]).map((s) => (
           <button
             key={s}
             role="tab"
@@ -351,14 +331,13 @@ export default function WorkoutView({ api }: { api: AppApi }) {
             className={sub === s ? "active" : ""}
             onClick={() => setSub(s)}
           >
-            {s === "log" ? "Log" : s === "progress" ? "Progress" : "Weight"}
+            {s === "day" ? "Day" : "Progress"}
           </button>
         ))}
       </div>
 
-      {sub === "log" && <LogSection api={api} />}
+      {sub === "day" && <DaySection api={api} />}
       {sub === "progress" && <ProgressSection api={api} />}
-      {sub === "weight" && <WeightSection api={api} />}
     </div>
   );
 }

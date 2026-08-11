@@ -23,7 +23,7 @@ export interface AppApi {
   toggleTodo: (id: string) => void;
   reorderTodos: (id: string, dir: -1 | 1) => void;
   setNote: (date: string, content: string) => void;
-  addWorkoutEntry: (exercise: string, sets: number, reps: number, weight: number) => void;
+  addWorkoutEntry: (date: string, exercise: string, sets: number, reps: number, weight: number) => void;
   deleteWorkoutEntry: (id: string) => void;
   setBodyWeight: (date: string, weight: number) => void;
 }
@@ -187,12 +187,12 @@ export function useAppData(): AppApi {
   }, []);
 
   const addWorkoutEntry = useCallback(
-    (exercise: string, sets: number, reps: number, weight: number) => {
+    (date: string, exercise: string, sets: number, reps: number, weight: number) => {
       setData((d) => {
         const maxOrder = d.workoutEntries.reduce((m, w) => Math.max(m, w.order), -1);
         const entry: WorkoutEntry = {
           id: uid(),
-          date: todayKey(),
+          date,
           exercise: exercise.trim(),
           sets,
           reps,
