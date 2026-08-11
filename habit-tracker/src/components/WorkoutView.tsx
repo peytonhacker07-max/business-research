@@ -244,6 +244,8 @@ function DaySection({ api }: { api: AppApi }) {
   );
 }
 
+const BODY_WEIGHT = "Body Weight";
+
 function ProgressSection({ api }: { api: AppApi }) {
   const { data } = api;
   const exercises = useMemo(() => {
@@ -252,41 +254,52 @@ function ProgressSection({ api }: { api: AppApi }) {
     return Array.from(names).sort((a, b) => a.localeCompare(b));
   }, [data.workoutEntries]);
 
-  const [selected, setSelected] = useState<string>("");
-  const activeExercise = exercises.includes(selected) ? selected : exercises[0] ?? "";
+  const options = [BODY_WEIGHT, ...exercises];
+  const [selected, setSelected] = useState<string>(BODY_WEIGHT);
+  const active = options.includes(selected) ? selected : options[0];
+  const isWeight = active === BODY_WEIGHT;
 
-  if (exercises.length === 0) {
+  const series = useMemo(() => {
+    if (isWeight) {
+      return Object.entries(data.bodyWeight)
+        .sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
+        .map(([date, value]) => {
+          const d = fromKey(date);
+          return { label: `${monthShort(d.getMonth())} ${d.getDate()}`, value };
+        });
+    }
+    const byDate = new Map<string, number>();
+    for (const e of data.workoutEntries) {
+      if (e.exercise !== active) continue;
+      byDate.set(e.date, Math.max(byDate.get(e.date) ?? 0, e.weight));
+    }
+    return Array.from(byDate.entries())
+      .sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
+      .map(([date, value]) => {
+        const d = fromKey(date);
+        return { label: `${monthShort(d.getMonth())} ${d.getDate()}`, value };
+      });
+  }, [isWeight, active, data.bodyWeight, data.workoutEntries]);
+
+  if (exercises.length === 0 && Object.keys(data.bodyWeight).length === 0) {
     return (
       <div className="empty">
         <h2>No progress yet</h2>
-        <p>Log a few sessions in the Day tab and your chart will show up here.</p>
+        <p>Log your weight or an exercise in the Day tab and your chart will show up here.</p>
       </div>
     );
   }
 
-  const entriesForExercise = data.workoutEntries
-    .filter((w) => w.exercise === activeExercise)
-    .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
-
-  const byDate = new Map<string, number>();
-  for (const e of entriesForExercise) {
-    byDate.set(e.date, Math.max(byDate.get(e.date) ?? 0, e.weight));
-  }
-  const series = Array.from(byDate.entries()).map(([date, value]) => {
-    const d = fromKey(date);
-    return { label: `${monthShort(d.getMonth())} ${d.getDate()}`, value };
-  });
-
-  const currentMax = series[series.length - 1]?.value ?? 0;
-  const allTimePR = Math.max(...series.map((s) => s.value));
+  const current = series[series.length - 1]?.value ?? 0;
 
   return (
     <div>
       <select
         className="exercise-select"
-        value={activeExercise}
+        value={active}
         onChange={(e) => setSelected(e.target.value)}
       >
+        <option value={BODY_WEIGHT}>Body Weight</option>
         {exercises.map((ex) => (
           <option key={ex} value={ex}>
             {ex}
@@ -294,25 +307,60 @@ function ProgressSection({ api }: { api: AppApi }) {
         ))}
       </select>
 
-      <div className="chart-card">
-        <h3>{activeExercise} — Max Weight</h3>
-        <SimpleLineChart series={series} />
-      </div>
+      {series.length === 0 ? (
+        <div className="empty">
+          <h2>Nothing logged yet</h2>
+          <p>
+            {isWeight
+              ? "Log your weight in the Day tab to start this chart."
+              : `Log a "${active}" session in the Day tab to start this chart.`}
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className="chart-card">
+            <h3>{isWeight ? "Body Weight" : `${active} — Max Weight`}</h3>
+            <SimpleLineChart series={series} />
+          </div>
 
-      <div className="stat-grid">
-        <div className="stat-box">
-          <div className="stat-num mono">{currentMax} lb</div>
-          <div className="stat-cap">Current max</div>
-        </div>
-        <div className="stat-box">
-          <div className="stat-num mono">{allTimePR} lb</div>
-          <div className="stat-cap">All-time PR</div>
-        </div>
-        <div className="stat-box">
-          <div className="stat-num mono">{series.length}</div>
-          <div className="stat-cap">Sessions logged</div>
-        </div>
-      </div>
+          {isWeight ? (
+            <div className="stat-grid">
+              <div className="stat-box">
+                <div className="stat-num mono">{current} lb</div>
+                <div className="stat-cap">Current</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-num mono">
+                  {(() => {
+                    const change = Math.round((current - series[0].value) * 10) / 10;
+                    return `${change > 0 ? "+" : ""}${change} lb`;
+                  })()}
+                </div>
+                <div className="stat-cap">Since {series[0].label}</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-num mono">{series.length}</div>
+                <div className="stat-cap">Entries logged</div>
+              </div>
+            </div>
+          ) : (
+            <div className="stat-grid">
+              <div className="stat-box">
+                <div className="stat-num mono">{current} lb</div>
+                <div className="stat-cap">Current max</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-num mono">{Math.max(...series.map((s) => s.value))} lb</div>
+                <div className="stat-cap">All-time PR</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-num mono">{series.length}</div>
+                <div className="stat-cap">Sessions logged</div>
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
