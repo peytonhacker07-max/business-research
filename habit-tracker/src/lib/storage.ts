@@ -2,7 +2,14 @@ import type { AppData } from "./types";
 
 const STORAGE_KEY = "daily.habit-tracker.v1";
 
-const EMPTY: AppData = { habits: [], completions: {}, todos: [], notes: {} };
+const EMPTY: AppData = {
+  habits: [],
+  completions: {},
+  todos: [],
+  notes: {},
+  workoutEntries: [],
+  bodyWeight: {},
+};
 
 /** Load app data from localStorage, tolerating missing or corrupted data. */
 export function loadData(): AppData {
@@ -75,7 +82,36 @@ function normalize(data: unknown): AppData {
     }
   }
 
-  return { habits, completions, todos, notes };
+  const workoutEntries = Array.isArray(d.workoutEntries)
+    ? d.workoutEntries
+        .filter(
+          (w) =>
+            w &&
+            typeof w.id === "string" &&
+            typeof w.date === "string" &&
+            typeof w.exercise === "string",
+        )
+        .map((w, i) => ({
+          id: w.id,
+          date: w.date,
+          exercise: w.exercise,
+          sets: typeof w.sets === "number" ? w.sets : 0,
+          reps: typeof w.reps === "number" ? w.reps : 0,
+          weight: typeof w.weight === "number" ? w.weight : 0,
+          order: typeof w.order === "number" ? w.order : i,
+        }))
+    : [];
+
+  const bodyWeight: AppData["bodyWeight"] = {};
+  if (d.bodyWeight && typeof d.bodyWeight === "object") {
+    for (const [date, w] of Object.entries(d.bodyWeight)) {
+      if (typeof w === "number") {
+        bodyWeight[date] = w;
+      }
+    }
+  }
+
+  return { habits, completions, todos, notes, workoutEntries, bodyWeight };
 }
 
 let timer: ReturnType<typeof setTimeout> | undefined;

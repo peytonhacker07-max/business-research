@@ -34,6 +34,17 @@ export interface Todo {
   order: number;
 }
 
+/** One logged set-group for an exercise on a given day. */
+export interface WorkoutEntry {
+  id: string;
+  date: string; // YYYY-MM-DD
+  exercise: string;
+  sets: number;
+  reps: number;
+  weight: number; // lb
+  order: number;
+}
+
 export interface AppData {
   habits: Habit[];
   /** Map of `${habitId}|${date}` -> Completion. Only `completed: true` entries kept. */
@@ -42,6 +53,9 @@ export interface AppData {
   todos: Todo[];
   /** Map of date (YYYY-MM-DD) -> note content. */
   notes: Record<string, string>;
+  workoutEntries: WorkoutEntry[];
+  /** Map of date (YYYY-MM-DD) -> body weight in lb. */
+  bodyWeight: Record<string, number>;
 }
 
-export type ViewName = "today" | "analytics" | "todos" | "notes";
+export type ViewName = "today" | "analytics" | "todos" | "notes" | "workout";

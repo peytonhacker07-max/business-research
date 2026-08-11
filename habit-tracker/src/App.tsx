@@ -6,6 +6,7 @@ import TodayView from "./components/TodayView";
 import AnalyticsView from "./components/AnalyticsView";
 import TaskView from "./components/TaskView";
 import NotesView from "./components/NotesView";
+import WorkoutView from "./components/WorkoutView";
 import ThemeToggle from "./components/ThemeToggle";
 import ColorSchemeSelector from "./components/ColorSchemeSelector";
 
@@ -30,7 +31,9 @@ export default function App() {
               ? "Analytics"
               : view === "todos"
                 ? "Task List"
-                : "Journal"}
+                : view === "notes"
+                  ? "Journal"
+                  : "Workout"}
         </h1>
       </header>
 
@@ -38,6 +41,7 @@ export default function App() {
       {view === "analytics" && <AnalyticsView api={api} />}
       {view === "todos" && <TaskView api={api} />}
       {view === "notes" && <NotesView api={api} />}
+      {view === "workout" && <WorkoutView api={api} />}
 
       <Nav view={view} onChange={setView} />
     </div>

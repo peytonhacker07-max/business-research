@@ -732,6 +732,77 @@ textarea {
   font-weight: 600;
 }
 
+/* ---------- Workout ---------- */
+
+.workout-name-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  margin-bottom: 8px;
+}
+.workout-name-input::placeholder {
+  color: var(--ink-faint);
+}
+.workout-add-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.workout-add-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  text-align: center;
+}
+.workout-add-row input::placeholder {
+  color: var(--ink-faint);
+}
+
+.exercise-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  margin-bottom: 14px;
+}
+
+.weight-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 4px 14px;
+}
+.weight-log-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.weight-log-row:last-child {
+  border-bottom: none;
+}
+.weight-log-row .d {
+  color: var(--ink-soft);
+}
+.weight-log-row .w {
+  font-weight: 600;
+}
+
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
