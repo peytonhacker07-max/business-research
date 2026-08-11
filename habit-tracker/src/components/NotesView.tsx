@@ -10,8 +10,9 @@ export default function NotesView({ api }: { api: AppApi }) {
   const pastDates = lastNDays(30).filter((d) => d < today).reverse();
 
   return (
-    <div className="view" style={{ display: "flex", flexDirection: "column", gap: 0, margin: 0, padding: "0 0 96px 0" }}>
-      <div style={{ padding: "12px", borderBottom: "1px solid var(--line)", background: "var(--paper-2)", flexShrink: 0 }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh", paddingBottom: 96 }}>
+      {/* Editor always at top */}
+      <div style={{ padding: "12px", borderBottom: "1px solid var(--line)", background: "var(--paper-2)" }}>
         <p style={{ fontSize: 12, color: "var(--ink-soft)", marginBottom: 8, margin: 0 }}>
           {editingDate === today ? "Today's Entry" : formatLong(fromKey(editingDate))}
         </p>
@@ -35,7 +36,8 @@ export default function NotesView({ api }: { api: AppApi }) {
         />
       </div>
 
-      <div style={{ flex: 1, overflowY: "auto", padding: "12px" }}>
+      {/* Past entries scrollable below */}
+      <div style={{ flex: 1, overflowY: "auto", padding: "12px", minHeight: 0 }}>
         <h2 style={{ fontSize: 14, fontWeight: 600, marginBottom: 10, color: "var(--ink)", marginTop: 0 }}>
           Today
         </h2>
