@@ -68,6 +68,102 @@ function SimpleLineChart({ series }: { series: { label: string; value: number }[
   );
 }
 
+/**
+ * In-page camera capture. Grabs a frame straight from the live video stream
+ * into a canvas — it never hands off to the native Camera app, so nothing
+ * is written to the device's camera roll / Photos library.
+ */
+function CameraCapture({
+  onCapture,
+  onClose,
+}: {
+  onCapture: (dataUrl: string) => void;
+  onClose: () => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    navigator.mediaDevices
+      .getUserMedia({ video: { facingMode: "environment" }, audio: false })
+      .then((stream) => {
+        if (cancelled) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
+        streamRef.current = stream;
+        if (videoRef.current) videoRef.current.srcObject = stream;
+      })
+      .catch(() => setError("Couldn't access the camera. Check camera permissions and try again."));
+    return () => {
+      cancelled = true;
+      streamRef.current?.getTracks().forEach((t) => t.stop());
+    };
+  }, []);
+
+  const handleCapture = () => {
+    const video = videoRef.current;
+    if (!video || video.videoWidth === 0) return;
+    const maxDim = 1280;
+    let width = video.videoWidth;
+    let height = video.videoHeight;
+    if (width > maxDim || height > maxDim) {
+      if (width > height) {
+        height = Math.round((height * maxDim) / width);
+        width = maxDim;
+      } else {
+        width = Math.round((width * maxDim) / height);
+        height = maxDim;
+      }
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.drawImage(video, 0, 0, width, height);
+    onCapture(canvas.toDataURL("image/jpeg", 0.85));
+  };
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()} style={{ padding: 12 }}>
+        {error ? (
+          <p style={{ fontSize: 14, color: "var(--danger)", margin: "8px 0 16px" }}>{error}</p>
+        ) : (
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            style={{
+              width: "100%",
+              borderRadius: 12,
+              display: "block",
+              marginBottom: 12,
+              background: "#000",
+              aspectRatio: "3 / 4",
+              objectFit: "cover",
+            }}
+          />
+        )}
+        <div className="modal-actions">
+          <button className="btn ghost" onClick={onClose}>
+            Cancel
+          </button>
+          {!error && (
+            <button className="btn primary" onClick={handleCapture}>
+              Capture
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /** Calendar-style day view: pick a date, log weight + exercises for it, page back through history. */
 function DaySection({ api }: { api: AppApi }) {
   const { data, today } = api;
@@ -138,6 +234,7 @@ function DaySection({ api }: { api: AppApi }) {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [viewingPhoto, setViewingPhoto] = useState<Photo | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -168,6 +265,12 @@ function DaySection({ api }: { api: AppApi }) {
     await deletePhoto(id);
     setPhotos((prev) => prev.filter((p) => p.id !== id));
     setViewingPhoto(null);
+  };
+
+  const handleCameraCapture = async (dataUrl: string) => {
+    setShowCamera(false);
+    const photo = await addPhoto(selectedDate, dataUrl);
+    setPhotos((prev) => [...prev, photo]);
   };
 
   return (
@@ -384,7 +487,7 @@ function DaySection({ api }: { api: AppApi }) {
             </button>
           ))}
           <button
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => setShowCamera(true)}
             disabled={uploading}
             style={{
               flexShrink: 0,
@@ -404,15 +507,36 @@ function DaySection({ api }: { api: AppApi }) {
             </span>
           </button>
         </div>
+        <p style={{ fontSize: 11, color: "var(--ink-faint)", margin: "6px 0 0" }}>
+          Taken in-app — never saved to your camera roll.{" "}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              font: "inherit",
+              fontSize: 11,
+              color: "var(--ink-soft)",
+              textDecoration: "underline",
+            }}
+          >
+            Choose from library instead
+          </button>
+        </p>
         <input
           ref={fileInputRef}
           type="file"
           accept="image/*"
-          capture="environment"
           style={{ display: "none" }}
           onChange={handlePhotoSelected}
         />
       </div>
+
+      {showCamera && (
+        <CameraCapture onCapture={handleCameraCapture} onClose={() => setShowCamera(false)} />
+      )}
 
       {viewingPhoto && (
         <div className="modal-backdrop" onClick={() => setViewingPhoto(null)}>
