@@ -3,8 +3,8 @@
 Mail-merge fields come straight from `tennessee_businesses_no_website.csv`:
 `{{business_name}}`, `{{category}}`, `{{city}}`, `{{google_rating}}`, `{{review_count}}`.
 
-Fill in `[PRICE]` and `[PHONE]` before sending — swap in whatever you've been
-quoting on the calls so the pitch matches what people already heard from you.
+Price and phone are filled in below ($699 flat, (253) 525-0831). Update both
+templates if either one changes.
 
 ---
 
@@ -33,7 +33,7 @@ I build simple, mobile-friendly websites for local businesses exactly like
 yours. Here's one I built recently so you can see the quality:
 https://peytonhacker07-max.github.io/business-research/website/
 
-Flat rate: [PRICE], one-time — no contracts, no monthly fees unless you want
+Flat rate: $699, one-time — no contracts, no monthly fees unless you want
 ongoing hosting/updates. I handle everything; you just approve the final
 site before it goes live.
 
@@ -41,7 +41,7 @@ Worth a quick reply, or I can call — what's easier for you this week?
 
 Thanks,
 Peyton
-[PHONE]
+(253) 525-0831
 ```
 
 ---
@@ -56,13 +56,13 @@ Hi again,
 Just floating this back up — no pressure either way. If a website for
 {{business_name}} isn't a priority right now, no worries at all.
 
-If it is, happy to build it this week for [PRICE] flat. Takes me a few
+If it is, happy to build it this week for $699 flat. Takes me a few
 days and you only pay once you're happy with it.
 
 Let me know either way — even a "not interested" helps me stop bugging you.
 
 Peyton
-[PHONE]
+(253) 525-0831
 ```
 
 ---
