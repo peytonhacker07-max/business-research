@@ -100,6 +100,7 @@ function normalize(data: unknown): AppData {
           reps: typeof w.reps === "number" ? w.reps : 0,
           weight: typeof w.weight === "number" ? w.weight : 0,
           order: typeof w.order === "number" ? w.order : i,
+          note: typeof w.note === "string" ? w.note : "",
         }))
     : [];
 

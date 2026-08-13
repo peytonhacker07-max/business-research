@@ -23,7 +23,14 @@ export interface AppApi {
   toggleTodo: (id: string) => void;
   reorderTodos: (id: string, dir: -1 | 1) => void;
   setNote: (date: string, content: string) => void;
-  addWorkoutEntry: (date: string, exercise: string, sets: number, reps: number, weight: number) => void;
+  addWorkoutEntry: (
+    date: string,
+    exercise: string,
+    sets: number,
+    reps: number,
+    weight: number,
+    note: string,
+  ) => void;
   deleteWorkoutEntry: (id: string) => void;
   setBodyWeight: (date: string, weight: number) => void;
   setWorkoutFocus: (date: string, text: string) => void;
@@ -188,7 +195,7 @@ export function useAppData(): AppApi {
   }, []);
 
   const addWorkoutEntry = useCallback(
-    (date: string, exercise: string, sets: number, reps: number, weight: number) => {
+    (date: string, exercise: string, sets: number, reps: number, weight: number, note: string) => {
       setData((d) => {
         const maxOrder = d.workoutEntries.reduce((m, w) => Math.max(m, w.order), -1);
         const entry: WorkoutEntry = {
@@ -199,6 +206,7 @@ export function useAppData(): AppApi {
           reps,
           weight,
           order: maxOrder + 1,
+          note: note.trim(),
         };
         return { ...d, workoutEntries: [...d.workoutEntries, entry] };
       });

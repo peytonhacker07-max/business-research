@@ -85,6 +85,7 @@ function DaySection({ api }: { api: AppApi }) {
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
+  const [note, setNote] = useState("");
 
   const handleAdd = () => {
     const name = exercise.trim();
@@ -92,11 +93,12 @@ function DaySection({ api }: { api: AppApi }) {
     const r = parseInt(reps, 10);
     const w = parseFloat(weight);
     if (!name || !s || !r || !w) return;
-    api.addWorkoutEntry(selectedDate, name, s, r, w);
+    api.addWorkoutEntry(selectedDate, name, s, r, w, note);
     setExercise("");
     setSets("");
     setReps("");
     setWeight("");
+    setNote("");
   };
 
   const [weightInput, setWeightInput] = useState("");
@@ -232,6 +234,13 @@ function DaySection({ api }: { api: AppApi }) {
             onChange={(e) => setWeight(e.target.value)}
           />
         </div>
+        <input
+          className="workout-name-input"
+          type="text"
+          placeholder="Notes (optional) — e.g. went to failure, partial reps"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        />
         <button className="btn primary block" onClick={handleAdd} style={{ marginBottom: entries.length ? 14 : 0 }}>
           <PlusIcon className="" />
           Add Exercise
@@ -253,6 +262,11 @@ function DaySection({ api }: { api: AppApi }) {
                 <div className="habit-streak mono">
                   {entry.sets} × {entry.reps} @ {entry.weight} lb
                 </div>
+                {entry.note && (
+                  <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 2, fontStyle: "italic" }}>
+                    {entry.note}
+                  </div>
+                )}
               </div>
               <button className="icon-btn" onClick={() => api.deleteWorkoutEntry(entry.id)}>
                 <span style={{ fontSize: 14, lineHeight: 1 }}>×</span>
@@ -266,6 +280,7 @@ function DaySection({ api }: { api: AppApi }) {
 }
 
 const BODY_WEIGHT = "Body Weight";
+type Metric = "weight" | "reps";
 
 function ProgressSection({ api }: { api: AppApi }) {
   const { data } = api;
@@ -280,6 +295,9 @@ function ProgressSection({ api }: { api: AppApi }) {
   const active = options.includes(selected) ? selected : options[0];
   const isWeight = active === BODY_WEIGHT;
 
+  const [metric, setMetric] = useState<Metric>("weight");
+  const activeMetric = isWeight ? "weight" : metric;
+
   const series = useMemo(() => {
     if (isWeight) {
       return Object.entries(data.bodyWeight)
@@ -292,7 +310,8 @@ function ProgressSection({ api }: { api: AppApi }) {
     const byDate = new Map<string, number>();
     for (const e of data.workoutEntries) {
       if (e.exercise !== active) continue;
-      byDate.set(e.date, Math.max(byDate.get(e.date) ?? 0, e.weight));
+      const val = activeMetric === "reps" ? e.reps : e.weight;
+      byDate.set(e.date, Math.max(byDate.get(e.date) ?? 0, val));
     }
     return Array.from(byDate.entries())
       .sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
@@ -300,7 +319,7 @@ function ProgressSection({ api }: { api: AppApi }) {
         const d = fromKey(date);
         return { label: `${monthShort(d.getMonth())} ${d.getDate()}`, value };
       });
-  }, [isWeight, active, data.bodyWeight, data.workoutEntries]);
+  }, [isWeight, active, activeMetric, data.bodyWeight, data.workoutEntries]);
 
   if (exercises.length === 0 && Object.keys(data.bodyWeight).length === 0) {
     return (
@@ -328,6 +347,22 @@ function ProgressSection({ api }: { api: AppApi }) {
         ))}
       </select>
 
+      {!isWeight && (
+        <div className="range-tabs" role="tablist" aria-label="Metric">
+          {(["weight", "reps"] as Metric[]).map((m) => (
+            <button
+              key={m}
+              role="tab"
+              aria-selected={metric === m}
+              className={metric === m ? "active" : ""}
+              onClick={() => setMetric(m)}
+            >
+              {m === "weight" ? "Weight" : "Reps"}
+            </button>
+          ))}
+        </div>
+      )}
+
       {series.length === 0 ? (
         <div className="empty">
           <h2>Nothing logged yet</h2>
@@ -340,7 +375,11 @@ function ProgressSection({ api }: { api: AppApi }) {
       ) : (
         <>
           <div className="chart-card">
-            <h3>{isWeight ? "Body Weight" : `${active} — Max Weight`}</h3>
+            <h3>
+              {isWeight
+                ? "Body Weight"
+                : `${active} — ${activeMetric === "reps" ? "Max Reps" : "Max Weight"}`}
+            </h3>
             <SimpleLineChart series={series} />
           </div>
 
@@ -367,12 +406,18 @@ function ProgressSection({ api }: { api: AppApi }) {
           ) : (
             <div className="stat-grid">
               <div className="stat-box">
-                <div className="stat-num mono">{current} lb</div>
-                <div className="stat-cap">Current max</div>
+                <div className="stat-num mono">
+                  {current}
+                  {activeMetric === "weight" ? " lb" : ""}
+                </div>
+                <div className="stat-cap">Current max{activeMetric === "reps" ? " reps" : ""}</div>
               </div>
               <div className="stat-box">
-                <div className="stat-num mono">{Math.max(...series.map((s) => s.value))} lb</div>
-                <div className="stat-cap">All-time PR</div>
+                <div className="stat-num mono">
+                  {Math.max(...series.map((s) => s.value))}
+                  {activeMetric === "weight" ? " lb" : ""}
+                </div>
+                <div className="stat-cap">All-time {activeMetric === "reps" ? "best" : "PR"}</div>
               </div>
               <div className="stat-box">
                 <div className="stat-num mono">{series.length}</div>

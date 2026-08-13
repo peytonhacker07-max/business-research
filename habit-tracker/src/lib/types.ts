@@ -43,6 +43,7 @@ export interface WorkoutEntry {
   reps: number;
   weight: number; // lb
   order: number;
+  note: string; // optional detail, e.g. "went to failure", "partial reps"
 }
 
 export interface AppData {
