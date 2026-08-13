@@ -197,11 +197,18 @@ export function useAppData(): AppApi {
   const addWorkoutEntry = useCallback(
     (date: string, exercise: string, sets: number, reps: number, weight: number, note: string) => {
       setData((d) => {
+        const trimmed = exercise.trim();
+        // Reuse the casing of a previously logged exercise with the same
+        // name (ignoring case/whitespace) so "incline chest press" and
+        // "Incline Chest Press" are tracked as one exercise in Progress.
+        const existing = d.workoutEntries.find(
+          (w) => w.exercise.toLowerCase() === trimmed.toLowerCase(),
+        );
         const maxOrder = d.workoutEntries.reduce((m, w) => Math.max(m, w.order), -1);
         const entry: WorkoutEntry = {
           id: uid(),
           date,
-          exercise: exercise.trim(),
+          exercise: existing ? existing.exercise : trimmed,
           sets,
           reps,
           weight,

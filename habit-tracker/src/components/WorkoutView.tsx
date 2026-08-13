@@ -81,6 +81,15 @@ function DaySection({ api }: { api: AppApi }) {
     .filter((w) => w.date === selectedDate)
     .sort((a, b) => a.order - b.order);
 
+  const knownExercises = useMemo(() => {
+    const byKey = new Map<string, string>();
+    for (const w of data.workoutEntries) {
+      const key = w.exercise.trim().toLowerCase();
+      if (!byKey.has(key)) byKey.set(key, w.exercise);
+    }
+    return Array.from(byKey.values()).sort((a, b) => a.localeCompare(b));
+  }, [data.workoutEntries]);
+
   const [exercise, setExercise] = useState("");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
@@ -210,10 +219,16 @@ function DaySection({ api }: { api: AppApi }) {
         <input
           className="workout-name-input"
           type="text"
+          list="known-exercises"
           placeholder="Exercise name"
           value={exercise}
           onChange={(e) => setExercise(e.target.value)}
         />
+        <datalist id="known-exercises">
+          {knownExercises.map((ex) => (
+            <option key={ex} value={ex} />
+          ))}
+        </datalist>
         <div className="workout-add-row">
           <input
             type="number"
@@ -285,9 +300,14 @@ type Metric = "weight" | "reps";
 function ProgressSection({ api }: { api: AppApi }) {
   const { data } = api;
   const exercises = useMemo(() => {
-    const names = new Set<string>();
-    for (const w of data.workoutEntries) names.add(w.exercise);
-    return Array.from(names).sort((a, b) => a.localeCompare(b));
+    // Group case/whitespace variants of the same name together, keeping
+    // whichever casing was logged first as the display name.
+    const byKey = new Map<string, string>();
+    for (const w of data.workoutEntries) {
+      const key = w.exercise.trim().toLowerCase();
+      if (!byKey.has(key)) byKey.set(key, w.exercise);
+    }
+    return Array.from(byKey.values()).sort((a, b) => a.localeCompare(b));
   }, [data.workoutEntries]);
 
   const options = [BODY_WEIGHT, ...exercises];
@@ -307,9 +327,10 @@ function ProgressSection({ api }: { api: AppApi }) {
           return { label: `${monthShort(d.getMonth())} ${d.getDate()}`, value };
         });
     }
+    const activeKey = active.trim().toLowerCase();
     const byDate = new Map<string, number>();
     for (const e of data.workoutEntries) {
-      if (e.exercise !== active) continue;
+      if (e.exercise.trim().toLowerCase() !== activeKey) continue;
       const val = activeMetric === "reps" ? e.reps : e.weight;
       byDate.set(e.date, Math.max(byDate.get(e.date) ?? 0, val));
     }
