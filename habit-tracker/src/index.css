@@ -769,6 +769,38 @@ textarea {
   color: var(--ink-faint);
 }
 
+.suggestion-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 10;
+}
+.suggestion-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 11px 14px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--ink);
+}
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+.suggestion-item:hover,
+.suggestion-item:active {
+  background: var(--paper-2);
+}
+
 .exercise-select {
   width: 100%;
   padding: 10px 12px;

@@ -95,7 +95,15 @@ function DaySection({ api }: { api: AppApi }) {
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
   const [note, setNote] = useState("");
-  const isKnownExercise = knownExercises.includes(exercise);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const suggestions = useMemo(() => {
+    const q = exercise.trim().toLowerCase();
+    const pool = q
+      ? knownExercises.filter((ex) => ex.toLowerCase().includes(q) && ex.toLowerCase() !== q)
+      : knownExercises;
+    return pool.slice(0, 8);
+  }, [exercise, knownExercises]);
 
   const handleAdd = () => {
     const name = exercise.trim();
@@ -109,6 +117,7 @@ function DaySection({ api }: { api: AppApi }) {
     setReps("");
     setWeight("");
     setNote("");
+    setShowSuggestions(false);
   };
 
   const [weightInput, setWeightInput] = useState("");
@@ -217,29 +226,36 @@ function DaySection({ api }: { api: AppApi }) {
         <p style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-soft)", margin: "0 0 10px" }}>
           WORKOUT
         </p>
-        {knownExercises.length > 0 && (
-          <select
-            className="exercise-select"
-            value={isKnownExercise ? exercise : ""}
-            onChange={(e) => setExercise(e.target.value)}
-          >
-            <option value="">+ New Exercise</option>
-            {knownExercises.map((ex) => (
-              <option key={ex} value={ex}>
-                {ex}
-              </option>
-            ))}
-          </select>
-        )}
-        {!isKnownExercise && (
+        <div style={{ position: "relative" }}>
           <input
             className="workout-name-input"
             type="text"
-            placeholder="New exercise name"
+            placeholder="Exercise name"
+            autoComplete="off"
             value={exercise}
             onChange={(e) => setExercise(e.target.value)}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
           />
-        )}
+          {showSuggestions && suggestions.length > 0 && (
+            <div className="suggestion-list">
+              {suggestions.map((ex) => (
+                <button
+                  key={ex}
+                  type="button"
+                  className="suggestion-item"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    setExercise(ex);
+                    setShowSuggestions(false);
+                  }}
+                >
+                  {ex}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
         <div className="workout-add-row">
           <input
             type="number"
