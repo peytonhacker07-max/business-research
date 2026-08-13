@@ -1,6 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { ChangeEvent } from "react";
 import type { AppApi } from "../lib/useAppData";
 import { addDays, fromKey, formatLong, monthShort, toKey } from "../lib/dates";
+import { addPhoto, deletePhoto, getPhotos, resizeImage } from "../lib/photos";
+import type { Photo } from "../lib/photos";
 import { ChevronDownIcon, PlusIcon } from "./Icons";
 
 type SubView = "day" | "progress";
@@ -130,6 +133,41 @@ function DaySection({ api }: { api: AppApi }) {
     const w = parseFloat(weightInput);
     if (!w) return;
     api.setBodyWeight(selectedDate, w);
+  };
+
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [viewingPhoto, setViewingPhoto] = useState<Photo | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    getPhotos(selectedDate).then((p) => {
+      if (!cancelled) setPhotos(p);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedDate]);
+
+  const handlePhotoSelected = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploading(true);
+    try {
+      const dataUrl = await resizeImage(file);
+      const photo = await addPhoto(selectedDate, dataUrl);
+      setPhotos((prev) => [...prev, photo]);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleDeletePhoto = async (id: string) => {
+    await deletePhoto(id);
+    setPhotos((prev) => prev.filter((p) => p.id !== id));
+    setViewingPhoto(null);
   };
 
   return (
@@ -317,6 +355,84 @@ function DaySection({ api }: { api: AppApi }) {
           ))
         )}
       </div>
+
+      <div style={{ border: "1px solid var(--line)", borderRadius: 12, padding: 14, marginTop: 14 }}>
+        <p style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-soft)", margin: "0 0 10px" }}>
+          PHOTOS
+        </p>
+        <div style={{ display: "flex", gap: 8, overflowX: "auto" }}>
+          {photos.map((photo) => (
+            <button
+              key={photo.id}
+              onClick={() => setViewingPhoto(photo)}
+              style={{
+                flexShrink: 0,
+                width: 72,
+                height: 72,
+                borderRadius: 10,
+                overflow: "hidden",
+                border: "1px solid var(--line)",
+                padding: 0,
+                background: "none",
+              }}
+            >
+              <img
+                src={photo.dataUrl}
+                alt="Workout"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </button>
+          ))}
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+            style={{
+              flexShrink: 0,
+              width: 72,
+              height: 72,
+              borderRadius: 10,
+              border: "1px dashed var(--line-strong)",
+              background: "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--ink-soft)",
+            }}
+          >
+            <span style={{ width: 20, height: 20, display: "flex" }}>
+              <PlusIcon className="" />
+            </span>
+          </button>
+        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          style={{ display: "none" }}
+          onChange={handlePhotoSelected}
+        />
+      </div>
+
+      {viewingPhoto && (
+        <div className="modal-backdrop" onClick={() => setViewingPhoto(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ padding: 12 }}>
+            <img
+              src={viewingPhoto.dataUrl}
+              alt="Workout"
+              style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 12 }}
+            />
+            <div className="modal-actions">
+              <button className="btn danger" onClick={() => handleDeletePhoto(viewingPhoto.id)}>
+                Delete
+              </button>
+              <button className="btn primary" onClick={() => setViewingPhoto(null)}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
