@@ -246,11 +246,11 @@ function DaySection({ api }: { api: AppApi }) {
   const handleSubmit = () => {
     const name = exercise.trim();
     const s = parseInt(sets, 10);
-    const r = parseInt(reps, 10);
-    // Weight is optional — bodyweight exercises (pull-ups, dips, etc.)
-    // have no lb value to enter.
+    // Reps and weight are both optional — holds/planks have no rep count,
+    // and bodyweight exercises have no lb value.
+    const r = reps.trim() ? parseInt(reps, 10) : 0;
     const w = weight.trim() ? parseFloat(weight) : 0;
-    if (!name || !s || !r) return;
+    if (!name || !s) return;
     if (editingId) {
       api.editWorkoutEntry(editingId, name, s, r, w, note);
     } else {
@@ -263,7 +263,7 @@ function DaySection({ api }: { api: AppApi }) {
     setEditingId(entry.id);
     setExercise(entry.exercise);
     setSets(String(entry.sets));
-    setReps(String(entry.reps));
+    setReps(entry.reps ? String(entry.reps) : "");
     setWeight(entry.weight ? String(entry.weight) : "");
     setNote(entry.note);
     setShowSuggestions(false);
@@ -462,7 +462,7 @@ function DaySection({ api }: { api: AppApi }) {
           />
           <input
             type="number"
-            placeholder="Lb (optional)"
+            placeholder="Lb"
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
           />
@@ -535,7 +535,8 @@ function DaySection({ api }: { api: AppApi }) {
                   >
                     <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
                       <div className="mono" style={{ fontSize: 13, color: "var(--ink-soft)", paddingTop: 3 }}>
-                        {entry.sets} × {entry.reps}
+                        {entry.sets}
+                        {entry.reps ? ` × ${entry.reps}` : " sets"}
                         {entry.weight ? ` @ ${entry.weight} lb` : ""}
                       </div>
                       <div style={{ display: "flex", gap: 2, flexShrink: 0 }}>
