@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, PointerEvent } from "react";
 import type { AppApi } from "../lib/useAppData";
 import type { WorkoutEntry } from "../lib/types";
 import { addDays, fromKey, formatLong, monthShort, toKey } from "../lib/dates";
@@ -161,6 +161,99 @@ function CameraCapture({
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+/**
+ * Pinch-to-zoom / double-tap-to-zoom / drag-to-pan image viewer, scoped to
+ * just this element. The app locks out page-wide pinch zoom (to stop
+ * accidental zoom on the rest of the UI), so this handles it manually with
+ * pointer events instead of relying on native viewport zoom.
+ */
+function ZoomableImage({ src, alt }: { src: string; alt: string }) {
+  const [scale, setScale] = useState(1);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const pointers = useRef(new Map<number, { x: number; y: number }>());
+  const pinchStart = useRef<{ dist: number; scale: number } | null>(null);
+  const dragStart = useRef<{ x: number; y: number; offsetX: number; offsetY: number } | null>(null);
+  const lastTap = useRef(0);
+
+  const clamp = (s: number) => Math.min(4, Math.max(1, s));
+
+  const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // Ignore — capture is a nice-to-have for tracking outside the
+      // element bounds, not required for the zoom/pan logic below.
+    }
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pointers.current.size === 2) {
+      const [a, b] = Array.from(pointers.current.values());
+      pinchStart.current = { dist: Math.hypot(a.x - b.x, a.y - b.y), scale };
+      dragStart.current = null;
+    } else if (pointers.current.size === 1) {
+      if (scale > 1) {
+        dragStart.current = { x: e.clientX, y: e.clientY, offsetX: offset.x, offsetY: offset.y };
+      }
+      const now = Date.now();
+      if (now - lastTap.current < 300) {
+        if (scale > 1) {
+          setScale(1);
+          setOffset({ x: 0, y: 0 });
+        } else {
+          setScale(2.5);
+        }
+      }
+      lastTap.current = now;
+    }
+  };
+
+  const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (!pointers.current.has(e.pointerId)) return;
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pointers.current.size === 2 && pinchStart.current) {
+      const [a, b] = Array.from(pointers.current.values());
+      const dist = Math.hypot(a.x - b.x, a.y - b.y);
+      setScale(clamp(pinchStart.current.scale * (dist / pinchStart.current.dist)));
+    } else if (pointers.current.size === 1 && dragStart.current) {
+      setOffset({
+        x: dragStart.current.offsetX + (e.clientX - dragStart.current.x),
+        y: dragStart.current.offsetY + (e.clientY - dragStart.current.y),
+      });
+    }
+  };
+
+  const handlePointerUp = (e: PointerEvent<HTMLDivElement>) => {
+    pointers.current.delete(e.pointerId);
+    if (pointers.current.size < 2) pinchStart.current = null;
+    if (pointers.current.size === 0) {
+      dragStart.current = null;
+    }
+  };
+
+  return (
+    <div
+      style={{ overflow: "hidden", borderRadius: 12, background: "#000", touchAction: "none" }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+    >
+      <img
+        src={src}
+        alt={alt}
+        draggable={false}
+        style={{
+          width: "100%",
+          display: "block",
+          transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
+          transformOrigin: "center center",
+        }}
+      />
     </div>
   );
 }
@@ -643,11 +736,12 @@ function DaySection({ api }: { api: AppApi }) {
       {viewingPhoto && (
         <div className="modal-backdrop" onClick={() => setViewingPhoto(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()} style={{ padding: 12 }}>
-            <img
-              src={viewingPhoto.dataUrl}
-              alt="Workout"
-              style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 12 }}
-            />
+            <div style={{ marginBottom: 12 }}>
+              <ZoomableImage src={viewingPhoto.dataUrl} alt="Workout" />
+            </div>
+            <p style={{ fontSize: 11, color: "var(--ink-faint)", textAlign: "center", margin: "0 0 12px" }}>
+              Pinch or double-tap to zoom
+            </p>
             <div className="modal-actions">
               <button className="btn danger" onClick={() => handleDeletePhoto(viewingPhoto.id)}>
                 Delete
