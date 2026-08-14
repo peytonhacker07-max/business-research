@@ -180,6 +180,26 @@ function DaySection({ api }: { api: AppApi }) {
     .filter((w) => w.date === selectedDate)
     .sort((a, b) => a.order - b.order);
 
+  // Group same-exercise sets together (e.g. "9 reps" and "10 reps" logged
+  // separately because the weight didn't match) so they render connected
+  // instead of as unrelated rows.
+  const entryGroups = useMemo(() => {
+    const order: string[] = [];
+    const byKey = new Map<string, typeof entries>();
+    for (const e of entries) {
+      const key = e.exercise.trim().toLowerCase();
+      if (!byKey.has(key)) {
+        byKey.set(key, []);
+        order.push(key);
+      }
+      byKey.get(key)!.push(e);
+    }
+    return order.map((key) => {
+      const group = byKey.get(key)!;
+      return { exercise: group[0].exercise, entries: group };
+    });
+  }, [entries]);
+
   const knownExercises = useMemo(() => {
     const byKey = new Map<string, string>();
     for (const w of data.workoutEntries) {
@@ -434,26 +454,66 @@ function DaySection({ api }: { api: AppApi }) {
             Nothing logged {isToday ? "yet today" : "for this day"}.
           </p>
         ) : (
-          entries.map((entry, i) => (
+          entryGroups.map((group, gi) => (
             <div
-              key={entry.id}
-              className="habit-row"
-              style={{ marginBottom: i === entries.length - 1 ? 0 : 8 }}
+              key={group.exercise + gi}
+              style={{ marginBottom: gi === entryGroups.length - 1 ? 0 : 16 }}
             >
-              <div className="habit-body">
-                <div className="habit-name">{entry.exercise}</div>
-                <div className="habit-streak mono">
-                  {entry.sets} × {entry.reps} @ {entry.weight} lb
-                </div>
-                {entry.note && (
-                  <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 2, fontStyle: "italic" }}>
-                    {entry.note}
-                  </div>
-                )}
+              <div className="habit-name" style={{ marginBottom: 4 }}>
+                {group.exercise}
               </div>
-              <button className="icon-btn" onClick={() => api.deleteWorkoutEntry(entry.id)}>
-                <span style={{ fontSize: 14, lineHeight: 1 }}>×</span>
-              </button>
+              {group.entries.map((entry, i) => (
+                <div key={entry.id} style={{ display: "flex", gap: 10 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      width: 10,
+                      flexShrink: 0,
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 8,
+                        height: 8,
+                        borderRadius: "50%",
+                        background: "var(--accent)",
+                        marginTop: 7,
+                        flexShrink: 0,
+                      }}
+                    />
+                    {i < group.entries.length - 1 && (
+                      <div style={{ width: 2, flex: 1, background: "var(--line-strong)" }} />
+                    )}
+                  </div>
+                  <div
+                    style={{
+                      flex: 1,
+                      minWidth: 0,
+                      paddingBottom: i === group.entries.length - 1 ? 0 : 8,
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
+                      <div className="mono" style={{ fontSize: 13, color: "var(--ink-soft)", paddingTop: 3 }}>
+                        {entry.sets} × {entry.reps} @ {entry.weight} lb
+                      </div>
+                      <button
+                        className="icon-btn"
+                        onClick={() => api.deleteWorkoutEntry(entry.id)}
+                        style={{ flexShrink: 0 }}
+                      >
+                        <span style={{ fontSize: 14, lineHeight: 1 }}>×</span>
+                      </button>
+                    </div>
+                    {entry.note && (
+                      <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 2, fontStyle: "italic" }}>
+                        {entry.note}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           ))
         )}
