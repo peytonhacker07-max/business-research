@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 import type { AppApi } from "../lib/useAppData";
+import type { WorkoutEntry } from "../lib/types";
 import { addDays, fromKey, formatLong, monthShort, toKey } from "../lib/dates";
 import { addPhoto, deletePhoto, getPhotos, resizeImage } from "../lib/photos";
 import type { Photo } from "../lib/photos";
-import { ChevronDownIcon, PlusIcon } from "./Icons";
+import { ChevronDownIcon, PencilIcon, PlusIcon } from "./Icons";
 
 type SubView = "day" | "progress";
 
@@ -215,6 +216,7 @@ function DaySection({ api }: { api: AppApi }) {
   const [weight, setWeight] = useState("");
   const [note, setNote] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const suggestions = useMemo(() => {
     const q = exercise.trim().toLowerCase();
@@ -224,18 +226,46 @@ function DaySection({ api }: { api: AppApi }) {
     return pool.slice(0, 8);
   }, [exercise, knownExercises]);
 
-  const handleAdd = () => {
-    const name = exercise.trim();
-    const s = parseInt(sets, 10);
-    const r = parseInt(reps, 10);
-    const w = parseFloat(weight);
-    if (!name || !s || !r || !w) return;
-    api.addWorkoutEntry(selectedDate, name, s, r, w, note);
+  const resetForm = () => {
     setExercise("");
     setSets("");
     setReps("");
     setWeight("");
     setNote("");
+    setShowSuggestions(false);
+    setEditingId(null);
+  };
+
+  // Reset any in-progress add/edit when switching days so it doesn't
+  // silently apply to the wrong date.
+  useEffect(() => {
+    resetForm();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDate]);
+
+  const handleSubmit = () => {
+    const name = exercise.trim();
+    const s = parseInt(sets, 10);
+    const r = parseInt(reps, 10);
+    // Weight is optional — bodyweight exercises (pull-ups, dips, etc.)
+    // have no lb value to enter.
+    const w = weight.trim() ? parseFloat(weight) : 0;
+    if (!name || !s || !r) return;
+    if (editingId) {
+      api.editWorkoutEntry(editingId, name, s, r, w, note);
+    } else {
+      api.addWorkoutEntry(selectedDate, name, s, r, w, note);
+    }
+    resetForm();
+  };
+
+  const startEdit = (entry: WorkoutEntry) => {
+    setEditingId(entry.id);
+    setExercise(entry.exercise);
+    setSets(String(entry.sets));
+    setReps(String(entry.reps));
+    setWeight(entry.weight ? String(entry.weight) : "");
+    setNote(entry.note);
     setShowSuggestions(false);
   };
 
@@ -432,7 +462,7 @@ function DaySection({ api }: { api: AppApi }) {
           />
           <input
             type="number"
-            placeholder="Lb"
+            placeholder="Lb (optional)"
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
           />
@@ -444,9 +474,18 @@ function DaySection({ api }: { api: AppApi }) {
           value={note}
           onChange={(e) => setNote(e.target.value)}
         />
-        <button className="btn primary block" onClick={handleAdd} style={{ marginBottom: entries.length ? 14 : 0 }}>
+        {editingId && (
+          <button
+            className="btn ghost block"
+            onClick={resetForm}
+            style={{ marginBottom: 8 }}
+          >
+            Cancel Edit
+          </button>
+        )}
+        <button className="btn primary block" onClick={handleSubmit} style={{ marginBottom: entries.length ? 14 : 0 }}>
           <PlusIcon className="" />
-          Add Exercise
+          {editingId ? "Update Exercise" : "Add Exercise"}
         </button>
 
         {entries.length === 0 ? (
@@ -496,15 +535,17 @@ function DaySection({ api }: { api: AppApi }) {
                   >
                     <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
                       <div className="mono" style={{ fontSize: 13, color: "var(--ink-soft)", paddingTop: 3 }}>
-                        {entry.sets} × {entry.reps} @ {entry.weight} lb
+                        {entry.sets} × {entry.reps}
+                        {entry.weight ? ` @ ${entry.weight} lb` : ""}
                       </div>
-                      <button
-                        className="icon-btn"
-                        onClick={() => api.deleteWorkoutEntry(entry.id)}
-                        style={{ flexShrink: 0 }}
-                      >
-                        <span style={{ fontSize: 14, lineHeight: 1 }}>×</span>
-                      </button>
+                      <div style={{ display: "flex", gap: 2, flexShrink: 0 }}>
+                        <button className="icon-btn" onClick={() => startEdit(entry)}>
+                          <PencilIcon className="" />
+                        </button>
+                        <button className="icon-btn" onClick={() => api.deleteWorkoutEntry(entry.id)}>
+                          <span style={{ fontSize: 14, lineHeight: 1 }}>×</span>
+                        </button>
+                      </div>
                     </div>
                     {entry.note && (
                       <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 2, fontStyle: "italic" }}>

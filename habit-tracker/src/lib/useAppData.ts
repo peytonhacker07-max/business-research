@@ -32,6 +32,14 @@ export interface AppApi {
     note: string,
   ) => void;
   deleteWorkoutEntry: (id: string) => void;
+  editWorkoutEntry: (
+    id: string,
+    exercise: string,
+    sets: number,
+    reps: number,
+    weight: number,
+    note: string,
+  ) => void;
   setBodyWeight: (date: string, weight: number) => void;
   setWorkoutFocus: (date: string, text: string) => void;
 }
@@ -228,6 +236,33 @@ export function useAppData(): AppApi {
     }));
   }, []);
 
+  const editWorkoutEntry = useCallback(
+    (id: string, exercise: string, sets: number, reps: number, weight: number, note: string) => {
+      setData((d) => {
+        const trimmed = exercise.trim();
+        const existing = d.workoutEntries.find(
+          (w) => w.id !== id && w.exercise.toLowerCase() === trimmed.toLowerCase(),
+        );
+        return {
+          ...d,
+          workoutEntries: d.workoutEntries.map((w) =>
+            w.id === id
+              ? {
+                  ...w,
+                  exercise: existing ? existing.exercise : trimmed,
+                  sets,
+                  reps,
+                  weight,
+                  note: note.trim(),
+                }
+              : w,
+          ),
+        };
+      });
+    },
+    [],
+  );
+
   const setBodyWeight = useCallback((date: string, weight: number) => {
     setData((d) => ({ ...d, bodyWeight: { ...d.bodyWeight, [date]: weight } }));
   }, []);
@@ -259,6 +294,7 @@ export function useAppData(): AppApi {
     setNote,
     addWorkoutEntry,
     deleteWorkoutEntry,
+    editWorkoutEntry,
     setBodyWeight,
     setWorkoutFocus,
   };
