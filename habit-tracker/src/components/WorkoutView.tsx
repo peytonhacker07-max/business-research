@@ -470,7 +470,7 @@ function DaySection({ api }: { api: AppApi }) {
         <input
           className="workout-name-input"
           type="text"
-          placeholder="Notes (optional) — e.g. went to failure, partial reps"
+          placeholder="Notes — e.g. went to failure, partial reps"
           value={note}
           onChange={(e) => setNote(e.target.value)}
         />
