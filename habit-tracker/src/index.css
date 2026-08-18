@@ -1,59 +1,81 @@
 /* ============================================================
-   Daily — "paper and ink" habit tracker
-   Quiet, warm, flat. No shadows, no gradients.
+   Daily — soft neumorphic habit tracker
+   Soft embossed shapes, dual-tone shadows, rounded and calm.
    ============================================================ */
 
 :root {
-  --paper: #f7f4ec;
-  --paper-2: #f1ede2; /* very subtly darker surface */
-  --ink: #2c2a26; /* warm dark gray, not pure black */
-  --ink-soft: #6b665d; /* muted secondary text */
-  --ink-faint: #a8a293; /* tertiary / placeholders */
-  --line: #e0dacb; /* thin 1px borders */
-  --line-strong: #cfc8b6;
-  --color-primary: #1f5e54; /* deep teal — default, can be overridden */
-  --color-primary-dark: #0d2820;
+  --paper: #e9e5f1; /* soft lavender-grey surface */
+  --paper-2: #e2dcec; /* slightly deeper surface, used for tracks/grooves */
+  --ink: #3b3350; /* dark plum */
+  --ink-soft: #7c7391; /* muted secondary text */
+  --ink-faint: #a79fbc; /* tertiary / placeholders */
+  --line: rgba(61, 53, 80, 0.08); /* rarely used — neumorphism leans on shadow, not borders */
+  --line-strong: rgba(61, 53, 80, 0.16);
+  --color-primary: #8b6fc9; /* soft violet — default, can be overridden */
+  --color-primary-dark: #6a4fa0;
   --accent: var(--color-primary);
   --accent-ink: var(--color-primary-dark);
-  --accent-wash: #e6ede9; /* faint tint for fills */
-  --danger: #9b4a3a;
+  --accent-wash: #efe8fa; /* faint tint for fills */
+  --danger: #c2564b;
+
+  /* Neumorphic dual-tone shadows: a dark shadow (bottom-right) paired with
+     a light highlight (top-left), both derived from the surface color. */
+  --shadow-xs: 2px 2px 5px rgba(120, 108, 150, 0.28), -2px -2px 5px rgba(255, 255, 255, 0.75);
+  --shadow-sm: 5px 5px 11px rgba(120, 108, 150, 0.3), -5px -5px 11px rgba(255, 255, 255, 0.75);
+  --shadow-md: 9px 9px 18px rgba(120, 108, 150, 0.32), -9px -9px 18px rgba(255, 255, 255, 0.7);
+  --shadow-inset-xs: inset 2px 2px 4px rgba(120, 108, 150, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+  --shadow-inset-sm: inset 3px 3px 7px rgba(120, 108, 150, 0.3), inset -3px -3px 7px rgba(255, 255, 255, 0.7);
 
   --tap: 46px; /* minimum tap target */
-  --radius: 12px;
+  --radius: 22px;
   --maxw: 480px;
 
-  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  --font-ui: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Quicksand", var(--font-ui);
   --font-mono: "SF Mono", ui-monospace, "Roboto Mono", "Menlo", "Consolas",
     monospace;
 }
 
-/* Dark theme — same "paper and ink" personality, inked paper instead of
-   cream. Applies automatically by system preference, or when the toggle
-   sets data-theme explicitly (which always wins over the media query). */
+/* Dark theme — same soft-embossed personality, on an ink-plum surface
+   instead of lavender. Applies automatically by system preference, or
+   when the toggle sets data-theme explicitly (which always wins over the
+   media query). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #1c1a17;
-    --paper-2: #262420;
-    --ink: #ece7dc;
-    --ink-soft: #a39c8d;
-    --ink-faint: #6f6a5f;
-    --line: #3a362f;
-    --line-strong: #4a453c;
-    --accent-wash: #1f2f2b;
+    --paper: #241f33;
+    --paper-2: #2b2540;
+    --ink: #ebe6f5;
+    --ink-soft: #a89fc4;
+    --ink-faint: #6e6488;
+    --line: rgba(0, 0, 0, 0.3);
+    --line-strong: rgba(0, 0, 0, 0.4);
+    --accent-wash: #342b4d;
     --danger: #e0806a;
+
+    --shadow-xs: 2px 2px 5px rgba(0, 0, 0, 0.45), -2px -2px 5px rgba(255, 255, 255, 0.035);
+    --shadow-sm: 5px 5px 11px rgba(0, 0, 0, 0.48), -5px -5px 11px rgba(255, 255, 255, 0.035);
+    --shadow-md: 9px 9px 18px rgba(0, 0, 0, 0.5), -9px -9px 18px rgba(255, 255, 255, 0.03);
+    --shadow-inset-xs: inset 2px 2px 4px rgba(0, 0, 0, 0.45), inset -2px -2px 4px rgba(255, 255, 255, 0.035);
+    --shadow-inset-sm: inset 3px 3px 7px rgba(0, 0, 0, 0.45), inset -3px -3px 7px rgba(255, 255, 255, 0.035);
   }
 }
 :root[data-theme="dark"] {
-  --paper: #1c1a17;
-  --paper-2: #262420;
-  --ink: #ece7dc;
-  --ink-soft: #a39c8d;
-  --ink-faint: #6f6a5f;
-  --line: #3a362f;
-  --line-strong: #4a453c;
-  --accent-wash: #1f2f2b;
+  --paper: #241f33;
+  --paper-2: #2b2540;
+  --ink: #ebe6f5;
+  --ink-soft: #a89fc4;
+  --ink-faint: #6e6488;
+  --line: rgba(0, 0, 0, 0.3);
+  --line-strong: rgba(0, 0, 0, 0.4);
+  --accent-wash: #342b4d;
   --danger: #e0806a;
+
+  --shadow-xs: 2px 2px 5px rgba(0, 0, 0, 0.45), -2px -2px 5px rgba(255, 255, 255, 0.035);
+  --shadow-sm: 5px 5px 11px rgba(0, 0, 0, 0.48), -5px -5px 11px rgba(255, 255, 255, 0.035);
+  --shadow-md: 9px 9px 18px rgba(0, 0, 0, 0.5), -9px -9px 18px rgba(255, 255, 255, 0.03);
+  --shadow-inset-xs: inset 2px 2px 4px rgba(0, 0, 0, 0.45), inset -2px -2px 4px rgba(255, 255, 255, 0.035);
+  --shadow-inset-sm: inset 3px 3px 7px rgba(0, 0, 0, 0.45), inset -3px -3px 7px rgba(255, 255, 255, 0.035);
 }
 
 * {
@@ -86,7 +108,8 @@ button {
 }
 
 input,
-textarea {
+textarea,
+select {
   font-family: inherit;
   font-size: 16px;
 }
@@ -125,8 +148,9 @@ textarea {
   justify-content: space-between;
 }
 .app-header .eyebrow {
-  font-size: 13px;
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-soft);
   margin: 0 0 2px;
@@ -135,9 +159,10 @@ textarea {
   margin: -6px -6px 0 0;
 }
 .app-header h1 {
-  font-size: 26px;
+  font-family: var(--font-display);
+  font-size: 27px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 
@@ -147,6 +172,7 @@ textarea {
 }
 
 .view-title {
+  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 600;
   color: var(--ink-soft);
@@ -165,7 +191,7 @@ textarea {
   max-width: var(--maxw);
   display: flex;
   background: var(--paper);
-  border-top: 1px solid var(--line);
+  box-shadow: 0 -6px 14px rgba(120, 108, 150, 0.18);
   padding-bottom: env(safe-area-inset-bottom);
   z-index: 20;
 }
@@ -176,21 +202,24 @@ textarea {
   padding: 10px 0 12px;
   color: var(--ink-faint);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
   min-height: var(--tap);
   letter-spacing: 0.02em;
 }
 .nav button .nav-icon {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   display: block;
 }
 .nav button.active {
   color: var(--accent);
+}
+.nav button.active .nav-icon {
+  filter: drop-shadow(0 1px 1px rgba(120, 108, 150, 0.3));
 }
 
 /* ---------- Progress ring ---------- */
@@ -199,7 +228,17 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 0 8px;
+  padding: 20px 0 12px;
+}
+.ring-shell {
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: var(--shadow-inset-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .ring {
   position: relative;
@@ -212,7 +251,7 @@ textarea {
 }
 .ring-track {
   fill: none;
-  stroke: var(--line);
+  stroke: var(--paper-2);
 }
 .ring-fill {
   fill: none;
@@ -224,30 +263,41 @@ textarea {
   position: absolute;
   inset: 0;
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ring-inner-disc {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 .ring-count {
-  font-size: 44px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
   line-height: 1;
   color: var(--ink);
 }
 .ring-count .of {
   color: var(--ink-faint);
-  font-size: 26px;
+  font-size: 21px;
 }
 .ring-label {
   margin-top: 6px;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--ink-soft);
   letter-spacing: 0.03em;
 }
 .ring-all-done {
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ---------- Habit list (Today) ---------- */
@@ -255,42 +305,43 @@ textarea {
 .habit-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 10px;
 }
 
 .habit-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: none;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 8px 10px;
+  background: var(--paper);
+  border: none;
+  border-radius: 18px;
+  box-shadow: var(--shadow-xs);
+  padding: 9px 11px;
   text-align: left;
   min-height: 52px;
   color: var(--ink);
-  transition: border-color 150ms ease, background 150ms ease;
+  transition: box-shadow 150ms ease;
 }
 .habit-row.done {
-  background: var(--accent-wash);
-  border-color: var(--accent-wash);
+  box-shadow: var(--shadow-inset-xs);
 }
 .habit-check {
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
-  border: 2px solid var(--line-strong);
-  background: none;
+  border: none;
+  background: var(--paper);
+  box-shadow: var(--shadow-inset-xs);
   flex-shrink: 0;
   display: grid;
   place-items: center;
   color: transparent;
-  transition: background 150ms ease, border-color 150ms ease;
+  transition: background 150ms ease, box-shadow 150ms ease;
 }
 .habit-row.done .habit-check {
   background: var(--accent);
-  border-color: var(--accent);
-  color: var(--paper);
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.18);
+  color: #fff;
 }
 .habit-emoji {
   font-size: 18px;
@@ -303,6 +354,7 @@ textarea {
   min-width: 0;
 }
 .habit-name {
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
@@ -319,7 +371,7 @@ textarea {
 }
 .habit-streak .num {
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* reorder + edit controls */
@@ -334,15 +386,17 @@ textarea {
   border: none;
   width: 24px;
   height: 24px;
-  border-radius: 4px;
+  border-radius: 8px;
   display: grid;
   place-items: center;
   color: var(--ink-faint);
   padding: 0;
+  transition: box-shadow 150ms ease, background 150ms ease;
 }
 .icon-btn:hover {
   color: var(--ink);
-  background: var(--paper-2);
+  background: var(--paper);
+  box-shadow: var(--shadow-inset-xs);
 }
 .icon-btn:disabled {
   opacity: 0.3;
@@ -363,11 +417,17 @@ textarea {
   min-height: var(--tap);
   padding: 0 18px;
   border-radius: var(--radius);
-  border: 1px solid var(--line-strong);
+  border: none;
   background: var(--paper);
+  box-shadow: var(--shadow-sm);
   color: var(--ink);
+  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 600;
+  transition: box-shadow 120ms ease;
+}
+.btn:active {
+  box-shadow: var(--shadow-inset-sm);
 }
 .btn svg {
   width: 18px;
@@ -376,19 +436,28 @@ textarea {
 }
 .btn.primary {
   background: var(--accent);
-  border-color: var(--accent);
-  color: var(--paper);
+  color: #fff;
+  box-shadow: 5px 5px 11px rgba(139, 111, 201, 0.4), -5px -5px 11px rgba(255, 255, 255, 0.55);
+}
+.btn.primary:active {
+  box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.2);
 }
 .btn.block {
   width: 100%;
 }
 .btn.ghost {
-  border-color: transparent;
+  background: none;
+  box-shadow: none;
   color: var(--ink-soft);
 }
+.btn.ghost:active {
+  box-shadow: none;
+  background: var(--paper-2);
+}
 .btn.danger {
+  background: none;
+  box-shadow: none;
   color: var(--danger);
-  border-color: transparent;
 }
 
 .add-habit-btn {
@@ -410,9 +479,9 @@ textarea {
   font-family: var(--font-mono);
   font-size: 12px;
   background: var(--paper-2);
-  border: 1px solid var(--line);
   border-radius: 5px;
   padding: 1px 5px;
+  box-shadow: var(--shadow-inset-xs);
 }
 .reminder-code {
   width: 100%;
@@ -420,9 +489,10 @@ textarea {
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--ink);
-  background: var(--paper-2);
-  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--shadow-inset-sm);
   padding: 10px;
   resize: none;
   margin-bottom: 12px;
@@ -430,7 +500,6 @@ textarea {
 }
 .reminder-code:focus {
   outline: none;
-  border-color: var(--accent);
 }
 .reminder-error {
   font-size: 13px;
@@ -449,6 +518,7 @@ textarea {
   font-size: 40px;
 }
 .empty h2 {
+  font-family: var(--font-display);
   font-size: 18px;
   color: var(--ink);
   margin: 12px 0 4px;
@@ -463,7 +533,7 @@ textarea {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(44, 42, 38, 0.32);
+  background: rgba(44, 38, 60, 0.35);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -480,16 +550,18 @@ textarea {
   background: var(--paper);
   width: 100%;
   max-width: var(--maxw);
-  border-radius: 18px 18px 0 0;
-  border: 1px solid var(--line);
+  border-radius: 28px 28px 0 0;
+  border: none;
+  box-shadow: var(--shadow-md);
   padding: 22px 20px calc(22px + env(safe-area-inset-bottom));
 }
 @media (min-width: 540px) {
   .modal {
-    border-radius: 18px;
+    border-radius: 28px;
   }
 }
 .modal h2 {
+  font-family: var(--font-display);
   font-size: 20px;
   margin: 0 0 18px;
 }
@@ -499,7 +571,7 @@ textarea {
 .field label {
   display: block;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-soft);
   margin-bottom: 6px;
 }
@@ -509,8 +581,9 @@ textarea {
   font-size: 16px;
   color: var(--ink);
   background: var(--paper);
-  border: 1px solid var(--line-strong);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--shadow-inset-sm);
   padding: 12px 14px;
   min-height: var(--tap);
 }
@@ -518,7 +591,6 @@ textarea {
   color: var(--ink-faint);
 }
 .field input:focus {
-  border-color: var(--accent);
   outline: none;
 }
 .emoji-row {
@@ -530,14 +602,15 @@ textarea {
   width: 44px;
   height: 44px;
   font-size: 20px;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
+  border-radius: 14px;
+  border: none;
   background: var(--paper);
+  box-shadow: var(--shadow-xs);
   display: grid;
   place-items: center;
 }
 .emoji-pick.selected {
-  border-color: var(--accent);
+  box-shadow: var(--shadow-inset-xs);
   background: var(--accent-wash);
 }
 .modal-actions {
@@ -555,8 +628,9 @@ textarea {
 /* ---------- Heatmap (History) ---------- */
 
 .heatmap-card {
-  border: 1px solid var(--line);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
   padding: 14px;
   margin-bottom: 14px;
 }
@@ -567,6 +641,7 @@ textarea {
   margin-bottom: 10px;
 }
 .heatmap-head .title {
+  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 600;
   display: flex;
@@ -587,13 +662,13 @@ textarea {
 .heat-cell {
   width: 13px;
   height: 13px;
-  border-radius: 3px;
+  border-radius: 4px;
   background: var(--paper-2);
-  border: 1px solid var(--line);
+  box-shadow: var(--shadow-inset-xs);
 }
 .heat-cell.lvl-future {
   background: transparent;
-  border-color: transparent;
+  box-shadow: none;
 }
 .heat-legend {
   display: flex;
@@ -618,13 +693,15 @@ textarea {
   margin-bottom: 8px;
 }
 .stat-box {
-  border: 1px solid var(--line);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
   padding: 14px;
 }
 .stat-box .stat-num {
-  font-size: 30px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
   line-height: 1;
 }
 .stat-box .stat-cap {
@@ -636,32 +713,40 @@ textarea {
 
 .range-tabs {
   display: inline-flex;
-  border: 1px solid var(--line-strong);
-  border-radius: 10px;
+  border: none;
+  background: var(--paper);
+  box-shadow: var(--shadow-inset-xs);
+  border-radius: 16px;
   overflow: hidden;
   margin-bottom: 14px;
+  padding: 3px;
+  gap: 3px;
 }
 .range-tabs button {
   background: none;
   border: none;
+  border-radius: 12px;
   padding: 8px 14px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-soft);
-  min-height: 40px;
+  min-height: 36px;
 }
 .range-tabs button.active {
   background: var(--accent);
-  color: var(--paper);
+  color: #fff;
+  box-shadow: 2px 2px 5px rgba(139, 111, 201, 0.4);
 }
 
 .chart-card {
-  border: 1px solid var(--line);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
   padding: 14px;
   margin-bottom: 14px;
 }
 .chart-card h3 {
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 600;
   color: var(--ink-soft);
@@ -673,7 +758,7 @@ textarea {
   display: block;
 }
 .line-chart .grid-line {
-  stroke: var(--line);
+  stroke: var(--paper-2);
   stroke-width: 1;
 }
 .line-chart .area {
@@ -710,14 +795,15 @@ textarea {
   flex: 1;
   height: 10px;
   background: var(--paper-2);
-  border-radius: 5px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-inset-xs);
   overflow: hidden;
 }
 .bar-fill {
   display: block;
   height: 100%;
   background: var(--accent);
-  border-radius: 5px;
+  border-radius: 6px;
   transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .bar-row .bar-pct {
@@ -729,7 +815,7 @@ textarea {
 
 .streak-list .bar-row .bar-pct {
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ---------- Workout ---------- */
@@ -737,8 +823,9 @@ textarea {
 .workout-name-input {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid var(--line-strong);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--shadow-inset-sm);
   font-size: 16px;
   font-family: inherit;
   color: var(--ink);
@@ -757,8 +844,9 @@ textarea {
   flex: 1;
   min-width: 0;
   padding: 10px 8px;
-  border: 1px solid var(--line-strong);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--shadow-inset-sm);
   font-size: 16px;
   font-family: inherit;
   color: var(--ink);
@@ -771,12 +859,13 @@ textarea {
 
 .suggestion-list {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 6px);
   left: 0;
   right: 0;
   background: var(--paper);
-  border: 1px solid var(--line-strong);
-  border-radius: 10px;
+  border: none;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
   max-height: 220px;
   overflow-y: auto;
   z-index: 10;
@@ -804,8 +893,9 @@ textarea {
 .exercise-select {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid var(--line-strong);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--shadow-inset-sm);
   font-size: 16px;
   font-family: inherit;
   color: var(--ink);
@@ -814,8 +904,9 @@ textarea {
 }
 
 .weight-card {
-  border: 1px solid var(--line);
+  border: none;
   border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
   padding: 4px 14px;
 }
 .weight-log-row {
@@ -832,7 +923,7 @@ textarea {
   color: var(--ink-soft);
 }
 .weight-log-row .w {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ---------- Reduced motion ---------- */

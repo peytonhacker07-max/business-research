@@ -11,7 +11,7 @@ export const COLOR_SCHEMES: Record<ColorScheme, { name: string; primary: string;
   blue: { name: "Blue & Black", primary: "#1e4d8b", dark: "#0a2540" },
   pink: { name: "Pink & White", primary: "#d946a6", dark: "#6b1b47" },
   black: { name: "All Black", primary: "#1a1a1a", dark: "#0a0a0a" },
-  purple: { name: "Purple & Black", primary: "#7c3aed", dark: "#3f1f6f" },
+  purple: { name: "Purple & Black", primary: "#8b6fc9", dark: "#6a4fa0" },
   orange: { name: "Orange & Black", primary: "#ea580c", dark: "#5a2506" },
   red: { name: "Red & Black", primary: "#dc2626", dark: "#6b1616" },
 };
@@ -56,9 +56,9 @@ export function cycleTheme(current: ThemeChoice): ThemeChoice {
 export function getStoredColorScheme(): ColorScheme {
   try {
     const raw = localStorage.getItem(COLOR_SCHEME_KEY);
-    return raw && COLOR_SCHEME_KEYS.includes(raw as ColorScheme) ? (raw as ColorScheme) : "teal";
+    return raw && COLOR_SCHEME_KEYS.includes(raw as ColorScheme) ? (raw as ColorScheme) : "purple";
   } catch {
-    return "teal";
+    return "purple";
   }
 }
 
