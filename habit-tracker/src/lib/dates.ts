@@ -47,6 +47,10 @@ const MONTHS = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
+const MONTHS_LONG = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
 
 export function weekdayShort(d: Date): string {
   return WEEKDAYS[d.getDay()];
@@ -54,6 +58,10 @@ export function weekdayShort(d: Date): string {
 
 export function monthShort(monthIndex: number): string {
   return MONTHS[monthIndex];
+}
+
+export function monthLong(monthIndex: number): string {
+  return MONTHS_LONG[monthIndex];
 }
 
 export function formatLong(d: Date): string {

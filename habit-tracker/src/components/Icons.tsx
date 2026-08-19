@@ -166,6 +166,15 @@ export function HeartIcon({ className }: Props) {
   );
 }
 
+export function CalendarIcon({ className }: Props) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3.5" y="5" width="17" height="16" rx="2.5" stroke="currentColor" strokeWidth="2" />
+      <path d="M3.5 10h17M8 3v3.5M16 3v3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function DumbbellIcon({ className }: Props) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">

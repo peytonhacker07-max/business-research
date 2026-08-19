@@ -1,5 +1,5 @@
 import type { ViewName } from "../lib/types";
-import { AnalyticsIcon, TodayIcon, ChecklistIcon, NotesIcon, DumbbellIcon } from "./Icons";
+import { AnalyticsIcon, TodayIcon, ChecklistIcon, NotesIcon, DumbbellIcon, CalendarIcon } from "./Icons";
 
 interface Props {
   view: ViewName;
@@ -8,6 +8,7 @@ interface Props {
 
 const ITEMS: { name: ViewName; label: string; Icon: typeof TodayIcon }[] = [
   { name: "today", label: "Today", Icon: TodayIcon },
+  { name: "calendar", label: "Calendar", Icon: CalendarIcon },
   { name: "analytics", label: "Analytics", Icon: AnalyticsIcon },
   { name: "todos", label: "Tasks", Icon: ChecklistIcon },
   { name: "notes", label: "Journal", Icon: NotesIcon },

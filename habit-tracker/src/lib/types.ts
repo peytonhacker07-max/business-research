@@ -61,4 +61,4 @@ export interface AppData {
   workoutFocus: Record<string, string>;
 }
 
-export type ViewName = "today" | "analytics" | "todos" | "notes" | "workout";
+export type ViewName = "today" | "analytics" | "todos" | "notes" | "workout" | "calendar";
