@@ -6,7 +6,7 @@
 // VAPID public key (safe to ship publicly). The matching private key lives
 // only in the repo's GitHub Actions secret.
 const VAPID_PUBLIC_KEY =
-  "BIK_2z4tYsrVmpOMkQZRDB9uuNF9kIsDydhU2i3Cvulu8T27bGvM_e2SmSe0NPeS3zvsxMa9_H3XcG8zl804kWQ";
+  "BAhno-K_uLZDIIsxFDe_qrsSdDDiDxBuZF2cQNtrt8KiaSq6SoMOlQtoaQVPEeAR_iTtshChTxGmRH1rUPQG2iw";
 
 export function pushSupported(): boolean {
   return (

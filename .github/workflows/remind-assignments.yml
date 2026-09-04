@@ -1,0 +1,35 @@
+name: Assignment reminders
+
+on:
+  # 00:00 UTC — 8 PM Eastern during daylight saving, 7 PM once it ends.
+  # GitHub's scheduler drifts under load, so treat this as "sometime that
+  # evening", not an exact time.
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: habit-tracker/package-lock.json
+
+      - name: Install dependencies
+        working-directory: habit-tracker
+        run: npm ci
+
+      - name: Send reminder for what's due
+        working-directory: habit-tracker
+        env:
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          PUSH_SUBSCRIPTION: ${{ secrets.PUSH_SUBSCRIPTION }}
+        run: node scripts/send-reminders.mjs

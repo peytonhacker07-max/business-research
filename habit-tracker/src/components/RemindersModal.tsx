@@ -70,9 +70,8 @@ export default function RemindersModal({ onClose }: Props) {
         {supported && !subscription && (
           <>
             <p className="reminder-note">
-              Get a nudge at <strong>8:00 AM</strong>, <strong>1:00 PM</strong>, and{" "}
-              <strong>9:00 PM</strong> to check in on your habits. Tap below and allow
-              notifications.
+              Get a heads-up each <strong>evening</strong> for anything due that night
+              or the next day. Tap below and allow notifications.
             </p>
             <button className="btn primary block" onClick={handleEnable} disabled={busy}>
               {busy ? "Enabling…" : "Enable reminders on this device"}
