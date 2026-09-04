@@ -1,0 +1,37 @@
+name: Sync Brightspace assignments
+
+on:
+  schedule:
+    - cron: "0 12 * * 0" # every Sunday at 12:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fetch and parse Brightspace calendar
+        working-directory: habit-tracker
+        env:
+          BRIGHTSPACE_ICS_URL: ${{ secrets.BRIGHTSPACE_ICS_URL }}
+        run: node scripts/sync-brightspace.mjs
+
+      - name: Commit updated assignments
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add habit-tracker/public/assignments.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Sync Brightspace assignments"
+            git push
+          fi
