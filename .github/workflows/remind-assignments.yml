@@ -1,11 +1,13 @@
 name: Assignment reminders
 
 on:
-  # 00:00 UTC — 8 PM Eastern during daylight saving, 7 PM once it ends.
-  # GitHub's scheduler drifts under load, so treat this as "sometime that
-  # evening", not an exact time.
+  # 9 AM Eastern daily. Both UTC times are scheduled — 13:00 is 9 AM during
+  # daylight saving, 14:00 is 9 AM once it ends — and the script sends only
+  # on whichever run is actually 9 AM locally, so the time holds year-round.
+  # GitHub's scheduler drifts under load, so expect "sometime in the 9 o'clock
+  # hour" rather than exactly 9:00.
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 13,14 * * *"
   workflow_dispatch:
     inputs:
       test:

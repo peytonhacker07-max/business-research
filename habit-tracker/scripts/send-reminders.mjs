@@ -94,18 +94,25 @@ async function main() {
   const assignments = JSON.parse(await fs.readFile(ASSIGNMENTS_PATH, "utf8"));
   const now = schoolNow();
   const tomorrow = addDays(now.date, 1);
+  const forceTest = process.env.FORCE_TEST === "true";
 
-  // Anything still ahead of us tonight, plus everything due tomorrow.
-  const tonight = assignments.filter((a) => a.due === now.date && (a.time ?? "23:59") > now.time);
+  // The schedule fires at two UTC times so the reminder stays at 9 AM local
+  // on both sides of the daylight-saving switch; whichever run isn't 9 AM
+  // Eastern stops here. Manual runs are never gated.
+  if (process.env.GITHUB_EVENT_NAME === "schedule" && !now.time.startsWith("09")) {
+    console.log(`Scheduled run landed at ${now.time} Eastern, not 9 AM — skipping.`);
+    return;
+  }
+
+  // Anything still ahead of us today, plus everything due tomorrow.
+  const dueToday = assignments.filter((a) => a.due === now.date && (a.time ?? "23:59") > now.time);
   const dueTomorrow = assignments.filter((a) => a.due === tomorrow);
-  const items = [...tonight, ...dueTomorrow].sort((a, b) =>
+  const items = [...dueToday, ...dueTomorrow].sort((a, b) =>
     a.due === b.due ? (a.time ?? "").localeCompare(b.time ?? "") : a.due < b.due ? -1 : 1,
   );
 
-  const forceTest = process.env.FORCE_TEST === "true";
-
   if (items.length === 0 && !forceTest) {
-    console.log(`Nothing due tonight or on ${tomorrow} — no notification sent.`);
+    console.log(`Nothing due today or on ${tomorrow} — no notification sent.`);
     return;
   }
 
@@ -113,16 +120,21 @@ async function main() {
   let lines;
   if (items.length === 0) {
     title = "Reminders are working";
-    lines = ["Nothing due tonight or tomorrow — you're clear."];
+    lines = ["Nothing due today or tomorrow — you're clear."];
+  } else if (dueToday.length > 0 && dueTomorrow.length > 0) {
+    title = `${items.length} due today & tomorrow`;
+  } else if (dueToday.length > 0) {
+    title = `${dueToday.length} due today`;
   } else {
-    title =
-      tonight.length > 0
-        ? `${items.length} due tonight & tomorrow`
-        : `${items.length} due tomorrow`;
+    title = `${dueTomorrow.length} due tomorrow`;
+  }
+
+  if (items.length > 0) {
     const shown = items.slice(0, 4);
-    lines = shown.map(
-      (a) => `${a.due === now.date ? "Tonight" : formatTime(a.time)} — ${a.title}`,
-    );
+    lines = shown.map((a) => {
+      const when = formatTime(a.time);
+      return a.due === now.date ? `${when} — ${a.title}` : `Tomorrow ${when} — ${a.title}`;
+    });
     if (items.length > shown.length) lines.push(`+${items.length - shown.length} more`);
   }
 
