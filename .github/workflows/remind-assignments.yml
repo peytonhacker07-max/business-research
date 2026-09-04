@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
+    inputs:
+      test:
+        description: "Send a test notification even if nothing is due"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -32,4 +37,5 @@ jobs:
         env:
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
           PUSH_SUBSCRIPTION: ${{ secrets.PUSH_SUBSCRIPTION }}
+          FORCE_TEST: ${{ inputs.test }}
         run: node scripts/send-reminders.mjs

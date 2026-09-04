@@ -102,20 +102,29 @@ async function main() {
     a.due === b.due ? (a.time ?? "").localeCompare(b.time ?? "") : a.due < b.due ? -1 : 1,
   );
 
-  if (items.length === 0) {
+  const forceTest = process.env.FORCE_TEST === "true";
+
+  if (items.length === 0 && !forceTest) {
     console.log(`Nothing due tonight or on ${tomorrow} — no notification sent.`);
     return;
   }
 
-  const title =
-    tonight.length > 0
-      ? `${items.length} due tonight & tomorrow`
-      : `${items.length} due tomorrow`;
-  const shown = items.slice(0, 4);
-  const lines = shown.map(
-    (a) => `${a.due === now.date ? "Tonight" : formatTime(a.time)} — ${a.title}`,
-  );
-  if (items.length > shown.length) lines.push(`+${items.length - shown.length} more`);
+  let title;
+  let lines;
+  if (items.length === 0) {
+    title = "Reminders are working";
+    lines = ["Nothing due tonight or tomorrow — you're clear."];
+  } else {
+    title =
+      tonight.length > 0
+        ? `${items.length} due tonight & tomorrow`
+        : `${items.length} due tomorrow`;
+    const shown = items.slice(0, 4);
+    lines = shown.map(
+      (a) => `${a.due === now.date ? "Tonight" : formatTime(a.time)} — ${a.title}`,
+    );
+    if (items.length > shown.length) lines.push(`+${items.length - shown.length} more`);
+  }
 
   // Apple's push service validates the VAPID subject and rejects placeholder
   // contacts, so point it at the app itself.
