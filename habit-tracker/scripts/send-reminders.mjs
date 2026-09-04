@@ -117,7 +117,13 @@ async function main() {
   );
   if (items.length > shown.length) lines.push(`+${items.length - shown.length} more`);
 
-  webpush.setVapidDetails("mailto:noreply@example.com", VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
+  // Apple's push service validates the VAPID subject and rejects placeholder
+  // contacts, so point it at the app itself.
+  webpush.setVapidDetails(
+    "https://peytonhacker07-max.github.io/business-research/",
+    VAPID_PUBLIC_KEY,
+    VAPID_PRIVATE_KEY,
+  );
 
   const subscriptions = parseSubscriptions(PUSH_SUBSCRIPTION);
   if (subscriptions.length === 0) {
@@ -135,8 +141,17 @@ async function main() {
       await webpush.sendNotification(sub, payload);
       sent++;
     } catch (err) {
-      // A 404/410 means that device unsubscribed; log it but don't fail the run.
-      console.error(`Failed to send to one subscription: ${err.statusCode ?? ""} ${err.message}`);
+      // The push service explains itself in the body — without it a bare
+      // status code says nothing about which of many causes it was.
+      console.error(
+        `Failed to send: ${err.statusCode ?? "?"} ${err.message}\n${err.body ?? "(no body)"}`,
+      );
+      if (err.statusCode === 400 || err.statusCode === 403) {
+        console.error(
+          "That usually means the subscription was created with a different " +
+            "VAPID key — re-subscribe in the app and update PUSH_SUBSCRIPTION.",
+        );
+      }
     }
   }
 

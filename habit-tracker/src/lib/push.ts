@@ -36,7 +36,22 @@ export async function getExistingSubscription(): Promise<string | null> {
   if (!pushSupported()) return null;
   const reg = await navigator.serviceWorker.ready;
   const sub = await reg.pushManager.getSubscription();
-  return sub ? JSON.stringify(sub.toJSON()) : null;
+  // A subscription made with a superseded key can't be signed for any more,
+  // so treat it as not subscribed rather than handing back a dead code.
+  return sub && usesCurrentKey(sub) ? JSON.stringify(sub.toJSON()) : null;
+}
+
+/**
+ * Whether a subscription was created with the VAPID key we still sign with.
+ * A subscription is bound to the key that created it, so after a key rotation
+ * the old one is permanently rejected by the push service.
+ */
+function usesCurrentKey(sub: PushSubscription): boolean {
+  const existing = sub.options?.applicationServerKey;
+  if (!existing) return false;
+  const current = urlBase64ToUint8Array(VAPID_PUBLIC_KEY);
+  const bytes = new Uint8Array(existing);
+  return bytes.length === current.length && bytes.every((b, i) => b === current[i]);
 }
 
 /**
@@ -57,6 +72,10 @@ export async function enablePush(): Promise<string> {
 
   const reg = await navigator.serviceWorker.ready;
   let sub = await reg.pushManager.getSubscription();
+  if (sub && !usesCurrentKey(sub)) {
+    await sub.unsubscribe();
+    sub = null;
+  }
   if (!sub) {
     sub = await reg.pushManager.subscribe({
       userVisibleOnly: true,
