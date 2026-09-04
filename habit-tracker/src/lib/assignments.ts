@@ -63,7 +63,10 @@ export function useAssignments(): Assignment[] {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`${import.meta.env.BASE_URL}assignments.json`)
+    // no-store: the filename is stable (unlike the hashed JS/CSS bundles), so
+    // without this the browser happily serves a cached copy and the app shows
+    // assignments from before the last sync.
+    fetch(`${import.meta.env.BASE_URL}assignments.json`, { cache: "no-store" })
       .then((res) => (res.ok ? res.json() : []))
       .then((data) => {
         if (!cancelled && Array.isArray(data)) {
