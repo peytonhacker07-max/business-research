@@ -170,6 +170,14 @@ async function main() {
 
     if (!summary || !dtstart) continue;
 
+    // Some events publish a time that isn't the due time (a quiz's
+    // availability window, say). Dump the whole entry for a named event so
+    // the mismatch can be diagnosed against what Brightspace displays.
+    const debugMatch = process.env.DEBUG_EVENT?.trim();
+    if (debugMatch && summary.toLowerCase().includes(debugMatch.toLowerCase())) {
+      console.log(`--- raw VEVENT matching "${debugMatch}" ---\n${body.trim()}\n---`);
+    }
+
     // Brightspace titles often end with " - Due" — trim that for display.
     const title = summary.replace(/\s*-\s*Due\s*$/i, "").trim();
 

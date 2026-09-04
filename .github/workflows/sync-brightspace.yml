@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 12 * * 0" # every Sunday at 12:00 UTC
   workflow_dispatch:
+    inputs:
+      debug_event:
+        description: "Log the full calendar entry for events whose title contains this"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -23,6 +28,7 @@ jobs:
         working-directory: habit-tracker
         env:
           BRIGHTSPACE_ICS_URL: ${{ secrets.BRIGHTSPACE_ICS_URL }}
+          DEBUG_EVENT: ${{ inputs.debug_event }}
         run: node scripts/sync-brightspace.mjs
 
       - name: Build the weekly study plan
