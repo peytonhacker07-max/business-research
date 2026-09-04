@@ -50,6 +50,46 @@ function formatTime(time) {
   return `${h24 % 12 || 12}:${m} ${h24 >= 12 ? "PM" : "AM"}`;
 }
 
+/**
+ * Reads the subscription secret. It's pasted in by hand, so tolerate the
+ * usual mishaps — surrounding whitespace, a stray trailing character, or the
+ * same code pasted twice — instead of failing the whole run.
+ */
+function parseSubscriptions(raw) {
+  const text = raw.trim();
+  const found = [];
+  try {
+    const direct = JSON.parse(text);
+    found.push(...(Array.isArray(direct) ? direct : [direct]));
+  } catch {
+    // Pull out each complete top-level {...} block. Endpoints are URLs and
+    // keys are base64, so neither contains braces to confuse the scan.
+    let depth = 0;
+    let start = -1;
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === "{") {
+        if (depth === 0) start = i;
+        depth++;
+      } else if (text[i] === "}" && depth > 0) {
+        depth--;
+        if (depth === 0) {
+          try {
+            found.push(JSON.parse(text.slice(start, i + 1)));
+          } catch {
+            /* not a valid object — skip it */
+          }
+        }
+      }
+    }
+  }
+
+  const byEndpoint = new Map();
+  for (const sub of found) {
+    if (sub?.endpoint && sub?.keys) byEndpoint.set(sub.endpoint, sub);
+  }
+  return [...byEndpoint.values()];
+}
+
 async function main() {
   const assignments = JSON.parse(await fs.readFile(ASSIGNMENTS_PATH, "utf8"));
   const now = schoolNow();
@@ -79,8 +119,14 @@ async function main() {
 
   webpush.setVapidDetails("mailto:noreply@example.com", VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 
-  const parsed = JSON.parse(PUSH_SUBSCRIPTION);
-  const subscriptions = Array.isArray(parsed) ? parsed : [parsed];
+  const subscriptions = parseSubscriptions(PUSH_SUBSCRIPTION);
+  if (subscriptions.length === 0) {
+    console.error(
+      "PUSH_SUBSCRIPTION didn't contain a usable subscription. It should be the " +
+        'code copied from the app\'s reminders dialog, starting with {"endpoint":.',
+    );
+    process.exit(1);
+  }
   const payload = JSON.stringify({ title, body: lines.join("\n"), tag: "assignments-due" });
 
   let sent = 0;
