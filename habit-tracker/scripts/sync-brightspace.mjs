@@ -19,19 +19,83 @@ function unfold(text) {
   return text.replace(/\r\n/g, "\n").replace(/\n[ \t]/g, "");
 }
 
-function parseIcsDate(value) {
+// The DTSTART values in the feed are in UTC (a trailing "Z") or a source
+// TZID — never assume the raw digits are already wall-clock time for the
+// school, or every due time (and sometimes the due *date*, for late-night
+// due times) comes out wrong. Everything gets normalized to the school's
+// local timezone.
+const SCHOOL_TZ = "America/New_York";
+
+/** What a UTC instant reads as on a wall clock in `timeZone`. */
+function wallClockInZone(utcMillis, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    hourCycle: "h23",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  }).formatToParts(new Date(utcMillis));
+  const map = {};
+  for (const p of parts) map[p.type] = p.value;
+  return {
+    y: Number(map.year),
+    m: Number(map.month),
+    d: Number(map.day),
+    hh: map.hour === "24" ? 0 : Number(map.hour),
+    mm: Number(map.minute),
+    ss: Number(map.second),
+  };
+}
+
+/** UTC instant for a wall-clock date/time as read in `timeZone`. */
+function zonedWallClockToUtcMillis(y, m, d, hh, mm, ss, timeZone) {
+  const guess = Date.UTC(y, m - 1, d, hh, mm, ss);
+  const offsetAt = (utcMillis) => {
+    const wall = wallClockInZone(utcMillis, timeZone);
+    return Date.UTC(wall.y, wall.m - 1, wall.d, wall.hh, wall.mm, wall.ss) - utcMillis;
+  };
+  // One correction pass is enough unless the wall-clock time falls in a DST
+  // transition gap/overlap, which due dates never do in practice.
+  return guess - offsetAt(guess);
+}
+
+const pad = (n, len = 2) => String(n).padStart(len, "0");
+
+function parseIcsDate(rawKey, value) {
   const digits = value.replace(/[^0-9TZ]/g, "");
-  const y = digits.slice(0, 4);
-  const m = digits.slice(4, 6);
-  const d = digits.slice(6, 8);
-  let time = null;
-  if (digits.includes("T")) {
-    const t = digits.split("T")[1] || "";
-    const hh = t.slice(0, 2);
-    const mm = t.slice(2, 4);
-    if (hh && mm) time = `${hh}:${mm}`;
+  const isAllDay = !digits.includes("T");
+  if (isAllDay) {
+    return { date: `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6, 8)}`, time: null };
   }
-  return { date: `${y}-${m}-${d}`, time };
+
+  const y = Number(digits.slice(0, 4));
+  const m = Number(digits.slice(4, 6));
+  const d = Number(digits.slice(6, 8));
+  const t = digits.split("T")[1] || "";
+  const hh = Number(t.slice(0, 2));
+  const mm = Number(t.slice(2, 4));
+  const ss = Number(t.slice(4, 6)) || 0;
+  const tzidMatch = rawKey.match(/TZID=([^;:]+)/i);
+
+  let wall;
+  if (digits.endsWith("Z")) {
+    wall = wallClockInZone(Date.UTC(y, m - 1, d, hh, mm, ss), SCHOOL_TZ);
+  } else if (tzidMatch && tzidMatch[1] !== SCHOOL_TZ) {
+    const utcMillis = zonedWallClockToUtcMillis(y, m, d, hh, mm, ss, tzidMatch[1]);
+    wall = wallClockInZone(utcMillis, SCHOOL_TZ);
+  } else {
+    // Either already TZID=<school zone>, or a floating time with no zone —
+    // both are treated as already being the school's local time.
+    wall = { y, m, d, hh, mm };
+  }
+
+  return {
+    date: `${pad(wall.y, 4)}-${pad(wall.m)}-${pad(wall.d)}`,
+    time: `${pad(wall.hh)}:${pad(wall.mm)}`,
+  };
 }
 
 function unescapeIcsText(value) {
@@ -93,7 +157,7 @@ async function main() {
       const key = rawKey.split(";")[0].toUpperCase();
 
       if (key === "SUMMARY") summary = unescapeIcsText(value);
-      else if (key === "DTSTART") dtstart = parseIcsDate(value);
+      else if (key === "DTSTART") dtstart = parseIcsDate(rawKey, value);
       else if (key === "UID") uid = value.trim();
       else if (key === "LOCATION") location = unescapeIcsText(value);
       else if (key === "CATEGORIES") categories = unescapeIcsText(value);
