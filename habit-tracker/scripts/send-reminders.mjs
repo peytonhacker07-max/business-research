@@ -136,9 +136,17 @@ async function main() {
 
   const subscriptions = parseSubscriptions(PUSH_SUBSCRIPTION);
   if (subscriptions.length === 0) {
+    const raw = PUSH_SUBSCRIPTION.trim();
     console.error(
       "PUSH_SUBSCRIPTION didn't contain a usable subscription. It should be the " +
         'code copied from the app\'s reminders dialog, starting with {"endpoint":.',
+    );
+    // Enough shape to tell "empty", "wrong value pasted" and "truncated copy"
+    // apart, without printing the endpoint itself.
+    console.error(
+      `Got ${raw.length} characters, starting "${raw.slice(0, 12)}"` +
+        `, ${raw.includes('"endpoint"') ? "contains" : "missing"} an "endpoint" field` +
+        `, ${raw.includes('"keys"') ? "contains" : "missing"} a "keys" field.`,
     );
     process.exit(1);
   }
