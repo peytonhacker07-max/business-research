@@ -1,5 +1,8 @@
 name: Deploy habit tracker to GitHub Pages
 
+# Also triggered explicitly (workflow_dispatch) by sync-brightspace.yml after
+# it commits new assignment data, since a push from the default GITHUB_TOKEN
+# doesn't fire this workflow's own `on: push` trigger.
 on:
   push:
     branches: [main]

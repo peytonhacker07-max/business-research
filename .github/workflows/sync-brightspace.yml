@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   sync:
@@ -25,13 +26,25 @@ jobs:
         run: node scripts/sync-brightspace.mjs
 
       - name: Commit updated assignments
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add habit-tracker/public/assignments.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "Sync Brightspace assignments"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Trigger Pages deploy
+        # A push made with the default GITHUB_TOKEN doesn't fire other
+        # workflows' `on: push` triggers (this prevents infinite loops), so
+        # the deploy has to be kicked off explicitly here instead.
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --repo "$GITHUB_REPOSITORY" --ref main
