@@ -43,6 +43,25 @@ function unescapeIcsText(value) {
     .trim();
 }
 
+function stripHtml(value) {
+  return value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+/** Best-effort course/class name for an event, from whatever fields the feed sets. */
+function guessCourse(location, categories, description) {
+  if (location && !/^https?:\/\//i.test(location)) return location;
+  if (categories) {
+    const first = categories.split(",")[0]?.trim();
+    if (first) return first;
+  }
+  if (description) {
+    const text = stripHtml(description);
+    const match = text.match(/course\s*:?\s*([^.\n]+)/i);
+    if (match) return match[1].trim();
+  }
+  return null;
+}
+
 async function main() {
   const res = await fetch(ICS_URL);
   if (!res.ok) {
@@ -62,6 +81,9 @@ async function main() {
     let summary = null;
     let dtstart = null;
     let uid = null;
+    let location = null;
+    let categories = null;
+    let description = null;
 
     for (const line of lines) {
       const colonIdx = line.indexOf(":");
@@ -73,6 +95,9 @@ async function main() {
       if (key === "SUMMARY") summary = unescapeIcsText(value);
       else if (key === "DTSTART") dtstart = parseIcsDate(value);
       else if (key === "UID") uid = value.trim();
+      else if (key === "LOCATION") location = unescapeIcsText(value);
+      else if (key === "CATEGORIES") categories = unescapeIcsText(value);
+      else if (key === "DESCRIPTION") description = unescapeIcsText(value);
     }
 
     if (!summary || !dtstart) continue;
@@ -85,6 +110,7 @@ async function main() {
       title,
       due: dtstart.date,
       time: dtstart.time,
+      course: guessCourse(location, categories, description),
     });
   }
 

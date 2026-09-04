@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 import type { AppApi } from "../lib/useAppData";
-import { fromKey, toKey, monthLong, formatLong, dayDiff } from "../lib/dates";
+import { fromKey, toKey, monthLong, formatLong } from "../lib/dates";
 import { activeHabits, isDone, dayCompletionRate } from "../lib/streaks";
-import { useAssignments } from "../lib/assignments";
 import { ChevronDownIcon } from "./Icons";
 
 const WEEKDAY_LETTERS = ["S", "M", "T", "W", "T", "F", "S"];
@@ -18,11 +17,6 @@ function SectionLabel({ children }: { children: string }) {
 export default function CalendarView({ api }: { api: AppApi }) {
   const { data, today } = api;
   const todayDate = fromKey(today);
-  const assignments = useAssignments();
-  const upcomingAssignments = useMemo(
-    () => assignments.filter((a) => a.due >= today).slice(0, 6),
-    [assignments, today],
-  );
 
   const [viewYear, setViewYear] = useState(todayDate.getFullYear());
   const [viewMonth, setViewMonth] = useState(todayDate.getMonth());
@@ -65,8 +59,7 @@ export default function CalendarView({ api }: { api: AppApi }) {
     const hasNote = Boolean(data.notes[dateKey]);
     const hasWorkout =
       data.workoutEntries.some((w) => w.date === dateKey) || data.bodyWeight[dateKey] !== undefined;
-    const hasAssignment = assignments.some((a) => a.due === dateKey);
-    return { rate, hasNote, hasWorkout, hasAssignment };
+    return { rate, hasNote, hasWorkout };
   };
 
   const selectedHabits = useMemo(
@@ -80,49 +73,16 @@ export default function CalendarView({ api }: { api: AppApi }) {
   const selectedNote = data.notes[selectedDate];
   const selectedWeight = data.bodyWeight[selectedDate];
   const selectedFocus = data.workoutFocus[selectedDate];
-  const selectedAssignments = assignments.filter((a) => a.due === selectedDate);
 
   const nothingTracked =
     selectedHabits.length === 0 &&
     selectedTodos.length === 0 &&
     selectedWorkouts.length === 0 &&
-    selectedAssignments.length === 0 &&
     !selectedNote &&
     selectedWeight === undefined;
 
   return (
     <div className="view">
-      {upcomingAssignments.length > 0 && (
-        <div style={{ borderRadius: 20, background: "var(--paper)", boxShadow: "var(--shadow-sm)", padding: 16, marginBottom: 18 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-soft)", letterSpacing: "0.04em", margin: "0 0 10px" }}>
-            UPCOMING ASSIGNMENTS
-          </p>
-          {upcomingAssignments.map((a) => {
-            const diff = dayDiff(a.due, today);
-            const label = diff === 0 ? "Today" : diff === 1 ? "Tomorrow" : formatLong(fromKey(a.due));
-            return (
-              <div
-                key={a.id}
-                style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, padding: "6px 0" }}
-              >
-                <span style={{ fontSize: 13, fontWeight: 600 }}>{a.title}</span>
-                <span
-                  className="mono"
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    flexShrink: 0,
-                    color: diff <= 1 ? "var(--danger)" : "var(--ink-soft)",
-                  }}
-                >
-                  {label}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
         <button className="icon-btn" onClick={goPrevMonth} style={{ width: 32, height: 32 }}>
           <span style={{ display: "flex", transform: "rotate(90deg)" }}>
@@ -159,12 +119,11 @@ export default function CalendarView({ api }: { api: AppApi }) {
         {cells.map((cell, i) => {
           if (!cell.key) return <div key={`blank-${i}`} />;
           const dateKey = cell.key;
-          const { rate, hasNote, hasWorkout, hasAssignment } = summaryFor(dateKey);
+          const { rate, hasNote, hasWorkout } = summaryFor(dateKey);
           const isToday = dateKey === today;
           const isSelected = dateKey === selectedDate;
           const isFuture = dateKey > today;
           const dotColor = isSelected ? "rgba(255,255,255,0.9)" : "var(--accent)";
-          const assignmentDotColor = isSelected ? "rgba(255,255,255,0.9)" : "var(--danger)";
           return (
             <button
               key={dateKey}
@@ -220,14 +179,6 @@ export default function CalendarView({ api }: { api: AppApi }) {
                     height: 4,
                     borderRadius: "50%",
                     background: hasWorkout ? dotColor : "transparent",
-                  }}
-                />
-                <span
-                  style={{
-                    width: 4,
-                    height: 4,
-                    borderRadius: "50%",
-                    background: hasAssignment ? assignmentDotColor : "transparent",
                   }}
                 />
               </span>
@@ -295,23 +246,6 @@ export default function CalendarView({ api }: { api: AppApi }) {
                       }}
                     >
                       {t.text}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {selectedAssignments.length > 0 && (
-              <div style={{ marginBottom: 16 }}>
-                <SectionLabel>ASSIGNMENTS</SectionLabel>
-                {selectedAssignments.map((a) => (
-                  <div key={a.id} style={{ display: "flex", alignItems: "center", gap: 8, padding: "3px 0" }}>
-                    <span
-                      style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--danger)", flexShrink: 0 }}
-                    />
-                    <span style={{ fontSize: 13 }}>
-                      {a.title}
-                      {a.time ? ` — ${a.time}` : ""}
                     </span>
                   </div>
                 ))}

@@ -1,166 +1,116 @@
-import { useState } from "react";
-import type { AppApi } from "../lib/useAppData";
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon, PlusIcon } from "./Icons";
-import { todayKey } from "../lib/dates";
+import { useMemo } from "react";
+import { useAssignments, formatAssignmentTime, type Assignment } from "../lib/assignments";
+import { fromKey, formatLong, dayDiff, todayKey } from "../lib/dates";
 
-export default function TaskView({ api }: { api: AppApi }) {
+function dueLabel(due: string, today: string): string {
+  const diff = dayDiff(due, today);
+  if (diff === 0) return "Today";
+  if (diff === 1) return "Tomorrow";
+  return formatLong(fromKey(due));
+}
+
+export default function TaskView() {
   const today = todayKey();
-  const todos = api.data.todos.filter((t) => t.createdAt === today).sort((a, b) => a.order - b.order);
-  const active = todos.filter((t) => !t.done);
-  const completed = todos.filter((t) => t.done);
-  const [input, setInput] = useState("");
+  const assignments = useAssignments();
 
-  const handleAdd = () => {
-    if (input.trim()) {
-      api.addTodo(input);
-      setInput("");
+  const upcoming = useMemo(
+    () =>
+      assignments
+        .filter((a) => a.due >= today)
+        .sort((a, b) =>
+          a.due === b.due ? (a.time ?? "").localeCompare(b.time ?? "") : a.due < b.due ? -1 : 1,
+        ),
+    [assignments, today],
+  );
+
+  const groups = useMemo(() => {
+    const map = new Map<string, Assignment[]>();
+    for (const a of upcoming) {
+      const key = a.course ?? "Other";
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(a);
     }
-  };
+    return [...map.entries()];
+  }, [upcoming]);
+
+  const hasCourses = groups.some(([course]) => course !== "Other");
+
+  if (upcoming.length === 0) {
+    return (
+      <div className="view">
+        <div className="empty">
+          <h2>No assignments due</h2>
+          <p>Synced weekly from Brightspace — check back after the next sync.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="view">
-      <div style={{ padding: "0 20px" }}>
-        <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
-          <input
-            type="text"
-            placeholder="Add a task..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleAdd();
-            }}
-            style={{
-              flex: 1,
-              padding: "10px 12px",
-              border: "1px solid #ddd",
-              borderRadius: 6,
-              fontSize: 14,
-              fontFamily: "inherit",
-            }}
-          />
-          <button className="btn primary" onClick={handleAdd} style={{ flexShrink: 0 }}>
-            <PlusIcon className="" />
-          </button>
-        </div>
-      </div>
-
-      {active.length > 0 && (
-        <div>
-          <div className="view-title" style={{ padding: "0 20px", textAlign: "left", fontSize: 12, marginBottom: 12 }}>
-            ACTIVE
-          </div>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {active.map((todo, i) => (
-              <li key={todo.id}>
-                <div
+      {groups.map(([course, items]) => (
+        <div
+          key={course}
+          style={{
+            borderRadius: 20,
+            background: "var(--paper)",
+            boxShadow: "var(--shadow-sm)",
+            padding: 16,
+            marginBottom: 14,
+          }}
+        >
+          {hasCourses && (
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: 15,
+                fontWeight: 700,
+                margin: "0 0 10px",
+              }}
+            >
+              {course}
+            </p>
+          )}
+          {items.map((a, i) => {
+            const diff = dayDiff(a.due, today);
+            const time = formatAssignmentTime(a.time);
+            return (
+              <div
+                key={a.id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "10px 0",
+                  borderTop: i === 0 ? "none" : "1px solid rgba(0,0,0,0.06)",
+                }}
+              >
+                <span style={{ fontSize: 14, fontWeight: 600 }}>{a.title}</span>
+                <span
+                  className="mono"
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    padding: "12px 20px",
-                    borderBottom: "1px solid #eee",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    textAlign: "right",
+                    flexShrink: 0,
+                    lineHeight: 1.4,
+                    color: diff <= 1 ? "var(--danger)" : "var(--ink-soft)",
                   }}
                 >
-                  <button
-                    className="icon-btn"
-                    onClick={() => api.toggleTodo(todo.id)}
-                    style={{
-                      width: 24,
-                      height: 24,
-                      minWidth: 24,
-                      minHeight: 24,
-                      border: "2px solid #ddd",
-                      borderRadius: 4,
-                      background: "transparent",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  />
-                  <span style={{ flex: 1, fontSize: 15 }}>{todo.text}</span>
-                  <div style={{ display: "flex", gap: 8 }}>
-                    <button
-                      className="icon-btn"
-                      onClick={() => api.reorderTodos(todo.id, -1)}
-                      disabled={i === 0}
-                    >
-                      <ChevronUpIcon className="" />
-                    </button>
-                    <button
-                      className="icon-btn"
-                      onClick={() => api.reorderTodos(todo.id, 1)}
-                      disabled={i === active.length - 1}
-                    >
-                      <ChevronDownIcon className="" />
-                    </button>
-                    <button className="icon-btn" onClick={() => api.deleteTodo(todo.id)}>
-                      <span style={{ fontSize: 14, lineHeight: 1 }}>×</span>
-                    </button>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                  {dueLabel(a.due, today)}
+                  {time && (
+                    <>
+                      <br />
+                      {time}
+                    </>
+                  )}
+                </span>
+              </div>
+            );
+          })}
         </div>
-      )}
-
-      {completed.length > 0 && (
-        <div style={{ marginTop: 20 }}>
-          <div className="view-title" style={{ padding: "0 20px", textAlign: "left", fontSize: 12, marginBottom: 12, color: "#999" }}>
-            COMPLETED
-          </div>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {completed.map((todo) => (
-              <li key={todo.id}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    padding: "12px 20px",
-                    borderBottom: "1px solid #eee",
-                  }}
-                >
-                  <button
-                    className="icon-btn"
-                    onClick={() => api.toggleTodo(todo.id)}
-                    style={{
-                      width: 24,
-                      height: 24,
-                      minWidth: 24,
-                      minHeight: 24,
-                      border: "none",
-                      borderRadius: 4,
-                      background: "#1f5e54",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "white",
-                    }}
-                  >
-                    <CheckIcon className="" />
-                  </button>
-                  <span style={{ flex: 1, fontSize: 15, textDecoration: "line-through", color: "#999" }}>
-                    {todo.text}
-                  </span>
-                  <button className="icon-btn" onClick={() => api.deleteTodo(todo.id)}>
-                    <span style={{ fontSize: 14, lineHeight: 1 }}>✕</span>
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {active.length === 0 && completed.length === 0 && (
-        <div className="empty">
-          <h2>No tasks yet</h2>
-          <p>Add one to get started.</p>
-        </div>
-      )}
+      ))}
     </div>
   );
 }

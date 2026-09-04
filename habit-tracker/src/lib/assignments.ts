@@ -5,6 +5,17 @@ export interface Assignment {
   title: string;
   due: string; // YYYY-MM-DD
   time: string | null;
+  course: string | null;
+}
+
+/** "13:00" -> "1:00 PM". Returns null if there's no time (all-day event). */
+export function formatAssignmentTime(time: string | null): string | null {
+  if (!time) return null;
+  const [hStr, mStr] = time.split(":");
+  const h24 = Number(hStr);
+  const period = h24 >= 12 ? "PM" : "AM";
+  const h12 = h24 % 12 || 12;
+  return `${h12}:${mStr} ${period}`;
 }
 
 /** Loads assignments synced weekly from Brightspace (see scripts/sync-brightspace.mjs). */

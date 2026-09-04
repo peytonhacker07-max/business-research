@@ -33,7 +33,7 @@ export default function App() {
               : view === "analytics"
                 ? "Analytics"
                 : view === "todos"
-                  ? "Task List"
+                  ? "Classes"
                   : view === "notes"
                     ? "Journal"
                     : "Workout"}
@@ -43,7 +43,7 @@ export default function App() {
       {view === "today" && <TodayView api={api} />}
       {view === "calendar" && <CalendarView api={api} />}
       {view === "analytics" && <AnalyticsView api={api} />}
-      {view === "todos" && <TaskView api={api} />}
+      {view === "todos" && <TaskView />}
       {view === "notes" && <NotesView api={api} />}
       {view === "workout" && <WorkoutView api={api} />}
 

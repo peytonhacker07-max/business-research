@@ -10,7 +10,7 @@ const ITEMS: { name: ViewName; label: string; Icon: typeof TodayIcon }[] = [
   { name: "today", label: "Today", Icon: TodayIcon },
   { name: "calendar", label: "Calendar", Icon: CalendarIcon },
   { name: "analytics", label: "Analytics", Icon: AnalyticsIcon },
-  { name: "todos", label: "Tasks", Icon: ChecklistIcon },
+  { name: "todos", label: "Classes", Icon: ChecklistIcon },
   { name: "notes", label: "Journal", Icon: NotesIcon },
   { name: "workout", label: "Workout", Icon: DumbbellIcon },
 ];
