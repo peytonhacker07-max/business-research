@@ -1,5 +1,11 @@
 import { useMemo } from "react";
-import { useAssignments, formatAssignmentTime, type Assignment } from "../lib/assignments";
+import {
+  useAssignments,
+  formatAssignmentTime,
+  formatCourseName,
+  type Assignment,
+} from "../lib/assignments";
+import { useStudyPlan } from "../lib/studyPlan";
 import { fromKey, formatLong, dayDiff, todayKey } from "../lib/dates";
 
 function dueLabel(due: string, today: string): string {
@@ -12,6 +18,12 @@ function dueLabel(due: string, today: string): string {
 export default function TaskView() {
   const today = todayKey();
   const assignments = useAssignments();
+  const plan = useStudyPlan();
+
+  const planDays = useMemo(
+    () => (plan?.days ?? []).filter((d) => d.date >= today),
+    [plan, today],
+  );
 
   const upcoming = useMemo(
     () =>
@@ -48,6 +60,76 @@ export default function TaskView() {
 
   return (
     <div className="view">
+      {planDays.length > 0 && (
+        <div
+          style={{
+            borderRadius: 20,
+            background: "var(--paper)",
+            boxShadow: "var(--shadow-sm)",
+            padding: 16,
+            marginBottom: 14,
+          }}
+        >
+          <p
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: "var(--ink-soft)",
+              letterSpacing: "0.04em",
+              margin: "0 0 12px",
+            }}
+          >
+            THIS WEEK'S PLAN
+          </p>
+          {planDays.map((day, i) => (
+            <div
+              key={day.date}
+              style={{
+                padding: "10px 0",
+                borderTop: i === 0 ? "none" : "1px solid rgba(0,0,0,0.06)",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                  gap: 10,
+                  marginBottom: 4,
+                }}
+              >
+                <span style={{ fontSize: 13, fontWeight: 700 }}>
+                  {day.date === today ? "Today" : formatLong(fromKey(day.date))}
+                </span>
+                {day.focus && (
+                  <span style={{ fontSize: 11, color: "var(--ink-soft)", textAlign: "right" }}>
+                    {day.focus}
+                  </span>
+                )}
+              </div>
+              {day.tasks.map((task, j) => (
+                <div
+                  key={j}
+                  style={{ display: "flex", gap: 8, alignItems: "baseline", padding: "2px 0" }}
+                >
+                  <span
+                    style={{
+                      width: 5,
+                      height: 5,
+                      borderRadius: "50%",
+                      background: "var(--accent)",
+                      flexShrink: 0,
+                      transform: "translateY(-2px)",
+                    }}
+                  />
+                  <span style={{ fontSize: 13, lineHeight: 1.4 }}>{task}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
       {groups.map(([course, items]) => (
         <div
           key={course}
@@ -68,7 +150,7 @@ export default function TaskView() {
                 margin: "0 0 10px",
               }}
             >
-              {course}
+              {formatCourseName(course)}
             </p>
           )}
           {items.map((a, i) => {
