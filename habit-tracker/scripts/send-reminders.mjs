@@ -137,8 +137,17 @@ async function main() {
 
   let sent = 0;
   for (const sub of subscriptions) {
+    // Only the host — the full endpoint is effectively a credential.
+    const service = (() => {
+      try {
+        return new URL(sub.endpoint).host;
+      } catch {
+        return "unknown";
+      }
+    })();
     try {
-      await webpush.sendNotification(sub, payload);
+      const result = await webpush.sendNotification(sub, payload);
+      console.log(`${service} accepted the push (HTTP ${result.statusCode}).`);
       sent++;
     } catch (err) {
       // The push service explains itself in the body — without it a bare

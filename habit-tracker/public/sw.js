@@ -10,16 +10,24 @@ self.addEventListener("push", (event) => {
   }
 
   const title = data.title || "Daily — Habit Tracker";
+  const icon = new URL("icon-192.png", self.registration.scope).href;
   const options = {
     body: data.body || "Time to check in on your habits.",
-    icon: "icon-192.png",
-    badge: "icon-192.png",
+    icon,
+    badge: icon,
     tag: data.tag || "daily-reminder",
     renotify: true,
     data: { url: data.url || "./" },
   };
 
-  event.waitUntil(self.registration.showNotification(title, options));
+  // A push event that ends without showing anything is a silent failure the
+  // browser may punish, so fall back to a bare notification if the rich one
+  // can't be built (a bad icon URL or an option this browser rejects).
+  event.waitUntil(
+    self.registration
+      .showNotification(title, options)
+      .catch(() => self.registration.showNotification(title, { body: options.body })),
+  );
 });
 
 self.addEventListener("notificationclick", (event) => {
