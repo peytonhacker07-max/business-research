@@ -95,18 +95,22 @@ async function main() {
   const now = schoolNow();
   const tomorrow = addDays(now.date, 1);
 
-  // The schedule fires at two UTC times so the reminder stays at 9 AM local
-  // on both sides of the daylight-saving switch; whichever run isn't 9 AM
-  // Eastern stops here. Manual runs are never gated.
-  if (process.env.GITHUB_EVENT_NAME === "schedule" && !now.time.startsWith("09")) {
-    console.log(`Scheduled run landed at ${now.time} Eastern, not 9 AM — skipping.`);
+  const hour = now.time.slice(0, 2);
+
+  // Four UTC times are scheduled so 9 AM and 9 PM Eastern both hold across
+  // the daylight-saving switch; the two runs that land on neither hour stop
+  // here. Manual runs are never gated.
+  if (process.env.GITHUB_EVENT_NAME === "schedule" && hour !== "09" && hour !== "21") {
+    console.log(`Scheduled run landed at ${now.time} Eastern — not a send hour, skipping.`);
     return;
   }
 
-  // Everything due today — including items timed at or just before the send.
-  // The reading quizzes are due at 9:00 AM, exactly when this goes out, so
-  // filtering to "later than now" would drop them on the very day they matter.
-  const dueToday = assignments.filter((a) => a.due === now.date);
+  // Count anything due from the top of the current hour onward. Comparing
+  // against the hour rather than the exact minute keeps the 9:00 AM reading
+  // quizzes in the 9 AM send, while the 9 PM send correctly drops what has
+  // already come and gone that morning.
+  const fromHour = `${hour}:00`;
+  const dueToday = assignments.filter((a) => a.due === now.date && (a.time ?? "23:59") >= fromHour);
   const dueTomorrow = assignments.filter((a) => a.due === tomorrow);
   const items = [...dueToday, ...dueTomorrow].sort((a, b) =>
     a.due === b.due ? (a.time ?? "").localeCompare(b.time ?? "") : a.due < b.due ? -1 : 1,
@@ -114,7 +118,10 @@ async function main() {
 
   // The habit nudge goes out every day regardless of coursework, so this
   // reminder always sends — it never stays silent the way it used to.
-  const HABIT_NUDGE = "Don't forget to track your habits throughout the day, Boss";
+  const HABIT_NUDGE =
+    hour === "21"
+      ? "Don't forget to log your habits before bed, Boss"
+      : "Don't forget to track your habits throughout the day, Boss";
 
   let title;
   const lines = [];

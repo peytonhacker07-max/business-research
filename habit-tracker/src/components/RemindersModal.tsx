@@ -70,7 +70,7 @@ export default function RemindersModal({ onClose }: Props) {
         {supported && !subscription && (
           <>
             <p className="reminder-note">
-              Get a nudge each morning at <strong>9:00 AM</strong> — anything due that
+              Get a nudge at <strong>9:00 AM</strong> and <strong>9:00 PM</strong> — anything due that
               day or the next, plus a reminder to track your habits. Tap below and
               allow notifications.
             </p>
