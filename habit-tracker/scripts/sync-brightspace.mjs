@@ -144,6 +144,7 @@ async function main() {
 
     let summary = null;
     let dtstart = null;
+    let rawDtstart = null;
     let uid = null;
     let location = null;
     let categories = null;
@@ -157,7 +158,10 @@ async function main() {
       const key = rawKey.split(";")[0].toUpperCase();
 
       if (key === "SUMMARY") summary = unescapeIcsText(value);
-      else if (key === "DTSTART") dtstart = parseIcsDate(rawKey, value);
+      else if (key === "DTSTART") {
+        rawDtstart = line;
+        dtstart = parseIcsDate(rawKey, value);
+      }
       else if (key === "UID") uid = value.trim();
       else if (key === "LOCATION") location = unescapeIcsText(value);
       else if (key === "CATEGORIES") categories = unescapeIcsText(value);
@@ -175,7 +179,25 @@ async function main() {
       due: dtstart.date,
       time: dtstart.time,
       course: guessCourse(location, categories, description),
+      rawDtstart,
     });
+  }
+
+  // Log how the feed actually encodes its timestamps so the timezone handling
+  // above can be verified against the real feed rather than assumed. Only the
+  // DTSTART lines are logged — never the feed URL.
+  const formatCounts = { utcZ: 0, tzid: 0, floating: 0, dateOnly: 0 };
+  for (const e of events) {
+    const raw = e.rawDtstart ?? "";
+    if (!raw.includes("T")) formatCounts.dateOnly++;
+    else if (raw.trimEnd().endsWith("Z")) formatCounts.utcZ++;
+    else if (/TZID=/i.test(raw)) formatCounts.tzid++;
+    else formatCounts.floating++;
+  }
+  console.log("DTSTART formats:", JSON.stringify(formatCounts));
+  console.log("Sample DTSTART -> converted local due date/time:");
+  for (const e of events.slice(0, 5)) {
+    console.log(`  ${e.rawDtstart}  ->  ${e.due} ${e.time ?? "(all day)"}  |  ${e.title}`);
   }
 
   // Keep a reasonable window so the file doesn't grow unbounded.
@@ -192,7 +214,10 @@ async function main() {
   const result = events
     .filter((e) => e.due >= startKey && e.due <= endKey)
     .filter((e) => (seen.has(e.id) ? false : (seen.add(e.id), true)))
-    .sort((a, b) => (a.due < b.due ? -1 : a.due > b.due ? 1 : 0));
+    .sort((a, b) =>
+      a.due === b.due ? (a.time ?? "").localeCompare(b.time ?? "") : a.due < b.due ? -1 : 1,
+    )
+    .map(({ rawDtstart, ...rest }) => rest);
 
   await fs.writeFile(OUT_PATH, JSON.stringify(result, null, 2) + "\n");
   console.log(`Wrote ${result.length} assignments to ${OUT_PATH.pathname}`);
