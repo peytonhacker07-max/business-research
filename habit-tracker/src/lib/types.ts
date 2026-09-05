@@ -59,6 +59,11 @@ export interface AppData {
   bodyWeight: Record<string, number>;
   /** Map of date (YYYY-MM-DD) -> what the workout focused on, e.g. "Chest & Back". */
   workoutFocus: Record<string, string>;
+  /**
+   * Something to see first each morning — a goal, a verse, a quote. Shown at
+   * the top of Today. Optional so existing saved data stays valid.
+   */
+  pinned?: string;
 }
 
 export type ViewName = "today" | "analytics" | "todos" | "notes" | "workout" | "calendar";

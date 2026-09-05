@@ -122,7 +122,18 @@ function normalize(data: unknown): AppData {
     }
   }
 
-  return { habits, completions, todos, notes, workoutEntries, bodyWeight, workoutFocus };
+  const pinned = typeof d.pinned === "string" ? d.pinned : undefined;
+
+  return {
+    habits,
+    completions,
+    todos,
+    notes,
+    workoutEntries,
+    bodyWeight,
+    workoutFocus,
+    pinned,
+  };
 }
 
 let timer: ReturnType<typeof setTimeout> | undefined;

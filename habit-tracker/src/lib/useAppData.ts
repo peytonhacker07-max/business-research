@@ -42,6 +42,8 @@ export interface AppApi {
   ) => void;
   setBodyWeight: (date: string, weight: number) => void;
   setWorkoutFocus: (date: string, text: string) => void;
+  /** Set the note pinned to the top of Today; empty string clears it. */
+  setPinned: (text: string) => void;
 }
 
 export function useAppData(): AppApi {
@@ -279,6 +281,11 @@ export function useAppData(): AppApi {
     });
   }, []);
 
+  const setPinned = useCallback((text: string) => {
+    const trimmed = text.trim();
+    setData((d) => ({ ...d, pinned: trimmed || undefined }));
+  }, []);
+
   return {
     data,
     today,
@@ -297,5 +304,6 @@ export function useAppData(): AppApi {
     editWorkoutEntry,
     setBodyWeight,
     setWorkoutFocus,
+    setPinned,
   };
 }

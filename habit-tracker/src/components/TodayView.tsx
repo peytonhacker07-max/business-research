@@ -21,8 +21,49 @@ export default function TodayView({ api }: { api: AppApi }) {
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<Habit | null>(null);
 
+  const [editingPinned, setEditingPinned] = useState(false);
+  const [pinnedDraft, setPinnedDraft] = useState("");
+
+  const openPinnedEditor = () => {
+    setPinnedDraft(data.pinned ?? "");
+    setEditingPinned(true);
+  };
+  const savePinned = () => {
+    api.setPinned(pinnedDraft);
+    setEditingPinned(false);
+  };
+
   return (
     <div className="view">
+      {editingPinned ? (
+        <div className="pinned pinned-editing">
+          <textarea
+            className="pinned-input"
+            autoFocus
+            rows={3}
+            value={pinnedDraft}
+            placeholder="A goal, a verse, a quote — whatever you want to see first."
+            onChange={(e) => setPinnedDraft(e.target.value)}
+          />
+          <div className="pinned-actions">
+            <button className="btn ghost" onClick={() => setEditingPinned(false)}>
+              Cancel
+            </button>
+            <button className="btn primary" onClick={savePinned}>
+              Save
+            </button>
+          </div>
+        </div>
+      ) : data.pinned ? (
+        <button className="pinned" onClick={openPinnedEditor} aria-label="Edit pinned note">
+          <p className="pinned-text">{data.pinned}</p>
+        </button>
+      ) : (
+        <button className="pinned pinned-empty" onClick={openPinnedEditor}>
+          <span>+ Pin something to see each morning</span>
+        </button>
+      )}
+
       <ProgressRing done={done} total={total} />
 
       <p className="view-title" style={{ textAlign: "center", marginTop: 4 }}>
