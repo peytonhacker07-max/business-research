@@ -96,19 +96,15 @@ async function main() {
   const tomorrow = addDays(now.date, 1);
 
   const hour = now.time.slice(0, 2);
-
-  // Four UTC times are scheduled so 9 AM and 9 PM Eastern both hold across
-  // the daylight-saving switch; the two runs that land on neither hour stop
-  // here. Manual runs are never gated.
-  if (process.env.GITHUB_EVENT_NAME === "schedule" && hour !== "09" && hour !== "21") {
-    console.log(`Scheduled run landed at ${now.time} Eastern — not a send hour, skipping.`);
-    return;
-  }
+  // Anything before noon counts as the morning send. GitHub's scheduler runs
+  // late often enough that the exact hour can't be relied on, so this reads
+  // the clock rather than assuming which cron fired.
+  const isMorning = hour < "12";
 
   // Count anything due from the top of the current hour onward. Comparing
   // against the hour rather than the exact minute keeps the 9:00 AM reading
-  // quizzes in the 9 AM send, while the 9 PM send correctly drops what has
-  // already come and gone that morning.
+  // quizzes in the morning send, while the evening one drops what has
+  // already come and gone that day.
   const fromHour = `${hour}:00`;
   const dueToday = assignments.filter((a) => a.due === now.date && (a.time ?? "23:59") >= fromHour);
   const dueTomorrow = assignments.filter((a) => a.due === tomorrow);
@@ -118,10 +114,9 @@ async function main() {
 
   // The habit nudge goes out every day regardless of coursework, so this
   // reminder always sends — it never stays silent the way it used to.
-  const HABIT_NUDGE =
-    hour === "21"
-      ? "Don't forget to log your habits before bed, Boss"
-      : "Don't forget to track your habits throughout the day, Boss";
+  const HABIT_NUDGE = isMorning
+    ? "Don't forget to track your habits throughout the day, Boss"
+    : "Don't forget to log your habits before bed, Boss";
 
   let title;
   const lines = [];

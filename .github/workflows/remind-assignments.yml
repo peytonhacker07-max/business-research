@@ -1,13 +1,17 @@
 name: Assignment reminders
 
 on:
-  # 9 AM and 9 PM Eastern daily. Four UTC times are scheduled — 13:00/01:00
-  # hit those hours during daylight saving, 14:00/02:00 once it ends — and the
-  # script sends only on the runs that are actually 9 AM or 9 PM locally, so
-  # both times hold year-round. GitHub's scheduler drifts under load, so expect
-  # "sometime in the 9 o'clock hour" rather than exactly 9:00.
+  # 13:00 UTC is 9 AM Eastern and 01:00 UTC is 9 PM Eastern, while daylight
+  # saving is in effect; both land an hour earlier once it ends in November.
+  #
+  # An earlier version scheduled four times and had the script send only on
+  # the run that was exactly 9 AM or 9 PM locally, so the times would hold
+  # year-round. GitHub delivered a run four hours behind schedule and that
+  # check silently dropped it, so there is deliberately no such check now:
+  # every scheduled run sends, however late it arrives. A reminder at the
+  # wrong hour beats no reminder.
   schedule:
-    - cron: "0 1,2,13,14 * * *"
+    - cron: "0 1,13 * * *"
   # A manual run always sends, so it doubles as the delivery test.
   workflow_dispatch:
 
