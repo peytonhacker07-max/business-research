@@ -64,6 +64,8 @@ export interface AppData {
    * the top of Today. Optional so existing saved data stays valid.
    */
   pinned?: string;
+  /** What to call you in the Today greeting. Optional — omitted greets plainly. */
+  name?: string;
 }
 
 export type ViewName = "today" | "analytics" | "todos" | "notes" | "workout" | "calendar";

@@ -123,6 +123,7 @@ function normalize(data: unknown): AppData {
   }
 
   const pinned = typeof d.pinned === "string" ? d.pinned : undefined;
+  const name = typeof d.name === "string" ? d.name : undefined;
 
   return {
     habits,
@@ -133,6 +134,7 @@ function normalize(data: unknown): AppData {
     bodyWeight,
     workoutFocus,
     pinned,
+    name,
   };
 }
 

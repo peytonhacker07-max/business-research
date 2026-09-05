@@ -44,6 +44,8 @@ export interface AppApi {
   setWorkoutFocus: (date: string, text: string) => void;
   /** Set the note pinned to the top of Today; empty string clears it. */
   setPinned: (text: string) => void;
+  /** Set the name used in the Today greeting; empty string clears it. */
+  setName: (name: string) => void;
 }
 
 export function useAppData(): AppApi {
@@ -286,6 +288,11 @@ export function useAppData(): AppApi {
     setData((d) => ({ ...d, pinned: trimmed || undefined }));
   }, []);
 
+  const setName = useCallback((name: string) => {
+    const trimmed = name.trim();
+    setData((d) => ({ ...d, name: trimmed || undefined }));
+  }, []);
+
   return {
     data,
     today,
@@ -305,5 +312,6 @@ export function useAppData(): AppApi {
     setBodyWeight,
     setWorkoutFocus,
     setPinned,
+    setName,
   };
 }
