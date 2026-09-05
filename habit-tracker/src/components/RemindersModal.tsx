@@ -6,6 +6,13 @@ import {
   sendTestNotification,
 } from "../lib/push";
 
+/**
+ * Not currently rendered anywhere — the header button that opened it was
+ * removed once notifications were set up. Kept because this is the only way
+ * to create a push subscription: if notifications stop arriving (the
+ * subscription expired, the phone was reset, the VAPID key was rotated),
+ * render this again to re-subscribe and produce a fresh PUSH_SUBSCRIPTION.
+ */
 interface Props {
   onClose: () => void;
 }

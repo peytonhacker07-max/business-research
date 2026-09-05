@@ -10,13 +10,10 @@ import WorkoutView from "./components/WorkoutView";
 import CalendarView from "./components/CalendarView";
 import ThemeToggle from "./components/ThemeToggle";
 import ColorSchemeSelector from "./components/ColorSchemeSelector";
-import RemindersModal from "./components/RemindersModal";
-import { BellIcon } from "./components/Icons";
 
 export default function App() {
   const api = useAppData();
   const [view, setView] = useState<ViewName>("today");
-  const [remindersOpen, setRemindersOpen] = useState(false);
 
   return (
     <div className="app">
@@ -24,14 +21,6 @@ export default function App() {
         <div className="app-header-row">
           <p className="eyebrow">Daily</p>
           <div style={{ display: "flex", gap: 8 }}>
-            <button
-              className="icon-btn"
-              onClick={() => setRemindersOpen(true)}
-              aria-label="Assignment reminders"
-              title="Assignment reminders"
-            >
-              <BellIcon className="" />
-            </button>
             <ColorSchemeSelector />
             <ThemeToggle />
           </div>
@@ -59,8 +48,6 @@ export default function App() {
       {view === "workout" && <WorkoutView api={api} />}
 
       <Nav view={view} onChange={setView} />
-
-      {remindersOpen && <RemindersModal onClose={() => setRemindersOpen(false)} />}
     </div>
   );
 }
