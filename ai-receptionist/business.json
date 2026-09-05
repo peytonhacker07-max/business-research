@@ -1,0 +1,16 @@
+{
+  "name": "Volunteer State HVAC",
+  "trade": "heating and air conditioning",
+  "hours": "Mon-Fri 7am-6pm, Sat 8am-2pm, closed Sunday",
+  "services": [
+    "AC repair",
+    "heating repair",
+    "new system installs",
+    "maintenance plans"
+  ],
+  "facts": [
+    "$89 diagnostic fee, waived if the customer has us do the repair",
+    "same-day service available for emergencies",
+    "financing available on new installs"
+  ]
+}
