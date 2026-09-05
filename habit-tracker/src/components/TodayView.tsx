@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { AppApi } from "../lib/useAppData";
 import { activeHabits, currentStreak, isDone, todayProgress } from "../lib/streaks";
 import { formatLong } from "../lib/dates";
+import { useDailyQuote } from "../lib/quotes";
 import ProgressRing from "./ProgressRing";
 import HabitFormModal from "./HabitFormModal";
 import {
@@ -20,6 +21,8 @@ export default function TodayView({ api }: { api: AppApi }) {
 
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<Habit | null>(null);
+
+  const quote = useDailyQuote(today);
 
   const [editingPinned, setEditingPinned] = useState(false);
   const [pinnedDraft, setPinnedDraft] = useState("");
@@ -69,6 +72,13 @@ export default function TodayView({ api }: { api: AppApi }) {
       <p className="view-title" style={{ textAlign: "center", marginTop: 4 }}>
         {formatLong(new Date())}
       </p>
+
+      {quote && (
+        <figure className="quote">
+          <blockquote className="quote-text">{quote.text}</blockquote>
+          <figcaption className="quote-author">{quote.author}</figcaption>
+        </figure>
+      )}
 
       {habits.length === 0 ? (
         <div className="empty">

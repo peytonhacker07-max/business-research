@@ -1039,3 +1039,39 @@ select {
 .name-input:focus {
   outline: none;
 }
+
+/* ---- Quote of the day ----------------------------------------------
+   Sits under the date on Today. Deliberately quiet — it's a daily
+   grace note, not something competing with the habits below it. */
+
+.quote {
+  margin: 14px 0 22px;
+  padding: 0 8px;
+  text-align: center;
+}
+
+.quote-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.quote-text::before {
+  content: "\201C";
+}
+
+.quote-text::after {
+  content: "\201D";
+}
+
+.quote-author {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--ink-faint);
+}

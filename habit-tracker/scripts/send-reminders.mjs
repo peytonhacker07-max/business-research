@@ -12,6 +12,7 @@ const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
 const PUSH_SUBSCRIPTION = process.env.PUSH_SUBSCRIPTION;
 const SCHOOL_TZ = "America/New_York";
 const ASSIGNMENTS_PATH = new URL("../public/assignments.json", import.meta.url);
+const QUOTES_PATH = new URL("../public/quotes.json", import.meta.url);
 
 if (!VAPID_PRIVATE_KEY || !PUSH_SUBSCRIPTION) {
   console.error("VAPID_PRIVATE_KEY and PUSH_SUBSCRIPTION must both be set.");
@@ -41,6 +42,23 @@ function addDays(dateKey, n) {
   const [y, m, d] = dateKey.split("-").map(Number);
   const dt = new Date(Date.UTC(y, m - 1, d + n));
   return dt.toISOString().slice(0, 10);
+}
+
+/**
+ * The quote for a date. Mirrors quoteIndexFor() in src/lib/quotes.ts so the
+ * notification and the app show the same one on any given day.
+ */
+async function quoteFor(dateKey) {
+  try {
+    const quotes = JSON.parse(await fs.readFile(QUOTES_PATH, "utf8"));
+    if (!Array.isArray(quotes) || quotes.length === 0) return null;
+    const [y, m, d] = dateKey.split("-").map(Number);
+    const days = Math.floor(Date.UTC(y, m - 1, d) / 86400000);
+    const i = ((days % quotes.length) + quotes.length) % quotes.length;
+    return quotes[i];
+  } catch {
+    return null;
+  }
 }
 
 function formatTime(time) {
@@ -140,6 +158,12 @@ async function main() {
   }
 
   lines.push(HABIT_NUDGE);
+
+  // A quote to start the day — morning only, so the evening nudge stays short.
+  if (isMorning) {
+    const quote = await quoteFor(now.date);
+    if (quote) lines.push(`"${quote.text}" — ${quote.author}`);
+  }
 
   // Apple's push service validates the VAPID subject and rejects placeholder
   // contacts, so point it at the app itself.
