@@ -15,11 +15,6 @@ on:
   # A manual run always sends, ignoring both window and record, so it stays
   # usable as a delivery test.
   workflow_dispatch:
-  # TEMPORARY: one-off send to verify the new logic. Removed immediately after.
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/remind-assignments.yml"
 
 # Needed to record what has already been sent today.
 permissions:
