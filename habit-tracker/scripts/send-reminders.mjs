@@ -13,6 +13,12 @@ const PUSH_SUBSCRIPTION = process.env.PUSH_SUBSCRIPTION;
 const SCHOOL_TZ = "America/New_York";
 const ASSIGNMENTS_PATH = new URL("../public/assignments.json", import.meta.url);
 const QUOTES_PATH = new URL("../public/quotes.json", import.meta.url);
+const STATE_PATH = new URL("../../.github/reminder-state.json", import.meta.url);
+
+// Which Eastern hours count as each send. Wide, because GitHub delivers runs
+// hours behind schedule — a narrow target would simply be missed.
+const MORNING = { slot: "morning", from: 8, to: 12 };
+const EVENING = { slot: "evening", from: 20, to: 24 };
 
 if (!VAPID_PRIVATE_KEY || !PUSH_SUBSCRIPTION) {
   console.error("VAPID_PRIVATE_KEY and PUSH_SUBSCRIPTION must both be set.");
@@ -58,6 +64,16 @@ async function quoteFor(dateKey) {
     return quotes[i];
   } catch {
     return null;
+  }
+}
+
+/** What has already been sent today, by window. Missing or unreadable is fine. */
+async function readState() {
+  try {
+    const parsed = JSON.parse(await fs.readFile(STATE_PATH, "utf8"));
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
   }
 }
 
@@ -114,10 +130,27 @@ async function main() {
   const tomorrow = addDays(now.date, 1);
 
   const hour = now.time.slice(0, 2);
-  // Anything before noon counts as the morning send. GitHub's scheduler runs
-  // late often enough that the exact hour can't be relied on, so this reads
-  // the clock rather than assuming which cron fired.
-  const isMorning = hour < "12";
+  const hourNum = Number(hour);
+  const manual = process.env.GITHUB_EVENT_NAME !== "schedule";
+
+  // A scheduled run sends only if it landed inside a window and nothing has
+  // gone out for that window today; a manual run always sends.
+  const window = [MORNING, EVENING].find((w) => hourNum >= w.from && hourNum < w.to);
+  let state = {};
+  if (!manual) {
+    if (!window) {
+      console.log(`Landed at ${now.time} Eastern, outside both windows — nothing to do.`);
+      return;
+    }
+    state = await readState();
+    if (state[window.slot] === now.date) {
+      console.log(`The ${window.slot} reminder already went out on ${now.date} — nothing to do.`);
+      return;
+    }
+    console.log(`Landed at ${now.time} Eastern — sending the ${window.slot} reminder.`);
+  }
+
+  const isMorning = window ? window.slot === "morning" : hourNum < 12;
 
   // Count anything due from the top of the current hour onward. Comparing
   // against the hour rather than the exact minute keeps the 9:00 AM reading
@@ -223,6 +256,14 @@ async function main() {
   console.log(`${title}\n${lines.join("\n")}`);
   console.log(`Sent to ${sent}/${subscriptions.length} subscription(s).`);
   if (sent === 0) process.exit(1);
+
+  // Only recorded once a device has actually accepted it, so a failed send
+  // doesn't stop a later run from trying again.
+  if (!manual && window) {
+    state[window.slot] = now.date;
+    await fs.writeFile(STATE_PATH, JSON.stringify(state, null, 2) + "\n");
+    console.log(`Recorded the ${window.slot} reminder for ${now.date}.`);
+  }
 }
 
 main().catch((err) => {

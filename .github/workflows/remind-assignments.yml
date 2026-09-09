@@ -1,25 +1,29 @@
 name: Assignment reminders
 
 on:
-  # Targets 9 AM and 9 PM Eastern (an hour earlier once daylight saving ends
-  # in November). 12:40 UTC is 8:40 AM Eastern, 00:40 UTC is 8:40 PM.
+  # Fires every two hours rather than twice a day, because GitHub's shared
+  # scheduler has delivered every single run of this workflow 2h45m-4h35m
+  # behind schedule, and has dropped some entirely. Moving off minute :00
+  # made no difference, so the schedule no longer tries to be the clock.
   #
-  # Two deliberate choices, both about GitHub's scheduler rather than the
-  # clock. Every run scheduled at minute :00 arrived 2h45m-4h35m late, which
-  # is where the whole world puts its crons, so these sit at :40 instead. And
-  # they aim twenty minutes early, so a modest queue lands them near 9 rather
-  # than past it.
-  #
-  # There is deliberately no "is it really 9 o'clock?" check: an earlier
-  # version had one, a run arrived four hours late, and the notification was
-  # silently dropped. Every scheduled run sends, however late it lands.
+  # Instead the script sends only when a run happens to land inside the
+  # morning or evening window, and records what it has already sent that day
+  # so the other runs stay quiet. Firing often means that however far any
+  # individual run slips, something arrives inside each window.
   schedule:
-    - cron: "40 0,12 * * *"
-  # A manual run always sends, so it doubles as the delivery test.
+    - cron: "40 */2 * * *"
+  # A manual run always sends, ignoring both window and record, so it stays
+  # usable as a delivery test.
   workflow_dispatch:
 
+# Needed to record what has already been sent today.
 permissions:
-  contents: read
+  contents: write
+
+# One at a time — two runs sending before either records it would double up.
+concurrency:
+  group: assignment-reminders
+  cancel-in-progress: false
 
 jobs:
   remind:
@@ -43,3 +47,21 @@ jobs:
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
           PUSH_SUBSCRIPTION: ${{ secrets.PUSH_SUBSCRIPTION }}
         run: node scripts/send-reminders.mjs
+
+      - name: Record what was sent
+        run: |
+          if git diff --quiet -- .github/reminder-state.json; then
+            echo "Nothing sent this run — no record to update."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .github/reminder-state.json
+          git commit -m "Record reminder sent"
+          # Another run may have pushed while this one was sending.
+          for attempt in 1 2 3; do
+            git push && exit 0
+            git pull --rebase origin main || exit 1
+          done
+          echo "Could not push the record after 3 attempts." >&2
+          exit 1
