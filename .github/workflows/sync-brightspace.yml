@@ -1,8 +1,11 @@
 name: Sync Brightspace assignments
 
 on:
-  schedule:
-    - cron: "0 12 * * 0" # every Sunday at 12:00 UTC
+  # PAUSED. This workflow publishes assignments to a public repo, where
+  # anyone could read them. Disabled until the data is encrypted; re-enable
+  # by uncommenting the cron.
+  # schedule:
+  #   - cron: "0 12 * * 0" # every Sunday at 12:00 UTC
   workflow_dispatch:
     inputs:
       debug_event:
