@@ -3,6 +3,11 @@ name: Sync Brightspace assignments
 on:
   schedule:
     - cron: "0 12 * * 0" # every Sunday at 12:00 UTC
+  # TEMPORARY: one-off run to publish the first encrypted sync. Removed next.
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/sync-brightspace.yml"
   workflow_dispatch:
     inputs:
       debug_event:
@@ -44,7 +49,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add habit-tracker/public/assignments.json habit-tracker/public/study-plan.json
+          # study-plan.json only exists when an Anthropic key is configured.
+          # Naming a missing path makes git add fail the whole job, which is
+          # what silently broke this sync for a week.
+          git add habit-tracker/public/assignments.json
+          if [ -f habit-tracker/public/study-plan.json ]; then
+            git add habit-tracker/public/study-plan.json
+          fi
           if git diff --cached --quiet; then
             echo "No changes to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"
