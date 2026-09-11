@@ -7,6 +7,7 @@
 // here — never shipped to the browser, where it would be readable by anyone.
 
 import fs from "node:fs/promises";
+import { readAssignments } from "./lib/assignments-crypto.mjs";
 
 const API_KEY = process.env.ANTHROPIC_API_KEY;
 const SCHOOL_TZ = "America/New_York";
@@ -62,7 +63,10 @@ function extractJson(text) {
 }
 
 async function main() {
-  const assignments = JSON.parse(await fs.readFile(ASSIGNMENTS_PATH, "utf8"));
+  const assignments = readAssignments(
+    JSON.parse(await fs.readFile(ASSIGNMENTS_PATH, "utf8")),
+    process.env.ASSIGNMENTS_PASSPHRASE,
+  );
   const today = schoolToday();
   const weekEnd = addDays(today, 7);
 

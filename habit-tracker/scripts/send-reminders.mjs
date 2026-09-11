@@ -5,6 +5,7 @@
 
 import fs from "node:fs/promises";
 import webpush from "web-push";
+import { readAssignments } from "./lib/assignments-crypto.mjs";
 
 const VAPID_PUBLIC_KEY =
   "BAhno-K_uLZDIIsxFDe_qrsSdDDiDxBuZF2cQNtrt8KiaSq6SoMOlQtoaQVPEeAR_iTtshChTxGmRH1rUPQG2iw";
@@ -125,7 +126,10 @@ function parseSubscriptions(raw) {
 }
 
 async function main() {
-  const assignments = JSON.parse(await fs.readFile(ASSIGNMENTS_PATH, "utf8"));
+  const assignments = readAssignments(
+    JSON.parse(await fs.readFile(ASSIGNMENTS_PATH, "utf8")),
+    process.env.ASSIGNMENTS_PASSPHRASE,
+  );
   const now = schoolNow();
   const tomorrow = addDays(now.date, 1);
 

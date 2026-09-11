@@ -5,6 +5,7 @@
 // outside CI, and never commit the URL itself anywhere.
 
 import fs from "node:fs/promises";
+import { encryptJson } from "./lib/assignments-crypto.mjs";
 
 const ICS_URL = process.env.BRIGHTSPACE_ICS_URL;
 const OUT_PATH = new URL("../public/assignments.json", import.meta.url);
@@ -227,8 +228,18 @@ async function main() {
     )
     .map(({ rawDtstart, ...rest }) => rest);
 
-  await fs.writeFile(OUT_PATH, JSON.stringify(result, null, 2) + "\n");
-  console.log(`Wrote ${result.length} assignments to ${OUT_PATH.pathname}`);
+  // The repo is public, so the published file is encrypted. Without a
+  // passphrase we refuse to write rather than quietly publishing coursework.
+  const passphrase = process.env.ASSIGNMENTS_PASSPHRASE;
+  if (!passphrase) {
+    throw new Error(
+      "ASSIGNMENTS_PASSPHRASE is not set. Refusing to write assignments in the " +
+        "clear to a public repository.",
+    );
+  }
+  const payload = encryptJson(result, passphrase);
+  await fs.writeFile(OUT_PATH, JSON.stringify(payload, null, 2) + "\n");
+  console.log(`Wrote ${result.length} assignments (encrypted) to ${OUT_PATH.pathname}`);
 }
 
 main().catch((err) => {

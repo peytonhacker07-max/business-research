@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   useAssignments,
   formatAssignmentTime,
@@ -17,8 +17,21 @@ function dueLabel(due: string, today: string): string {
 
 export default function TaskView() {
   const today = todayKey();
-  const assignments = useAssignments();
+  const { assignments, status, unlock } = useAssignments();
   const plan = useStudyPlan();
+
+  const [passphrase, setPassphrase] = useState("");
+  const [unlocking, setUnlocking] = useState(false);
+  const [wrong, setWrong] = useState(false);
+
+  const handleUnlock = async () => {
+    setUnlocking(true);
+    setWrong(false);
+    const ok = await unlock(passphrase);
+    setUnlocking(false);
+    if (ok) setPassphrase("");
+    else setWrong(true);
+  };
 
   const planDays = useMemo(
     () => (plan?.days ?? []).filter((d) => d.date >= today),
@@ -46,6 +59,43 @@ export default function TaskView() {
   }, [upcoming]);
 
   const hasCourses = groups.some(([course]) => course !== "Other");
+
+  if (status === "loading") {
+    return <div className="view" />;
+  }
+
+  if (status === "locked") {
+    return (
+      <div className="view">
+        <div className="empty">
+          <h2>Locked</h2>
+          <p>
+            Your coursework is encrypted, because the site it&rsquo;s published from is
+            public. Enter your passphrase to unlock it on this device.
+          </p>
+          <input
+            className="passphrase-input"
+            type="password"
+            autoComplete="off"
+            value={passphrase}
+            placeholder="Passphrase"
+            onChange={(e) => setPassphrase(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleUnlock();
+            }}
+          />
+          {wrong && <p className="passphrase-error">That passphrase didn&rsquo;t work.</p>}
+          <button
+            className="btn primary"
+            onClick={handleUnlock}
+            disabled={unlocking || !passphrase.trim()}
+          >
+            {unlocking ? "Unlocking\u2026" : "Unlock"}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (upcoming.length === 0) {
     return (

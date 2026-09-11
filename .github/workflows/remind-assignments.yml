@@ -46,6 +46,7 @@ jobs:
         env:
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
           PUSH_SUBSCRIPTION: ${{ secrets.PUSH_SUBSCRIPTION }}
+          ASSIGNMENTS_PASSPHRASE: ${{ secrets.ASSIGNMENTS_PASSPHRASE }}
         run: node scripts/send-reminders.mjs
 
       - name: Record what was sent
