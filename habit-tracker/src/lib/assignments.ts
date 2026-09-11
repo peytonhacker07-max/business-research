@@ -20,6 +20,29 @@ interface Envelope {
 const PASSPHRASE_KEY = "daily.assignments-passphrase";
 const DEFAULT_ITERATIONS = 210000;
 
+/** Whether this device has been unlocked. Synchronous — no fetch needed. */
+export function hasPassphrase(): boolean {
+  return storedPassphrase().length > 0;
+}
+
+/**
+ * Checks a passphrase against the published file. Used by the unlock prompt,
+ * which has to reject a wrong guess rather than accept any text typed in.
+ */
+export async function verifyPassphrase(passphrase: string): Promise<boolean> {
+  try {
+    const res = await fetch(`${import.meta.env.BASE_URL}assignments.json`, { cache: "no-store" });
+    if (!res.ok) return false;
+    const parsed = await res.json();
+    // Nothing published yet, or published unencrypted — no passphrase to check.
+    if (!isEnvelope(parsed)) return true;
+    await decrypt(parsed, passphrase);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /** The passphrase for this device, if one has been entered. */
 export function storedPassphrase(): string {
   try {

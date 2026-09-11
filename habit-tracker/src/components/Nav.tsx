@@ -4,6 +4,9 @@ import { AnalyticsIcon, TodayIcon, ChecklistIcon, NotesIcon, DumbbellIcon, Calen
 interface Props {
   view: ViewName;
   onChange: (v: ViewName) => void;
+  /** Classes is hidden entirely until this device is unlocked, so that a
+   *  phone without the passphrase shows no sign the coursework exists. */
+  showClasses: boolean;
 }
 
 const ITEMS: { name: ViewName; label: string; Icon: typeof TodayIcon }[] = [
@@ -15,10 +18,11 @@ const ITEMS: { name: ViewName; label: string; Icon: typeof TodayIcon }[] = [
   { name: "workout", label: "Workout", Icon: DumbbellIcon },
 ];
 
-export default function Nav({ view, onChange }: Props) {
+export default function Nav({ view, onChange, showClasses }: Props) {
+  const items = showClasses ? ITEMS : ITEMS.filter((i) => i.name !== "todos");
   return (
     <nav className="nav" aria-label="Views">
-      {ITEMS.map(({ name, label, Icon }) => (
+      {items.map(({ name, label, Icon }) => (
         <button
           key={name}
           className={view === name ? "active" : ""}

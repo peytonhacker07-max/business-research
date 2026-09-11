@@ -10,6 +10,7 @@ import WorkoutView from "./components/WorkoutView";
 import CalendarView from "./components/CalendarView";
 import ThemeToggle from "./components/ThemeToggle";
 import ColorSchemeSelector from "./components/ColorSchemeSelector";
+import { hasPassphrase, savePassphrase, verifyPassphrase } from "./lib/assignments";
 
 function greetingFor(hour: number): string {
   if (hour < 12) return "Morning";
@@ -28,6 +29,43 @@ export default function App() {
     const id = setInterval(() => setHour(new Date().getHours()), 60_000);
     return () => clearInterval(id);
   }, []);
+
+  // Classes stays hidden until this device proves it has the passphrase, so
+  // a borrowed or shared phone shows no hint the coursework exists. Five taps
+  // on the "Daily" label is the way back in once it's hidden.
+  const [unlocked, setUnlocked] = useState(() => hasPassphrase());
+  const [taps, setTaps] = useState(0);
+  const [unlockOpen, setUnlockOpen] = useState(false);
+  const [unlockDraft, setUnlockDraft] = useState("");
+  const [unlockBusy, setUnlockBusy] = useState(false);
+  const [unlockWrong, setUnlockWrong] = useState(false);
+
+  const handleEyebrowTap = () => {
+    if (unlocked) return;
+    const next = taps + 1;
+    setTaps(next);
+    if (next >= 5) {
+      setTaps(0);
+      setUnlockWrong(false);
+      setUnlockDraft("");
+      setUnlockOpen(true);
+    }
+  };
+
+  const submitUnlock = async () => {
+    setUnlockBusy(true);
+    setUnlockWrong(false);
+    const ok = await verifyPassphrase(unlockDraft.trim());
+    setUnlockBusy(false);
+    if (!ok) {
+      setUnlockWrong(true);
+      return;
+    }
+    savePassphrase(unlockDraft.trim());
+    setUnlocked(true);
+    setUnlockOpen(false);
+    setView("todos");
+  };
 
   const [editingName, setEditingName] = useState(false);
   const [nameDraft, setNameDraft] = useState("");
@@ -48,7 +86,9 @@ export default function App() {
     <div className="app">
       <header className="app-header">
         <div className="app-header-row">
-          <p className="eyebrow">Daily</p>
+          <p className="eyebrow" onClick={handleEyebrowTap}>
+            Daily
+          </p>
           <div style={{ display: "flex", gap: 8 }}>
             <ColorSchemeSelector />
             <ThemeToggle />
@@ -96,11 +136,39 @@ export default function App() {
       {view === "today" && <TodayView api={api} />}
       {view === "calendar" && <CalendarView api={api} />}
       {view === "analytics" && <AnalyticsView api={api} />}
-      {view === "todos" && <TaskView />}
+      {view === "todos" && unlocked && <TaskView />}
       {view === "notes" && <NotesView api={api} />}
       {view === "workout" && <WorkoutView api={api} />}
 
-      <Nav view={view} onChange={setView} />
+      <Nav view={view} onChange={setView} showClasses={unlocked} />
+
+      {unlockOpen && (
+        <div className="modal-backdrop" onMouseDown={(e) => { if (e.target === e.currentTarget) setUnlockOpen(false); }}>
+          <div className="modal" role="dialog" aria-modal="true" aria-label="Unlock classes">
+            <h2>Unlock classes</h2>
+            <p className="reminder-note">
+              Enter your passphrase to show your coursework on this device.
+            </p>
+            <input
+              className="passphrase-input"
+              type="password"
+              autoFocus
+              autoComplete="off"
+              value={unlockDraft}
+              placeholder="Passphrase"
+              onChange={(e) => setUnlockDraft(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") submitUnlock(); }}
+            />
+            {unlockWrong && <p className="passphrase-error">That passphrase didn&rsquo;t work.</p>}
+            <div className="modal-actions">
+              <button className="btn ghost" onClick={() => setUnlockOpen(false)}>Cancel</button>
+              <button className="btn primary" onClick={submitUnlock} disabled={unlockBusy || !unlockDraft.trim()}>
+                {unlockBusy ? "Checking\u2026" : "Unlock"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
