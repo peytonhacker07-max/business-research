@@ -66,6 +66,23 @@ export interface AppData {
   pinned?: string;
   /** What to call you in the Today greeting. Optional — omitted greets plainly. */
   name?: string;
+  /**
+   * A day's figures from Apple Health, delivered by a Shortcut. Kept on the
+   * device only — this never reaches the repo or the published site.
+   */
+  health?: Record<string, HealthDay>;
+}
+
+/** One day of Apple Health figures. Every field is optional — a Shortcut may
+ *  only manage some of them, and a missing figure must not read as a zero. */
+export interface HealthDay {
+  /** Time asleep, in minutes. */
+  sleepMinutes?: number;
+  steps?: number;
+  /** Resting heart rate, bpm. */
+  restingHeartRate?: number;
+  /** Active energy burned, kcal. */
+  activeEnergy?: number;
 }
 
 export type ViewName = "today" | "analytics" | "todos" | "notes" | "workout" | "calendar";

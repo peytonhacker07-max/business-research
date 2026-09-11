@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { healthDayCount, healthInsights } from "../lib/healthInsights";
 import type { AppApi } from "../lib/useAppData";
 import {
   activeHabits,
@@ -82,13 +83,37 @@ export default function AnalyticsView({ api }: { api: AppApi }) {
   const habits = activeHabits(data);
   const [range, setRange] = useState<Range>(30);
 
+  const insights = healthInsights(data);
+  const healthDays = healthDayCount(data);
+
+  const healthSection =
+    healthDays === 0 ? null : (
+      <div className="health-card">
+        <p className="health-heading">FROM YOUR WATCH</p>
+        {insights.length === 0 ? (
+          <p className="health-waiting">
+            {healthDays} {healthDays === 1 ? "day" : "days"} recorded. Patterns need about
+            a week before they mean anything.
+          </p>
+        ) : (
+          insights.map((insight) => (
+            <div key={insight.title} className={`insight insight-${insight.tone}`}>
+              <p className="insight-title">{insight.title}</p>
+              <p className="insight-detail">{insight.detail}</p>
+            </div>
+          ))
+        )}
+      </div>
+    );
+
   if (habits.length === 0) {
     return (
       <div className="view">
         <h2 className="view-title">Analytics</h2>
+        {healthSection}
         <div className="empty">
           <div className="mark">📈</div>
-          <h2>No data yet</h2>
+          <h2>No habit data yet</h2>
           <p>Your charts will appear once you start checking off habits.</p>
         </div>
       </div>
@@ -114,6 +139,7 @@ export default function AnalyticsView({ api }: { api: AppApi }) {
   return (
     <div className="view">
       <h2 className="view-title">Analytics</h2>
+      {healthSection}
 
       <div className="range-tabs" role="tablist" aria-label="Time range">
         {([7, 30, 90] as Range[]).map((r) => (

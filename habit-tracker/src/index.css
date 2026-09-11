@@ -1107,3 +1107,61 @@ select {
   font-weight: 600;
   color: var(--danger);
 }
+
+/* ---- Health insights ------------------------------------------------
+   Observations drawn from watch data on this device. Deliberately plain:
+   these are measurements, not a dashboard. */
+
+.health-card {
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+.health-heading {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  margin: 0 0 12px;
+}
+
+.health-waiting {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-faint);
+}
+
+.insight {
+  padding: 10px 0 10px 12px;
+  border-left: 3px solid var(--ink-faint);
+}
+
+.insight + .insight {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.insight-good {
+  border-left-color: var(--accent);
+}
+
+.insight-watch {
+  border-left-color: var(--danger);
+}
+
+.insight-title {
+  margin: 0 0 2px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.insight-detail {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}

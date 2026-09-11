@@ -125,6 +125,23 @@ function normalize(data: unknown): AppData {
   const pinned = typeof d.pinned === "string" ? d.pinned : undefined;
   const name = typeof d.name === "string" ? d.name : undefined;
 
+  // Health days arrive from a Shortcut, so treat them as untrusted input:
+  // keep only well-formed dates and finite non-negative numbers.
+  let health: AppData["health"];
+  if (d.health && typeof d.health === "object") {
+    const cleaned: NonNullable<AppData["health"]> = {};
+    for (const [date, day] of Object.entries(d.health)) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !day || typeof day !== "object") continue;
+      const entry: Record<string, number> = {};
+      for (const field of ["sleepMinutes", "steps", "restingHeartRate", "activeEnergy"]) {
+        const v = (day as Record<string, unknown>)[field];
+        if (typeof v === "number" && Number.isFinite(v) && v >= 0) entry[field] = v;
+      }
+      if (Object.keys(entry).length > 0) cleaned[date] = entry;
+    }
+    if (Object.keys(cleaned).length > 0) health = cleaned;
+  }
+
   return {
     habits,
     completions,
@@ -135,6 +152,7 @@ function normalize(data: unknown): AppData {
     workoutFocus,
     pinned,
     name,
+    health,
   };
 }
 

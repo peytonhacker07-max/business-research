@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { AppData, Habit, Todo, WorkoutEntry } from "./types";
+import type { AppData, Habit, HealthDay, Todo, WorkoutEntry } from "./types";
 import { completionKey, loadData, saveData } from "./storage";
 import { todayKey } from "./dates";
 
@@ -46,6 +46,8 @@ export interface AppApi {
   setPinned: (text: string) => void;
   /** Set the name used in the Today greeting; empty string clears it. */
   setName: (name: string) => void;
+  /** Merge health days from a Shortcut, overwriting same-date entries. */
+  mergeHealth: (days: Record<string, HealthDay>) => void;
 }
 
 export function useAppData(): AppApi {
@@ -293,6 +295,11 @@ export function useAppData(): AppApi {
     setData((d) => ({ ...d, name: trimmed || undefined }));
   }, []);
 
+  const mergeHealth = useCallback((days: Record<string, HealthDay>) => {
+    if (Object.keys(days).length === 0) return;
+    setData((d) => ({ ...d, health: { ...(d.health ?? {}), ...days } }));
+  }, []);
+
   return {
     data,
     today,
@@ -313,5 +320,6 @@ export function useAppData(): AppApi {
     setWorkoutFocus,
     setPinned,
     setName,
+    mergeHealth,
   };
 }

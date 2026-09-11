@@ -11,6 +11,7 @@ import CalendarView from "./components/CalendarView";
 import ThemeToggle from "./components/ThemeToggle";
 import ColorSchemeSelector from "./components/ColorSchemeSelector";
 import { hasPassphrase, savePassphrase, verifyPassphrase } from "./lib/assignments";
+import { clearHealthFragment, readHealthFromFragment } from "./lib/health";
 
 function greetingFor(hour: number): string {
   if (hour < 12) return "Morning";
@@ -21,6 +22,17 @@ function greetingFor(hour: number): string {
 export default function App() {
   const api = useAppData();
   const [view, setView] = useState<ViewName>("today");
+
+  // A Shortcut opens the app with Health figures after a "#". Read them once
+  // on mount, then strip the fragment so it isn't left sitting in history.
+  const { mergeHealth } = api;
+  useEffect(() => {
+    const days = readHealthFromFragment();
+    if (Object.keys(days).length > 0) {
+      mergeHealth(days);
+      clearHealthFragment();
+    }
+  }, [mergeHealth]);
 
   // Recheck each minute so a session left open doesn't still say "Morning"
   // in the evening.
