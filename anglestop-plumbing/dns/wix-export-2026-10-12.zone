@@ -1,0 +1,22 @@
+; Zone file for anglestopplumbing.com
+; Exported from Wix DNS on 2026-10-12
+;
+$ORIGIN anglestopplumbing.com.
+$TTL 3600
+
+@                                3600     IN   A        185.230.63.171
+@                                3600     IN   A        185.230.63.186
+@                                3600     IN   A        185.230.63.107
+@                                3600     IN   MX       10   aspmx.l.google.com.
+@                                3600     IN   MX       20   alt1.aspmx.l.google.com.
+@                                3600     IN   MX       30   alt2.aspmx.l.google.com.
+@                                3600     IN   MX       40   alt3.aspmx.l.google.com.
+@                                3600     IN   MX       50   alt4.aspmx.l.google.com.
+@                                86400    IN   NS       ns2.wixdns.net.
+@                                86400    IN   NS       ns3.wixdns.net.
+@                                3600     IN   TXT      "google-site-verification=19wlVISs7ZUS61IG6VhDFItwonETBX6o0tIgzpMudDQ"
+@                                3600     IN   TXT      "v=spf1 include:_spf.google.com ~all"
+_dmarc                           3600     IN   TXT      "v=DMARC1; p=none;"
+k2._domainkey                    3600     IN   CNAME    dkim2.mcsv.net.
+k3._domainkey                    3600     IN   CNAME    dkim3.mcsv.net.
+www                              3600     IN   CNAME    cdn3.wixdns.net.
