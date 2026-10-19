@@ -155,12 +155,28 @@
     border-top:3px solid var(--sky);
   }
   .svc:hover{border-top-color:var(--red); box-shadow:0 4px 14px rgba(12,51,96,.08)}
+  .svc img{
+    display:block; width:calc(100% + 40px); max-width:none; height:auto; margin:-20px -20px 16px;
+    aspect-ratio:16/10; object-fit:cover; background:var(--line);
+  }
   .svc .prob{
     font-family:var(--display); font-weight:700; font-size:18px;
     color:var(--navy); letter-spacing:-.01em; margin:0;
   }
   .svc .fix{margin:7px 0 0; font-size:15.5px; color:var(--ink-2)}
   .svc .go{margin:12px 0 0; font-size:14px; font-weight:600; color:var(--blue)}
+
+  /* recent jobs */
+  .jobs-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+    margin:30px 0 0; padding:0; list-style:none;
+  }
+  .jobs-grid figure{margin:0}
+  .jobs-grid img{
+    display:block; width:100%; height:auto; aspect-ratio:1; object-fit:cover;
+    border-radius:9px; background:var(--line);
+  }
+  .jobs-grid figcaption{margin-top:8px; font-size:15px; color:var(--ink-2)}
 
   /* reviews */
   .reviews{background:var(--card); border-block:1px solid var(--line)}
@@ -284,6 +300,11 @@
     header{position:static}
     .bar .callbtn{display:none}
     .bar .bookbtn{display:none}
+    .svc{display:grid; grid-template-columns:92px 1fr; column-gap:14px; align-items:start}
+    .svc img{grid-row:span 3; width:92px; margin:0; aspect-ratio:1; border-radius:6px}
+    .svc .prob, .svc .fix, .svc .go{grid-column:2}
+    .jobs-grid{grid-template-columns:repeat(2,1fr); gap:10px}
+    .jobs-grid figcaption{font-size:14px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -305,7 +326,7 @@
 <header>
   <div class="wrap bar">
     <a class="mark" href="/">
-      <img class="badge" src="images/badge-160.webp" width="60" height="60" alt="">
+      <img class="badge" src="images/seal.svg" width="60" height="60" alt="">
       <span>
         <span class="name">Angle Stop Plumbing</span>
         <span class="tag">Stop leaking pipes, it's our life</span>
@@ -377,46 +398,88 @@
 
     <div class="grid">
       <a class="svc" href="/water-heater-service-repair-installation-murfreesboro-tn">
+        <img src="images/work/card-water-heater.webp" width="720" height="540" loading="lazy" alt="New Bradford White gas water heater installed in a laundry closet">
         <p class="prob">No hot water</p>
         <p class="fix">Water heater repair and replacement — tank, tankless and heat pump.</p>
         <p class="go">Water heater services →</p>
       </a>
       <a class="svc" href="/pipe-services">
+        <img src="images/work/card-repipe.webp" width="720" height="540" loading="lazy" alt="PEX water lines run through an open ceiling during a repipe">
         <p class="prob">Water where it shouldn't be</p>
         <p class="fix">Leak detection, pipe repair, sewer line leaks, crawlspace and basement cleanup.</p>
         <p class="go">Leak &amp; pipe repair →</p>
       </a>
       <a class="svc" href="/residential-plumbing-services">
+        <img src="images/work/card-sewer.webp" width="720" height="540" loading="lazy" alt="New sewer line laid in an open trench beside a house">
         <p class="prob">Slow or clogged drain</p>
         <p class="fix">Drain cleaning for sinks, tubs, showers and main lines.</p>
         <p class="go">Drain cleaning →</p>
       </a>
       <a class="svc" href="/fixture-services">
+        <img src="images/work/card-vanity.webp" width="720" height="540" loading="lazy" alt="Double vanity with brushed brass faucets, installed">
         <p class="prob">Running toilet or dripping faucet</p>
         <p class="fix">Toilet, kitchen, bath and outside faucet repair and installation.</p>
         <p class="go">Fixture services →</p>
       </a>
       <a class="svc" href="/tankless-water-heater-murfreesboro-tn">
+        <img src="images/work/card-tankless.webp" width="720" height="540" loading="lazy" alt="Navien tankless water heater mounted on an outside brick wall">
         <p class="prob">Thinking about tankless</p>
         <p class="fix">Tankless and heat pump water heater installation, service and repair.</p>
         <p class="go">Tankless water heaters →</p>
       </a>
       <a class="svc" href="/general-1">
+        <img src="images/work/card-filters.webp" width="720" height="540" loading="lazy" alt="Whole-house water filters plumbed in a garage">
         <p class="prob">Hard or bad-tasting water</p>
         <p class="fix">Water softeners, filtration systems and backflow preventer testing.</p>
         <p class="go">Water filtration →</p>
       </a>
       <a class="svc" href="/commercial-plumbing-services">
+        <img src="images/work/card-commercial.webp" width="720" height="540" loading="lazy" alt="Commercial Bradford White water heater with new copper piping">
         <p class="prob">A business or rental property</p>
         <p class="fix">Commercial repairs, preventive maintenance and backflow testing.</p>
         <p class="go">Commercial plumbing →</p>
       </a>
       <a class="svc" href="/emergencyplumbing">
+        <img src="images/work/card-burst-pipe.webp" width="720" height="540" loading="lazy" alt="Burst copper pipe in a crawlspace, repaired with a new section">
         <p class="prob">It can't wait</p>
         <p class="fix">Burst pipes, failed water heaters and leaks that won't stop. Call us first.</p>
         <p class="go">Emergency plumbing →</p>
       </a>
     </div>
+  </div>
+</section>
+
+<section class="jobs">
+  <div class="wrap">
+    <p class="kicker">From our job photos</p>
+    <h2>Work we're proud to leave behind.</h2>
+    <p class="sub">Every photo on this site is from an Angle Stop job. No stock photos.</p>
+    <ul class="jobs-grid">
+      <li><figure>
+        <img src="images/work/job-brass-shower.webp" width="640" height="640" loading="lazy" alt="Antique-style brass rain shower">
+        <figcaption>Antique-style shower trim-out</figcaption>
+      </figure></li>
+      <li><figure>
+        <img src="images/work/job-freestanding-tub.webp" width="640" height="640" loading="lazy" alt="Freestanding tub with a floor-mounted brass filler">
+        <figcaption>Freestanding tub</figcaption>
+      </figure></li>
+      <li><figure>
+        <img src="images/work/job-gas-logs.webp" width="640" height="640" loading="lazy" alt="New gas log set burning in a fireplace">
+        <figcaption>Gas fireplace log replacement</figcaption>
+      </figure></li>
+      <li><figure>
+        <img src="images/work/job-shower-trim.webp" width="640" height="640" loading="lazy" alt="Matte black shower trim on marble tile">
+        <figcaption>Shower faucet trim-out</figcaption>
+      </figure></li>
+      <li><figure>
+        <img src="images/work/job-heat-pump.webp" width="640" height="640" loading="lazy" alt="Bradford White heat pump water heater installed in a garage">
+        <figcaption>Heat pump water heater install</figcaption>
+      </figure></li>
+      <li><figure>
+        <img src="images/work/job-commercial-heater.webp" width="640" height="640" loading="lazy" alt="Commercial water heater after repair">
+        <figcaption>Commercial water heater repair</figcaption>
+      </figure></li>
+    </ul>
   </div>
 </section>
 
@@ -541,7 +604,7 @@
 
 <div class="verse">
   <div class="wrap">
-    <img class="seal" src="images/badge-480.webp" width="220" height="220" loading="lazy"
+    <img class="seal" src="images/seal.svg" width="220" height="220" loading="lazy"
          alt="Angle Stop Plumbing seal: Jesus created us, Jesus saved us, Jesus walks with us, Jesus has blessed us">
     <blockquote>May the Lord direct your hearts into God's love and Christ's perseverance.</blockquote>
     <cite>2 Thessalonians 3:5</cite>
