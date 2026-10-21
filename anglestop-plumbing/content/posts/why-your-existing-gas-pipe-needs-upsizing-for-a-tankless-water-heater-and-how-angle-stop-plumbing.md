@@ -80,7 +80,7 @@ Customer Story: "Our old 1/2-inch line couldn't feed the new tankless. Angle Sto
 
 ## Ready to Upgrade?  {bold}
 
-Tankless = efficiency + comfort, but only with proper gas infrastructure. Contact Angle Stop Plumbing today for a free quote: Call (615) 398-3048 or visit www.anglestopplumbing.com <<http://www.anglestopplumbing.com>>.
+Tankless = efficiency + comfort, but only with proper gas infrastructure. Contact Angle Stop Plumbing today for a free quote: Call (615) 398-3048 or visit [[www.anglestopplumbing.com|http://www.anglestopplumbing.com]].
 
 Let's size it right and get you flowing!
 

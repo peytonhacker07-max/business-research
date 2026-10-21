@@ -42,7 +42,7 @@ For landlords and commercial property operators, clear instructions make a real 
 
 Store-bought chemical drain cleaners can be tempting when a sink slows down. They may offer a temporary improvement, but they do not remove tree roots, repair a broken pipe, or solve a main sewer obstruction. Repeated use can also be hard on certain pipes, seals, and fixtures.
 
-A plunger may be appropriate for a minor, isolated toilet clog. When multiple fixtures drain slowly <<https://www.anglestopplumbing.com/residential-plumbing-services/drain-services-murfreesboro-tn>> or water rises in an unexpected location, stop using water and call a plumbing professional. Continuing to flush, shower, run the dishwasher, or do laundry can send more wastewater into an already blocked line.
+A plunger may be appropriate for a minor, isolated toilet clog. When [[multiple fixtures drain slowly|https://www.anglestopplumbing.com/residential-plumbing-services/drain-services-murfreesboro-tn]] or water rises in an unexpected location, stop using water and call a plumbing professional. Continuing to flush, shower, run the dishwasher, or do laundry can send more wastewater into an already blocked line.
 
 ## Pay Attention to Early Warning Signs
 
@@ -64,7 +64,7 @@ There is a trade-off: not every home needs a camera inspection every year. If yo
 
 Tree roots naturally seek moisture, and even a small crack or loose joint in an older sewer pipe can attract them. Once inside, roots can catch paper and waste, creating a blockage that gets worse over time. Root cutting can restore flow, but it does not permanently repair a damaged line.
 
-If a camera inspection shows root intrusion, the best next step depends on the pipe material, the extent of damage, and the condition of the surrounding property. Periodic root removal may be a reasonable maintenance option for some lines. In other cases, repairing or replacing <<https://www.anglestopplumbing.com/residential-plumbing-services/sewer-pipe-repair-services-murfreesboro-tn>> the damaged section offers a more dependable long-term answer. A qualified plumber can explain the options and pricing clearly before work begins.
+If a camera inspection shows root intrusion, the best next step depends on the pipe material, the extent of damage, and the condition of the surrounding property. Periodic root removal may be a reasonable maintenance option for some lines. In other cases, [[repairing or replacing|https://www.anglestopplumbing.com/residential-plumbing-services/sewer-pipe-repair-services-murfreesboro-tn]] the damaged section offers a more dependable long-term answer. A qualified plumber can explain the options and pricing clearly before work begins.
 
 ## Protect the Lowest Drains in Your Property
 
@@ -76,7 +76,7 @@ Commercial properties should also know where their cleanouts are located and kee
 
 ## What to Do If a Backup Starts
 
-If sewage begins backing up <<https://www.anglestopplumbing.com/residential-plumbing-services/emergency-plumbing-services-murfreesboro-tn>>, stop using water throughout the property immediately. Do not flush toilets, run faucets, operate the washing machine, or use the dishwasher. Keep children and pets away from the affected area, since sewage can contain harmful bacteria.
+If [[sewage begins backing up|https://www.anglestopplumbing.com/residential-plumbing-services/emergency-plumbing-services-murfreesboro-tn]], stop using water throughout the property immediately. Do not flush toilets, run faucets, operate the washing machine, or use the dishwasher. Keep children and pets away from the affected area, since sewage can contain harmful bacteria.
 
 If it is safe to do so, move dry belongings away from the area without entering contaminated water. Avoid trying to clear a main-line backup with chemicals or by repeatedly plunging fixtures. Contact a plumbing professional for prompt diagnosis and clearing, then address any cleanup and restoration needs. If you suspect a public sewer issue, your local utility may also need to be notified.
 

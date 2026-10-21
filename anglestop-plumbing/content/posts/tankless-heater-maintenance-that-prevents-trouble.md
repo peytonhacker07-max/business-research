@@ -48,7 +48,7 @@ A tankless unit does not always fail without warning. Paying attention to small 
 
 Call for an inspection if your system begins producing inconsistent temperatures, makes unusual clicking, popping, or rumbling sounds, or displays an error code. Reduced water pressure at hot fixtures, a sulfur-like odor, moisture around the unit, or discolored water also deserve prompt attention. If you smell gas, leave the area, avoid switches and open flames, and contact the gas utility or emergency services as appropriate before arranging plumbing service.
 
-For a commercial property <<https://www.anglestopplumbing.com/commercial-plumbing-services>>, the stakes can be higher. Restaurants, offices, salons, rental properties, and other facilities may depend on steady hot water for daily operations. A maintenance plan <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>> can help reduce surprise downtime and make it easier to budget for needed repairs or equipment replacement.
+For a [[commercial property|https://www.anglestopplumbing.com/commercial-plumbing-services]], the stakes can be higher. Restaurants, offices, salons, rental properties, and other facilities may depend on steady hot water for daily operations. A [[maintenance plan|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]] can help reduce surprise downtime and make it easier to budget for needed repairs or equipment replacement.
 
 ## What homeowners can do between service visits
 
@@ -70,7 +70,7 @@ An error code or performance issue does not automatically mean you need a new ta
 
 Replacement may be the better choice when the heat exchanger has failed, repairs are becoming frequent, parts are no longer available, or the existing unit was undersized from the start. Sizing matters because a tankless heater must meet the required temperature rise and simultaneous demand. A system that works well for one bathroom may not keep up with multiple showers, laundry, and kitchen use at the same time.
 
-A qualified assessment should explain what is wrong, what the repair involves, and whether replacement offers a better long-term value. Clear, upfront pricing <<https://www.anglestopplumbing.com/flexible-plumbing-payment-solutions-murfreesboro-tn>> gives property owners room to make a confident decision instead of feeling pressured during a hot-water emergency.
+A qualified assessment should explain what is wrong, what the repair involves, and whether replacement offers a better long-term value. Clear, [[upfront pricing|https://www.anglestopplumbing.com/flexible-plumbing-payment-solutions-murfreesboro-tn]] gives property owners room to make a confident decision instead of feeling pressured during a hot-water emergency.
 
 ## Make maintenance part of your home plan
 

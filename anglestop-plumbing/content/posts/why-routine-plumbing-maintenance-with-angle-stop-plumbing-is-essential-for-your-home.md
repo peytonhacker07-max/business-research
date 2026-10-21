@@ -70,6 +70,6 @@ Proactive fixes
 
 ## Take Action Today  {bold}
 
-Don't wait for the drip to become a deluge. Schedule your routine maintenance with Angle Stop Plumbing now. Visit www.anglestopplumbing.com <<http://www.anglestopplumbing.com>> or call (615) 398-3048 for a free inspection.
+Don't wait for the drip to become a deluge. Schedule your routine maintenance with Angle Stop Plumbing now. Visit [[www.anglestopplumbing.com|http://www.anglestopplumbing.com]] or call (615) 398-3048 for a free inspection.
 
 Your home deserves it—and so do you.

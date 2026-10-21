@@ -42,7 +42,7 @@ Next comes the cabinet and countertop preparation. The apron opening needs clean
 
 The plumbing connections come after the sink is secured. Water supply lines are connected to the faucet, and the drain assembly is configured for reliable flow. When a disposal is part of the plan, its added weight and clearance needs should be considered. The dishwasher drain line must be routed and secured correctly, and any unused openings should be sealed.
 
-Finally, the system should be tested with water running at full flow. The technician checks every connection for leaks, confirms the basin drains without standing water, and makes sure the sink remains stable under normal use. A sink can look finished while a slow drip <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> behind the cabinet is already causing damage, so testing is never a step to skip.
+Finally, the system should be tested with water running at full flow. The technician checks every connection for leaks, confirms the basin drains without standing water, and makes sure the sink remains stable under normal use. A sink can look finished while a [[slow drip|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] behind the cabinet is already causing damage, so testing is never a step to skip.
 
 ## Common Problems to Avoid During Farm Sink Installation in Woodbury TN
 
@@ -50,7 +50,7 @@ The most common issue is inadequate support. Adhesive and countertop clips are n
 
 Another concern is drain height. Homeowners often discover too late that a deep-bowl sink leaves little room between the drain and the cabinet floor. The P-trap must still be installed correctly, with enough slope for drainage and access for future service. Forcing the drain components into an awkward arrangement can lead to slow draining, leaks, or repeated clogs.
 
-It is also wise to inspect old shutoff valves <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>> and supply lines during the project. This is the time to replace corroded valves, brittle hoses, or questionable fittings before they are hidden behind a full sink cabinet. Small preventative improvements can protect a newly remodeled kitchen from an avoidable water leak.
+It is also wise to inspect [[old shutoff valves|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]] and supply lines during the project. This is the time to replace corroded valves, brittle hoses, or questionable fittings before they are hidden behind a full sink cabinet. Small preventative improvements can protect a newly remodeled kitchen from an avoidable water leak.
 
 Countertop timing is another factor. If you are replacing cabinets and counters, the sink selection should be finalized early. The cabinet installer, countertop fabricator, and plumber need accurate sink specifications. If only the sink is being replaced, the existing countertop and cabinet may limit which models can be installed without major alterations. There is no one-size-fits-all answer, and a site evaluation can prevent a costly mismatch.
 

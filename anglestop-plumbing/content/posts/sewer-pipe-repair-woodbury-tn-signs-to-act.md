@@ -28,7 +28,7 @@ Watch for these common signs:
 
 - Wastewater backing up through a tub, shower, or floor drain
 
-Do not assume repeated plunging or chemical drain cleaner will fix a main-line problem. Harsh chemicals can damage certain pipes and fixtures, and they often do little against root intrusion, a collapsed section, or a severe obstruction farther down the line. If sewage is coming back into the home or commercial building, stop using water when possible and call for emergency plumbing help <<https://www.anglestopplumbing.com/post/3-plumbing-problems-homeowners-shouldn-t-ignore-and-why-you-should-call-now>>.
+Do not assume repeated plunging or chemical drain cleaner will fix a main-line problem. Harsh chemicals can damage certain pipes and fixtures, and they often do little against root intrusion, a collapsed section, or a severe obstruction farther down the line. If sewage is coming back into the home or commercial building, stop using water when possible and call for [[emergency plumbing help|https://www.anglestopplumbing.com/post/3-plumbing-problems-homeowners-shouldn-t-ignore-and-why-you-should-call-now]].
 
 ## What Causes Sewer Lines to Fail?
 
@@ -36,7 +36,7 @@ Sewer pipe trouble has more than one cause, which is why a proper inspection mat
 
 Tree roots are another common issue in Middle Tennessee. Roots naturally seek moisture, and even a small opening at a pipe joint can attract them. Once inside, roots can catch paper and debris until wastewater can no longer pass freely. Cleaning the line may restore flow, but a pipe with open joints or cracks may need repair to prevent the same problem from returning.
 
-Grease, wipes, hygiene products, and other items that do not belong in the drain can also create serious blockages. Products labeled flushable are not always safe for every plumbing system. They may snag on roots, rough pipe interiors, or a partially shifted connection. For businesses, especially restaurants and facilities with high restroom use, regular maintenance <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>> can be a practical way to reduce disruption.
+Grease, wipes, hygiene products, and other items that do not belong in the drain can also create serious blockages. Products labeled flushable are not always safe for every plumbing system. They may snag on roots, rough pipe interiors, or a partially shifted connection. For businesses, especially restaurants and facilities with high restroom use, [[regular maintenance|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]] can be a practical way to reduce disruption.
 
 ## Start With an Accurate Sewer Inspection
 
@@ -56,7 +56,7 @@ The most important question is not simply, “What is the cheapest repair today?
 
 ## Why Prompt Action Protects Your Property
 
-A damaged sewer line can cause more than inconvenient drains. Continued backups may expose flooring, drywall, belongings, and crawl spaces to contaminated wastewater. Leaks below ground can wash away soil, create foul odors, and contribute to foundation-area moisture concerns. For a business, a sewer backup <<https://www.anglestopplumbing.com/commercial-plumbing-services>> can interrupt normal operations and create an unpleasant experience for customers and employees.
+A damaged sewer line can cause more than inconvenient drains. Continued backups may expose flooring, drywall, belongings, and crawl spaces to contaminated wastewater. Leaks below ground can wash away soil, create foul odors, and contribute to foundation-area moisture concerns. For a business, a [[sewer backup|https://www.anglestopplumbing.com/commercial-plumbing-services]] can interrupt normal operations and create an unpleasant experience for customers and employees.
 
 Calling early can give you more options. When the line is still flowing slowly, there may be time to schedule an inspection and plan repairs around your household or business operations. When sewage is actively backing up, the priority becomes stopping damage and restoring safe drainage as quickly as possible.
 

@@ -24,7 +24,7 @@ The exact cause depends on which fixture makes noise and when it happens. For ex
 
 Hair, soap residue, toothpaste, food scraps, grease, and paper products can narrow a drain over time. Water may still pass through the pipe, but not freely enough to maintain normal air pressure. As water squeezes around the buildup, it pulls or pushes air through the nearby fixture.
 
-A plunger can sometimes clear a simple sink, tub, or toilet blockage. However, harsh chemical drain cleaners are rarely the right answer. They may fail to reach the actual obstruction, damage certain pipes or seals, and create a safety hazard for anyone who later works on the drain. A professional drain cleaning <<https://www.anglestopplumbing.com/blog>> method is usually safer and more effective when the gurgling keeps returning.
+A plunger can sometimes clear a simple sink, tub, or toilet blockage. However, harsh chemical drain cleaners are rarely the right answer. They may fail to reach the actual obstruction, damage certain pipes or seals, and create a safety hazard for anyone who later works on the drain. A [[professional drain cleaning|https://www.anglestopplumbing.com/blog]] method is usually safer and more effective when the gurgling keeps returning.
 
 ### A Clog in a Shared Branch Line
 
@@ -54,7 +54,7 @@ If your drains gurgle along with soggy ground near the septic area, sewage odors
 
 A gurgling drain is worth watching, but certain symptoms call for faster action. Contact a plumber promptly if you notice sewage odors, repeated toilet bubbling, water backing up into a tub or shower, multiple slow drains, or a toilet that will not flush normally. These are not problems to solve by repeatedly plunging every fixture in the home.
 
-Commercial property owners <<https://www.anglestopplumbing.com/commercial-plumbing-services>> should take these symptoms seriously as well. A drain or sewer backup can interrupt operations, damage flooring and inventory, create sanitation concerns, and affect employees or customers. Early diagnosis protects the property and helps avoid a more disruptive emergency call.
+[[Commercial property owners|https://www.anglestopplumbing.com/commercial-plumbing-services]] should take these symptoms seriously as well. A drain or sewer backup can interrupt operations, damage flooring and inventory, create sanitation concerns, and affect employees or customers. Early diagnosis protects the property and helps avoid a more disruptive emergency call.
 
 ## What You Can Safely Check First
 
@@ -76,6 +76,6 @@ Angle Stop Plumbing brings 31 years of experience to drain and sewer concerns ac
 
 Prevention is mostly about protecting the drains from what does not belong in them. Keep grease, coffee grounds, fibrous food scraps, wipes, hygiene products, and large amounts of paper out of the plumbing. Even products labeled flushable can contribute to restrictions in real-world drain systems.
 
-Routine maintenance <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>> is especially wise for properties with mature trees, older pipes, frequent drain issues, or a history of roots in the sewer line. A planned inspection can reveal developing concerns before they interrupt a holiday gathering, a busy workday, or an ordinary evening at home.
+[[Routine maintenance|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]] is especially wise for properties with mature trees, older pipes, frequent drain issues, or a history of roots in the sewer line. A planned inspection can reveal developing concerns before they interrupt a holiday gathering, a busy workday, or an ordinary evening at home.
 
 If your drain is gurgling once and then stops, keep an eye on it. If the sound repeats, spreads to other fixtures, or comes with slow drainage or backup, treat it as your plumbing system asking for help. A timely professional inspection brings peace of mind and helps keep a small warning from becoming a household emergency.

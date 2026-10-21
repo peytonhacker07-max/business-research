@@ -32,13 +32,13 @@ Before taking anything apart, remove any attached hose, splitter, timer, or spra
 
 If your home has an interior shutoff valve for the outdoor faucet, locate it before an emergency occurs. It is often near the water heater, in a crawl space, basement, utility room, or mechanical closet. Closing that valve can isolate the outdoor line while keeping water available in the rest of the house.
 
-You can also check your water meter. Make sure no water is being used inside or outside, then watch the leak indicator or low-flow dial. If it continues moving, water is likely being used somewhere on the property. An outdoor faucet leak may be the cause, but a hidden plumbing leak <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> is another possibility.
+You can also check your water meter. Make sure no water is being used inside or outside, then watch the leak indicator or low-flow dial. If it continues moving, water is likely being used somewhere on the property. An outdoor faucet leak may be the cause, but a [[hidden plumbing leak|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] is another possibility.
 
 Avoid forcing a stuck handle, digging into a wall, or repeatedly cranking on an old shutoff valve. Those actions can turn a manageable repair into a broken pipe or a larger water event.
 
 ## When to Shut the Water Off
 
-Shut off the faucet's dedicated supply valve if water continues running from the spout, handle, or wall connection and you cannot control it at the fixture. If you cannot find or operate the local shutoff, use the home's main water shutoff valve <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>>. Every homeowner and property manager should know where that valve is and verify that it works before a plumbing emergency.
+Shut off the faucet's dedicated supply valve if water continues running from the spout, handle, or wall connection and you cannot control it at the fixture. If you cannot find or operate the local shutoff, use the home's [[main water shutoff valve|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]]. Every homeowner and property manager should know where that valve is and verify that it works before a plumbing emergency.
 
 Call for urgent help when water is spraying, pooling quickly against the home, leaking inside a wall, or appearing indoors near the outdoor faucet location. A leak after a hard freeze also deserves immediate attention. Waiting can allow a cracked pipe to release more water as temperatures warm.
 
@@ -58,7 +58,7 @@ If the pipe behind the faucet has split, the repair may involve opening a small 
 
 A few seasonal habits make a meaningful difference. Disconnect garden hoses before freezing weather, drain and store them, and close interior shutoff valves for outdoor lines when your plumbing setup allows it. After shutting off the supply, open the outdoor faucet to drain remaining water.
 
-Inspect outdoor faucets in spring <<https://www.anglestopplumbing.com/post/are-your-exterior-faucets-ready-for-spring-inspect-prevent-and-protect-for-a-stress-free-season>> before regular watering, car washing, or gardening begins. Check for loose handles, drips, corrosion, and water around the wall connection. If your faucet is difficult to turn or has a history of winter damage, schedule service before it fails at an inconvenient time.
+Inspect [[outdoor faucets in spring|https://www.anglestopplumbing.com/post/are-your-exterior-faucets-ready-for-spring-inspect-prevent-and-protect-for-a-stress-free-season]] before regular watering, car washing, or gardening begins. Check for loose handles, drips, corrosion, and water around the wall connection. If your faucet is difficult to turn or has a history of winter damage, schedule service before it fails at an inconvenient time.
 
 For properties with older plumbing or past leak concerns, a plumbing inspection can identify weak shutoff valves, unprotected lines, and exterior fixtures nearing the end of their service life. Smart water shutoff technology may also be worth considering for homeowners who travel often or want earlier warning of abnormal water use.
 

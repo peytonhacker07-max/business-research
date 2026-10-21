@@ -1,6 +1,6 @@
 # Extract the readable content of saved Wix pages into one Markdown-ish file per page.
 # Keeps title, meta description, canonical, og:image, headings, paragraphs, list items,
-# inline links, buttons and images, in document order, from <main> only.
+# inline links ([[text|url]]), buttons and images, in document order, from <main> only.
 import sys, os, re, json, html
 from html.parser import HTMLParser
 
@@ -61,11 +61,12 @@ class P(HTMLParser):
             if boldflag: self.bold -= 1
             if liflag: self.li -= 1
             if t == 'a' and self.link:
-                href, _, txt = self.link; text = clean(''.join(txt)); self.link = None
+                href, pos, txt = self.link; text = clean(''.join(txt)); self.link = None
                 if text and self.cur is None and self.in_main and not self.skip:
                     self.blocks.append(('button', text, href))
-                elif text and self.cur is not None:
-                    self.cur.append(f' <<{href}>>')
+                elif text and self.cur is not None and pos is not None:
+                    inner = ''.join(self.cur[pos:])
+                    self.cur[pos:] = [f'[[{inner}|{href}]]']
             if t in BLOCK and self.cur is not None and (t == self.curtag or (t == 'p' and self.curtag == 'li')):
                 self.flush()
             if t == tag: break
@@ -81,7 +82,7 @@ class P(HTMLParser):
             t = clean(''.join(self.cur))
             tag = self.curtag
             # Wix often styles subheadings as a fully bold paragraph
-            plain = clean(re.sub(r'<<[^>]*>>', '', t))
+            plain = clean(re.sub(r'\[\[(.*?)\|[^\]]*\]\]', r'\1', t))
             if tag == 'p' and len(plain) < 120 and clean(''.join(self.boldtxt)) == plain and not plain.endswith('.'):
                 tag = 'hb'
             if t: self.blocks.append((tag, t))

@@ -16,7 +16,7 @@ For many Middle Tennessee homeowners, an under-sink reverse osmosis system is a 
 
 Reverse osmosis, often called RO, uses water pressure to push water through a very fine membrane. Along with pre-filters and post-filters, that membrane reduces many dissolved substances that ordinary sediment or carbon filters may not address. The treated water is stored in a small tank and delivered through a separate faucet at the sink, or sometimes routed to a refrigerator ice maker.
 
-An RO system is usually a point-of-use system. In other words, it treats water for drinking and food preparation rather than supplying filtered water to every shower, toilet, and appliance in the home. That distinction matters. If hard water is leaving scale on fixtures, affecting the water heater <<https://www.anglestopplumbing.com/blog/categories/water-heater>>, or making laundry difficult, a water softener or whole-house filtration approach may be the better starting point.
+An RO system is usually a point-of-use system. In other words, it treats water for drinking and food preparation rather than supplying filtered water to every shower, toilet, and appliance in the home. That distinction matters. If hard water is leaving scale on fixtures, affecting the [[water heater|https://www.anglestopplumbing.com/blog/categories/water-heater]], or making laundry difficult, a water softener or whole-house filtration approach may be the better starting point.
 
 The best choice depends on the problem you are trying to solve. Water that tastes unpleasant may need a different solution than water that contains elevated minerals, sediment, chlorine, or a contaminant found in a test. A plumber should not simply recommend equipment from a shelf without considering the water entering your home.
 
@@ -56,7 +56,7 @@ Maintenance is another real consideration. Sediment and carbon pre-filters commo
 
 A slow trickle, unusual taste, low tank pressure, or water beneath the cabinet deserves attention. Sometimes the fix is a scheduled filter replacement. Other times, the issue may involve a worn tank bladder, a clogged membrane, a loose tube connection, low incoming pressure, or a drain saddle that needs correction.
 
-Do not ignore a small under-sink leak <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> because the cabinet is out of sight. Moisture can damage flooring, cabinetry, and stored household items before it becomes visible elsewhere. If a filter housing or fitting is leaking, shut off the system's water supply if you can and arrange professional service.
+Do not ignore a small [[under-sink leak|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] because the cabinet is out of sight. Moisture can damage flooring, cabinetry, and stored household items before it becomes visible elsewhere. If a filter housing or fitting is leaking, shut off the system's water supply if you can and arrange professional service.
 
 Homeowners should also be cautious about connecting a system to a refrigerator without confirming capacity and layout. A long tubing run or undersized tank can leave you with slow ice production and an empty drinking-water tank when the family needs it most.
 

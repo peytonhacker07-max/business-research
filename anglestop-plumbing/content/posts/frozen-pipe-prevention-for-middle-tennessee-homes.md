@@ -44,7 +44,7 @@ Letting a faucet drip can be helpful during a sustained hard freeze, especially 
 
 It is not necessary to run every faucet in the building for every chilly night. That wastes water and may not address the actual risk. Focus on known trouble areas, exposed plumbing, and locations with a history of freezing. If both hot and cold lines are vulnerable, run the faucet at a lukewarm setting so each side receives some movement.
 
-For commercial properties <<https://www.anglestopplumbing.com/commercial-plumbing-services>>, a building-specific plan is better than asking employees to guess which faucets should run. Facility managers should identify at-risk fixtures, assign after-hours checks, and make sure staff know where the main water shutoff is located.
+For [[commercial properties|https://www.anglestopplumbing.com/commercial-plumbing-services]], a building-specific plan is better than asking employees to guess which faucets should run. Facility managers should identify at-risk fixtures, assign after-hours checks, and make sure staff know where the main water shutoff is located.
 
 ## Protect Vacant Homes, Rentals, and Seasonal Buildings
 
@@ -60,7 +60,7 @@ Landlords should communicate clearly with tenants before cold weather arrives. T
 
 A frozen pipe often gives a warning before it becomes a burst pipe. Reduced or no water flow from one fixture is a common sign, particularly if other faucets still work normally. Frost on exposed piping, strange odors from a drain or faucet, bulging pipe sections, and unusually cold walls or cabinets can also point to a problem.
 
-Do not ignore a suddenly quiet water meter when a fixture is supposed to be running, or a damp spot that appears after temperatures rise. Water damage <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> can be hidden behind drywall, beneath flooring, or inside insulation.
+Do not ignore a suddenly quiet water meter when a fixture is supposed to be running, or a damp spot that appears after temperatures rise. [[Water damage|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] can be hidden behind drywall, beneath flooring, or inside insulation.
 
 If you suspect a pipe is frozen, leave the affected faucet open. As the ice begins to melt, that open faucet gives water and pressure a place to go. Then locate the main water shutoff valve in case a leak appears during thawing.
 
@@ -76,6 +76,6 @@ If a pipe has burst, shut off the main water supply immediately if it is safe to
 
 Repeated freezing is usually a sign that the underlying issue has not been solved. The answer may be better insulation, sealing an air leak, relocating a line, repairing a failing heat source, upgrading an exterior faucet, or adding a smart shutoff device. The right repair depends on the pipe material, location, age of the building, and how the space is used.
 
-Angle Stop Plumbing helps Middle Tennessee homeowners and property managers identify vulnerable lines, repair freeze damage, and build practical protection into their plumbing maintenance plan <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>>. With upfront pricing, respectful service, and 24/7 emergency availability, our team treats every customer like family when winter weather puts their property at risk.
+Angle Stop Plumbing helps Middle Tennessee homeowners and property managers identify vulnerable lines, repair freeze damage, and build practical protection into their [[plumbing maintenance plan|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]]. With upfront pricing, respectful service, and 24/7 emergency availability, our team treats every customer like family when winter weather puts their property at risk.
 
 Before the next hard freeze arrives, take a few minutes to find your main shutoff valve, disconnect those hoses, and check the spaces where your pipes are most exposed. That small bit of preparation can preserve far more than plumbing - it can protect the home, business, and peace of mind you work hard to maintain.

@@ -38,7 +38,7 @@ Here’s how:
 
 - Ask for the full company name. Always ask, “Can you confirm your company name and location?” The real Angle Stop Plumbing team will always identify ourselves proudly and clearly.
 
-- Hang up and call back. If something seems off, just hang up and call our verified number: (615) 398-3048 or visit www.AngleStopPlumbing.com <<http://www.AngleStopPlumbing.com>> to confirm it’s us.
+- Hang up and call back. If something seems off, just hang up and call our verified number: (615) 398-3048 or visit [[www.AngleStopPlumbing.com|http://www.AngleStopPlumbing.com]] to confirm it’s us.
 
 - Ask about your account or last service. If you’ve worked with us before, we’ll be able to confirm details from your last appointment — a scammer won’t.
 
@@ -50,4 +50,4 @@ At Angle Stop Plumbing, honesty and integrity are at the heart of everything we 
 
 So, if you’re unsure who’s calling — hang up and give us a ring directly at (615) 398-3048. We’ll be happy to confirm it’s truly us and help you with whatever you need.
 
-Angle Stop Plumbing — Trusted. Transparent. Tennessee Proud. 📞 (615) 398-3048🌐 www.AngleStopPlumbing.com <<http://www.AngleStopPlumbing.com>>
+Angle Stop Plumbing — Trusted. Transparent. Tennessee Proud. 📞 (615) 398-3048🌐 [[www.AngleStopPlumbing.com|http://www.AngleStopPlumbing.com]]

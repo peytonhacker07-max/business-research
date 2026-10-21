@@ -18,7 +18,7 @@ Financing is often most helpful when the work protects the property, restores an
 
 For homeowners, plumbing financing may be worth considering when a repair involves a major system or an unexpected replacement. Common examples include water heater replacement, sewer or water line repair, whole-house water filtration, water softeners, smart water shutoff valves, and significant fixture or repiping projects.
 
-For landlords and commercial property decision-makers, financing can help manage a necessary repair while protecting tenants, customers, employees, and daily operations. A restaurant, office, rental home, or retail space cannot always pause for a plumbing problem. Reliable hot water, working restrooms, clean water, and compliant backflow protection <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing>> are practical needs, not optional upgrades.
+For landlords and commercial property decision-makers, financing can help manage a necessary repair while protecting tenants, customers, employees, and daily operations. A restaurant, office, rental home, or retail space cannot always pause for a plumbing problem. Reliable hot water, working restrooms, clean water, and compliant [[backflow protection|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing]] are practical needs, not optional upgrades.
 
 That said, financing is not automatically the right choice for every service call. A small repair that comfortably fits your budget may be simpler to pay for upfront. The right decision depends on the size of the project, the urgency of the repair, the cost of delaying it, and the payment terms available to you.
 
@@ -48,7 +48,7 @@ Some plumbing projects are emergencies, while others are opportunities to make a
 
 ### Water Heater Replacement and Upgrades
 
-When hot water is gone, most families need an answer quickly. Financing may help with the replacement of a conventional tank water heater <<https://www.anglestopplumbing.com/blog/categories/water-heater>>, a tankless model, or a heat-pump/hybrid unit. The best option depends on the home’s hot-water demand, available space, fuel source, electrical capacity, and budget.
+When hot water is gone, most families need an answer quickly. Financing may help with the replacement of a [[conventional tank water heater|https://www.anglestopplumbing.com/blog/categories/water-heater]], a tankless model, or a heat-pump/hybrid unit. The best option depends on the home’s hot-water demand, available space, fuel source, electrical capacity, and budget.
 
 A larger or more advanced unit is not always the right answer. A properly sized, professionally installed water heater is more important than choosing equipment based on a label alone. Ask about expected performance, maintenance needs, warranty coverage, and the total installed price.
 
@@ -74,7 +74,7 @@ Financing may allow a property owner to address the underlying issue rather than
 
 A major plumbing repair should be followed by a plan to protect the investment. Regular maintenance can identify small concerns before they become urgent. Water heater flushing, drain maintenance, plumbing inspections, fixture checks, and water-quality service all have a role, depending on the systems in your property.
 
-It also helps to set aside a small monthly home or facility maintenance reserve after the immediate project is complete. Even a modest reserve can reduce the pressure of the next unexpected repair. Membership maintenance options <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>> may be worthwhile for owners who want scheduled care and priority support, but compare the benefits with your property’s age, systems, and service needs.
+It also helps to set aside a small monthly home or facility maintenance reserve after the immediate project is complete. Even a modest reserve can reduce the pressure of the next unexpected repair. [[Membership maintenance options|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]] may be worthwhile for owners who want scheduled care and priority support, but compare the benefits with your property’s age, systems, and service needs.
 
 Angle Stop Plumbing serves families, homeowners, landlords, and businesses throughout Middle Tennessee with upfront pricing, respectful service, and options for necessary plumbing work. As a veteran-owned, family-focused company, we believe you deserve clear answers and professional workmanship without the pressure or foul language that has no place in your home or workplace.
 

@@ -124,7 +124,7 @@ Businesses searching for commercial plumber repair, commercial plumbing services
 
 Reliable hot water is essential for many commercial properties, especially restaurants, hospitality businesses, healthcare facilities, apartment buildings, offices, schools, and industrial sites. Angle Stop Plumbing provides complete commercial water heater services to help businesses maintain dependable hot water and avoid system interruptions.
 
-Commercial water heater repair <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-repair>>
+[[Commercial water heater repair|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-repair]]
 
 We diagnose and repair issues such as:
 

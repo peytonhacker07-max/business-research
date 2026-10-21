@@ -50,7 +50,7 @@ In kitchens and laundry rooms, look beneath sinks, around dishwasher connections
 
 Next, inspect the water heater area. Look for moisture at pipe fittings, the temperature and pressure relief valve discharge line, and the base of the tank. A small amount of condensation can be normal in certain conditions, but standing water, rust, or recurring dampness needs attention. With a tankless water heater, inspect visible connections and watch for error codes or drips below the unit.
 
-Do not overlook less obvious areas. Check under sinks in garages, utility rooms, and break rooms. Look at exposed pipes in crawl spaces, basements, and mechanical rooms. In commercial properties <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-leak-repair>>, check restrooms, mop sinks, break-room fixtures, water heaters, and equipment connections where a small leak can go unnoticed after business hours.
+Do not overlook less obvious areas. Check under sinks in garages, utility rooms, and break rooms. Look at exposed pipes in crawl spaces, basements, and mechanical rooms. In [[commercial properties|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-leak-repair]], check restrooms, mop sinks, break-room fixtures, water heaters, and equipment connections where a small leak can go unnoticed after business hours.
 
 ## Look Outside for Underground and Irrigation Leaks
 
@@ -64,7 +64,7 @@ Irrigation systems deserve their own check. A damaged sprinkler head, cracked va
 
 A hidden leak often leaves indirect evidence before it becomes visible. You may notice a warm section of flooring, a persistent musty odor, discolored drywall, bubbling paint, or a room that feels unusually humid. Slab leaks can also create warm spots on a concrete floor when a hot-water line is involved.
 
-Avoid cutting into walls, removing flooring, or breaking concrete based on a guess. Those steps can create unnecessary damage and may still miss the source. Professional leak detection <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> uses tools such as acoustic listening equipment, moisture meters, thermal imaging, and pressure testing to identify the likely location with far less disruption.
+Avoid cutting into walls, removing flooring, or breaking concrete based on a guess. Those steps can create unnecessary damage and may still miss the source. [[Professional leak detection|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] uses tools such as acoustic listening equipment, moisture meters, thermal imaging, and pressure testing to identify the likely location with far less disruption.
 
 Turn off the main water supply and seek urgent help if water is actively flowing, a ceiling is sagging, water is near electrical equipment, or a pipe has burst. If water is near outlets, a panel, or electrical appliances, do not enter standing water. Shut off power only if it can be done safely from a dry location, then contact qualified help.
 
@@ -74,7 +74,7 @@ Once you have found the likely area, take practical steps to limit damage. Place
 
 For a fixture-level leak, the local shutoff valve may stop the water without shutting down the whole property. If that valve is damaged, leaking, or difficult to operate, use the main shutoff instead. Every homeowner, landlord, and facility manager should know where the main valve is located before an emergency occurs.
 
-Regular inspections make leaks easier to catch. Review your water bill monthly, test toilets once or twice a year, replace aging supply hoses, and have visible plumbing checked during routine maintenance <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>>. Smart water shutoff valves can also provide added protection by monitoring unusual water use and automatically stopping water in certain situations.
+Regular inspections make leaks easier to catch. Review your water bill monthly, test toilets once or twice a year, replace aging supply hoses, and have visible plumbing checked during [[routine maintenance|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]]. Smart water shutoff valves can also provide added protection by monitoring unusual water use and automatically stopping water in certain situations.
 
 For homeowners and businesses across Middle Tennessee, Angle Stop Plumbing can identify and repair hidden leaks with the respectful, family-friendly service customers deserve. With 31 years of experience, upfront pricing, and 24/7 emergency response, the team is ready when a leak cannot wait.
 

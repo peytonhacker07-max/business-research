@@ -54,7 +54,7 @@ Do not use chemical drain cleaners in an attempt to clear a suspected sewer bloc
 
 If a water heater is leaking from the tank or connections, turn off the cold-water supply valve above the unit if accessible. For an electric water heater, shut off power at the breaker before doing anything else around the unit. For a gas unit, follow the manufacturer's shutdown instructions if you can do so safely, but do not proceed if you smell gas.
 
-A small amount of water near a water heater can come from a relief valve, condensation, a drain connection, or a failing tank <<https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown>>. The distinction matters. A trained plumber can determine whether a repair is appropriate or whether replacement is the wiser, safer investment.
+A small amount of water near a water heater can come from a relief valve, condensation, a drain connection, or a [[failing tank|https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown]]. The distinction matters. A trained plumber can determine whether a repair is appropriate or whether replacement is the wiser, safer investment.
 
 ## What Not to Do While You Wait
 
@@ -62,13 +62,13 @@ Emergency calls often become more expensive when a well-meaning temporary repair
 
 It is also wise to avoid turning the water back on repeatedly to test a repair. A leak inside a wall or below a slab may not reveal itself immediately. Let the technician inspect the system, explain the options, and make the repair with the right materials.
 
-For commercial properties <<https://www.anglestopplumbing.com/commercial-plumbing-services>>, notify the appropriate manager or maintenance contact and protect customers or employees from wet floors and restricted restroom areas. A quick, clear response can reduce disruption while helping preserve a safe environment.
+For [[commercial properties|https://www.anglestopplumbing.com/commercial-plumbing-services]], notify the appropriate manager or maintenance contact and protect customers or employees from wet floors and restricted restroom areas. A quick, clear response can reduce disruption while helping preserve a safe environment.
 
 ## Preparing Your Home Before an Emergency
 
 The best time to locate a shutoff valve is not during a midnight leak. Walk through your home now and identify the main water shutoff, fixture shutoffs, water heater connections, and electrical panel. Label valves if needed, particularly in rental homes, multi-unit properties, or buildings where several people share maintenance responsibility.
 
-Routine plumbing inspections <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>> can catch warning signs before they become emergencies. Slow drains, unexplained increases in water bills, moisture under cabinets, water-heater rust, discolored water, and recurring toilet clogs all deserve attention. Smart water shutoff valves can also add protection by monitoring unusual water use and automatically stopping water in some leak events.
+Routine [[plumbing inspections|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]] can catch warning signs before they become emergencies. Slow drains, unexplained increases in water bills, moisture under cabinets, water-heater rust, discolored water, and recurring toilet clogs all deserve attention. Smart water shutoff valves can also add protection by monitoring unusual water use and automatically stopping water in some leak events.
 
 Regular maintenance is especially valuable for older Middle Tennessee homes, properties with mature trees near sewer lines, and businesses that depend on reliable hot water or public restrooms. The right plan depends on the age of the plumbing, the building's use, and whether small problems have already begun to appear.
 

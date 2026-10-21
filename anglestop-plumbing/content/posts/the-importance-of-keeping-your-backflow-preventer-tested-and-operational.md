@@ -54,7 +54,7 @@ We've helped hundreds of homeowners and businesses stay compliant and safe. "Ang
 
 ## Take Action Today  {bold}
 
-Don't wait for a failed inspection or worse. A properly tested backflow preventer safeguards your family, business, and community. Contact Angle Stop Plumbing at (615) 398-3048 or visit our anglestopplumbing.com <<http://anglestopplumbing.com>> to book your test. Serving Nashville, Murfreesboro, Franklin, and beyond.
+Don't wait for a failed inspection or worse. A properly tested backflow preventer safeguards your family, business, and community. Contact Angle Stop Plumbing at (615) 398-3048 or visit our [[anglestopplumbing.com|http://anglestopplumbing.com]] to book your test. Serving Nashville, Murfreesboro, Franklin, and beyond.
 
 Stay safe, stay compliant—call the pros at Angle Stop Plumbing!
 

@@ -14,7 +14,7 @@ A broken water line is not a problem to watch overnight or attempt to manage wit
 
 ## What to Do When a Water Line Breaks
 
-Your first priority is to stop the flow of water. If the leak appears to be inside the home, turn off the main water shutoff valve. It is commonly located near the water heater, in a utility area, garage, crawl space, or where the main line enters the house. Every household should know where this valve <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>> is before an emergency happens.
+Your first priority is to stop the flow of water. If the leak appears to be inside the home, turn off the main water shutoff valve. It is commonly located near the water heater, in a utility area, garage, crawl space, or where the main line enters the house. Every household should know where [[this valve|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]] is before an emergency happens.
 
 If water is collecting near electrical outlets, appliances, or the breaker panel, do not step through standing water. Keep children and pets away from the area and shut off power only if you can do so safely. Move valuables, rugs, and furniture away from the leak when possible, but do not take risks to save property.
 
@@ -40,9 +40,9 @@ High water pressure creates another concern. Pressure that stays too high can st
 
 The best repair depends on the location, pipe material, condition of the remaining line, and cause of the break. A visible, isolated break may need a carefully fitted section of new pipe and a pressure test. A damaged connection at a fixture, water heater, or shutoff valve may call for replacement of the valve or supply line along with the affected piping.
 
-For hidden or underground leaks, the process begins with locating the problem as accurately as possible. This may involve examining the plumbing layout, checking water pressure, inspecting visible areas, and using leak-detection methods appropriate to the situation. Accurate diagnosis <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> helps reduce unnecessary cutting, digging, and disruption to your property.
+For hidden or underground leaks, the process begins with locating the problem as accurately as possible. This may involve examining the plumbing layout, checking water pressure, inspecting visible areas, and using leak-detection methods appropriate to the situation. [[Accurate diagnosis|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] helps reduce unnecessary cutting, digging, and disruption to your property.
 
-A spot repair is often practical when the pipe is otherwise in good condition and the damage is clearly isolated. However, repeated leaks, widespread corrosion, undersized piping, or deteriorating material may make partial or complete repiping <<https://www.anglestopplumbing.com/post/are-you-hearing-the-warning-signs-of-a-whole-home-repipe-featuring-discolored-water-and-frequent-lea>> the more responsible choice. It costs more upfront, but it can prevent a cycle of emergency calls, damaged finishes, and growing water bills.
+A spot repair is often practical when the pipe is otherwise in good condition and the damage is clearly isolated. However, repeated leaks, widespread corrosion, undersized piping, or deteriorating material may make partial or [[complete repiping|https://www.anglestopplumbing.com/post/are-you-hearing-the-warning-signs-of-a-whole-home-repipe-featuring-discolored-water-and-frequent-lea]] the more responsible choice. It costs more upfront, but it can prevent a cycle of emergency calls, damaged finishes, and growing water bills.
 
 After the repair, the line should be tested for leaks and proper operation. If a break affected walls, flooring, insulation, or cabinetry, prompt drying and restoration are just as important as fixing the pipe. Plumbing repair stops the source of the water, but moisture left behind can create future problems.
 

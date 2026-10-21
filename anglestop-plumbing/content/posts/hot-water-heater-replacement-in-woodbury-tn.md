@@ -62,13 +62,13 @@ Water heater replacement is more than removing an old unit and connecting a new 
 
 A professional installation also considers local code requirements and the condition of related plumbing components. If shutoff valves, supply lines, drain pans, expansion tanks, or vent connections are worn or outdated, addressing them during installation can prevent a new water heater from inheriting old problems.
 
-For homeowners in Woodbury, water quality can be part of the conversation as well. Mineral sediment can collect at the bottom of a tank, reducing efficiency and contributing to noise. If hard water or sediment <<https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown>> has affected your previous unit, ask about maintenance and water-treatment options that may help protect the replacement.
+For homeowners in Woodbury, water quality can be part of the conversation as well. Mineral sediment can collect at the bottom of a tank, reducing efficiency and contributing to noise. If [[hard water or sediment|https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown]] has affected your previous unit, ask about maintenance and water-treatment options that may help protect the replacement.
 
 ## What to Expect From a Professional Replacement Visit
 
 A respectful service visit should make a stressful problem easier to manage. The plumber should inspect the existing water heater, ask about your hot-water usage, and explain whether repair is still sensible. If replacement is recommended, you deserve clear choices rather than pressure.
 
-Before work begins, ask for an upfront explanation of the recommended equipment, labor, required accessories, warranty coverage, and any needed updates to the installation area. If your water heater has failed unexpectedly, financing options <<https://www.anglestopplumbing.com/flexible-plumbing-payment-solutions-murfreesboro-tn/plumbing-finance-options-murfreesboro-tn>> may also help you restore dependable hot water without postponing a necessary repair.
+Before work begins, ask for an upfront explanation of the recommended equipment, labor, required accessories, warranty coverage, and any needed updates to the installation area. If your water heater has failed unexpectedly, [[financing options|https://www.anglestopplumbing.com/flexible-plumbing-payment-solutions-murfreesboro-tn/plumbing-finance-options-murfreesboro-tn]] may also help you restore dependable hot water without postponing a necessary repair.
 
 During installation, care for your home matters. Professional technicians should protect the work area, remove the old unit responsibly, test the new system, and leave the space clean. Families should be able to ask questions comfortably and expect courteous language and conduct in their home.
 
@@ -80,7 +80,7 @@ Yes. A replacement water heater still needs attention over time. Annual maintena
 
 Tankless systems need maintenance too, particularly where mineral content can build up inside the heat exchanger. The exact schedule depends on the model, water conditions, and manufacturer guidance. A plumber can recommend a plan that matches the equipment installed in your home or property.
 
-Landlords and commercial property managers <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-installation>> should be especially proactive. A water heater failure can disrupt tenants, customers, employees, and daily operations. Planned replacement and routine inspections provide more control than waiting for a tank to rupture or a busy property to lose hot water without warning.
+Landlords and [[commercial property managers|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-installation]] should be especially proactive. A water heater failure can disrupt tenants, customers, employees, and daily operations. Planned replacement and routine inspections provide more control than waiting for a tank to rupture or a busy property to lose hot water without warning.
 
 ## Do Not Wait for a Small Leak to Become a Major Problem
 

@@ -44,4 +44,4 @@ At Angle Stop Plumbing, we understand that small leaks turn into big emergencies
 
 A valve repair today could save you thousands tomorrow. Don’t wait until your kitchen becomes a wading pool. If you see a puddle, hear a hiss, or suspect a hidden leak, shut off your water and call Angle Stop Plumbing immediately—because every drop counts.
 
-## #PlumbingTips <<https://www.anglestopplumbing.com/blog/hashtags/PlumbingTips>>  {bold}
+## [[#PlumbingTips|https://www.anglestopplumbing.com/blog/hashtags/PlumbingTips]]  {bold}

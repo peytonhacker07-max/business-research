@@ -34,7 +34,7 @@ A lower purchase price does not always mean lower ownership cost. At the same ti
 
 Recovery rate is the amount of hot water a heater can produce in a given period after the tank has been used. This is where gas water heaters often have an advantage. Their burners generally heat a depleted tank faster than standard electric elements.
 
-That quicker recovery can matter in a home with several people showering back-to-back, a large soaking tub, frequent laundry, or a commercial restroom <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-installation>> and break-room demand. A properly sized gas tank can restore usable hot water sooner between high-demand periods.
+That quicker recovery can matter in a home with several people showering back-to-back, a large soaking tub, frequent laundry, or a [[commercial restroom|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-installation]] and break-room demand. A properly sized gas tank can restore usable hot water sooner between high-demand periods.
 
 Electric models can still serve a family well when the tank size is appropriate. A larger electric tank may be the better answer for a household with predictable but heavy morning demand. The key is not choosing based on the number of bedrooms alone. A plumber should consider how many people live in the home, when they use hot water, the number of bathrooms, and high-demand fixtures or appliances.
 
@@ -62,12 +62,12 @@ Gas can be a strong option for larger households that use a lot of hot water in 
 
 A like-for-like gas replacement is usually the most straightforward scenario, provided the existing venting and gas piping are in good condition and meet current requirements. If your current gas heater is old, do not assume a new unit can simply be connected to every existing component. Changes in equipment design, vent size, and code requirements may affect the project.
 
-For commercial properties, the decision may depend on peak demand more than fuel preference. Restaurants, salons, offices, and multi-tenant buildings <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-repair>> can place very different loads on a water-heating system. A professional assessment can determine whether a larger tank, multiple units, tankless equipment, or a recirculation system is the better solution.
+For commercial properties, the decision may depend on peak demand more than fuel preference. Restaurants, salons, offices, and [[multi-tenant buildings|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-repair]] can place very different loads on a water-heating system. A professional assessment can determine whether a larger tank, multiple units, tankless equipment, or a recirculation system is the better solution.
 
 ## Do Not Choose by Fuel Type Alone
 
 The best replacement is a properly sized, safely installed water heater that fits the way your property uses hot water. Before making a decision, consider the age and condition of the current unit, available utilities, household demand, venting, electrical capacity, installation location, and the total cost over the expected life of the equipment.
 
-Angle Stop Plumbing helps Middle Tennessee homeowners and property managers weigh those details with straightforward recommendations, respectful service, and upfront pricing. Whether your current water heater is leaking, producing rusty water, making unusual noises, or simply no longer keeping up, a timely inspection <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>> can help you make a calm decision before a small issue becomes a no-hot-water emergency.
+Angle Stop Plumbing helps Middle Tennessee homeowners and property managers weigh those details with straightforward recommendations, respectful service, and upfront pricing. Whether your current water heater is leaking, producing rusty water, making unusual noises, or simply no longer keeping up, [[a timely inspection|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]] can help you make a calm decision before a small issue becomes a no-hot-water emergency.
 
 A dependable water heater should fade into the background of family life. Choosing the right one now gives your home a better chance of keeping mornings warm, laundry moving, and daily routines on track.

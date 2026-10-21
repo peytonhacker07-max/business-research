@@ -10,11 +10,11 @@ article:published_time: 2026-09-08T07:03:30.951Z
 
 A puddle at the base of the dishwasher can turn a normal kitchen cleanup into a stressful moment fast. If you are asking, why is my dishwasher leaking, the answer may be as simple as a worn door seal or as serious as a failed water line behind the appliance. The right first move is not to run another cycle to see what happens. Stop the water, protect the floor, and narrow down where the leak begins.
 
-Dishwasher leaks are especially worth taking seriously in Middle Tennessee homes, where a slow, hidden drip <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> can damage cabinet bases, flooring, drywall, and the ceiling below a second-floor kitchen. Some causes are safe for a homeowner to check. Others call for a trained plumbing professional before a minor repair becomes a restoration project.
+Dishwasher leaks are especially worth taking seriously in Middle Tennessee homes, where a [[slow, hidden drip|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] can damage cabinet bases, flooring, drywall, and the ceiling below a second-floor kitchen. Some causes are safe for a homeowner to check. Others call for a trained plumbing professional before a minor repair becomes a restoration project.
 
 ## First, Stop the Leak Safely
 
-If water is actively coming from the dishwasher, press Cancel or turn the unit off. Shut off the dishwasher’s water supply valve if you can reach it, usually under the kitchen sink or in a nearby cabinet. If the leak is substantial, turn off the home’s main water supply <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>> until the source is clear.
+If water is actively coming from the dishwasher, press Cancel or turn the unit off. Shut off the dishwasher’s water supply valve if you can reach it, usually under the kitchen sink or in a nearby cabinet. If the leak is substantial, turn off the home’s [[main water supply|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]] until the source is clear.
 
 Unplug the dishwasher or switch off its circuit at the electrical panel before reaching around it. Water and electrical connections do not mix. Put down towels, remove standing water, and avoid running the appliance again until you know why it leaked.
 
@@ -70,7 +70,7 @@ This distinction matters because replacing a dishwasher gasket will not solve a 
 
 ## When to Call a Plumber for a Dishwasher Leak
 
-A homeowner can often clean a door gasket, correct a loading issue, or confirm that the wrong soap was used. Call for professional help when water is coming from a supply line, drain connection, shutoff valve, hidden pipe <<https://www.anglestopplumbing.com/post/3-plumbing-problems-homeowners-shouldn-t-ignore-and-why-you-should-call-now>>, or the area behind the dishwasher. The same is true when the leak has affected cabinets, flooring, or a ceiling below.
+A homeowner can often clean a door gasket, correct a loading issue, or confirm that the wrong soap was used. Call for professional help when water is coming from a supply line, drain connection, shutoff valve, [[hidden pipe|https://www.anglestopplumbing.com/post/3-plumbing-problems-homeowners-shouldn-t-ignore-and-why-you-should-call-now]], or the area behind the dishwasher. The same is true when the leak has affected cabinets, flooring, or a ceiling below.
 
 You should also call if the dishwasher overfills, repeatedly trips an electrical breaker, will not drain, or continues leaking after obvious issues have been addressed. These symptoms can involve more than one system, and continued use can create water damage or electrical risk.
 

@@ -16,7 +16,7 @@ For Middle Tennessee families, this protection can be especially valuable when a
 
 A smart shutoff valve is installed on the main water line serving a home or building. It monitors water use and, depending on the model, can alert you through an app when it detects unusual flow, a possible leak, or a risk of freezing conditions. Some systems can automatically close the main water supply when they identify a serious or continuous leak.
 
-The goal is simple: limit how long water flows after a pipe, appliance hose, fixture supply line, or other connection fails. A burst washing-machine hose can release a surprising amount of water in a short time. Even a slow toilet leak or pinhole pipe leak <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> can cause expensive damage if it continues unnoticed behind a wall or under a floor.
+The goal is simple: limit how long water flows after a pipe, appliance hose, fixture supply line, or other connection fails. A burst washing-machine hose can release a surprising amount of water in a short time. Even a slow toilet leak or [[pinhole pipe leak|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] can cause expensive damage if it continues unnoticed behind a wall or under a floor.
 
 Most whole-home systems use one of two approaches. Flow-monitoring valves study the patterns of water moving through your plumbing and look for activity that does not make sense, such as steady flow for hours when no one is home. Other products use small leak sensors placed in higher-risk areas, such as near a water heater, washing machine, dishwasher, refrigerator, or under a sink. The best setup may use both.
 
@@ -46,7 +46,7 @@ Before choosing a system, consider whether you want automatic shutoff, app alert
 
 Power and connectivity are also worth discussing. Many smart valves require household power and Wi-Fi to provide their full range of app-based features. Some have battery backup or maintain the ability to close the valve during a power outage, while others may not. If reliable protection during an outage is a priority, make that part of the selection conversation.
 
-Commercial properties <<https://www.anglestopplumbing.com/commercial-plumbing-services>> may need a different approach. Higher demand, multiple water zones, code requirements, backflow devices, and building operations can affect where a valve belongs and how it should be configured. A one-size-fits-all installation can create headaches when it does not account for the way a building actually uses water.
+[[Commercial properties|https://www.anglestopplumbing.com/commercial-plumbing-services]] may need a different approach. Higher demand, multiple water zones, code requirements, backflow devices, and building operations can affect where a valve belongs and how it should be configured. A one-size-fits-all installation can create headaches when it does not account for the way a building actually uses water.
 
 ## Why Installation Details Matter
 
@@ -60,7 +60,7 @@ Professional installation also helps avoid a common mistake: assuming the valve 
 
 Technology is helpful, but it should not cause a property owner to overlook warning signs. Dripping fixtures, a toilet that runs intermittently, rusty water around a water heater, low water pressure, unexplained moisture, or an unusually high bill still deserve attention. A smart system may notify you of a problem, but it does not repair worn pipes, failing valves, or damaged appliance hoses.
 
-It is wise to test the manual main shutoff <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>> periodically and make sure responsible adults know its location. If the valve is difficult to turn, leaks when operated, or is buried behind stored items, address that before an emergency. Replacing old rubber washing-machine hoses with quality braided hoses and maintaining water heaters can reduce risk as well.
+It is wise to test the [[manual main shutoff|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]] periodically and make sure responsible adults know its location. If the valve is difficult to turn, leaks when operated, or is buried behind stored items, address that before an emergency. Replacing old rubber washing-machine hoses with quality braided hoses and maintaining water heaters can reduce risk as well.
 
 For properties with a history of leaks, an inspection can reveal whether the real issue is water pressure, deteriorating supply lines, corrosion, poor past repairs, or a fixture that needs replacement. Stopping the water quickly is valuable, but preventing the failure in the first place is better.
 

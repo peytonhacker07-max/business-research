@@ -24,7 +24,7 @@ A device can be present and still need attention. Internal springs, seals, check
 
 The exact testing schedule depends on the type of connection, the device installed, and the requirements set by the water provider or governing authority. Many backflow assemblies require annual testing, and some property changes or repairs may trigger an additional test. A failed device generally needs to be repaired or replaced and retested before it can be considered compliant.
 
-Residential customers often encounter backflow requirements after installing an irrigation system, adding certain water-treatment equipment, or connecting other systems that require protection. Commercial properties <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing>> may have assemblies serving sprinkler systems, restaurants, medical offices, multifamily communities, manufacturing equipment, boilers, or other specialized uses.
+Residential customers often encounter backflow requirements after installing an irrigation system, adding certain water-treatment equipment, or connecting other systems that require protection. [[Commercial properties|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing]] may have assemblies serving sprinkler systems, restaurants, medical offices, multifamily communities, manufacturing equipment, boilers, or other specialized uses.
 
 Do not assume that every valve near your water meter is a testable backflow device. A plumber can identify the assembly, its purpose, and the appropriate next step. If you received a notice, keep it available when you call. The deadline, account details, device information, and reporting instructions can help the process move faster.
 
@@ -54,7 +54,7 @@ At Angle Stop Plumbing, that straightforward approach is part of treating every 
 
 ### Repair or Replace? It Depends on the Device
 
-Not every failed test means the entire assembly must be replaced. A worn check valve, damaged seal, weak spring, or debris inside the device may be repairable <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-repair>>, depending on the assembly's make, age, condition, and availability of approved parts. Repair can be a sensible option when the body is sound and the device can be restored to reliable operation.
+Not every failed test means the entire assembly must be replaced. A worn check valve, damaged seal, weak spring, or debris inside the device [[may be repairable|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-repair]], depending on the assembly's make, age, condition, and availability of approved parts. Repair can be a sensible option when the body is sound and the device can be restored to reliable operation.
 
 Replacement may be the better investment when the device is badly corroded, cracked, obsolete, repeatedly failing, or improperly installed. If an exterior device has frozen and split, replacement is often unavoidable. A qualified plumber can help you weigh the immediate repair cost against the reliability and warranty value of installing a new assembly.
 

@@ -32,7 +32,7 @@ Angle Stop Plumbing provides complete service for all major hot water systems, i
 
 Whether your current unit needs a simple fix, routine maintenance, or full replacement, we can diagnose the issue and recommend the most practical next step.
 
-## Conventional Electric & Gas Water Heater Services <<https://www.anglestopplumbing.com/water-heater-service-repair-installation-murfreesboro-tn/conventional-tank-water-heater-murfreesboro-tn>>  {bold}
+## [[Conventional Electric & Gas Water Heater Services|https://www.anglestopplumbing.com/water-heater-service-repair-installation-murfreesboro-tn/conventional-tank-water-heater-murfreesboro-tn]]  {bold}
 
 Traditional tank-style water heaters remain one of the most common and dependable options for homes and commercial properties. We provide full electric and gas water heater repair in Murfreesboro, along with replacement and installation services throughout Middle Tennessee.
 
@@ -54,7 +54,7 @@ Our conventional water heater services include:
 
 If your tank water heater is producing rusty water, running out of hot water too quickly, or making banging or popping sounds, it may be time for service.
 
-## Heat Pump Water Heater Service, Repair & Installation <<https://www.anglestopplumbing.com/water-heater-service-repair-installation-murfreesboro-tn/heat-pump-hybrid-water-heater-murfreesboro-tn>>  {bold}
+## [[Heat Pump Water Heater Service, Repair & Installation|https://www.anglestopplumbing.com/water-heater-service-repair-installation-murfreesboro-tn/heat-pump-hybrid-water-heater-murfreesboro-tn]]  {bold}
 
 For property owners looking for better energy efficiency, heat pump water heaters can be an excellent option. These systems use less energy than many standard models and can help reduce monthly utility costs over time.
 
@@ -70,7 +70,7 @@ Angle Stop Plumbing provides:
 
 If you are considering an upgrade, we can help you determine whether a heat pump water heater is the right fit for your home or business.
 
-## Tankless Water Heater Service, Repair & Installation <<https://www.anglestopplumbing.com/water-heater-service-repair-installation-murfreesboro-tn/tankless-water-heater-murfreesboro-tn>>  {bold}
+## [[Tankless Water Heater Service, Repair & Installation|https://www.anglestopplumbing.com/water-heater-service-repair-installation-murfreesboro-tn/tankless-water-heater-murfreesboro-tn]]  {bold}
 
 A tankless water heater offers on-demand hot water without storing it in a large tank. These systems are popular for their energy efficiency, space-saving design, and ability to provide continuous hot water when properly sized and maintained.
 

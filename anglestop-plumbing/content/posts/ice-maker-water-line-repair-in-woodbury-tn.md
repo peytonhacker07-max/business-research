@@ -18,7 +18,7 @@ A refrigerator water line often gives warning before it fails completely. The mo
 
 No ice can also point to a supply issue. If the ice maker has power but is producing small cubes, hollow cubes, or no cubes at all, restricted water flow may be the cause. A kinked line behind the refrigerator, a clogged refrigerator filter, a partially closed valve, or a deteriorated supply tube can all reduce pressure.
 
-Some problems are less visible. A slow leak at the refrigerator connection may only drip when the appliance calls for water. A hidden line failure <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> inside a wall or floor may reveal itself through rising water bills, soft baseboards, discoloration, or recurring moisture. Do not ignore those signs simply because the refrigerator still appears to work.
+Some problems are less visible. A slow leak at the refrigerator connection may only drip when the appliance calls for water. A [[hidden line failure|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] inside a wall or floor may reveal itself through rising water bills, soft baseboards, discoloration, or recurring moisture. Do not ignore those signs simply because the refrigerator still appears to work.
 
 ## What to Do When You Find a Leak
 
@@ -26,7 +26,7 @@ If water is actively leaking, turn off the refrigerator's water supply valve if 
 
 Once the water is off, check whether the leak is coming from the refrigerator itself or from the plumbing connection. A loose compression nut at the back of the unit may be visible. So may a split plastic line. However, a visible drip does not always identify the real source. Water can travel along a tube or cabinet edge before it reaches the floor.
 
-If the leak is substantial <<https://www.anglestopplumbing.com/post/busted-water-line-repair-in-woodbury-tn>>, the line is inside a wall, or you cannot find a working shutoff valve, professional help is the safest next step. The goal is not merely to get the ice maker running again. It is to prevent hidden water damage and make sure the supply connection is secure.
+If the [[leak is substantial|https://www.anglestopplumbing.com/post/busted-water-line-repair-in-woodbury-tn]], the line is inside a wall, or you cannot find a working shutoff valve, professional help is the safest next step. The goal is not merely to get the ice maker running again. It is to prevent hidden water damage and make sure the supply connection is secure.
 
 ## Common Causes of Refrigerator Water Line Failures
 
@@ -66,7 +66,7 @@ Homeowners sometimes choose the least expensive immediate fix, only to face anot
 
 ## Preventing the Next Refrigerator Line Leak
 
-Pull the refrigerator out carefully when cleaning behind it and avoid forcing it back against the wall. Replace refrigerator water filters on the manufacturer's schedule, and periodically look behind the appliance for dampness, rust, or a pinched line. It is also wise to know where the refrigerator shutoff valve <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>> is and test it occasionally, provided it can be done without forcing a stuck valve.
+Pull the refrigerator out carefully when cleaning behind it and avoid forcing it back against the wall. Replace refrigerator water filters on the manufacturer's schedule, and periodically look behind the appliance for dampness, rust, or a pinched line. It is also wise to know where the refrigerator [[shutoff valve|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]] is and test it occasionally, provided it can be done without forcing a stuck valve.
 
 If your home has experienced unexplained leaks or you are away often, smart water shutoff technology may be worth considering. These systems can alert homeowners to abnormal water use and, depending on the setup, help limit damage from certain leaks. They are not a substitute for a sound refrigerator connection, but they can add another layer of protection.
 

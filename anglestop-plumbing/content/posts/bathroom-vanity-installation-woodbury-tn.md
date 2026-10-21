@@ -46,7 +46,7 @@ This is also an ideal time to make sure the drain trap is accessible. The trap h
 
 ## When a Vanity Upgrade Reveals a Bigger Plumbing Issue
 
-Sometimes removing an old vanity exposes water staining, soft flooring, mold concerns, or a slow leak <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> that had been hidden for years. It is tempting to cover the evidence with a new cabinet and move forward. That can turn a manageable repair into a much more expensive problem.
+Sometimes removing an old vanity exposes water staining, soft flooring, mold concerns, or [[a slow leak|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] that had been hidden for years. It is tempting to cover the evidence with a new cabinet and move forward. That can turn a manageable repair into a much more expensive problem.
 
 If there is active moisture, damaged pipe, or a drain that has been leaking inside the wall, address it before installing the new vanity. The same applies if water pressure is unusually low, the drain runs slowly, or the faucet area has recurring odors. These signs can point to a problem beyond the fixture itself.
 
@@ -58,7 +58,7 @@ A little preparation protects your investment and helps the work move efficientl
 
 Clear personal items from the bathroom and create a path from the entrance to the work area. If your home has children or pets, plan for limited bathroom access while the work is underway. For a primary bathroom with no alternate sink nearby, ask about the expected timeline and whether the water will need to be off for part of the project.
 
-For landlords and property managers, timing matters even more. A vanity repair or replacement between tenants may prevent an emergency call after move-in. For commercial properties <<https://www.anglestopplumbing.com/commercial-plumbing-services>>, secure fixture connections and functioning shutoff valves help reduce disruptions for employees, customers, and visitors.
+For landlords and property managers, timing matters even more. A vanity repair or replacement between tenants may prevent an emergency call after move-in. For [[commercial properties|https://www.anglestopplumbing.com/commercial-plumbing-services]], secure fixture connections and functioning shutoff valves help reduce disruptions for employees, customers, and visitors.
 
 ## Professional Help for Bathroom Vanity Installation Woodbury TN
 
@@ -66,6 +66,6 @@ A skilled plumbing installation gives your new vanity the dependable foundation 
 
 Angle Stop Plumbing brings 31 years of experience, respectful in-home service, and family-friendly standards to plumbing projects across Middle Tennessee. As a veteran-owned local company, the team believes customers deserve clear communication, courteous professionals, and workmanship that supports lasting peace of mind. The No Foul Language Guarantee reflects the same respect the team brings to every home.
 
-If your project includes a new faucet, sink, drain repair, shutoff valve replacement <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>>, or plumbing relocation, it makes sense to have the work evaluated as one coordinated job. That approach can help avoid repeat visits, protect your new cabinetry, and give you confidence in what is behind the doors and drawers.
+If your project includes a new faucet, sink, drain repair, [[shutoff valve replacement|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]], or plumbing relocation, it makes sense to have the work evaluated as one coordinated job. That approach can help avoid repeat visits, protect your new cabinetry, and give you confidence in what is behind the doors and drawers.
 
 A bathroom vanity should make daily routines easier, not give you another place to worry about hidden water damage. Choose materials you enjoy, leave room for proper plumbing access, and make sure every connection is treated with the care your home deserves.

@@ -18,7 +18,7 @@ A professional plumbing inspection looks at the systems that deliver clean water
 
 A thorough inspection commonly includes visible water supply lines, shutoff valves, fixtures, toilets, drains, water pressure, water-heater connections, and exposed sewer or drain piping. Your plumber may also check for signs of corrosion, moisture, improper installation, slow drainage, water discoloration, unusual pressure changes, and active or past leaks.
 
-When a drain or sewer concern is suspected, a camera inspection can provide a more complete answer than guesswork. It can reveal root intrusion <<https://www.anglestopplumbing.com/post/3-plumbing-problems-homeowners-shouldn-t-ignore-and-why-you-should-call-now>>, buildup, cracked piping, belly sections, or obstructions farther down the line. Not every property needs a camera inspection every year, but it is often a wise step for recurring backups, older sewer lines, or a home purchase.
+When a drain or sewer concern is suspected, a camera inspection can provide a more complete answer than guesswork. It can reveal [[root intrusion|https://www.anglestopplumbing.com/post/3-plumbing-problems-homeowners-shouldn-t-ignore-and-why-you-should-call-now]], buildup, cracked piping, belly sections, or obstructions farther down the line. Not every property needs a camera inspection every year, but it is often a wise step for recurring backups, older sewer lines, or a home purchase.
 
 Water quality may also deserve attention. Hard water, staining, unpleasant taste, scale buildup, and concerns about filtration can point to a need for testing or a closer look at water softeners, reverse osmosis equipment, whole-house filtration, UV treatment, or descaling options.
 
@@ -40,7 +40,7 @@ Common findings include:
 
 - Worn shutoff valves that may not work when a leak occurs
 
-- Water-heater sediment <<https://www.anglestopplumbing.com/blog/categories/water-heater>>, corrosion, temperature concerns, or failing relief valves
+- [[Water-heater sediment|https://www.anglestopplumbing.com/blog/categories/water-heater]], corrosion, temperature concerns, or failing relief valves
 
 - Slow drains caused by buildup, partial blockages, or damaged piping
 
@@ -50,7 +50,7 @@ Common findings include:
 
 - Sewer-line concerns, including root intrusion and recurring backup risks
 
-- Backflow issues <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing>> that may affect commercial compliance and water safety
+- [[Backflow issues|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing]] that may affect commercial compliance and water safety
 
 A good inspection should separate a small repair from a serious risk. For example, a minor faucet drip may be an easy repair, while a corroded water-heater connection or a deteriorating main shutoff valve deserves faster action. Context matters. The goal is not to create alarm, but to give you the information needed to make a sound decision.
 

@@ -34,11 +34,11 @@ The simplest way to stay ahead of compliance is to treat the annual test like an
 
 First, locate the backflow assembly and make sure it is accessible. It may be in a mechanical room, near a water meter, inside an irrigation enclosure, or on an exterior wall. Clear away stored materials, landscaping, or locked barriers that would prevent a tester from reaching it. If the device is in an area that freezes, inspect the enclosure and insulation before cold weather arrives.
 
-Next, schedule testing <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing>> with a qualified backflow professional who can perform the test required by your local authority. A proper test checks the internal valves, relief components, pressure readings, and shutoff valves. A visual look is not enough. Backflow assemblies can fail internally without an obvious leak or change in normal water use.
+Next, [[schedule testing|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing]] with a qualified backflow professional who can perform the test required by your local authority. A proper test checks the internal valves, relief components, pressure readings, and shutoff valves. A visual look is not enough. Backflow assemblies can fail internally without an obvious leak or change in normal water use.
 
 After the test, confirm where the results must go. Some water providers accept electronic submissions from the tester, while others require the property owner or manager to submit documentation. Keep a copy for your records even if the report is submitted for you. For commercial properties, save the report with other life-safety and maintenance records so future managers have a clear history.
 
-Finally, act quickly if the device fails. A failed test does not always mean the entire assembly must be replaced. Sometimes a repair kit, cleaning, valve service <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-repair>>, or replacement of damaged shutoffs can restore performance. Other times, corrosion, freeze damage, outdated installation conditions, or repeated failures make replacement the wiser long-term decision.
+Finally, act quickly if the device fails. A failed test does not always mean the entire assembly must be replaced. Sometimes a repair kit, cleaning, [[valve service|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-repair]], or replacement of damaged shutoffs can restore performance. Other times, corrosion, freeze damage, outdated installation conditions, or repeated failures make replacement the wiser long-term decision.
 
 ## What Causes a Backflow Assembly to Fail?
 
@@ -52,7 +52,7 @@ Installation issues matter as well. Devices need proper orientation, clearance f
 
 Property owners often run into trouble for administrative reasons rather than plumbing emergencies. The test may have been completed, but the report was sent to the wrong place. A notice may have gone to a former manager. The device may be behind a locked gate when the tester arrives. These small gaps can turn a routine appointment into a missed deadline.
 
-For landlords and commercial decision-makers <<https://www.anglestopplumbing.com/commercial-plumbing-services>>, designate one person to receive notices and maintain records. If ownership, billing contacts, or management companies change, update the water provider promptly. It also helps to place the next testing month on a recurring calendar reminder rather than relying only on a mailed notice.
+For landlords and [[commercial decision-makers|https://www.anglestopplumbing.com/commercial-plumbing-services]], designate one person to receive notices and maintain records. If ownership, billing contacts, or management companies change, update the water provider promptly. It also helps to place the next testing month on a recurring calendar reminder rather than relying only on a mailed notice.
 
 For homeowners, consider pairing backflow testing with irrigation service or other seasonal plumbing maintenance. That approach can make it easier to catch freeze protection concerns, leaking shutoffs, or enclosure damage before the next testing deadline approaches.
 

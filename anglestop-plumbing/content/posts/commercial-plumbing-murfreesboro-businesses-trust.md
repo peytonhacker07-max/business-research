@@ -22,9 +22,9 @@ A commercial plumber should look at the immediate failure and the condition that
 
 ## Commercial Plumbing Services Murfreesboro Properties Need
 
-A dependable commercial plumbing partner should be prepared to handle both planned work and unexpected failures. Common needs include leak detection and pipe repair, drain clearing and sewer service, toilet and faucet repairs, water-heater installation and maintenance, backflow testing <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing>> and repair, and fixture replacements for restrooms, break rooms, kitchens, and tenant spaces.
+A dependable commercial plumbing partner should be prepared to handle both planned work and unexpected failures. Common needs include leak detection and pipe repair, drain clearing and sewer service, toilet and faucet repairs, water-heater installation and maintenance, [[backflow testing|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-testing]] and repair, and fixture replacements for restrooms, break rooms, kitchens, and tenant spaces.
 
-Water service deserves particular attention. A failing water heater <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-repair>> can interrupt a restaurant, salon, gym, school, office building, or multifamily property. Depending on the demand, a conventional tank unit may be the sensible choice, while a tankless or heat-pump water heater may offer better long-term operating benefits. There is no one-size-fits-all answer. Equipment selection should consider peak usage, available space, fuel type, electrical capacity, recovery needs, and budget.
+Water service deserves particular attention. A [[failing water heater|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-repair]] can interrupt a restaurant, salon, gym, school, office building, or multifamily property. Depending on the demand, a conventional tank unit may be the sensible choice, while a tankless or heat-pump water heater may offer better long-term operating benefits. There is no one-size-fits-all answer. Equipment selection should consider peak usage, available space, fuel type, electrical capacity, recovery needs, and budget.
 
 Water quality can also affect commercial equipment and operating costs. Hard water leaves mineral scale inside pipes, fixtures, dish equipment, boilers, and water heaters. Filtration, softening, descaling, reverse osmosis, or UV treatment may be appropriate depending on the property and the water concern. A good recommendation begins with the actual problem, not a generic sales pitch.
 
@@ -60,7 +60,7 @@ Not every symptom calls for a major repair. A worn flapper, failed fill valve, o
 
 ## Maintenance Helps You Control Downtime
 
-Emergency plumbing service is essential, but planned maintenance is where many commercial operators gain the most control. A maintenance visit can catch small leaks <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-leak-repair>>, test shutoff valves, inspect water heaters, review drain performance, examine exposed piping, and verify that backflow devices and fixtures are working as intended.
+Emergency plumbing service is essential, but planned maintenance is where many commercial operators gain the most control. A maintenance visit can catch [[small leaks|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-leak-repair]], test shutoff valves, inspect water heaters, review drain performance, examine exposed piping, and verify that backflow devices and fixtures are working as intended.
 
 The best maintenance interval depends on the building. A busy restaurant may need regular drain attention because of grease and food debris. A retail office with a few restrooms may require a different schedule. Multifamily properties benefit from watching for unit-to-unit leak patterns, aging supply lines, and water-heater conditions before a tenant’s complaint becomes a renovation project.
 

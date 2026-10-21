@@ -80,6 +80,6 @@ Angle Stop Plumbing specializes in early rough-in services, turning chaos into p
 
 ## Don't Let Plumbing Derail Your Dream Bath  {bold}
 
-Strike while walls are open. Contact Angle Stop Plumbing today for a free rough-in consult: www,anglestopplumbing.com <<http://anglestopplumbing.com>> or (615) 398-3048.
+Strike while walls are open. Contact Angle Stop Plumbing today for a free rough-in consult: www,[[anglestopplumbing.com|http://anglestopplumbing.com]] or (615) 398-3048.
 
 Your perfect finish starts now.

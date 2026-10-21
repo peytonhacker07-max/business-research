@@ -18,6 +18,10 @@ All photos come from Jim's shared Google Drive folder "Job Photos" (owner Sales@
 | job-shower-trim.webp | Shower Faucet Trim Out II | 1W36G_Ri_sG0-YTMSqM9VWjm0nw-3gmHR |
 | job-heat-pump.webp | Bradford White Heat Pump Water Heater Install | 10wTeTUyj054CMIWGa4HYVGYxJ2v7txGQ |
 | job-commercial-heater.webp | Commercial Water Heater Repair | 15kKhPG-GXTMHidm1qghF5pN_tsSd5AzI |
+| wh-hero.webp | Bradford White Gas Water Heater Install | 1NlxwwXxgsVM1UPs2xkCgJx86JHWn83qd |
+| wh-conventional.webp | Bradford White Electric Water Heater Install | 1-dM7t_ex_JczYBqkiSsXp08aEp7TD6em |
+| wh-heat-pump.webp | Bradford White Heat Pump Water Heater Install | 10wTeTUyj054CMIWGa4HYVGYxJ2v7txGQ |
+| wh-tankless.webp | Navien Tankless Install | 1tyObiGhnrtIZ_CdqXcUcZCDGAYYRpKR- |
 
 `site/images/seal.svg` is Jim's original vector logo ("SVG FILE-01 (1).svg" in the Logo folder) with the viewBox tightened to the seal.
 

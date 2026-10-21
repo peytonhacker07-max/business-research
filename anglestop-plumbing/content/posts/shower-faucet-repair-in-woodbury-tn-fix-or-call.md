@@ -32,7 +32,7 @@ Faucet age matters, too. A replacement part may be an excellent, cost-effective 
 
 Before removing a handle or trim plate, protect the home and avoid turning a small repair into a flood. Start by confirming whether the water is coming from the showerhead, the handle area, or inside the wall. If the leak is active when the faucet is off, do not ignore it overnight.
 
-If you plan to inspect the fixture, shut off water to the shower using local service stops if your valve has them. If it does not, use the home's main water shutoff <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>>. Open the faucet afterward to relieve pressure, then cover the drain so screws and small parts do not disappear into the pipe.
+If you plan to inspect the fixture, shut off water to the shower using local service stops if your valve has them. If it does not, use the home's [[main water shutoff|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]]. Open the faucet afterward to relieve pressure, then cover the drain so screws and small parts do not disappear into the pipe.
 
 Homeowners can usually clean mineral buildup from an accessible showerhead or tighten a loose external screw. Beyond that, caution is wise. Faucet cartridges look simple, but removing one can be difficult when corrosion has locked it in place. Using too much force can damage the valve body behind the wall, and that repair can require opening tile or drywall.
 
@@ -60,6 +60,6 @@ A shower valve sits at the intersection of water supply lines, finished walls, a
 
 Angle Stop Plumbing brings 31 years of plumbing experience to repairs across Middle Tennessee, with respectful service, upfront pricing, and a workmanship warranty. Homeowners should be able to ask questions, understand their options, and feel comfortable with the technician working in their home. Our family-friendly No Foul Language Guarantee reflects the same respect we bring to the repair itself.
 
-For an active leak <<https://www.anglestopplumbing.com/post/3-plumbing-problems-homeowners-shouldn-t-ignore-and-why-you-should-call-now>>, water coming through a ceiling, or a shower that will not shut off, turn off the main water supply if it is safe to do so and call for emergency plumbing help. A fast response can limit damage and help protect the rest of the home.
+For an [[active leak|https://www.anglestopplumbing.com/post/3-plumbing-problems-homeowners-shouldn-t-ignore-and-why-you-should-call-now]], water coming through a ceiling, or a shower that will not shut off, turn off the main water supply if it is safe to do so and call for emergency plumbing help. A fast response can limit damage and help protect the rest of the home.
 
 A shower faucet should be easy to use, safe for every member of the household, and quiet once it is turned off. Taking care of that first drip or temperature change now can keep your bathroom comfortable and help you avoid a much larger repair later.

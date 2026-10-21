@@ -10,7 +10,7 @@ og:image: https://static.wixstatic.com/media/90a441_273c241df8744fbabdd041dc061a
 
 # About Angle Stop Plumbing Serving Middle Tennessee
 
-Thank you for taking time from your day to learn a little about Angle Stop Plumbing. Angle Stop Plumbing is a full-service plumbing company, we consider it a blessing that you are here. Angle Stop Plumbing is a Christian owned plumbing company with a US Navy Veteran owner, we are here to serve you, your family and your business. If you cannot find the answer you are seeking from our website, please may we encourage you to call and speak with one of our representatives at (615) 398-3048 <<tel:615-398-3048>>, we stand ready to help.
+Thank you for taking time from your day to learn a little about Angle Stop Plumbing. Angle Stop Plumbing is a full-service plumbing company, we consider it a blessing that you are here. Angle Stop Plumbing is a Christian owned plumbing company with a US Navy Veteran owner, we are here to serve you, your family and your business. If you cannot find the answer you are seeking from our website, please may we encourage you to call and speak with one of our representatives at [[(615) 398-3048|tel:615-398-3048]], we stand ready to help.
 
 Angle Stop Plumbing, founded by Jim Nephew, has a passion to deliver personable, professional, experienced plumbing service to the homeowners and businesses in Murfreesboro, TN and the surrounding areas that make up Middle Tennessee proper. We consider every conversation a blessing from our Lord & Savior Jesus Christ. It is Angle Stop Plumbing's' desire to serve you in a way that is pleasing to our Lord & Savior utilizing the skills he has blessed us with to assist in your plumbing needs.
 

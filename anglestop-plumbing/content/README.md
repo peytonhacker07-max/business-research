@@ -6,7 +6,7 @@ Each file starts with the page's title tag, meta description and canonical URL, 
 
 - `#` and `##` are headings. `{bold}` marks a line Wix styled as a bold paragraph, which reads as a heading.
 - `- ` is a list item.
-- `<<url>>` follows text that links somewhere.
+- `[[text|url]]` is a link.
 - `[button] Label -> url` is a button.
 - `![alt](wix:media-id)` is an image on the Wix page.
 

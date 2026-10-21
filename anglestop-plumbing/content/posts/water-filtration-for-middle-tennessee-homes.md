@@ -28,7 +28,7 @@ No single system is right for every home. The best choice comes down to the cont
 
 A whole-house filter is installed where water enters the property, so it treats water for showers, laundry, dishwashing, and faucets throughout the home. These systems often target sediment, chlorine, unpleasant tastes, and odors. They can be a strong fit for families who want cleaner water at every fixture instead of treatment at only one sink.
 
-Whole-house filtration can also help protect plumbing components. Sediment can collect in valves, appliance screens, and water-heater systems. Reducing that debris before it travels through the house may help limit wear. Still, filtration is not a cure for corroded pipes <<https://www.anglestopplumbing.com/post/are-you-hearing-the-warning-signs-of-a-whole-home-repipe-featuring-discolored-water-and-frequent-lea>>, a failing pressure regulator, or a water heater already full of scale. Those problems need their own repair plan.
+Whole-house filtration can also help protect plumbing components. Sediment can collect in valves, appliance screens, and water-heater systems. Reducing that debris before it travels through the house may help limit wear. Still, filtration is not a cure for [[corroded pipes|https://www.anglestopplumbing.com/post/are-you-hearing-the-warning-signs-of-a-whole-home-repipe-featuring-discolored-water-and-frequent-lea]], a failing pressure regulator, or a water heater already full of scale. Those problems need their own repair plan.
 
 ### Reverse Osmosis for Drinking Water
 
@@ -54,7 +54,7 @@ Water filtration can be worth investigating when you notice a recurring issue, n
 
 Homeowners should also pay attention to where the issue occurs. If only one faucet has low flow or discolored water, the problem may be a clogged aerator, supply line, fixture cartridge, or localized pipe issue. If it appears throughout the home, testing and whole-house treatment become more relevant.
 
-For commercial properties <<https://www.anglestopplumbing.com/commercial-plumbing-services>>, filtration decisions often affect more than comfort. Restaurants, offices, rental properties, salons, and other businesses may need to protect ice machines, water heaters, coffee equipment, fixtures, and customer-facing drinking water. A properly sized system should account for peak demand, not just average daily use.
+For [[commercial properties|https://www.anglestopplumbing.com/commercial-plumbing-services]], filtration decisions often affect more than comfort. Restaurants, offices, rental properties, salons, and other businesses may need to protect ice machines, water heaters, coffee equipment, fixtures, and customer-facing drinking water. A properly sized system should account for peak demand, not just average daily use.
 
 ## Installation Details That Make a Difference
 

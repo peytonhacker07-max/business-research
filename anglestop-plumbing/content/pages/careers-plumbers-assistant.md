@@ -116,6 +116,6 @@ If you are looking for a practical career path with room to grow, the Plumber's 
 
 ## Apply for the Plumber's Assistant Position
 
-To shape your future in plumbing, think about applying for the Plumber's Assistant role at Angle Stop Plumbing. Send your resume and a copy of your valid driver's license to careers@anglestopplumbing.com <<mailto:careers@anglestopplumbing.com>>.
+To shape your future in plumbing, think about applying for the Plumber's Assistant role at Angle Stop Plumbing. Send your resume and a copy of your valid driver's license to [[careers@anglestopplumbing.com|mailto:careers@anglestopplumbing.com]].
 
 This is an excellent chance to gain hands-on experience, acquire essential trade skills, and be part of a company dedicated to reliable service and career advancement. Enhance your experience. Master the trade. Advance your career with Angle Stop Plumbing.

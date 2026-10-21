@@ -8,7 +8,7 @@ og:image: https://static.wixstatic.com/media/90a441_273c241df8744fbabdd041dc061a
 
 ---
 
-Angle Stop Plumbing recognizes that you may be concerned about our use and disclosure of your personal information. Your privacy is very important to us, and the following will inform you of the information that we, Angle Stop Plumbing, Inc., may collect from you, and how it is used. By using our website, www.anglestopplumbing.com <<http://www.anglestopplumbing.com>>, you are accepting the practices described in this policy.
+Angle Stop Plumbing recognizes that you may be concerned about our use and disclosure of your personal information. Your privacy is very important to us, and the following will inform you of the information that we, Angle Stop Plumbing, Inc., may collect from you, and how it is used. By using our website, [[www.anglestopplumbing.com|http://www.anglestopplumbing.com]], you are accepting the practices described in this policy.
 
 Information Collection
 

@@ -52,6 +52,6 @@ As the weather warms up and we spend more time outdoors, it’s vital to prepare
 
 Take the time to inspect your outdoor plumbing, address any potential issues, and implement preventative measures. By doing so, you’ll welcome spring confidently and enjoy everything nature has to offer.
 
-If you have any questions or need assistance, please contact Angle Stop Plumbing at (615) 398-3048 or email us at sales@AngleStopPlumbing.com <<mailto:sales@AngleStopPlumbing.com>>. Here’s to a fantastic and stress-free spring!
+If you have any questions or need assistance, please contact Angle Stop Plumbing at (615) 398-3048 or email us at [[sales@AngleStopPlumbing.com|mailto:sales@AngleStopPlumbing.com]]. Here’s to a fantastic and stress-free spring!
 
 ![Wide angle view of a vibrant garden ready for spring](wix:d8d5f4_24407b5b8fe649d09c2a4d2f94028033~mv2.webp)

@@ -26,7 +26,7 @@ Heat pump water heaters need air around them to collect heat. Middle Tennesseeâ€
 
 The unit also cools and dehumidifies the air around it as it operates. That can be a welcome benefit in a warm garage or basement during summer. In a small conditioned closet, however, it may cool the space your HVAC system is trying to heat, particularly during colder weather. That does not automatically rule out an installation, but it does mean placement deserves careful attention.
 
-For commercial properties <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-installation>>, the opportunity can be even greater when there is consistent demand for hot water and enough mechanical-room space. Restaurants, offices, rental properties, and light commercial facilities should have a qualified plumber evaluate usage patterns before selecting a system. A unit that is undersized for a busy property can erase the comfort and operating-cost benefits owners expect.
+For [[commercial properties|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-installation]], the opportunity can be even greater when there is consistent demand for hot water and enough mechanical-room space. Restaurants, offices, rental properties, and light commercial facilities should have a qualified plumber evaluate usage patterns before selecting a system. A unit that is undersized for a busy property can erase the comfort and operating-cost benefits owners expect.
 
 ## The Main Benefits of a Hybrid Water Heater
 
@@ -82,9 +82,9 @@ After installation, homeowners should understand the control panel. Knowing how 
 
 Heat pump water heaters do not require complicated day-to-day care, but they should not be forgotten. The air filter needs periodic inspection and cleaning, especially in garages, laundry areas, or other spaces where dust collects. A clogged filter restricts airflow and can reduce performance.
 
-Annual water-heater maintenance is also wise. Depending on water conditions, that may include checking the anode rod, flushing sediment from the tank, inspecting the condensate line, testing safety components, and looking for leaks or corrosion <<https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown>>. Hard water can make maintenance more urgent because mineral buildup affects water-heating equipment over time.
+Annual water-heater maintenance is also wise. Depending on water conditions, that may include checking the anode rod, flushing sediment from the tank, inspecting the condensate line, testing safety components, and looking for [[leaks or corrosion|https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown]]. Hard water can make maintenance more urgent because mineral buildup affects water-heating equipment over time.
 
-If you notice weak hot-water recovery, unusual noise, water around the unit <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>>, error codes, or a sudden change in energy use, arrange service promptly. Small concerns are often easier and less expensive to correct before they become a no-hot-water emergency.
+If you notice weak hot-water recovery, unusual noise, [[water around the unit|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]], error codes, or a sudden change in energy use, arrange service promptly. Small concerns are often easier and less expensive to correct before they become a no-hot-water emergency.
 
 ## Is a Heat Pump Water Heater Right for You?
 

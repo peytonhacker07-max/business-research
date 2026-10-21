@@ -50,7 +50,7 @@ Refrigerator water lines and dishwasher connections are common trouble spots bec
 
 Middle Tennessee properties often have crawl spaces or mechanical areas where leaks can progress unnoticed. A detector may help in accessible areas, but the placement needs to account for moisture, standing groundwater, and seasonal humidity. If a crawl space has recurring moisture, the plumbing issue and the moisture source both need professional evaluation.
 
-Commercial properties can benefit from sensors near water heaters, break-room sinks, restrooms, mechanical equipment, backflow devices <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-repair>>, and ice machines. For a business, a water leak can interrupt operations, create safety concerns, and damage inventory or tenant spaces. Monitoring is often most valuable where the building sits empty after business hours.
+Commercial properties can benefit from sensors near water heaters, break-room sinks, restrooms, mechanical equipment, [[backflow devices|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-backflow-preventer-repair]], and ice machines. For a business, a water leak can interrupt operations, create safety concerns, and damage inventory or tenant spaces. Monitoring is often most valuable where the building sits empty after business hours.
 
 ## Choosing Between Basic Sensors and Smart Shutoff Systems
 
@@ -68,7 +68,7 @@ Floor sensors should sit at the lowest point where water is likely to collect. D
 
 A whole-home leak monitoring system should be installed on the main water line by a qualified plumbing professional. Correct placement, secure connections, and proper system setup help prevent false alerts and make sure the shutoff function works when it is needed. Homes with irrigation systems, water softeners, filtration equipment, pool plumbing, or unusual water-use patterns may need additional planning so normal use is not mistaken for a leak.
 
-If your home has a smart shutoff valve, every adult household member should know where the main water shutoff <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>> is located and how to operate it manually. Technology is valuable, but a manual shutoff remains essential during a power outage, plumbing emergency, or equipment issue.
+If your home has a smart shutoff valve, every adult household member should know where the [[main water shutoff|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]] is located and how to operate it manually. Technology is valuable, but a manual shutoff remains essential during a power outage, plumbing emergency, or equipment issue.
 
 ## Signs You May Already Have a Hidden Leak
 
@@ -80,7 +80,7 @@ When a leak is suspected, shut off the water if necessary and have the source id
 
 ## Get the Right Protection for Your Property
 
-Leak detection works best as part of a broader plan that includes sound plumbing repairs, inspected connections, maintained water heaters, and a clear response plan. A qualified plumber can help identify high-risk areas, repair existing issues <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-leak-repair>>, and determine whether simple sensors or a smart water shutoff system is the better fit.
+Leak detection works best as part of a broader plan that includes sound plumbing repairs, inspected connections, maintained water heaters, and a clear response plan. A qualified plumber can help identify high-risk areas, [[repair existing issues|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-leak-repair]], and determine whether simple sensors or a smart water shutoff system is the better fit.
 
 Angle Stop Plumbing helps Middle Tennessee homeowners, landlords, and commercial property operators protect their properties with respectful service, upfront communication, and dependable workmanship. If you have noticed signs of a leak or want to add protection before the next plumbing surprise, scheduling an inspection can bring real peace of mind.
 

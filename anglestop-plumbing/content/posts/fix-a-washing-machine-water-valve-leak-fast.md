@@ -14,7 +14,7 @@ A puddle behind the washer is easy to dismiss until it reaches the wall, warps t
 
 If water is actively dripping or spraying, turn both washing-machine supply valves clockwise until they stop. These are usually located in a recessed box or on the wall directly behind the washer. Avoid forcing a valve that feels stuck, as an older valve can break or begin leaking more heavily at the stem.
 
-Next, unplug the washing machine if water is near the electrical cord or outlet. Move towels, baskets, and anything that can be damaged away from the wet area. If the leak continues after closing the washer valves, turn off the home's main water supply <<https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable>> and call a plumber for help.
+Next, unplug the washing machine if water is near the electrical cord or outlet. Move towels, baskets, and anything that can be damaged away from the wet area. If the leak continues after closing the washer valves, turn off the home's [[main water supply|https://www.anglestopplumbing.com/post/don-t-get-soaked-why-knowing-your-water-shut-off-is-non-negotiable]] and call a plumber for help.
 
 When the immediate problem is under control, dry the area as thoroughly as possible. Water can travel under vinyl, laminate, baseboards, and drywall before the visible puddle tells the full story. A small leak caught early is usually a straightforward repair. One left alone can create a much larger restoration project.
 
@@ -36,7 +36,7 @@ A flattened, cracked, missing, or poorly seated hose washer can cause a steady d
 
 ### Leaking from the valve body or wall box
 
-Water coming from the valve body, the pipe entering the valve, or inside a recessed laundry box calls for professional attention. Corrosion <<https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown>>, a failed soldered joint, loose fitting, freeze damage, or a cracked valve can allow water into the wall cavity.
+Water coming from the valve body, the pipe entering the valve, or inside a recessed laundry box calls for professional attention. [[Corrosion|https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown]], a failed soldered joint, loose fitting, freeze damage, or a cracked valve can allow water into the wall cavity.
 
 This is not a place for a temporary wrap of tape. The visible drip may be only part of the problem, especially if the wall feels soft, paint is bubbling, or there is a musty odor nearby.
 
@@ -74,7 +74,7 @@ A few habits can reduce the chance of a surprise failure. Check behind the washi
 
 It is also wise to make sure every responsible adult in the home knows where the washer valves and main water shutoff are located. In an emergency, minutes matter. If you plan to be away for an extended trip, consider shutting off the washing-machine valves after confirming they operate properly.
 
-Avoid turning old valves aggressively just to test them. A stiff valve can begin leaking when disturbed. During a plumbing inspection <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>> or maintenance visit, a professional can check these valves carefully and address concerns before they become a flooded laundry room.
+Avoid turning old valves aggressively just to test them. A stiff valve can begin leaking when disturbed. During a [[plumbing inspection|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]] or maintenance visit, a professional can check these valves carefully and address concerns before they become a flooded laundry room.
 
 ## When to Call for Immediate Help
 

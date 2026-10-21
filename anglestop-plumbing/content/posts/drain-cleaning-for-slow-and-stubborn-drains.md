@@ -24,7 +24,7 @@ Outside, roots can find their way into tiny openings in sewer pipes, especially 
 
 One slow fixture does not always mean a sewer-line emergency. A single slow bathroom sink, for example, may have a localized hair or soap blockage near the drain. But several drains acting up at once deserve prompt attention.
 
-If the toilet bubbles when the washing machine drains, water rises in the tub after flushing, or sewage appears at a floor drain, the issue may be in the main sewer line rather than one fixture. For a business, a backed-up restroom <<https://www.anglestopplumbing.com/commercial-plumbing-services>> or kitchen drain can disrupt customers, employees, and daily operations. For a homeowner, it can expose flooring, walls, and belongings to contaminated water.
+If the toilet bubbles when the washing machine drains, water rises in the tub after flushing, or sewage appears at a floor drain, the issue may be in the main sewer line rather than one fixture. For a business, a [[backed-up restroom|https://www.anglestopplumbing.com/commercial-plumbing-services]] or kitchen drain can disrupt customers, employees, and daily operations. For a homeowner, it can expose flooring, walls, and belongings to contaminated water.
 
 Call for professional help quickly when you notice recurring clogs, foul odors, gurgling sounds, water backing up in another fixture, or water around a floor drain. These symptoms can indicate a blockage that is beyond the reach of a plunger or a small hand-held drain tool.
 
@@ -58,11 +58,11 @@ Daily habits make a real difference, although they cannot prevent every plumbing
 
 Toilets should be used only for waste and toilet paper. Wipes, paper towels, cotton products, dental floss, and similar items can catch in pipes even when a package suggests they are flushable. In commercial restrooms, clear signage and properly placed waste containers can help reduce avoidable clogs.
 
-For older homes or properties with mature trees, preventive service <<https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan>> can be especially worthwhile. A scheduled inspection or cleaning may identify buildup or root intrusion before a main-line backup forces an emergency decision. The best schedule depends on the age of the plumbing, the property’s history, the number of occupants, and how the drains are used.
+For older homes or properties with mature trees, [[preventive service|https://www.anglestopplumbing.com/angle-stop-plumbing-membership-plan]] can be especially worthwhile. A scheduled inspection or cleaning may identify buildup or root intrusion before a main-line backup forces an emergency decision. The best schedule depends on the age of the plumbing, the property’s history, the number of occupants, and how the drains are used.
 
 ## A Respectful Response When the Drains Cannot Wait
 
-Drain emergencies are inconvenient enough without wondering who will enter your home or whether the work will be explained clearly. Angle Stop Plumbing serves Middle Tennessee homeowners and commercial property operators with respectful, family-friendly service, live-phone support, and 24/7 emergency availability. With 31 years of plumbing experience <<https://www.anglestopplumbing.com/about>>, the team works to identify the source of the problem, provide upfront pricing, and treat each customer’s property with care.
+Drain emergencies are inconvenient enough without wondering who will enter your home or whether the work will be explained clearly. Angle Stop Plumbing serves Middle Tennessee homeowners and commercial property operators with respectful, family-friendly service, live-phone support, and 24/7 emergency availability. With [[31 years of plumbing experience|https://www.anglestopplumbing.com/about]], the team works to identify the source of the problem, provide upfront pricing, and treat each customer’s property with care.
 
 If sewage is backing up or water is spilling from a fixture, keep people and pets away from the affected area. Stop using water fixtures if possible, particularly if multiple drains are involved. Do not attempt to dismantle pipes or pour additional chemicals into a line that is already backing up.
 

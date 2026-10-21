@@ -28,7 +28,7 @@ Inside the home, watch for warm or damp areas on a concrete floor, cracked or li
 
 Outside, a wet area near the foundation, unusually green grass in one small spot, or standing water during dry weather can also be a clue. In some cases, homeowners see cracks in floors or walls. Foundation movement can have several causes, so cracks do not prove a slab leak on their own, but they are worth taking seriously when they appear alongside water-loss symptoms.
 
-Commercial buildings <<https://www.anglestopplumbing.com/commercial-plumbing-services>> can show similar signs, along with disrupted operations, restroom moisture issues, increased utility costs, or recurring pressure problems. For a business owner or facility manager, early testing can prevent a small hidden leak from becoming a larger repair and interruption.
+[[Commercial buildings|https://www.anglestopplumbing.com/commercial-plumbing-services]] can show similar signs, along with disrupted operations, restroom moisture issues, increased utility costs, or recurring pressure problems. For a business owner or facility manager, early testing can prevent a small hidden leak from becoming a larger repair and interruption.
 
 ## How Professional Slab Leak Detection Works
 
@@ -68,13 +68,13 @@ There is no single right repair for every slab leak. After locating the issue, a
 
 A direct access repair involves opening the slab near the damaged pipe and repairing that section. This can be a sensible solution when the leak is in an accessible area and the rest of the piping is in good condition. It may require concrete and flooring repair afterward, so the full restoration scope should be clear from the start.
 
-Rerouting, sometimes called re-piping around the slab <<https://www.anglestopplumbing.com/post/are-you-hearing-the-warning-signs-of-a-whole-home-repipe-featuring-discolored-water-and-frequent-lea>>, moves the affected line through walls, ceilings, or attic spaces rather than repairing beneath the concrete. This option can make sense when a pipe has failed repeatedly, when the original material is aging, or when future access is a major concern. It can involve drywall work and a larger upfront investment, but it may reduce the likelihood of another under-slab failure on that line.
+Rerouting, sometimes called [[re-piping around the slab|https://www.anglestopplumbing.com/post/are-you-hearing-the-warning-signs-of-a-whole-home-repipe-featuring-discolored-water-and-frequent-lea]], moves the affected line through walls, ceilings, or attic spaces rather than repairing beneath the concrete. This option can make sense when a pipe has failed repeatedly, when the original material is aging, or when future access is a major concern. It can involve drywall work and a larger upfront investment, but it may reduce the likelihood of another under-slab failure on that line.
 
 For certain drain lines, trenchless repair methods may be possible. The suitability depends on pipe condition, the location of damage, and whether the line can be properly prepared. A trustworthy recommendation considers the long-term condition of the system, not just the quickest patch.
 
 ## What to Do While You Wait for a Plumber
 
-If you suspect an active slab leak, avoid ignoring it for days. First, check for obvious fixture leaks and make sure no appliances are running. If the water meter continues to move <<https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them>> with all water use off, document what you see and arrange service as soon as possible.
+If you suspect an active slab leak, avoid ignoring it for days. First, check for obvious fixture leaks and make sure no appliances are running. If the [[water meter continues to move|https://www.anglestopplumbing.com/post/7-reasons-why-finding-water-leaks-in-your-home-is-so-challenging-and-how-to-tackle-them]] with all water use off, document what you see and arrange service as soon as possible.
 
 If water is appearing inside the home, move rugs, furniture, and valuables away from the affected area. Do not attempt to break concrete or remove finished flooring until the source has been assessed. If the leak is significant or water is spreading quickly, shut off the home's main water supply if you can do so safely and contact an emergency plumbing professional.
 

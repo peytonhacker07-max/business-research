@@ -16,7 +16,7 @@ ANGLE STOP PLUMBING YOUR #1 TRUSTED PLUMBER IN MIDDLE TENNESSEE WITH 31 YEARS EX
 
 2 Thessalonians 3:5 - May the Lord direct your hearts into God’s love and Christ’s perseverance.
 
-## Tennessee LLP: 4747 <<https://verify.tn.gov/>>  {bold}
+## Tennessee LLP: [[4747|https://verify.tn.gov/]]  {bold}
 
 [button] Schedule Here! -> https://online-booking.workiz.com/?ac=fb4a367aaef910833ab1ecc026d212793c52c4b6d2f4066a884b0f0392bd01de
 
@@ -52,31 +52,31 @@ Angle Stop Plumbing will only use quality products trusted by industry professio
 
 ## OUR SERVICES
 
-### Residential Plumbing <<https://www.anglestopplumbing.com/residential-plumbing-services>>
+### [[Residential Plumbing|https://www.anglestopplumbing.com/residential-plumbing-services]]
 
 Our residential plumbing services encompass everything from routine maintenance to emergency repairs. We ensure that your home's plumbing systems function flawlessly to provide a safe and comfortable living space.
 
-### Commercial Plumbing <<https://www.anglestopplumbing.com/commercial-plumbing-services>>
+### [[Commercial Plumbing|https://www.anglestopplumbing.com/commercial-plumbing-services]]
 
 For businesses, we provide comprehensive commercial plumbing solutions tailored to meet the unique needs of commercial properties. Our expert services help businesses maintain efficient and reliable plumbing systems to support their operations.
 
-### Water Filtration <<https://www.anglestopplumbing.com/water-filtration-services-murfreesboro-tn>>
+### [[Water Filtration|https://www.anglestopplumbing.com/water-filtration-services-murfreesboro-tn]]
 
 Completing annual maintenance, repairs and installation of a new system, look no further than Angle Stop Plumbing.
 
-### Water Heaters <<https://www.anglestopplumbing.com/water-heater-service-repair-installation-murfreesboro-tn>>
+### [[Water Heaters|https://www.anglestopplumbing.com/water-heater-service-repair-installation-murfreesboro-tn]]
 
 We repair, inspect, service and replace all hot water heater types, from the traditional tank to the tankless water heater.
 
-### Pipe Repair <<https://www.anglestopplumbing.com/residential-plumbing-services/water-pipe-repair-services-murfreesboro-tn>>
+### [[Pipe Repair|https://www.anglestopplumbing.com/residential-plumbing-services/water-pipe-repair-services-murfreesboro-tn]]
 
 From clean water pipes to sewer pipes, we can repair, inspect and replace as required to make your plumbing system safe and efficient.
 
-### Fixture Repairs <<https://www.anglestopplumbing.com/residential-plumbing-services/plumbing-fixture-services-murfreesboro-tn>>
+### [[Fixture Repairs|https://www.anglestopplumbing.com/residential-plumbing-services/plumbing-fixture-services-murfreesboro-tn]]
 
 We repair, inspect and replace any faulty plumbing fixture, from your kitchen faucet, bathroom faucets, garbage disposals and more.
 
-### Drain Repairs <<https://www.anglestopplumbing.com/residential-plumbing-services/drain-services-murfreesboro-tn>>
+### [[Drain Repairs|https://www.anglestopplumbing.com/residential-plumbing-services/drain-services-murfreesboro-tn]]
 
 No matter the drain type, grey water or black water drains we can clear clogs and repair drain leaks.
 

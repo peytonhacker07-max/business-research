@@ -16,7 +16,7 @@ Middle Tennessee water can leave mineral sediment behind over time. A yearly flu
 
 A conventional water heater heats water from the bottom of the tank. As minerals settle there, they form a layer between the burner or heating elements and the water. The heater may take longer to recover after showers, use more energy, and make popping or crackling noises as water pushes through the sediment.
 
-Flushing does not reverse corrosion or make a failing water heater new again. If the tank is leaking, the water is rusty <<https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown>> throughout the house, or the unit is near the end of its expected lifespan, a professional inspection is often the wiser investment. Still, regular flushing can remove loose sediment before it becomes a larger problem.
+Flushing does not reverse corrosion or make a failing water heater new again. If the tank is leaking, [[the water is rusty|https://www.anglestopplumbing.com/post/10-surprising-ways-corrosion-can-ruin-your-water-heater-appliances-and-plumbing-fixtures-homeown]] throughout the house, or the unit is near the end of its expected lifespan, a professional inspection is often the wiser investment. Still, regular flushing can remove loose sediment before it becomes a larger problem.
 
 ## What you need before you begin
 
@@ -74,7 +74,7 @@ There is no prize for forcing a maintenance task that has become unsafe or uncer
 
 You should also leave the work to a professional if the temperature and pressure relief valve is leaking, the drain valve is damaged, or the heater produces rusty water after flushing. The relief valve is a critical safety component, and it should never be capped, plugged, or ignored.
 
-For landlords and commercial property owners <<https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-repair>>, planned maintenance can be especially valuable. A failed water heater can disrupt tenants, customers, and daily operations. A qualified plumbing technician can inspect the tank, connections, venting where applicable, shutoff valves, and signs of developing failure while completing maintenance.
+For landlords and [[commercial property owners|https://www.anglestopplumbing.com/commercial-plumbing-services/commercial-water-heater-repair]], planned maintenance can be especially valuable. A failed water heater can disrupt tenants, customers, and daily operations. A qualified plumbing technician can inspect the tank, connections, venting where applicable, shutoff valves, and signs of developing failure while completing maintenance.
 
 ## Tankless and hybrid water heaters need different care
 
