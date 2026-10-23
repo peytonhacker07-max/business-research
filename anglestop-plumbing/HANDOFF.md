@@ -28,13 +28,14 @@ Peyton is new to freelancing and wants blunt, honest advice. Jim is older: texts
 ## Done
 
 - The homepage, with real Google reviews, job photos, Jim's vector logo, and his exact title and meta description.
-- The Water Heater page (`/water-heater-service-repair-installation-murfreesboro-tn`), the template for service pages. **Waiting on Peyton's approval.**
+- All 33 service, membership and payment pages, with Jim's photos and a matching Google review beside the text. `tools/check_pages.py` confirms every line of his text and every title, description and canonical URL match the Wix site.
+- `sitemap.xml`, `robots.txt` and a `404.html` page.
 - `dns/`: the Wix DNS export and the migration and rollback plan.
 - Preview: https://claude.ai/artifact/XrkThiBJ5T1Yb4FYbjhhb1 (private to Peyton).
 
 ## Next
 
-1. **After the Water Heater page is approved,** add the other service pages to `BUILT` and pick photos for each. Then build templates for the About, membership, payment, careers, Bible request and privacy pages, the blog index, and the blog posts.
+1. **Still to build:** About, Careers, Request a Bible (needs a form service, since the Wix form goes away), Privacy Policy, the blog index and the 124 blog posts. The posts and the About page use images on `static.wixstatic.com`, which the cloud environment must allow before they can be pulled. The membership pages on Wix also show each plan as a picture; check whether those pictures hold anything (like prices) that the text doesn't.
 2. **The blog runs on autopilot.** A new post has gone up every two days at about 10 PM Central since September 2026. That is an automated service, probably an SEO company or a Wix tool. Leaving Wix would cut it off, so Jim has to say who runs it before the move. It may also be behind the 166% traffic growth.
 3. **Waiting on Peyton:** their full name, the timeline (4 weeks suggested) and the payment terms for the agreement. The agreement must say 39 pages and 124 blog posts. It is a Claude Doc: https://claude.ai/code/artifact/35193b0d-bf97-4caf-b634-9a91cdb29bfa.
 4. **Waiting on Jim:** who posts his blog; a photo of himself and of his truck; confirming the service-area towns on the homepage.

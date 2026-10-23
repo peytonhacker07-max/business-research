@@ -82,11 +82,61 @@ MENU = [
     ('Blog', '/blog', []),
 ]
 
-# Pages built so far. Everything else in the menu still links to its real URL.
-BUILT = ['/', WH]
+# Pages built so far. Everything else still links to its real URL.
+BUILT = ['/'] + [p for _, top, subs in MENU for p in [top] + [s for _, s in subs]
+                 if p not in ('/', '/about', '/blog')]
+BUILT = list(dict.fromkeys(BUILT))
 
-# Jim's job photos placed on each page: a hero photo, and photos placed after
-# the paragraph that follows a given heading. Files are in site/images/work/.
+# Jim's job photos, in site/images/work/. Each page gets a hero photo and
+# photos placed through the text: by heading ('after') or spread out ('inline').
+HERO = {
+    'conventional': 'Bradford White gas water heater installed in an unfinished utility room',
+    'heat-pump': 'Bradford White heat pump water heater installed in a garage',
+    'tankless': 'Navien tankless water heater mounted on an outside brick wall',
+    'filters': 'Whole-house water filters plumbed beside a water heater in a garage',
+    'filters-closet': 'Three whole-house water filters installed in a utility closet',
+    'ro': 'iSpring reverse osmosis system installed under a sink',
+    'brass-shower': 'Antique-style brass rain shower trimmed out on patterned tile',
+    'backflow': 'Backflow preventer on the outside wall of a brick building',
+    'smart-valve': 'Smart water shut-off valve control panel showing the water on',
+    'drain-vent': 'New PVC drain and vent piping under a floor',
+    'repipe': 'New PEX water lines run through an open ceiling during a repipe',
+    'sewer': 'New sewer line laid in an open trench beside a house',
+    'shower-trim': 'Matte black shower trim on marble tile',
+    'frozen-pipe': 'Water pipe in an attic that froze and ruptured',
+    'commercial-repair': 'Commercial water heater after repair',
+    'commercial-install': 'New commercial Bradford White water heater with copper piping',
+    'hand-sink': 'Commercial stainless steel hand sink after repair',
+    'tub': 'Freestanding tub with a floor-mounted brass filler',
+    'electric-closet': 'Bradford White electric water heater installed in a closet',
+    'tankless-flush': 'Tankless water heater being flushed during annual service',
+}
+INLINE = {
+    'gas-flame': ('Gas water heater burner with a clean blue flame', 'Gas water heater with a proper flame'),
+    'conventional': ('Bradford White electric water heater installed in a closet', 'Bradford White electric water heater install'),
+    'heat-exchanger': ('Tankless water heater heat exchanger removed for repair', 'Tankless water heater repair'),
+    'tankless-open': ('Tankless water heater opened up for service', 'Tankless water heater service'),
+    'smart-valve': ('Smart shut-off valve on the main water line in a crawlspace', 'Smart shut-off valve install'),
+    'drain-clog': ('Drain pipe cut open showing a blockage', 'Drain blockage repair'),
+    'leaking-pipe': ('Repairing a leaking copper pipe in a crawlspace', 'Leaking pipe repair'),
+    'burst-pipe': ('Burst copper pipe in a crawlspace, repaired with a new section', 'Burst pipe repair in a crawlspace'),
+    'sewer-crawlspace': ('New sewer piping run through a crawlspace', 'Sewer pipe repair'),
+    'vanity': ('Double vanity with brass faucets, installed', 'Double vanity install with fixtures'),
+    'toilet': ('New toilet installed on a marble tile floor', 'Toilet replacement'),
+    'tub': ('Freestanding tub with a floor-mounted brass filler', 'Freestanding tub install'),
+    'commercial-heater': ('Commercial Bradford White water heater with new copper piping', 'Commercial water heater replacement'),
+    'commercial-toilet': ('Commercial toilet flush valve after repair', 'Commercial toilet repair'),
+    'filters': ('Whole-house water filters plumbed in a garage', 'Whole-house water filters'),
+    'ro': ('iSpring reverse osmosis system under a sink', 'Reverse osmosis water filtration'),
+    'slab-leak': ('Wall opened up to reach leaking water lines', 'Concrete slab leak repair'),
+}
+
+
+def photos(hero, *inline):
+    return {'hero': (f'hero-{hero}.webp', HERO[hero]),
+            'inline': [(f'in-{k}.webp',) + INLINE[k] for k in inline]}
+
+
 PHOTOS = {
     WH: {
         'hero': ('wh-hero.webp', 'New Bradford White gas water heater installed in a laundry closet'),
@@ -102,7 +152,72 @@ PHOTOS = {
                  'Navien tankless water heater install'),
         },
     },
+    WH + '/conventional-tank-water-heater-murfreesboro-tn': photos('conventional', 'gas-flame', 'conventional'),
+    WH + '/heat-pump-hybrid-water-heater-murfreesboro-tn': photos('heat-pump'),
+    WH + '/tankless-water-heater-murfreesboro-tn': photos('tankless', 'heat-exchanger', 'tankless-open'),
+    WF: photos('filters-closet', 'ro', 'filters'),
+    WF + '/water-softener-services-murfreesboro-tn': photos('filters'),
+    WF + '/reverse-osmosis-murfreesboro-tn': photos('ro'),
+    WF + '/water-descaling-murfreesboro-tn': photos('filters'),
+    WF + '/uv-water-filtration-murfreesboro-tn': photos('filters-closet'),
+    WF + '/whole-house-water-filtration-murfreesboro-tn': photos('filters-closet', 'filters'),
+    RES: photos('brass-shower', 'vanity', 'burst-pipe'),
+    RES + '/residential-backflow-testing': photos('backflow'),
+    RES + '/residential-backflow-repair': photos('backflow'),
+    RES + '/smart-plumbing-valves-leak-detection-murfreesboro-tn': photos('smart-valve', 'smart-valve'),
+    RES + '/drain-services-murfreesboro-tn': photos('drain-vent', 'drain-clog'),
+    RES + '/water-pipe-repair-services-murfreesboro-tn': photos('repipe', 'leaking-pipe', 'burst-pipe', 'slab-leak'),
+    RES + '/sewer-pipe-repair-services-murfreesboro-tn': photos('sewer', 'sewer-crawlspace'),
+    RES + '/plumbing-fixture-services-murfreesboro-tn': photos('shower-trim', 'vanity', 'toilet', 'tub'),
+    RES + '/emergency-plumbing-services-murfreesboro-tn': photos('frozen-pipe', 'burst-pipe'),
+    COM: photos('commercial-repair', 'commercial-heater', 'commercial-toilet'),
+    COM + '/commercial-water-heater-repair': photos('commercial-repair'),
+    COM + '/commercial-water-heater-installation': photos('commercial-install'),
+    COM + '/commercial-backflow-preventer-testing': photos('backflow'),
+    COM + '/commercial-backflow-preventer-repair': photos('backflow'),
+    COM + '/commercial-leak-repair': photos('hand-sink', 'slab-leak'),
+    PAY: photos('tub'),
+    PAY + '/plumbing-lease-options-murfreesboro-tn': photos('filters-closet'),
+    PAY + '/plumbing-finance-options-murfreesboro-tn': photos('electric-closet'),
+    MEM: photos('tankless-flush'),
+    MEM + '/silver-pipe-membership-plan': photos('tankless-flush'),
+    MEM + '/gold-pipe-membership-plan': photos('tankless-flush'),
+    MEM + '/platinum-pipe-membership': photos('tankless-flush'),
 }
+
+# Real Google reviews (the same ones as on the homepage), shown beside the
+# text on inner pages: (quote, name, what the job was).
+REVIEWS = {
+    'ochenkoski': ("Jim has completed two separate jobs for me at my house. On each occasion, he was very flexible with "
+                   "scheduling and responsive to my needs. I've been very pleased with his work and his friendly, "
+                   "professional manner. He's definitely my go-to guy for all things plumbing!",
+                   'Jim Ochenkoski', 'Two jobs, same house'),
+    'robbie': ("Jim from Angle Stop Plumbing was outstanding. He arrived early, diagnosed the issue quickly, and "
+               "repaired my parents' hot water heater with a high level of professionalism. He took the time to "
+               "explain every step to my Dad…", 'robbie smith', 'Water heater repair'),
+    'kovacik': ("Got my new Bradford White AeroTherm Series G2 Hybrid Electric Heat Pump Water Heater installed today "
+                "by Angle Stop Plumbing! Jim did an outstanding job and I look forward to getting my water conditioner "
+                "and purifier installed soon as well! Thanks Jim for everything!", 'Michael Kovacik', 'Heat pump water heater'),
+    'schmidt': ("We had Jim (Angle Stop) install a new Navien tankless water heater, upgrade our natural gas main line, "
+                "install an iSpring whole filter and descaler and install an automated water shutoff that integrates "
+                "with our home automation system…", 'Mark Schmidt', 'Tankless, gas line & filtration'),
+    'jackson': ("Once again, Angle Stop Plumbing came to the rescue when our hybrid water heater failed prematurely. He "
+                "also went above and beyond the call of duty to help us file our warranty reimbursement claim. "
+                "Excellent in every way!", 'Gary Jackson', 'Hybrid water heater · repeat customer'),
+    'kirby': ("I recently had Angle Stop Plumbing come out for a Water Heater service and to inspect a leak. Jim and "
+              "Hunter showed up on time and once everything was inspected Jim explained and showed me what needed to "
+              "be done…", 'E.J. Kirby', 'Water heater service & leak inspection'),
+}
+REVIEW_FOR = {
+    WH: 'kirby',
+    WH + '/conventional-tank-water-heater-murfreesboro-tn': 'robbie',
+    WH + '/heat-pump-hybrid-water-heater-murfreesboro-tn': 'kovacik',
+    WH + '/tankless-water-heater-murfreesboro-tn': 'schmidt',
+    RES + '/smart-plumbing-valves-leak-detection-murfreesboro-tn': 'schmidt',
+    PAY: 'jackson', MEM: 'jackson',
+}
+REVIEW_GROUP = {WF: 'schmidt', PAY: 'jackson', MEM: 'jackson'}
+GOOGLE_REVIEWS = 'https://www.google.com/search?q=Angle+Stop+Plumbing+Murfreesboro'
 
 LINK = re.compile(r'\[\[(.*?)\|([^\]]+)\]\]')
 
@@ -154,18 +269,47 @@ def read_page(path):
     return meta, [b.strip() for b in body.split('\n\n') if b.strip()]
 
 
+TIER = re.compile(r'Membership [IV]+:?$')
+
+
+def figure(src, alt, cap):
+    return (f'<figure>\n  <img src="{{root}}images/work/{src}" width="960" height="720" '
+            f'loading="lazy" alt="{esc(alt)}">\n  <figcaption>{esc(cap)}</figcaption>\n</figure>')
+
+
 def render_body(blocks, photos):
-    """Render content blocks. Returns (h1, lede, html)."""
-    h1, lede, out, items = None, None, [], []
+    """Render content blocks into a dict: h1, lede, buttons above the h1, and body html."""
+    h1, lede, out, items, top_buttons = None, None, [], [], []
     after = dict((photos or {}).get('after', {}))
-    pending = None  # photo waiting for the paragraph after its heading
+    spread = list((photos or {}).get('inline', []))
+    pending, pending_spread = None, False  # photo waiting for the paragraph after its heading
+    h2s = 0
+    tiers, tier = [], None  # membership plan levels, shown side by side
 
     def flush_list():
         if items:
             out.append('<ul>\n' + '\n'.join(f'  <li>{inline(i)}</li>' for i in items) + '\n</ul>')
             items.clear()
 
+    def flush_tiers():
+        if tiers:
+            cards = []
+            for t in tiers:
+                body = (f'<p>{inline(t["text"])}</p>' if t['text'] else
+                        '<ul>' + ''.join(f'<li>{inline(i)}</li>' for i in t['items']) + '</ul>')
+                cards.append(f'  <div class="plan">\n    <h3>{esc(t["name"])}</h3>\n    {body}\n  </div>')
+            out.append('<div class="plans">\n' + '\n'.join(cards) + '\n</div>')
+            tiers.clear()
+
     for b in blocks:
+        if tier is not None:
+            if b.startswith('- '):
+                tier['items'].append(b[2:])
+                continue
+            if not tier['items'] and not tier['text'] and not b.startswith(('#', '[', '!')):
+                tier['text'] = b
+                continue
+            tier = None
         if b.startswith('- '):
             items.append(b[2:])
             continue
@@ -176,29 +320,45 @@ def render_body(blocks, photos):
             h1 = plain(b[2:])
             continue
         m = re.match(r'(#{1,6}) (.*)', b)
+        if m and TIER.search(plain(m.group(2))):
+            tier = {'name': plain(m.group(2)).rstrip(':'), 'text': '', 'items': []}
+            tiers.append(tier)
+            continue
+        flush_tiers()
         if m:
             text = m.group(2).replace('{bold}', '').strip()
             level = 3 if len(m.group(1)) >= 3 else 2
             out.append(f'<h{level}>{inline(text)}</h{level}>')
-            pending = after.pop(plain(text), None)
+            hit = after.pop(plain(text), None)
+            if pending and pending_spread:
+                spread.insert(0, pending)  # not placed yet: try the next heading
+            pending, pending_spread = hit, False
+            if level == 2:
+                h2s += 1
+                if spread and pending is None and h2s % 3 == 1:
+                    pending, pending_spread = spread.pop(0), True
             continue
         if b.startswith('[button] '):
             label, url = b[9:].rsplit(' -> ', 1)
-            out.append(f'<p class="btnrow">{a_tag(esc(label), url, "big-book")}</p>')
+            if h1 is None:
+                top_buttons.append(a_tag(esc(label), url, 'pq'))
+            else:
+                out.append(f'<p class="btnrow">{a_tag(esc(label), url, "big-book")}</p>')
             continue
         if h1 and lede is None and not out:
             lede = inline(b)
             continue
         out.append(f'<p>{inline(b)}</p>')
         if pending:
-            src, alt, cap = pending
-            out.append(f'<figure>\n  <img src="{{root}}images/work/{src}" width="960" height="720" '
-                       f'loading="lazy" alt="{esc(alt)}">\n  <figcaption>{esc(cap)}</figcaption>\n</figure>')
+            out.append(figure(*pending))
             pending = None
     flush_list()
+    flush_tiers()
     if after:
         sys.exit(f'Photo headings not found: {list(after)}')
-    return h1, lede, '\n\n'.join(out)
+    for p in spread:  # pages with few headings: remaining photos go at the end
+        out.append(figure(*p))
+    return {'h1': h1, 'lede': lede, 'buttons': top_buttons, 'body': '\n\n'.join(out)}
 
 
 def current(p, path):
@@ -367,10 +527,18 @@ def shell(path, meta, main, og_image):
     return doc.replace('{root}', root)
 
 
+def review_card(path, top):
+    key = REVIEW_FOR.get(path) or REVIEW_GROUP.get(top) or 'ochenkoski'
+    quote, name, job = REVIEWS[key]
+    return (f'\n    <div class="side-rev">\n      <span class="stars">★★★★★</span>\n'
+            f'      <q>{esc(quote)}</q>\n      <p class="who"><b>{esc(name)}</b> · {esc(job)}</p>\n'
+            f'      <a href="{GOOGLE_REVIEWS}" target="_blank" rel="noopener">Read all 124 Google reviews →</a>\n    </div>')
+
+
 def service_page(path):
     meta, blocks = read_page(path)
     photos = PHOTOS.get(path, {})
-    h1, lede, body = render_body(blocks, photos)
+    page = render_body(blocks, photos)
     group, top, subs = group_of(path)
     page_label = next((l for l, p in subs if p == path), meta['title'].split(' | ')[0])
     crumbs = ['<a href="/">Home</a>']
@@ -382,31 +550,34 @@ def service_page(path):
         src, alt = photos['hero']
         hero_img = (f'\n    <img class="phero-img" src="{{root}}images/work/{src}" width="880" height="1100" '
                     f'alt="{esc(alt)}">')
+    lede = f'\n      <p class="lede">{page["lede"]}</p>' if page['lede'] else ''
+    prequal = ''
+    if page['buttons']:
+        prequal = '\n      <p class="prequal">' + ' '.join(page['buttons']) + '</p>'
     related = ''
     if subs:
         links = '\n'.join(f'      <a href="{p}"{current(p, path)}>{esc(l)}</a>'
                           for l, p in subs)
         related = f'\n    <div class="related">\n      <h3>{esc(group)}</h3>\n{links}\n    </div>'
-    main = f'''<div class="hero phero">
+    main = f'''<div class="hero phero{'' if hero_img else ' solo'}">
   <div class="wrap">
     <div>
       <p class="crumbs">{'<span>/</span>'.join(crumbs)}</p>
-      <h1>{esc(h1)}</h1>
-      <p class="lede">{lede or ''}</p>
+      <h1>{esc(page['h1'])}</h1>{lede}
       <div class="actions">
         <a class="big-call" href="{TEL}">
           <small>Call now — we answer</small>
           <b>{PHONE}</b>
         </a>
         <a class="big-book" href="{WORKIZ}" target="_blank" rel="noopener">Schedule online</a>
-      </div>
+      </div>{prequal}
     </div>{hero_img}
   </div>
 </div>
 
 <div class="wrap page">
   <article class="prose">
-{body}
+{page['body']}
   </article>
   <aside class="aside">
     <div class="help">
@@ -417,7 +588,7 @@ def service_page(path):
         <b>{PHONE}</b>
       </a>
       <a class="big-book" href="{WORKIZ}" target="_blank" rel="noopener">Schedule online</a>
-    </div>{related}
+    </div>{review_card(path, top)}{related}
   </aside>
 </div>'''
     og = photos.get('hero', ('card-water-heater.webp',))[0]
@@ -428,6 +599,29 @@ def home_page():
     meta, _ = read_page('/')
     main = open(os.path.join(TEMPLATES, 'home.html'), encoding='utf-8').read().rstrip()
     return shell('/', meta, main, 'card-water-heater.webp')
+
+
+def not_found_page():
+    meta = {'title': 'Page not found | Angle Stop Plumbing', 'robots': 'noindex',
+            'description': 'Angle Stop Plumbing, Murfreesboro and Middle Tennessee.', 'canonical': DOMAIN}
+    main = f'''<div class="hero phero solo">
+  <div class="wrap">
+    <div>
+      <h1>We can't find that page.</h1>
+      <p class="lede">It may have moved. You can head to the <a href="/" style="color:#fff">homepage</a>, or call and we'll help you out.</p>
+      <div class="actions">
+        <a class="big-call" href="{TEL}">
+          <small>Call now — we answer</small>
+          <b>{PHONE}</b>
+        </a>
+        <a class="big-book" href="{WORKIZ}" target="_blank" rel="noopener">Schedule online</a>
+      </div>
+    </div>
+  </div>
+</div>'''
+    # absolute asset paths: the 404 page is served at whatever URL was missing
+    return shell('/', meta, main, 'card-water-heater.webp').replace('href="images/', 'href="/images/') \
+        .replace('src="images/', 'src="/images/').replace('href="css/', 'href="/css/')
 
 
 def out_name(path):
@@ -477,7 +671,14 @@ def main():
         f = os.path.join(SITE, out_name(p))
         os.makedirs(os.path.dirname(f), exist_ok=True)
         open(f, 'w', encoding='utf-8').write(doc)
-    print(f'built {len(pages)} pages')
+    open(os.path.join(SITE, '404.html'), 'w', encoding='utf-8').write(not_found_page())
+    urls = '\n'.join(f'  <url><loc>{DOMAIN}{"" if p == "/" else p}</loc></url>' for p in pages)
+    open(os.path.join(SITE, 'sitemap.xml'), 'w', encoding='utf-8').write(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '\n</urlset>\n')
+    open(os.path.join(SITE, 'robots.txt'), 'w', encoding='utf-8').write(
+        f'User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n')
+    print(f'built {len(pages)} pages, 404.html, sitemap.xml, robots.txt')
 
 
 if __name__ == '__main__':
