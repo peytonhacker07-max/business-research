@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_58d659ba11f74e1abad40a219495
 
 article:published_time: 2026-04-30T20:18:02.145Z
 
+post-title: Why P-Traps Are Important for Sinks, Showers, Tubs, and More
+
+author: Jim Nephew
+
 ---
 
 When it comes to plumbing, some of the most important parts of your system are also the easiest to overlook. One of those parts is the P-trap. Found beneath sinks and connected to showers, tubs, floor drains, and other plumbing fixtures, a P-trap plays a major role in keeping your home safe, clean, and comfortable.

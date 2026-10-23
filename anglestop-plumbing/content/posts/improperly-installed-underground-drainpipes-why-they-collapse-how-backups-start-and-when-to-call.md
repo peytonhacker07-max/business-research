@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_4b96dfda66bf4d0ba4913630c0a6
 
 article:published_time: 2026-07-17T12:30:38.415Z
 
+post-title: Improperly Installed Underground Drainpipes: Why They Collapse, How Backups Start, and When to Call Angle Stop Plumbing
+
+author: Jim Nephew
+
 ---
 
 An underground drainpipe should carry wastewater away from your home smoothly and reliably. When that pipe is installed incorrectly, though, it may slowly shift, sag, crack, or collapse over time. The result is often a messy and stressful plumbing emergency: recurring drain backups, slow drains, foul odors, soggy spots in the yard, and in severe cases, sewage coming back into the home. If you're dealing with these warning signs, Angle Stop Plumbing is available with professional solutions to diagnose the problem and help restore proper flow.

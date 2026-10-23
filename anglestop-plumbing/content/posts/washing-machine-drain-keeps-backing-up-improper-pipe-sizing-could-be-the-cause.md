@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_f70626af70214a7dadb141cdf1e3
 
 article:published_time: 2026-07-04T18:41:56.491Z
 
+post-title: Washing Machine Drain Keeps Backing Up? Improper Pipe Sizing Could Be the Cause
+
+author: Jim Nephew
+
 ---
 
 A washing machine drain that overflows, gurgles, or backs up again and again is rarely just a clog. In most cases, the real culprit is improperly sized drain piping — plumbing that was never designed to handle the volume and speed of water a modern washer discharges.

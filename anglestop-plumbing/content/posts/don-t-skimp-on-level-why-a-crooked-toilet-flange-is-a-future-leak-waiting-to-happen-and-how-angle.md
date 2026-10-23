@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_1d62d2e83c0d4710876bdfd56e11
 
 article:published_time: 2025-10-15T13:29:15.118Z
 
+post-title: Don't Skimp on Level: Why a Crooked Toilet Flange is a Future Leak Waiting to Happen (and How Angle Stop Plumbing Can Save You!)
+
+author: Jim Nephew
+
 ---
 
 Let's talk about something that most homeowners never really think about, but is absolutely critical to a leak-free bathroom: the toilet closet flange. It's that unsung hero, the connection point between your toilet and the drain pipe, and if it's not installed perfectly level, you're looking at a potential plumbing nightmare down the line.

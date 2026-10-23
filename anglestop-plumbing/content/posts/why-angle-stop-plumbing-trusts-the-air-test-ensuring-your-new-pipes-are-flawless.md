@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_cba7d2f7f5384f929ddffab47126
 
 article:published_time: 2025-11-23T19:23:08.546Z
 
+post-title: 💨 Why Angle Stop Plumbing Trusts the Air Test: Ensuring Your New Pipes Are Flawless
+
+author: Jim Nephew
+
 ---
 
 When you invest in new plumbing—whether it's a whole-house repipe, a major renovation, or new construction—you expect it to be reliable for decades. But even the best-laid pipes can have tiny, hidden flaws that can lead to costly water damage down the road.

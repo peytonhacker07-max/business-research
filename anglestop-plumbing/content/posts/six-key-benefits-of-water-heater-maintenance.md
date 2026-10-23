@@ -8,6 +8,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_799026ee6e6645e9ba6e536b8d89
 
 article:published_time: 2025-02-18T22:08:01.705Z
 
+post-title: Six Key Benefits of Water Heater Maintenance
+
+author: Jim Nephew
+
 ---
 
 ![Ruptured water heater supply line.](wix:d8d5f4_799026ee6e6645e9ba6e536b8d89c403~mv2.jpg)

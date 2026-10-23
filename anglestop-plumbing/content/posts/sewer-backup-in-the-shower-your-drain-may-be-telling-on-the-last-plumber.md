@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_a4f87df1a3fd4cfeb78c77e3d9fa
 
 article:published_time: 2026-07-11T16:09:19.881Z
 
+post-title: Sewer Backup in the Shower? Your Drain May Be Telling on the Last Plumber
+
+author: Jim Nephew
+
 ---
 
 There are few moments in life more offensive than stepping into your shower and realizing the water coming up from the drain is bringing bad news from somewhere deeper in the house.

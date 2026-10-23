@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_b42577d4f4654656aa3055291d0b
 
 article:published_time: 2025-10-20T12:07:53.110Z
 
+post-title: Don't Let Winter Surprise You: Why Colder Temperatures Reveal Plumbing Leaks (and How Angle Stop Plumbing Can Help)
+
+author: Jim Nephew
+
 ---
 
 As the crisp autumn air gives way to the deep chill of winter, most of us are thinking about holiday cheer, warm blankets, and cozy fires. What we often don't think about is our home's plumbing—until it's too late.

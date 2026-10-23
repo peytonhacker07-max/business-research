@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/11062b_f6d578df3a9246e88090dda354a4
 
 article:published_time: 2025-12-14T17:46:37.326Z
 
+post-title: How Angle Stop Plumbing Is Helping Middle Tennessee Prepare for Brutal Cold Weather
+
+author: Jim Nephew
+
 ---
 
 Protecting Pipes and Preventing Future Plumbing Failures

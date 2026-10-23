@@ -8,7 +8,9 @@ text, title tags, meta descriptions and URLs stay exactly as they are now.
     python3 build.py                 # write the site into site/
     python3 build.py --preview DIR   # write a flat copy for the artifact preview
 """
+import datetime
 import html
+import json
 import os
 import re
 import sys
@@ -16,6 +18,9 @@ import sys
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, 'site')
 CONTENT = os.path.join(ROOT, 'content', 'pages')
+POSTS = os.path.join(ROOT, 'content', 'posts')
+# Wix image id -> [file under site/images/, width, height], made from the Wix originals
+MEDIA = json.load(open(os.path.join(ROOT, 'content', 'media.json'), encoding='utf-8'))
 TEMPLATES = os.path.join(ROOT, 'templates')
 
 DOMAIN = 'https://www.anglestopplumbing.com'
@@ -82,10 +87,26 @@ MENU = [
     ('Blog', '/blog', []),
 ]
 
-# Pages built so far. Everything else still links to its real URL.
-BUILT = ['/'] + [p for _, top, subs in MENU for p in [top] + [s for _, s in subs]
-                 if p not in ('/', '/about', '/blog')]
+# Request a Bible form: set this to a form service URL (for example Web3Forms) at launch.
+# Until then the form opens the visitor's email app with the request filled in.
+BIBLE_FORM_ENDPOINT = ''
+BIBLE_EMAIL = 'Sales@AngleStopPlumbing.com'
+
+BLOG_CATEGORIES = {'/blog/categories/water-heater': ['six-key-benefits-of-water-heater-maintenance']}
+
+# Every page on the Wix site except the blog posts, which are added in main().
+BUILT = ['/'] + [p for _, top, subs in MENU for p in [top] + [s for _, s in subs] if p != '/']
+BUILT += ['/careers-plumbers-assistant', '/request-bible', '/privacy-policy'] + list(BLOG_CATEGORIES)
 BUILT = list(dict.fromkeys(BUILT))
+
+# Page-specific rendering: paragraphs Wix styled as plain text that read as headings,
+# and Wix images worth keeping (stock photos and clip art are dropped).
+PROMOTE = {
+    '/about': {'Angle Stop Plumbing Serves the Following Middle Tennessee Cities',
+               'Angle Stop Plumbing Serves the Following Counties'},
+}
+PROMOTE_SHORT = {'/privacy-policy'}  # short lines with no period are section titles
+KEEP_IMAGES = {'d8d5f4_3650d326d385463cafb1349193e7da6b~mv2.png'}  # the service area map
 
 # Jim's job photos, in site/images/work/. Each page gets a hero photo and
 # photos placed through the text: by heading ('after') or spread out ('inline').
@@ -113,7 +134,8 @@ HERO = {
 }
 INLINE = {
     'gas-flame': ('Gas water heater burner with a clean blue flame', 'Gas water heater with a proper flame'),
-    'conventional': ('Bradford White electric water heater installed in a closet', 'Bradford White electric water heater install'),
+    'conventional': ('wh-conventional.webp', 'Bradford White electric water heater installed in a closet',
+                     'Bradford White electric water heater install'),
     'heat-exchanger': ('Tankless water heater heat exchanger removed for repair', 'Tankless water heater repair'),
     'tankless-open': ('Tankless water heater opened up for service', 'Tankless water heater service'),
     'smart-valve': ('Smart shut-off valve on the main water line in a crawlspace', 'Smart shut-off valve install'),
@@ -134,7 +156,7 @@ INLINE = {
 
 def photos(hero, *inline):
     return {'hero': (f'hero-{hero}.webp', HERO[hero]),
-            'inline': [(f'in-{k}.webp',) + INLINE[k] for k in inline]}
+            'inline': [INLINE[k] if len(INLINE[k]) == 3 else (f'in-{k}.webp',) + INLINE[k] for k in inline]}
 
 
 PHOTOS = {
@@ -183,6 +205,8 @@ PHOTOS = {
     MEM + '/silver-pipe-membership-plan': photos('tankless-flush'),
     MEM + '/gold-pipe-membership-plan': photos('tankless-flush'),
     MEM + '/platinum-pipe-membership': photos('tankless-flush'),
+    '/about': {'hero': ('seal', 'Angle Stop Plumbing seal: Jesus created us, Jesus saved us, '
+                                'Jesus walks with us, Jesus has blessed us')},
 }
 
 # Real Google reviews (the same ones as on the homepage), shown beside the
@@ -219,6 +243,34 @@ REVIEW_FOR = {
 REVIEW_GROUP = {WF: 'schmidt', PAY: 'jackson', MEM: 'jackson'}
 GOOGLE_REVIEWS = 'https://www.google.com/search?q=Angle+Stop+Plumbing+Murfreesboro'
 
+# The service area from Jim's About page
+CITIES = ['Murfreesboro', 'Smyrna', 'Christiana', 'La Vergne', 'Rockvale', 'Nashville', 'Mt Juliet', 'Lebanon',
+          'Antioch', 'Bell Buckle', 'Franklin', 'Arrington', 'Brentwood', 'Nolensville', 'Shelbyville']
+COUNTIES = ['Rutherford', 'Davidson', 'Bedford', 'Williamson', 'Wilson', 'Coffee']
+
+BUSINESS_LD = '\n<script type="application/ld+json">' + json.dumps({
+    '@context': 'https://schema.org',
+    '@type': 'Plumber',
+    'name': 'Angle Stop Plumbing, Inc.',
+    'url': DOMAIN,
+    'logo': DOMAIN + '/images/seal.svg',
+    'image': DOMAIN + '/images/work/card-water-heater.webp',
+    'telephone': '+1-615-398-3048',
+    'email': 'Sales@AngleStopPlumbing.com',
+    'address': {'@type': 'PostalAddress', 'streetAddress': '2222 General Raines Drive',
+                'addressLocality': 'Murfreesboro', 'addressRegion': 'TN', 'postalCode': '37129-6475',
+                'addressCountry': 'US'},
+    'openingHoursSpecification': [
+        {'@type': 'OpeningHoursSpecification', 'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+         'opens': '06:30', 'closes': '19:00'},
+        {'@type': 'OpeningHoursSpecification', 'dayOfWeek': 'Saturday', 'opens': '06:30', 'closes': '14:00'},
+    ],
+    'areaServed': [{'@type': 'City', 'name': c + ', TN'} for c in CITIES]
+                  + [{'@type': 'AdministrativeArea', 'name': c + ' County, TN'} for c in COUNTIES],
+    'sameAs': ['https://www.facebook.com/anglestopplumbing', 'https://www.instagram.com/anglestopplumbing/',
+               'https://www.linkedin.com/company/angle-stop-plumbing-inc'],
+}, ensure_ascii=False) + '</script>'
+
 LINK = re.compile(r'\[\[(.*?)\|([^\]]+)\]\]')
 
 
@@ -226,12 +278,17 @@ def esc(t):
     return html.escape(t, quote=True)
 
 
+# Links in Jim's text that are already dead on the Wix site, pointed at the page they meant
+LINK_FIX = {'/plumbing-services': RES}
+
+
 def local(url):
     """Turn a full anglestopplumbing.com URL into a site path."""
     if url.rstrip('/') == DOMAIN:
         return '/'
     if url.startswith(DOMAIN + '/'):
-        return url[len(DOMAIN):]
+        url = url[len(DOMAIN):]
+        return LINK_FIX.get(url, url)
     return url
 
 
@@ -247,7 +304,10 @@ def inline(t):
     out, pos = [], 0
     for m in LINK.finditer(t):
         out.append(esc(t[pos:m.start()]))
-        out.append(a_tag(esc(m.group(1)), m.group(2)))
+        if '/blog/hashtags/' in m.group(2):
+            out.append(esc(m.group(1)))  # Wix hashtag pages aren't carried over; keep the tag as text
+        else:
+            out.append(a_tag(esc(m.group(1)), m.group(2)))
         pos = m.end()
     out.append(esc(t[pos:]))
     return ''.join(out)
@@ -259,7 +319,11 @@ def plain(t):
 
 def read_page(path):
     name = 'index.md' if path == '/' else path.strip('/') + '.md'
-    text = open(os.path.join(CONTENT, name), encoding='utf-8').read()
+    return read_md(os.path.join(CONTENT, name))
+
+
+def read_md(file):
+    text = open(file, encoding='utf-8').read()
     head, body = text.split('\n---\n', 1)
     meta = {}
     for line in head.strip().split('\n'):
@@ -270,6 +334,7 @@ def read_page(path):
 
 
 TIER = re.compile(r'Membership [IV]+:?$')
+WIXIMG = re.compile(r'!\[(.*?)\]\(wix:(.+)\)$')
 
 
 def figure(src, alt, cap):
@@ -277,18 +342,28 @@ def figure(src, alt, cap):
             f'loading="lazy" alt="{esc(alt)}">\n  <figcaption>{esc(cap)}</figcaption>\n</figure>')
 
 
-def render_body(blocks, photos):
-    """Render content blocks into a dict: h1, lede, buttons above the h1, and body html."""
+def wix_img(mid, alt, cls='', lazy=True):
+    src, w, h = MEDIA[mid]
+    c = f' class="{cls}"' if cls else ''
+    load = ' loading="lazy"' if lazy else ''
+    return f'<img{c} src="{{root}}images/{src}" width="{w}" height="{h}"{load} alt="{esc(alt)}">'
+
+
+def render_body(blocks, photos, path=None, wix_images=False, article=False):
+    """Render content blocks into a dict: h1, lede, buttons above the h1, and body html.
+    wix_images renders the Wix images in the text (blog posts); pages keep only KEEP_IMAGES."""
     h1, lede, out, items, top_buttons = None, None, [], [], []
     after = dict((photos or {}).get('after', {}))
     spread = list((photos or {}).get('inline', []))
+    promote = PROMOTE.get(path, set())
     pending, pending_spread = None, False  # photo waiting for the paragraph after its heading
     h2s = 0
-    tiers, tier = [], None  # membership plan levels, shown side by side
+    tiers, tier, logos = [], None, []  # membership plan levels, shown side by side
 
     def flush_list():
         if items:
-            out.append('<ul>\n' + '\n'.join(f'  <li>{inline(i)}</li>' for i in items) + '\n</ul>')
+            cols = ' class="cols"' if len(items) > 8 and all(len(plain(i)) < 32 for i in items) else ''
+            out.append(f'<ul{cols}>\n' + '\n'.join(f'  <li>{inline(i)}</li>' for i in items) + '\n</ul>')
             items.clear()
 
     def flush_tiers():
@@ -297,9 +372,22 @@ def render_body(blocks, photos):
             for t in tiers:
                 body = (f'<p>{inline(t["text"])}</p>' if t['text'] else
                         '<ul>' + ''.join(f'<li>{inline(i)}</li>' for i in t['items']) + '</ul>')
-                cards.append(f'  <div class="plan">\n    <h3>{esc(t["name"])}</h3>\n    {body}\n  </div>')
+                logo = f'\n    {wix_img(logos.pop(0), "", "plan-logo")}' if logos else ''
+                cards.append(f'  <div class="plan">{logo}\n    <h3>{esc(t["name"])}</h3>\n    {body}\n  </div>')
             out.append('<div class="plans">\n' + '\n'.join(cards) + '\n</div>')
             tiers.clear()
+
+    def heading(text, level):
+        nonlocal pending, pending_spread, h2s
+        out.append(f'<h{level}>{inline(text)}</h{level}>')
+        hit = after.pop(plain(text), None)
+        if pending and pending_spread:
+            spread.insert(0, pending)  # not placed yet: try the next heading
+        pending, pending_spread = hit, False
+        if level == 2:
+            h2s += 1
+            if spread and pending is None and h2s % 3 == 1:
+                pending, pending_spread = spread.pop(0), True
 
     for b in blocks:
         if tier is not None:
@@ -314,9 +402,16 @@ def render_body(blocks, photos):
             items.append(b[2:])
             continue
         flush_list()
-        if b.startswith('!['):
-            continue  # Wix stock images are replaced by Jim's own photos
-        if b.startswith('# ') and h1 is None:
+        img = WIXIMG.match(b)
+        if img:
+            alt, mid = img.groups()
+            if mid in MEDIA and MEDIA[mid][0].startswith('plans/'):
+                logos.append(mid)
+            elif mid in MEDIA and (wix_images or mid in KEEP_IMAGES):
+                flush_tiers()
+                out.append(f'<figure class="wix">\n  {wix_img(mid, alt)}\n</figure>')
+            continue  # otherwise a Wix stock image, replaced by Jim's own photos
+        if b.startswith('# ') and h1 is None and not article:
             h1 = plain(b[2:])
             continue
         m = re.match(r'(#{1,6}) (.*)', b)
@@ -326,29 +421,23 @@ def render_body(blocks, photos):
             continue
         flush_tiers()
         if m:
-            text = m.group(2).replace('{bold}', '').strip()
-            level = 3 if len(m.group(1)) >= 3 else 2
-            out.append(f'<h{level}>{inline(text)}</h{level}>')
-            hit = after.pop(plain(text), None)
-            if pending and pending_spread:
-                spread.insert(0, pending)  # not placed yet: try the next heading
-            pending, pending_spread = hit, False
-            if level == 2:
-                h2s += 1
-                if spread and pending is None and h2s % 3 == 1:
-                    pending, pending_spread = spread.pop(0), True
+            heading(m.group(2).replace('{bold}', '').strip(), 3 if len(m.group(1)) >= 3 else 2)
             continue
         if b.startswith('[button] '):
             label, url = b[9:].rsplit(' -> ', 1)
-            if h1 is None:
+            if h1 is None and not article:
                 top_buttons.append(a_tag(esc(label), url, 'pq'))
             else:
                 out.append(f'<p class="btnrow">{a_tag(esc(label), url, "big-book")}</p>')
             continue
+        if b in promote or (path in PROMOTE_SHORT and len(b) < 45 and not b.rstrip().endswith('.')):
+            heading(b, 2)
+            continue
         if h1 and lede is None and not out:
             lede = inline(b)
             continue
-        out.append(f'<p>{inline(b)}</p>')
+        cls = ' class="scripture"' if b.startswith('\u201c') else ''
+        out.append(f'<p{cls}>{inline(b)}</p>')
         if pending:
             out.append(figure(*pending))
             pending = None
@@ -397,7 +486,7 @@ def menu_html(path):
             + '\n'.join(phone) + '\n      </ul>\n    </details>\n    </div>\n  </nav>')
 
 
-def shell(path, meta, main, og_image):
+def shell(path, meta, main, og_image, head_extra=''):
     root = '../' * (path.strip('/').count('/')) if path != '/' else ''
     title = meta['title']
     desc = meta.get('description', '')
@@ -415,7 +504,7 @@ def shell(path, meta, main, og_image):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{esc(canonical)}">
-<meta property="og:image" content="{DOMAIN}/images/work/{og_image}">
+<meta property="og:image" content="{DOMAIN}/images/{og_image}">{head_extra}
 <link rel="icon" href="{{root}}images/mark-32.png" type="image/png">
 <link rel="apple-touch-icon" href="{{root}}images/mark-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -538,7 +627,7 @@ def review_card(path, top):
 def service_page(path):
     meta, blocks = read_page(path)
     photos = PHOTOS.get(path, {})
-    page = render_body(blocks, photos)
+    page = render_body(blocks, photos, path)
     group, top, subs = group_of(path)
     page_label = next((l for l, p in subs if p == path), meta['title'].split(' | ')[0])
     crumbs = ['<a href="/">Home</a>']
@@ -548,8 +637,12 @@ def service_page(path):
     hero_img = ''
     if 'hero' in photos:
         src, alt = photos['hero']
-        hero_img = (f'\n    <img class="phero-img" src="{{root}}images/work/{src}" width="880" height="1100" '
-                    f'alt="{esc(alt)}">')
+        if src == 'seal':
+            hero_img = (f'\n    <img class="phero-seal" src="{{root}}images/seal.svg" width="360" height="360" '
+                        f'alt="{esc(alt)}">')
+        else:
+            hero_img = (f'\n    <img class="phero-img" src="{{root}}images/work/{src}" width="880" height="1100" '
+                        f'alt="{esc(alt)}">')
     lede = f'\n      <p class="lede">{page["lede"]}</p>' if page['lede'] else ''
     prequal = ''
     if page['buttons']:
@@ -592,13 +685,14 @@ def service_page(path):
   </aside>
 </div>'''
     og = photos.get('hero', ('card-water-heater.webp',))[0]
+    og = 'seal.svg' if og == 'seal' else 'work/' + og
     return shell(path, meta, main, og)
 
 
 def home_page():
     meta, _ = read_page('/')
     main = open(os.path.join(TEMPLATES, 'home.html'), encoding='utf-8').read().rstrip()
-    return shell('/', meta, main, 'card-water-heater.webp')
+    return shell('/', meta, main, 'work/card-water-heater.webp', BUSINESS_LD)
 
 
 def not_found_page():
@@ -620,8 +714,213 @@ def not_found_page():
   </div>
 </div>'''
     # absolute asset paths: the 404 page is served at whatever URL was missing
-    return shell('/', meta, main, 'card-water-heater.webp').replace('href="images/', 'href="/images/') \
+    return shell('/', meta, main, 'work/card-water-heater.webp').replace('href="images/', 'href="/images/') \
         .replace('src="images/', 'src="/images/').replace('href="css/', 'href="/css/')
+
+
+def fmt_date(d):
+    return d.strftime('%B %-d, %Y')
+
+
+def excerpt(blocks, limit=155):
+    for b in blocks:
+        if not b.startswith(('#', '-', '[', '!', '>')):
+            t = plain(b)
+            if len(t) <= limit:
+                return t
+            return t[:limit].rsplit(' ', 1)[0].rstrip(',;:') + '…'
+    return ''
+
+
+def load_posts():
+    posts = []
+    for f in sorted(os.listdir(POSTS)):
+        if not f.endswith('.md'):
+            continue
+        meta, blocks = read_md(os.path.join(POSTS, f))
+        cover = None
+        m = re.search(r'/media/([^/?]+)', meta.get('og:image', ''))
+        if m:
+            cover = m.group(1).replace('%7E', '~')
+        if cover not in MEDIA:
+            cover = next((WIXIMG.match(b).group(2) for b in blocks if WIXIMG.match(b)), None)
+        posts.append({
+            'slug': f[:-3], 'path': '/post/' + f[:-3], 'meta': meta, 'blocks': blocks,
+            'title': meta.get('post-title') or meta['title'], 'author': meta.get('author', 'Jim Nephew'),
+            'date': datetime.datetime.fromisoformat(meta['article:published_time'].replace('Z', '+00:00')),
+            'cover': cover, 'excerpt': excerpt(blocks),
+        })
+    posts.sort(key=lambda p: p['date'], reverse=True)
+    return posts
+
+
+def thumb(mid):
+    return 'blog/thumbs/' + MEDIA[mid][0].split('/', 1)[1]
+
+
+def post_card(post):
+    img = ''
+    if post['cover']:
+        img = (f'<img src="{{root}}images/{thumb(post["cover"])}" width="600" height="400" loading="lazy" '
+               f'alt="">')
+    return (f'  <a class="post-card" href="{post["path"]}">\n    {img}\n    <span class="pc-body">\n'
+            f'      <span class="pc-date">{fmt_date(post["date"])}</span>\n'
+            f'      <span class="pc-title">{esc(post["title"])}</span>\n'
+            f'      <span class="pc-text">{esc(post["excerpt"])}</span>\n    </span>\n  </a>')
+
+
+def blog_index(path, posts):
+    meta, blocks = read_page(path)
+    h1 = next((plain(b[2:]) for b in blocks if b.startswith('# ')), meta['title'].split(' | ')[0])
+    crumbs = '<a href="/">Home</a>' + ('<span>/</span><a href="/blog">Blog</a>' if path != '/blog' else '')
+    cards = '\n'.join(post_card(p) for p in posts)
+    main = f"""<div class="hero phero solo">
+  <div class="wrap">
+    <div>
+      <p class="crumbs">{crumbs}</p>
+      <h1>{esc(h1)}</h1>
+    </div>
+  </div>
+</div>
+
+<div class="wrap blog-list">
+<div class="post-grid">
+{cards}
+</div>
+</div>"""
+    return shell(path, meta, main, 'work/card-water-heater.webp')
+
+
+def post_page(post, posts):
+    page = render_body(post['blocks'], None, post['path'], wix_images=True, article=True)
+    cover = ''
+    if post['cover'] and post['cover'] not in ''.join(post['blocks']):
+        cover = f'<figure class="wix cover">\n  {wix_img(post["cover"], "", lazy=False)}\n</figure>\n\n'
+    recent = '\n'.join([f'      <a href="{p["path"]}">{esc(p["title"])}</a>' for p in posts if p is not post][:5])
+    meta = dict(post['meta'])
+    meta.setdefault('description', post['excerpt'])
+    og = MEDIA[post['cover']][0] if post['cover'] else 'work/card-water-heater.webp'
+    ld = '\n<script type="application/ld+json">' + json.dumps({
+        '@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': post['title'],
+        'datePublished': post['meta']['article:published_time'],
+        'author': {'@type': 'Person', 'name': post['author']},
+        'publisher': {'@type': 'Organization', 'name': 'Angle Stop Plumbing, Inc.', 'logo': DOMAIN + '/images/seal.svg'},
+        'image': DOMAIN + '/images/' + og, 'mainEntityOfPage': DOMAIN + post['path'],
+    }, ensure_ascii=False) + '</script>'
+    main = f"""<div class="hero phero solo">
+  <div class="wrap">
+    <div>
+      <p class="crumbs"><a href="/">Home</a><span>/</span><a href="/blog">Blog</a></p>
+      <h1>{esc(post['title'])}</h1>
+      <p class="byline">By {esc(post['author'])} · {fmt_date(post['date'])}</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap page">
+  <article class="prose">
+{cover}{page['body']}
+  </article>
+  <aside class="aside">
+    <div class="help">
+      <h3>Talk to a real person</h3>
+      <p>Mon–Fri 6:30a–7p · Sat 6:30a–2p</p>
+      <a class="big-call" href="{TEL}">
+        <small>Call now — we answer</small>
+        <b>{PHONE}</b>
+      </a>
+      <a class="big-book" href="{WORKIZ}" target="_blank" rel="noopener">Schedule online</a>
+    </div>
+    <div class="related">
+      <h3>Recent posts</h3>
+{recent}
+      <a href="/blog">All posts →</a>
+    </div>
+  </aside>
+</div>"""
+    return shell(post['path'], meta, main, og, ld)
+
+
+def blog_feed(posts):
+    items = []
+    for p in posts[:30]:
+        items.append(f"""  <item>
+    <title>{esc(p['title'])}</title>
+    <link>{DOMAIN}{p['path']}</link>
+    <guid>{DOMAIN}{p['path']}</guid>
+    <pubDate>{p['date'].strftime('%a, %d %b %Y %H:%M:%S GMT')}</pubDate>
+    <description>{esc(p['excerpt'])}</description>
+  </item>""")
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n<channel>\n'
+            f'  <title>Angle Stop Plumbing Blog</title>\n  <link>{DOMAIN}/blog</link>\n'
+            '  <description>All things plumbing by Angle Stop Plumbing.</description>\n'
+            + '\n'.join(items) + '\n</channel>\n</rss>\n')
+
+
+def bible_page():
+    path = '/request-bible'
+    meta, blocks = read_page(path)
+    labels = blocks[:blocks.index(next(b for b in blocks if b.startswith('# ')))]
+    title, name_l, street_l, city_l = labels  # Jim's form wording, in order
+    page = render_body(blocks[len(labels):], None, path)
+    lede = f'\n      <p class="lede">{page["lede"]}</p>' if page['lede'] else ''
+    main = f"""<div class="hero phero solo">
+  <div class="wrap">
+    <div>
+      <p class="crumbs"><a href="/">Home</a><span>/</span>Request a Bible</p>
+      <h1>{esc(page['h1'])}</h1>{lede}
+    </div>
+  </div>
+</div>
+
+<div class="wrap page">
+  <article class="prose">
+<form class="bible-form" id="bible" data-endpoint="{esc(BIBLE_FORM_ENDPOINT)}" data-email="{BIBLE_EMAIL}">
+  <h2>{esc(title)}</h2>
+  <label>{esc(name_l)} <input name="name" required autocomplete="name"></label>
+  <label>{esc(street_l)} <input name="street" required autocomplete="street-address"></label>
+  <label>{esc(city_l)} <input name="city" required autocomplete="address-level2"></label>
+  <button class="big-book" type="submit">Send my request</button>
+  <p class="form-done" hidden>Thank you! We'll get a Bible in the mail to you. May God bless you.</p>
+</form>
+
+{page['body']}
+  </article>
+  <aside class="aside">
+    <img class="aside-seal" src="{{root}}images/seal.svg" width="300" height="300" alt="Angle Stop Plumbing seal: Jesus created us, Jesus saved us, Jesus walks with us, Jesus has blessed us">
+  </aside>
+</div>
+<script>
+  (function () {{
+    var f = document.getElementById('bible');
+    f.addEventListener('submit', function (e) {{
+      e.preventDefault();
+      var d = new FormData(f), done = f.querySelector('.form-done');
+      if (f.dataset.endpoint) {{
+        fetch(f.dataset.endpoint, {{ method: 'POST', body: d, headers: {{ Accept: 'application/json' }} }})
+          .then(function (r) {{ if (!r.ok) throw r; done.hidden = false; f.reset(); }})
+          .catch(function () {{ alert('Sorry, that did not go through. Please call us at {PHONE}.'); }});
+        return;
+      }}
+      var body = 'Please send a free Bible to:%0D%0A%0D%0A' + encodeURIComponent(d.get('name')) + '%0D%0A' +
+        encodeURIComponent(d.get('street')) + '%0D%0A' + encodeURIComponent(d.get('city'));
+      window.location.href = 'mailto:' + f.dataset.email + '?subject=Free%20Bible%20request&body=' + body;
+    }});
+  }})();
+</script>"""
+    return shell(path, meta, main, 'seal.svg')
+
+
+def render_page(path, posts):
+    if path == '/':
+        return home_page()
+    if path == '/request-bible':
+        return bible_page()
+    if path == '/blog':
+        return blog_index(path, posts)
+    if path in BLOG_CATEGORIES:
+        return blog_index(path, [p for p in posts if p['slug'] in BLOG_CATEGORIES[path]])
+    return service_page(path)
 
 
 def out_name(path):
@@ -646,39 +945,49 @@ PREVIEW_JS = '''<div id="soon" role="status" aria-live="polite" style="position:
 </script>'''
 
 
-def preview(doc, path):
+def flat(path):
+    return 'index.html' if path == '/' else path.strip('/').replace('/', '__') + '.html'
+
+
+def preview(doc, path, paths):
     """Flatten a page for the artifact preview: assets at the root, links between
-    built pages made relative, everything else caught by a notice."""
+    previewed pages made relative, everything else caught by a notice."""
     depth = path.strip('/').count('/') if path != '/' else 0
     doc = doc.replace('href="' + '../' * depth, 'href="').replace('src="' + '../' * depth, 'src="') if depth else doc
-    for p in BUILT:
-        flat = 'index.html' if p == '/' else p.strip('/').replace('/', '__') + '.html'
-        doc = doc.replace(f'href="{p}"', f'href="{flat}"')
+    for p in paths:
+        doc = doc.replace(f'href="{p}"', f'href="{flat(p)}"')
     return doc.replace('</body>', PREVIEW_JS + '\n</body>')
 
 
 def main():
-    pages = {p: (home_page() if p == '/' else service_page(p)) for p in BUILT}
+    posts = load_posts()
+    pages = {p: render_page(p, posts) for p in BUILT}
+    for post in posts:
+        pages[post['path']] = post_page(post, posts)
     if len(sys.argv) > 2 and sys.argv[1] == '--preview':
+        # The preview holds every page but only the newest posts, to stay within the artifact file limit
+        keep = BUILT + [p['path'] for p in posts[:12]]
         out = sys.argv[2]
         os.makedirs(out, exist_ok=True)
-        for p, doc in pages.items():
-            flat = 'index.html' if p == '/' else p.strip('/').replace('/', '__') + '.html'
-            open(os.path.join(out, flat), 'w', encoding='utf-8').write(preview(doc, p))
-        print(f'preview: {len(pages)} pages in {out}')
+        for p in keep:
+            open(os.path.join(out, flat(p)), 'w', encoding='utf-8').write(preview(pages[p], p, keep))
+        print(f'preview: {len(keep)} pages in {out}')
         return
     for p, doc in pages.items():
         f = os.path.join(SITE, out_name(p))
         os.makedirs(os.path.dirname(f), exist_ok=True)
         open(f, 'w', encoding='utf-8').write(doc)
     open(os.path.join(SITE, '404.html'), 'w', encoding='utf-8').write(not_found_page())
-    urls = '\n'.join(f'  <url><loc>{DOMAIN}{"" if p == "/" else p}</loc></url>' for p in pages)
+    open(os.path.join(SITE, 'blog-feed.xml'), 'w', encoding='utf-8').write(blog_feed(posts))
+    dates = {p['path']: p['date'].strftime('%Y-%m-%d') for p in posts}
+    urls = '\n'.join(f'  <url><loc>{DOMAIN}{"" if p == "/" else p}</loc>'
+                     + (f'<lastmod>{dates[p]}</lastmod>' if p in dates else '') + '</url>' for p in pages)
     open(os.path.join(SITE, 'sitemap.xml'), 'w', encoding='utf-8').write(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '\n</urlset>\n')
     open(os.path.join(SITE, 'robots.txt'), 'w', encoding='utf-8').write(
         f'User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n')
-    print(f'built {len(pages)} pages, 404.html, sitemap.xml, robots.txt')
+    print(f'built {len(pages)} pages ({len(posts)} blog posts), 404.html, blog-feed.xml, sitemap.xml, robots.txt')
 
 
 if __name__ == '__main__':

@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_aa730cb232054f41aaf9c103787b
 
 article:published_time: 2026-10-03T03:12:06.835Z
 
+post-title: Tankless Heater Maintenance That Prevents Trouble
+
+author: Jim Nephew
+
 ---
 
 A tankless water heater is easy to forget when it is doing its job well. Hot water arrives on demand, the unit takes up little space, and there is no large tank quietly holding dozens of gallons in a closet or garage. But tankless heater maintenance is what keeps that convenience from turning into a cold shower, an error code, or an unexpected repair call.

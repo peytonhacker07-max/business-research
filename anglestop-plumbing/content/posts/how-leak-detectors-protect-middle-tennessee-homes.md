@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_c3c23a8ca3e74738add7809cdd85
 
 article:published_time: 2026-10-19T03:12:50.209Z
 
+post-title: How Leak Detectors Protect Middle Tennessee Homes
+
+author: Jim Nephew
+
 ---
 
 A leaking supply line behind a washing machine can release gallons of water before anyone notices. A slow drip under a bathroom vanity can quietly damage flooring, cabinets, and drywall for months. Leak detectors give homeowners and property managers an early warning, helping them respond before a small plumbing problem becomes a costly restoration project.

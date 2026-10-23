@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_741f117a484b474fad5027881d45
 
 article:published_time: 2026-04-12T15:53:16.437Z
 
+post-title: Why Your Home’s "Flow" Depends on the Right Slope
+
+author: Jim Nephew
+
 ---
 
 Most homeowners don't spend much time thinking about their drainpipes until something goes wrong. We tend to assume that as long as water goes down the drain, everything is fine. However, plumbing is a delicate balance of physics and engineering. One of the most common—yet invisible—issues in residential plumbing is improperly sloped pipes.

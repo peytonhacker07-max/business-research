@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_6ae9145e63c64bc79a0ad69adf93
 
 article:published_time: 2026-05-23T15:39:41.064Z
 
+post-title: Licensed, responsible plumbers: why structural integrity comes first in any renovation
+
+author: Jim Nephew
+
 ---
 
 When you’re renovating a kitchen, bathroom, or whole home, it’s tempting to focus on fixtures, finishes, and layout. But before any pipe is run or wall is closed, a licensed, responsible plumber must evaluate structural conditions. Ignoring structural red flags—like holes bored along the bottom edge of framing, cracked floor joists, or deteriorated studs—can lead to code violations, water damage, costly rework, and legal liability for the installer.

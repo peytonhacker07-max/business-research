@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_0c91ccbf2dae4486ba1acc6917cd
 
 article:published_time: 2025-08-31T19:01:40.231Z
 
+post-title: The Hidden Dangers of Incorrect Sewer Line Slopes and How to Prevent Costly Repairs
+
+author: Jim Nephew
+
 ---
 
 You might not think about your home's sewer line often, but it plays a crucial role in your daily life. When functioning correctly, it quietly manages your waste. However, an unnoticed issue, like an incorrect slope, can lead to serious problems beneath your feet. The angle of your sewer line might seem minor, but it can result in significant challenges if not addressed properly.

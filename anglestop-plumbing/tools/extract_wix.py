@@ -92,7 +92,7 @@ def render(p):
     out = []
     m = p.meta
     out.append(f"title: {clean(p.title)}")
-    for k in ('description', 'canonical', 'og:image', 'article:published_time', 'robots'):
+    for k in ('description', 'canonical', 'og:image', 'article:published_time', 'robots', 'post-title', 'author'):
         if m.get(k): out.append(f"{k}: {m[k]}")
     out.append('---')
     prev = None
@@ -112,6 +112,12 @@ def render(p):
 src, dst = sys.argv[1], sys.argv[2]
 for f in sorted(os.listdir(src)):
     if not f.endswith('.html'): continue
-    p = P(); p.feed(open(os.path.join(src, f), encoding='utf-8', errors='replace').read())
+    raw = open(os.path.join(src, f), encoding='utf-8', errors='replace').read()
+    p = P(); p.feed(raw)
+    # Blog posts keep their title and author in the post header, outside <main>'s content
+    m = re.search(r'data-hook="post-title"[^>]*>(.*?)</h1>', raw, re.S)
+    if m: p.meta['post-title'] = clean(html.unescape(re.sub(r'<[^>]+>', '', m.group(1))))
+    m = re.search(r'data-hook="user-name"[^>]*>(.*?)<', raw)
+    if m: p.meta['author'] = clean(html.unescape(m.group(1)))
     open(os.path.join(dst, f[:-5] + '.md'), 'w').write(render(p))
 print('done')

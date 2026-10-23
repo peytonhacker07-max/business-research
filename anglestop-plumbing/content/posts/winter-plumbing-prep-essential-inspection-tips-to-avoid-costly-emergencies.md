@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_ebfda73fd32340e2804a21524a52
 
 article:published_time: 2025-09-07T18:45:31.408Z
 
+post-title: Winter Plumbing Prep: Essential Inspection Tips to Avoid Costly Emergencies
+
+author: Jim Nephew
+
 ---
 
 As autumn descends with its crisp air and falling leaves, it's easy to get caught up in the excitement of the season—pumpkin spice lattes, cozy sweaters, and holiday plans. However, one crucial task should take precedence on your to-do list: preparing your home's plumbing for winter. A burst pipe or a malfunctioning water heater during a freezing night can lead to expensive repairs. Scheduling a professional plumbing inspection before winter arrives can save you both time and money.

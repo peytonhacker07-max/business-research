@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/cf224669e1b9468692006700b20ed28a.jp
 
 article:published_time: 2026-08-01T17:09:59.823Z
 
+post-title: Why Tankless Water Heaters Need Annual Descaling and Service
+
+author: Jim Nephew
+
 ---
 
 A tankless water heater is one of the best upgrades a homeowner can make for comfort, energy efficiency, and endless hot water. But if you want that performance to last, annual descaling and professional service are essential. At Angle Stop Plumbing, we help homeowners protect their investment and keep their tankless systems running at their best year after year.

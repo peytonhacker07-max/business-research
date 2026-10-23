@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_02631a331cba4631ab176ed01cbd
 
 article:published_time: 2026-06-27T14:42:54.593Z
 
+post-title: 3 Plumbing Problems Homeowners Shouldn’t Ignore (And Why You Should Call Now)
+
+author: Jim Nephew
+
 ---
 
 When it comes to home maintenance, plumbing issues are often pushed aside—until they become emergencies. A small leak or slow drain might not seem urgent, but the reality is simple: plumbing problems don’t stay small. They grow, spread, and become more expensive the longer they’re ignored.

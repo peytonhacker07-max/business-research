@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_b0b248a4837a4108a77861ce8032
 
 article:published_time: 2025-07-27T20:20:55.753Z
 
+post-title: Unmasking Hidden Leaks to Save Your Wallet with Routine Plumbing Inspections
+
+author: Jim Nephew
+
 ---
 
 As a homeowner in Murfreesboro, you probably know the satisfaction of a well-kept home. However, what about the hidden issues that lie beneath the surface? Hidden leaks can hide behind walls, under flooring, or deep within pipes, causing damage and leading to costly repairs over time.

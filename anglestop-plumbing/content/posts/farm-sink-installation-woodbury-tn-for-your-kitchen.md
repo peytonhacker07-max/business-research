@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_4770c6aefecf40069229cfaef051
 
 article:published_time: 2026-09-03T09:22:02.756Z
 
+post-title: Farm Sink Installation Woodbury TN for Your Kitchen
+
+author: Jim Nephew
+
 ---
 
 A farmhouse sink changes more than the look of a kitchen. Its deep basin makes meal prep, large pots, and family cleanup easier, but its size and weight also place real demands on the cabinet, countertop, water lines, and drain. For farm sink installation in Woodbury TN, the best result starts with planning the structure and plumbing before the sink arrives.

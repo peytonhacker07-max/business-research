@@ -8,6 +8,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_bf30e4dbd2684b1bbcad199a8226
 
 article:published_time: 2026-05-08T21:12:48.654Z
 
+post-title: Why You Should Never Drill Near the Bottom Edge of a Floor Joist for Plumbing | Angle Stop Plumbing
+
+author: Jim Nephew
+
 ---
 
 When plumbing needs to pass through a floor system, the quickest route can look like the best route. But drilling holes near the bottom edge of a floor joist is a shortcut that can create serious structural problems. It may seem minor in the moment, especially during a remodel or rough-in, but weakening a joist in the wrong place can lead to sagging floors, cracked finishes, and expensive repairs.

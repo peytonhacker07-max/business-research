@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_0bf4014647a14bcbb7977de75019
 
 article:published_time: 2026-02-21T00:40:15.639Z
 
+post-title: The Hidden Concerns of Early PEX Plumbing — and How Angle Stop Plumbing Can Bring Peace Back to Your Home
+
+author: Jim Nephew
+
 ---
 
 PEX (cross-linked polyethylene) piping has become a popular choice for residential plumbing over the past few decades, known for its flexibility, affordability, and resistance to corrosion. But not all PEX pipes are created equal. Some earlier generations of PEX, including certain Nibco PEX products and similar early formulations from other manufacturers, have been linked to issues that can cause homeowners serious headaches down the line.

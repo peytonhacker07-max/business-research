@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_729ad82c70234487a409ebb3973a
 
 article:published_time: 2025-10-11T18:27:03.534Z
 
+post-title: Protect Your Property: Understanding and Preventing Water and Sewer Line Failure
+
+author: Jim Nephew
+
 ---
 
 ![](wix:d8d5f4_729ad82c70234487a409ebb3973a690f~mv2.jpg)

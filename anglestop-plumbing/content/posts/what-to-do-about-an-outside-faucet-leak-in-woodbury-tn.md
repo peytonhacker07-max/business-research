@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_c69e6a156180496b817a9a70e5f6
 
 article:published_time: 2026-09-10T02:12:11.450Z
 
+post-title: What to Do About an Outside Faucet Leak in Woodbury TN
+
+author: Jim Nephew
+
 ---
 
 A small drip from an outdoor spigot can seem easy to ignore, especially when the faucet is tucked beside the garage or behind a flower bed. But an outside faucet leak in Woodbury, TN can waste a surprising amount of water, saturate the soil around your home, and become much more serious when freezing weather arrives. The right response depends on where the leak is coming from and whether water is still flowing after the faucet is turned off.

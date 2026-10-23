@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_d412274fae8c46f6876a715d7471
 
 article:published_time: 2026-10-07T03:21:51.174Z
 
+post-title: Backflow Compliance Guide for Middle Tennessee
+
+author: Jim Nephew
+
 ---
 
 A backflow test notice can feel like one more item on an already full property-maintenance list. But this backflow compliance guide starts with the reason behind the requirement: a working backflow prevention assembly helps protect the public water supply, your employees or family, and the people who rely on your property’s water.

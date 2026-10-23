@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_a301b090371f4a9098d1e5df37e2
 
 article:published_time: 2026-09-19T03:21:02.814Z
 
+post-title: Frozen Pipe Prevention for Middle Tennessee Homes
+
+author: Jim Nephew
+
 ---
 
 A hard freeze in Murfreesboro can turn a quiet night into a costly plumbing emergency by morning. Frozen pipe prevention is not about overreacting to every cold snap. It is about protecting the vulnerable parts of your plumbing system before trapped water expands, cracks a pipe, and sends water into walls, cabinets, crawl spaces, or business operations.

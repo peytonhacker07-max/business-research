@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_5449bd3c2d834cbd87329ff58e09
 
 article:published_time: 2026-09-13T03:41:33.021Z
 
+post-title: Kitchen Faucet Repair for Leaks and Low Flow
+
+author: Jim Nephew
+
 ---
 
 A kitchen faucet that drips into the sink all night, sprays across the counter, or barely produces a stream can make an ordinary task frustrating. Kitchen faucet repair often starts with a small worn part, but the source of the problem is not always visible from above the countertop. Catching it early can protect the faucet, the sink cabinet, and the plumbing connections below.

@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_fb5080853b194c58a01ff27c844f
 
 article:published_time: 2026-06-06T20:45:30.661Z
 
+post-title: Why Adding a Gas Appliance Is Not as Simple as Tapping into Your Existing Gas Line
+
+author: Jim Nephew
+
 ---
 
 Adding a new gas appliance sounds straightforward. You have an existing gas line, the new appliance needs gas, so it seems like a simple connection should do the job. In reality, that assumption can create major performance and safety problems. Before any new gas appliance is installed, the system's total gas demand must be evaluated to make sure the existing piping can safely and efficiently deliver the required fuel.

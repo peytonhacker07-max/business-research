@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_8f0ae98da50f41b7a8f3884f77e1
 
 article:published_time: 2026-09-29T03:13:47.270Z
 
+post-title: Slab Leak Detection: Signs Your Home Can't Ignore
+
+author: Jim Nephew
+
 ---
 
 A warm spot in the floor, the quiet sound of running water when every fixture is off, or a water bill that suddenly climbs can point to a leak beneath your home. Slab leak detection is the process of finding that hidden problem before it has more time to damage flooring, foundations, walls, and household peace of mind.

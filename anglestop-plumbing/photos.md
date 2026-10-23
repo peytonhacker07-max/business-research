@@ -59,6 +59,6 @@ All photos come from Jim's shared Google Drive folder "Job Photos" (owner Sales@
 | in-ro.webp | Reverse Osmosis Water Filtration | 1hvwBK4MQ4MO1_ZAY3dgZwqPf-ilZFOJM |
 | in-slab-leak.webp | Concrete Slab Leaks | 1D9r2dYYrjfjzvHq9GnagUrXYyDpqb7jA |
 
-`site/images/seal.svg` is Jim's original vector logo ("SVG FILE-01 (1).svg" in the Logo folder) with the viewBox tightened to the seal.
+`site/images/seal.svg` is Jim's original vector logo ("SVG FILE-01 (1).svg" in the Logo folder) with the viewBox tightened to the seal (its true bounds, measured with getBBox).
 
 Left out on purpose: both "Gas Lanterns" shots (the photographer is reflected in the front door glass), "Shower Faucet Trim Out III" (reflection in the shower glass), and one water heater install with a person visible through a doorway.

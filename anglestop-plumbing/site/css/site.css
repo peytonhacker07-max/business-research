@@ -377,6 +377,44 @@ footer a{color:#CFE0F2}
 .side-rev .who{margin:0 0 10px; font-size:14.5px; color:var(--ink-2)}
 .side-rev .who b{color:var(--ink)}
 .side-rev a{font-size:14.5px; font-weight:600; color:var(--blue); text-decoration:none}
+.phero-seal{display:block; width:min(100%,320px); height:auto; margin:0 auto; background:#fff; border-radius:50%; padding:10px}
+.prose .scripture{font-family:var(--serif); font-style:italic; color:var(--navy); border-left:3px solid var(--sky); padding-left:16px}
+.prose ul.cols{columns:2 220px; column-gap:28px}
+.prose ul.cols li{break-inside:avoid; margin:4px 0}
+.plan-logo{display:block; width:auto; max-width:100%; height:64px; object-fit:contain; margin:0 0 12px}
+.prose figure.wix img{aspect-ratio:auto; object-fit:contain; background:none}
+.prose figure.cover{margin-top:0}
+.byline{margin:14px 0 0; color:#C9DCEE; font-size:15.5px}
+
+/* blog */
+.blog-list{padding-block:clamp(32px,4.5vw,52px)}
+.post-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:18px}
+.post-card{
+  display:flex; flex-direction:column; text-decoration:none; color:inherit; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; overflow:hidden;
+}
+.post-card:hover{box-shadow:0 6px 18px rgba(12,51,96,.10); border-color:#C9D6E3}
+.post-card img{display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; background:var(--line)}
+.pc-body{display:flex; flex-direction:column; gap:6px; padding:16px 18px 20px}
+.pc-date{font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--red); font-weight:700}
+.pc-title{font-family:var(--display); font-weight:800; font-size:19px; line-height:1.2; color:var(--navy)}
+.pc-text{font-size:15.5px; color:var(--ink-2)}
+
+/* request a Bible */
+.bible-form{
+  background:var(--card); border:1px solid var(--line); border-top:3px solid var(--red);
+  border-radius:12px; padding:22px 22px 18px; margin:0 0 34px; display:grid; gap:14px;
+}
+.prose .bible-form h2{margin:0}
+.bible-form label{display:grid; gap:6px; font-weight:600; font-size:16px}
+.bible-form input{
+  font:inherit; font-weight:400; padding:12px 14px; border:1px solid #C3CCD6; border-radius:7px; background:#fff;
+}
+.bible-form input:focus{outline:2px solid var(--sky); outline-offset:1px; border-color:var(--sky)}
+.bible-form button{border:0; cursor:pointer; font:inherit; font-family:var(--display); font-weight:700; font-size:18px; justify-self:start}
+.form-done{margin:0; color:#1E6B3A; font-weight:600}
+.aside-seal{display:block; width:100%; max-width:300px; height:auto; margin:0 auto}
+
 .related{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px 10px}
 .related h3{
   font-size:12.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:700;

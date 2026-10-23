@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_603d402347224ec8906b5fa39067
 
 article:published_time: 2026-09-12T21:09:03.879Z
 
+post-title: Why Pressure Test My Plumbing System?
+
+author: Jim Nephew
+
 ---
 
 When structural disaster strikes - whether from fire, storm damage, high winds, falling debris, or major impact - the visible damage is only part of the problem. Behind walls, above ceilings, and beneath floors, your plumbing system may have been compromised in ways that are not immediately obvious. That is why pressure testing all plumbing systems after a structural disaster is so important.

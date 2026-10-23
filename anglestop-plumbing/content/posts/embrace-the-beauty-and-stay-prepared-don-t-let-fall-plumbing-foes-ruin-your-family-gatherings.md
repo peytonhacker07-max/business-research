@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_a55a3bb16e934900a8a505b31295
 
 article:published_time: 2025-10-26T20:23:42.571Z
 
+post-title: Embrace the Beauty and Stay Prepared: Don't Let Fall Plumbing Foes Ruin Your Family Gatherings 🍂🦃
+
+author: Jim Nephew
+
 ---
 
 The air has a crisp new texture, the aroma of pumpkin spice is everywhere, and Middle Tennessee is putting on a stunning show of reds, oranges, and golds. Fall is arguably the most beautiful time of year. It brings a gentle chill that invites us to slow down, pull out the cozy blankets, and, most importantly, reflect on the many blessings in our lives.

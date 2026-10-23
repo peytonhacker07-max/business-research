@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/053bbc_404df022eefb4406b7fc7e572ec3
 
 article:published_time: 2026-02-27T19:36:01.197Z
 
+post-title: Why Your Existing Gas Pipe Needs Upsizing for a Tankless Water Heater – And How Angle Stop Plumbing Can Help
+
+author: Jim Nephew
+
 ---
 
 Upgrading to a tankless water heater is a smart move for most homeowners. These on-demand systems deliver endless hot water, save energy (up to 30% on bills), and free up space by eliminating bulky tanks. But there's a common roadblock: your home's existing gas pipe often needs upsizing. If you're planning this upgrade, here's why it happens and how our team at Angle Stop Plumbing makes it seamless.

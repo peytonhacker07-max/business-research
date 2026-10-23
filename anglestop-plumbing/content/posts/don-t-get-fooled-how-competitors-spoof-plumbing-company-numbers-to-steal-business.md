@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/11062b_e7c78dcb0c774909bfc194b489fc
 
 article:published_time: 2026-01-11T16:13:38.957Z
 
+post-title: 🚫 Don’t Get Fooled! How Competitors Spoof Plumbing Company Numbers to Steal Business
+
+author: Jim Nephew
+
 ---
 
 At Angle Stop Plumbing, we love serving our Middle Tennessee neighbors with honest, reliable service — the kind of work you can count on every time. But lately, we’ve heard from customers who’ve experienced something frustrating (and a bit sneaky): competitors spoofing our phone number in an attempt to trick people into scheduling service with them instead.

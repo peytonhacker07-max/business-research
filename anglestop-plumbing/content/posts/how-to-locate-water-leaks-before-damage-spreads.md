@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_01c7da8d0d954b2d99436af78bf9
 
 article:published_time: 2026-10-05T03:10:46.280Z
 
+post-title: How to Locate Water Leaks Before Damage Spreads
+
+author: Jim Nephew
+
 ---
 
 A water leak rarely announces itself with a burst pipe and a flooded floor. More often, it starts with a water bill that creeps up, a soft spot near a cabinet, or the quiet sound of water moving when every fixture is off. Knowing how to locate water leaks early can protect your home, business, belongings, and peace of mind.

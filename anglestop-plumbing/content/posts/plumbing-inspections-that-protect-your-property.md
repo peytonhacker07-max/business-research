@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_1cf1fe23b0e7466bade45fdd03dc
 
 article:published_time: 2026-09-23T03:14:44.683Z
 
+post-title: Plumbing Inspections That Protect Your Property
+
+author: Jim Nephew
+
 ---
 
 A slow leak beneath a kitchen sink can damage cabinet floors for months before anyone sees it. A water heater can appear to be working normally while corrosion, sediment, or a failing safety component is developing inside. Plumbing inspections give homeowners and property managers a clear picture of these hidden risks before they become an after-hours emergency.

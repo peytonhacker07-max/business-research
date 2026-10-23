@@ -1,5 +1,6 @@
-# Check built pages against the pulled Wix content: every line of Jim's text is
-# present, and the title, meta description and canonical URL match exactly.
+# Check built pages and blog posts against the pulled Wix content: every line of
+# Jim's text is present, and the title, meta description and canonical URL match exactly.
+# Blog posts had no meta description on Wix; theirs is the start of the post.
 import html, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -10,12 +11,17 @@ def norm(t):
     return re.sub(r'\s+', ' ', html.unescape(t)).strip()
 
 problems = 0
-for path in build.BUILT:
+posts = {p['path']: p for p in build.load_posts()}
+for path in build.BUILT + list(posts):
     if path == '/':
         continue  # the homepage body is hand-written in templates/home.html
-    meta, blocks = build.read_page(path)
+    if path in posts:
+        meta, blocks = posts[path]['meta'], posts[path]['blocks']
+        meta = dict(meta, description=meta.get('description', posts[path]['excerpt']))
+    else:
+        meta, blocks = build.read_page(path)
     doc = open(os.path.join(build.SITE, build.out_name(path)), encoding='utf-8').read()
-    text = norm(re.sub(r'<[^>]+>', ' ', doc))
+    text = norm(re.sub(r'<[^>]+>', ' ', re.sub(r'</?a\b[^>]*>', '', doc)))
     head = {
         'title': re.search(r'<title>(.*?)</title>', doc).group(1),
         'description': re.search(r'<meta name="description" content="([^"]*)"', doc).group(1),
@@ -34,4 +40,4 @@ for path in build.BUILT:
         t = norm(build.LINK.sub(r'\1', t)).rstrip(':')  # plan cards drop the trailing colon
         if t and t not in text:
             print(f'{path}: missing: {t[:90]}'); problems += 1
-print(f'{len(build.BUILT) - 1} pages checked, {problems} problems')
+print(f'{len(build.BUILT) - 1 + len(posts)} pages checked, {problems} problems')

@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_9a049328f6e0400788caad9d72e6
 
 article:published_time: 2026-08-28T19:43:38.139Z
 
+post-title: Why Angle Stop Plumbing Partnered with Cala Heat Pump Water Systems
+
+author: Jim Nephew
+
 ---
 
 At Angle Stop Plumbing, we are always looking for better ways to serve homeowners with solutions that combine comfort, efficiency, and long-term value. That is why we are excited to announce our new partnership with Cala Heat Pump Water Systems - an innovative water heating solution designed to help homeowners lower energy costs without sacrificing performance.

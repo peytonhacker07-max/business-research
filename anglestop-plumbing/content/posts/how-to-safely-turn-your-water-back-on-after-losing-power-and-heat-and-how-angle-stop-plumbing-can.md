@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/nsplsh_9226d81941374da9bca9a9cdaf8a
 
 article:published_time: 2026-01-31T18:42:11.695Z
 
+post-title: How to Safely Turn Your Water Back On After Losing Power and Heat — and How Angle Stop Plumbing Can Help
+
+author: Jim Nephew
+
 ---
 
 When freezing temperatures strike and your home loses power and heat, water inside your plumbing system can quickly become vulnerable. Once the lights — and warmth — return, it might be tempting to immediately turn your water back on and get things running again. But proceed carefully: doing it the wrong way could cause frozen pipes to burst, leading to leaks, flooding, and costly damage.

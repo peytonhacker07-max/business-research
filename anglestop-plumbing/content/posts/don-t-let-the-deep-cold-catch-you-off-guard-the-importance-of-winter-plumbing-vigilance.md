@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/11062b_fdb522a7d33c42489fb3208fe293
 
 article:published_time: 2025-12-28T19:05:51.026Z
 
+post-title: Don't Let the Deep Cold Catch You Off Guard: The Importance of Winter Plumbing Vigilance
+
+author: Jim Nephew
+
 ---
 
 Why Warm Winter Days Can Lead to Unexpected Plumbing Emergencies

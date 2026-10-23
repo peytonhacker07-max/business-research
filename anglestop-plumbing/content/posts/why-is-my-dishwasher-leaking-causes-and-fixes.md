@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_aedc358878d34384b10c1f00c2f8
 
 article:published_time: 2026-09-08T07:03:30.951Z
 
+post-title: Why Is My Dishwasher Leaking? Causes and Fixes
+
+author: Jim Nephew
+
 ---
 
 A puddle at the base of the dishwasher can turn a normal kitchen cleanup into a stressful moment fast. If you are asking, why is my dishwasher leaking, the answer may be as simple as a worn door seal or as serious as a failed water line behind the appliance. The right first move is not to run another cycle to see what happens. Stop the water, protect the floor, and narrow down where the leak begins.

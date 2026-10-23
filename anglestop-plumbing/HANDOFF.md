@@ -29,13 +29,15 @@ Peyton is new to freelancing and wants blunt, honest advice. Jim is older: texts
 
 - The homepage, with real Google reviews, job photos, Jim's vector logo, and his exact title and meta description.
 - All 33 service, membership and payment pages, with Jim's photos and a matching Google review beside the text. `tools/check_pages.py` confirms every line of his text and every title, description and canonical URL match the Wix site.
-- `sitemap.xml`, `robots.txt` and a `404.html` page.
+- About, Careers, Privacy Policy, Request a Bible, the blog index, the Water Heater category page and all 124 blog posts (`/post/<slug>`, with Jim's images converted to WebP), plus `blog-feed.xml`.
+- `sitemap.xml`, `robots.txt`, a `404.html` page, and business details for Google (Plumber structured data with hours and service area) on the homepage.
+- `tools/check_pages.py` (every line of text, title, description and canonical URL) and `tools/check_links.py` (no broken internal links or images) both pass.
 - `dns/`: the Wix DNS export and the migration and rollback plan.
 - Preview: https://claude.ai/artifact/XrkThiBJ5T1Yb4FYbjhhb1 (private to Peyton).
 
 ## Next
 
-1. **Still to build:** About, Careers, Request a Bible (needs a form service, since the Wix form goes away), Privacy Policy, the blog index and the 124 blog posts. The posts and the About page use images on `static.wixstatic.com`, which the cloud environment must allow before they can be pulled. The membership pages on Wix also show each plan as a picture; check whether those pictures hold anything (like prices) that the text doesn't.
+1. **Request a Bible form:** set `BIBLE_FORM_ENDPOINT` in `build.py` to a form service (for example Web3Forms, signed up with Jim's email) before launch. Until then the form opens the visitor's email app with the request filled in.
 2. **The blog runs on autopilot.** A new post has gone up every two days at about 10 PM Central since September 2026. That is an automated service, probably an SEO company or a Wix tool. Leaving Wix would cut it off, so Jim has to say who runs it before the move. It may also be behind the 166% traffic growth.
 3. **Waiting on Peyton:** their full name, the timeline (4 weeks suggested) and the payment terms for the agreement. The agreement must say 39 pages and 124 blog posts. It is a Claude Doc: https://claude.ai/code/artifact/35193b0d-bf97-4caf-b634-9a91cdb29bfa.
 4. **Waiting on Jim:** who posts his blog; a photo of himself and of his truck; confirming the service-area towns on the homepage.
@@ -44,6 +46,8 @@ Peyton is new to freelancing and wants blunt, honest advice. Jim is older: texts
 ## Gotchas
 
 - Before launch, check with `npx wrangler pages dev site` that Cloudflare Pages serves `/water-heater-service-repair-installation-murfreesboro-tn` from the `.html` file even though a folder of the same name holds its sub-pages, and that no URL gains a trailing slash.
+- `content/media.json` maps each Wix image id to its converted file in `site/images/` (blog, plans, about). Blog index cards use 600x400 thumbnails in `site/images/blog/thumbs/`.
+- Fixes to Jim's content: one post linked to `/plumbing-services`, which is dead on Wix too; it now points to Residential Plumbing Services (`LINK_FIX` in `build.py`). Wix hashtag links in posts are kept as plain text. Blog posts had no meta description on Wix; theirs is now the start of the post.
 - The Wix pages use stock photos (for example, "a skilled plumber in uniform"). The build drops them and uses Jim's own job photos instead.
 
 - The Google Drive connector drops the connection on files over about 6 MB, because it returns the whole file as base64. Many of Jim's photos are larger, so pick from the smaller ones.

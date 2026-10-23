@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_82c611e505544767b4610db9036d
 
 article:published_time: 2026-09-09T02:16:14.273Z
 
+post-title: Shower Faucet Repair in Woodbury TN: Fix or Call?
+
+author: Jim Nephew
+
 ---
 
 A need for shower faucet repair in Woodbury, TN, often starts with a small annoyance: a steady drip after the handle is off, a shower that suddenly runs cold, or a handle that takes both hands to turn. Those symptoms may seem minor, but a worn faucet can waste water, damage the valve behind the wall, and turn a normal morning routine into a stressful surprise.

@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_f024310e16b84a1dbb2a07049a9e
 
 article:published_time: 2026-04-18T21:48:58.168Z
 
+post-title: Why It’s Important to Install a New Water Line with Protective Pipe Casing
+
+author: Jim Nephew
+
 ---
 
 Your home’s water line — the pipe that runs from the city meter to your house — is one of the most vital parts of your plumbing system. It delivers all the clean water your family uses for drinking, cooking, bathing, and cleaning. However, many homeowners don’t think about this line until something goes wrong.

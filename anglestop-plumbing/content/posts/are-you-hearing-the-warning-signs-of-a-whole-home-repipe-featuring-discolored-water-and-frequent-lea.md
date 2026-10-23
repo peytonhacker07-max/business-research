@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_d3be7d5b8ab04cb4a72f134bdd24
 
 article:published_time: 2025-07-02T23:40:54.246Z
 
+post-title: Are You Hearing the Warning Signs of a Whole-Home Repipe Featuring Discolored Water and Frequent Leaks?
+
+author: Jim Nephew
+
 ---
 
 Plumbing does an important job in our homes, working quietly until something goes wrong. It’s easy to take it for granted, but once you notice problems like discolored water or frequent leaks, it’s time to pay attention. These signs could signal serious issues, especially in older homes. Understanding these markers can prevent bigger problems and costly repairs later on. This article will discuss clear warning signs that suggest it's time for a whole-home repipe and offer guidance on how to proceed.

@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_caeace92a33749f8a86669e75935
 
 article:published_time: 2026-08-22T17:08:03.736Z
 
+post-title: Why Utility Markings Matter Before Digging
+
+author: Jim Nephew
+
 ---
 
 If you've ever seen spray paint or small colored flags on the ground before a project starts, those markings are there for a reason. Utility workers use a standardized color system to identify what may be buried below the surface, helping contractors, plumbers, and property owners avoid damaging critical service lines.

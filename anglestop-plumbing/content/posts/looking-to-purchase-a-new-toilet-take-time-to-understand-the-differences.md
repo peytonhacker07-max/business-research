@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/11062b_3188c13630dd4103b1f018f17a64
 
 article:published_time: 2026-09-03T23:36:19.145Z
 
+post-title: Looking to Purchase a New Toilet? Take Time to Understand the Differences
+
+author: Jim Nephew
+
 ---
 
 Buying a new toilet sounds simple until you realize not every toilet fits every bathroom. One of the most important details to understand before you buy is the rough-in size, often described as whether your toilet is a 10-inch center or a 12-inch center. At Angle Stop Plumbing, we help homeowners avoid the frustration of buying the wrong toilet by making sure the fit is right from the start.

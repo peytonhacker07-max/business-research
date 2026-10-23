@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_184dee739442431a9b8957bfdab7
 
 article:published_time: 2026-02-14T17:06:30.209Z
 
+post-title: Why Natural Gas and Propane Are Measured in Inches of Water Column — and How Angle Stop Plumbing Ensures Your Appliances Get the Right Supply for Peak Performance
+
+author: Jim Nephew
+
 ---
 
 When it comes to gas-fueled appliances, most homeowners think in terms of pressure — PSI (pounds per square inch). But if you’ve ever looked at a natural gas or propane appliance manual, you’ve probably noticed something different: gas pressure is listed in “inches of water column” (often abbreviated as “in. W.C.”).

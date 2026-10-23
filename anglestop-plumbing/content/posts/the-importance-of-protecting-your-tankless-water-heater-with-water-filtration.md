@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/11062b_f2b2985a4d124ce1bd1b99cfdfda
 
 article:published_time: 2026-01-04T18:42:42.942Z
 
+post-title: The Importance of Protecting Your Tankless Water Heater with Water Filtration
+
+author: Jim Nephew
+
 ---
 
 In today's modern homes, tankless water heaters have become a popular choice for their energy efficiency, endless hot water supply, and space-saving design. Unlike traditional tank-style heaters, these on-demand systems heat water only when you need it, potentially saving you money on utility bills. However, to keep your tankless water heater running smoothly and extend its lifespan, one crucial step often gets overlooked: proper water filtration. At Angle Stop Plumbing, we've seen firsthand how sediment, minerals, and impurities in your water supply can wreak havoc on these systems. In this blog post, we'll dive into why water filtration is essential for protecting your investment and how our expert services can help.

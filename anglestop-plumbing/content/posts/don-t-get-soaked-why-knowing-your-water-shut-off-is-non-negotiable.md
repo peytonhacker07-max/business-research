@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_a747d3ca635e4ce1acfd89e6da3a
 
 article:published_time: 2025-03-09T22:55:35.397Z
 
+post-title: Don't Get Soaked: Why Knowing Your Water Shut-Off is Non-Negotiable
+
+author: Jim Nephew
+
 ---
 
 We all take running water for granted. It's there when we need it, for showers, dishes, laundry, and everything in between. But what happens when that water suddenly becomes a destructive force? A burst pipe, a leaky appliance, or a toilet overflow can quickly turn your home into a waterlogged disaster. That's where knowing your main water shut-off comes in – and why having a master shut-off inside is a lifesaver.

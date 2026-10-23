@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_40338719e9c14846909d6f36e2fd
 
 article:published_time: 2026-10-01T03:12:12.758Z
 
+post-title: Drain Cleaning for Slow and Stubborn Drains
+
+author: Jim Nephew
+
 ---
 
 A slow kitchen sink can seem like a small inconvenience until the water stops draining altogether during dinner cleanup. A shower that holds water around your feet can become a safety concern. And when a toilet, tub, or floor drain backs up, drain cleaning becomes a matter of protecting your home or business from dirty water, property damage, and an unexpected interruption to the day.

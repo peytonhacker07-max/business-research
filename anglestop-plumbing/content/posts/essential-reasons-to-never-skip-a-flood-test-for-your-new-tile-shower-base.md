@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_75be3a1430e5442f8f0f0b9f6a5e
 
 article:published_time: 2025-10-04T14:12:28.482Z
 
+post-title: Essential Reasons to Never Skip a Flood Test for Your New Tile Shower Base
+
+author: Jim Nephew
+
 ---
 
 A stunning tile shower can elevate the look and feel of your bathroom. The vibrant tiles and fresh grout can create a luxurious oasis in your home. However, behind this beautiful facade lies a crucial element: the shower pan's waterproofing. Neglecting to perform a flood test can turn your serene shower experience into a costly headache.

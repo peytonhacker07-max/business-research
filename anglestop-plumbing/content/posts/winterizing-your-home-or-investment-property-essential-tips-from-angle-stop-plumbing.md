@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/11062b_bb1734b1d9c54ab1819d1c70e1f2
 
 article:published_time: 2025-11-16T21:05:58.840Z
 
+post-title: Winterizing Your Home or Investment Property: Essential Tips from Angle Stop Plumbing
+
+author: Jim Nephew
+
 ---
 
 Save on Utility Costs While Your Property Is Vacant This Winter

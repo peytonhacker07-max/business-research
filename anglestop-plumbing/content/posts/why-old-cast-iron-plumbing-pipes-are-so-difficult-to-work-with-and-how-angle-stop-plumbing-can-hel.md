@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_b0430dda0f5b422ea4b4dacdf8d3
 
 article:published_time: 2026-05-30T17:12:24.111Z
 
+post-title: Why Old Cast Iron Plumbing Pipes Are So Difficult to Work With — And How Angle Stop Plumbing Can Help
+
+author: Jim Nephew
+
 ---
 
 If your home was built before the 1970s, there is a strong chance that cast iron pipes are quietly running beneath your floors, inside your walls, and throughout your drain system. For decades, cast iron was considered the gold standard of residential plumbing — rugged, heavy-duty, and built to outlast nearly everything else in the home. But time has a way of revealing the limits of even the toughest materials, and aging cast iron plumbing is one of the most challenging systems any plumber — or homeowner — will ever have to deal with.

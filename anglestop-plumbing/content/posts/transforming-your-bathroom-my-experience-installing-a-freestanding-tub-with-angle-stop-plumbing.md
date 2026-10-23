@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/9a962aded1bc4c65a2a2b35303e92039.jp
 
 article:published_time: 2025-11-29T00:55:27.877Z
 
+post-title: Transforming Your Bathroom: My Experience Installing a Freestanding Tub with Angle Stop Plumbing
+
+author: Jim Nephew
+
 ---
 
 Why Upgrading to a Freestanding Tub Can Elevate Your Home Spa Retreat

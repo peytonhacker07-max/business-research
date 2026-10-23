@@ -6,6 +6,10 @@ og:image: https://static.wixstatic.com/media/d8d5f4_a6dd25ed6a0a49cdbd14abc91ef2
 
 article:published_time: 2026-04-03T20:32:47.561Z
 
+post-title: Hidden Floods: How Many Gallons a Day a Small Appliance Line Can Leak—and Why You Shouldn’t Wait to Fix It
+
+author: Jim Nephew
+
 ---
 
 It starts with a small puddle behind the refrigerator or a faint drip under the sink. Easy to ignore, right? Unfortunately, that “minor” leak can quietly send hundreds of gallons of water into your home’s floors, cabinets, and walls in just a day.
