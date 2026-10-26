@@ -281,6 +281,19 @@ def esc(t):
 # Links in Jim's text that are already dead on the Wix site, pointed at the page they meant
 LINK_FIX = {'/plumbing-services': RES}
 
+# Old addresses Wix still forwards, so visitors and Google keep landing somewhere.
+# Wix sends /pipe-services and /general-1 to sub-paths that show the Residential page.
+# Cloudflare Pages reads these from site/_redirects.
+REDIRECTS = [
+    ('/pipe-services', RES),
+    ('/general-1', RES),
+    (RES + '/pipe-services', RES),
+    (RES + '/general-1', RES),
+    ('/tankless-water-heater-murfreesboro-tn', WH + '/tankless-water-heater-murfreesboro-tn'),
+    ('/blog/hashtags/*', '/blog'),
+    ('/blog/page/*', '/blog'),
+]
+
 
 def local(url):
     """Turn a full anglestopplumbing.com URL into a site path."""
@@ -988,6 +1001,8 @@ def main():
         open(f, 'w', encoding='utf-8').write(doc)
     open(os.path.join(SITE, '404.html'), 'w', encoding='utf-8').write(not_found_page())
     open(os.path.join(SITE, 'blog-feed.xml'), 'w', encoding='utf-8').write(blog_feed(posts))
+    open(os.path.join(SITE, '_redirects'), 'w', encoding='utf-8').write(
+        ''.join(f'{a} {b} 301\n' for a, b in REDIRECTS))
     dates = {p['path']: p['date'].strftime('%Y-%m-%d') for p in posts}
     urls = '\n'.join(f'  <url><loc>{DOMAIN}{"" if p == "/" else p}</loc>'
                      + (f'<lastmod>{dates[p]}</lastmod>' if p in dates else '') + '</url>' for p in pages)
@@ -996,7 +1011,7 @@ def main():
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '\n</urlset>\n')
     open(os.path.join(SITE, 'robots.txt'), 'w', encoding='utf-8').write(
         f'User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n')
-    print(f'built {len(pages)} pages ({len(posts)} blog posts), 404.html, blog-feed.xml, sitemap.xml, robots.txt')
+    print(f'built {len(pages)} pages ({len(posts)} blog posts), 404.html, blog-feed.xml, sitemap.xml, robots.txt, _redirects')
 
 
 if __name__ == '__main__':

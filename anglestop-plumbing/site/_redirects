@@ -1,0 +1,7 @@
+/pipe-services /residential-plumbing-services 301
+/general-1 /residential-plumbing-services 301
+/residential-plumbing-services/pipe-services /residential-plumbing-services 301
+/residential-plumbing-services/general-1 /residential-plumbing-services 301
+/tankless-water-heater-murfreesboro-tn /water-heater-service-repair-installation-murfreesboro-tn/tankless-water-heater-murfreesboro-tn 301
+/blog/hashtags/* /blog 301
+/blog/page/* /blog 301

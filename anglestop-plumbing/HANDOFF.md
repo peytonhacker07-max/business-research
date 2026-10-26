@@ -45,7 +45,8 @@ Peyton is new to freelancing and wants blunt, honest advice. Jim is older: texts
 
 ## Gotchas
 
-- Before launch, check with `npx wrangler pages dev site` that Cloudflare Pages serves `/water-heater-service-repair-installation-murfreesboro-tn` from the `.html` file even though a folder of the same name holds its sub-pages, and that no URL gains a trailing slash.
+- Tested with `wrangler pages dev site` (Oct 26, 2026): every page serves at its Wix URL with a 200, including parent pages whose sub-pages sit in a folder of the same name. Trailing slashes and `.html` redirect (308) to the clean URL. `site/_redirects` (from `REDIRECTS` in `build.py`) forwards the old addresses Wix still forwards.
+- Wix serves any made-up sub-path under a page (like `/residential-plumbing-services/anything`) as that page, which is why the Wix dashboard can show pages the sitemap doesn't. Before launch, screenshot Wix's URL Redirect Manager (Settings > SEO) and add anything missing to `REDIRECTS`.
 - `content/media.json` maps each Wix image id to its converted file in `site/images/` (blog, plans, about). Blog index cards use 600x400 thumbnails in `site/images/blog/thumbs/`.
 - Fixes to Jim's content: one post linked to `/plumbing-services`, which is dead on Wix too; it now points to Residential Plumbing Services (`LINK_FIX` in `build.py`). Wix hashtag links in posts are kept as plain text. Blog posts had no meta description on Wix; theirs is now the start of the post.
 - The Wix pages use stock photos (for example, "a skilled plumber in uniform"). The build drops them and uses Jim's own job photos instead.
