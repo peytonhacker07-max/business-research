@@ -1171,6 +1171,18 @@
     </span>
   </a>
 </div>
+<p class="more-row"><button class="more-btn" type="button" id="more-posts">Show more posts</button></p>
+<script>
+  (function () {
+    var cards = document.querySelectorAll('.post-card'), shown = 12, btn = document.getElementById('more-posts');
+    function show() {
+      cards.forEach(function (c, i) { c.hidden = i >= shown; });
+      btn.hidden = shown >= cards.length;
+    }
+    btn.addEventListener('click', function () { shown += 12; show(); });
+    show();
+  })();
+</script>
 </div>
 
 <div class="cta" id="schedule">

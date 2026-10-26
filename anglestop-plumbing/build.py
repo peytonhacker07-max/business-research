@@ -436,7 +436,8 @@ def render_body(blocks, photos, path=None, wix_images=False, article=False):
         if h1 and lede is None and not out:
             lede = inline(b)
             continue
-        cls = ' class="scripture"' if b.startswith('\u201c') else ''
+        quote = b.startswith('\u201c') and b.rstrip().endswith('\u201d') and '\u201d' not in b.rstrip()[1:-1]
+        cls = ' class="scripture"' if quote else ''
         out.append(f'<p{cls}>{inline(b)}</p>')
         if pending:
             out.append(figure(*pending))
@@ -703,13 +704,6 @@ def not_found_page():
     <div>
       <h1>We can't find that page.</h1>
       <p class="lede">It may have moved. You can head to the <a href="/" style="color:#fff">homepage</a>, or call and we'll help you out.</p>
-      <div class="actions">
-        <a class="big-call" href="{TEL}">
-          <small>Call now — we answer</small>
-          <b>{PHONE}</b>
-        </a>
-        <a class="big-book" href="{WORKIZ}" target="_blank" rel="noopener">Schedule online</a>
-      </div>
     </div>
   </div>
 </div>'''
@@ -774,6 +768,21 @@ def blog_index(path, posts):
     h1 = next((plain(b[2:]) for b in blocks if b.startswith('# ')), meta['title'].split(' | ')[0])
     crumbs = '<a href="/">Home</a>' + ('<span>/</span><a href="/blog">Blog</a>' if path != '/blog' else '')
     cards = '\n'.join(post_card(p) for p in posts)
+    more = ''
+    if len(posts) > 12:
+        more = '''
+<p class="more-row"><button class="more-btn" type="button" id="more-posts">Show more posts</button></p>
+<script>
+  (function () {
+    var cards = document.querySelectorAll('.post-card'), shown = 12, btn = document.getElementById('more-posts');
+    function show() {
+      cards.forEach(function (c, i) { c.hidden = i >= shown; });
+      btn.hidden = shown >= cards.length;
+    }
+    btn.addEventListener('click', function () { shown += 12; show(); });
+    show();
+  })();
+</script>'''
     main = f"""<div class="hero phero solo">
   <div class="wrap">
     <div>
@@ -786,7 +795,7 @@ def blog_index(path, posts):
 <div class="wrap blog-list">
 <div class="post-grid">
 {cards}
-</div>
+</div>{more}
 </div>"""
     return shell(path, meta, main, 'work/card-water-heater.webp')
 
