@@ -39,7 +39,7 @@ Peyton is new to freelancing and wants blunt, honest advice. Jim is older: texts
 
 1. **Request a Bible form:** set `BIBLE_FORM_ENDPOINT` in `build.py` to a form service (for example Web3Forms, signed up with Jim's email) before launch. Until then the form opens the visitor's email app with the request filled in.
 2. **The blog runs on autopilot.** A new post has gone up every two days at about 10 PM Central since September 2026. That is an automated service, probably an SEO company or a Wix tool. Leaving Wix would cut it off, so Jim has to say who runs it before the move. It may also be behind the 166% traffic growth.
-3. **Waiting on Peyton:** their full name, the timeline (4 weeks suggested) and the payment terms for the agreement. The agreement must say 39 pages and 124 blog posts. It is a Claude Doc: https://claude.ai/code/artifact/35193b0d-bf97-4caf-b634-9a91cdb29bfa.
+3. **The agreement** is ready to send (a Claude Doc: https://claude.ai/code/artifact/35193b0d-bf97-4caf-b634-9a91cdb29bfa). Terms: $500 when Jim approves the new site, $500 when it is live, launch within 2 weeks of signing. Call with Jim set for Wed Oct 28, 5 pm Central, on Google Meet: show the site, get the agreement signed, find out who runs the blog.
 4. **Waiting on Jim:** who posts his blog; a photo of himself and of his truck; confirming the service-area towns on the homepage.
 5. **Later:** DNS step 1; clean up Workiz (services listed at $0.00 and truncated service names).
 
