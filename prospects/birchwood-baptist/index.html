@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Birchwood Baptist Church | Birchwood, TN</title>
+<meta name="description" content="Birchwood Baptist Church on Highway 60 in Birchwood, Tennessee. Sunday School 10:00 AM, Worship 11:00 AM, Wednesday KidzLife and Youth. Worshiping here since 1873.">
+<!-- Design concept only: keep it out of search results so it never competes with the church's real site. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#16304d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #16304d;
+    --navy-deep: #0f2236;
+    --ink: #1d2531;
+    --muted: #556070;
+    --cream: #fbf8f2;
+    --paper: #f3ede2;
+    --line: #e2d9c9;
+    --brass: #c99a3e;
+    --brass-soft: #f6ead2;
+    --white: #ffffff;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(15, 34, 54, .06), 0 12px 32px rgba(15, 34, 54, .10);
+    --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --sans: "Source Sans 3", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--cream); color: var(--ink);
+    font: 400 1.0625rem/1.65 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: var(--navy); }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--brass); outline-offset: 3px; border-radius: 6px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.1; color: var(--navy); margin: 0; letter-spacing: -.01em; }
+  h2 { font-size: clamp(2rem, 4.5vw, 2.9rem); }
+  h3 { font-size: 1.6rem; }
+  p { margin: 0; }
+  .wrap { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+  .eyebrow { font: 700 .8rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+  .lead { font-size: 1.15rem; color: var(--muted); }
+  .skip { position: absolute; left: -9999px; top: 0; }
+  .skip:focus { left: 12px; top: 12px; z-index: 100; background: var(--white); padding: 8px 14px; border-radius: 8px; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    min-height: 48px; padding: 0 1.4rem; border-radius: 999px;
+    font: 600 1rem/1 var(--sans); text-decoration: none; white-space: nowrap;
+    transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+  .btn-primary { background: var(--navy); color: var(--white); box-shadow: 0 6px 16px rgba(22, 48, 77, .25); }
+  .btn-primary:hover { background: var(--navy-deep); }
+  .btn-ghost { background: rgba(255, 255, 255, .75); color: var(--navy); border: 1.5px solid rgba(22, 48, 77, .25); }
+  .btn-ghost:hover { background: var(--white); }
+  .btn-brass { background: var(--brass); color: var(--navy-deep); }
+  .btn-brass:hover { background: #d8aa4e; }
+  .btn-light { background: var(--white); color: var(--navy); }
+
+  /* Concept ribbon */
+  .concept { background: var(--navy-deep); color: #d9e2ec; font-size: .82rem; text-align: center; padding: 6px 16px; letter-spacing: .02em; }
+  .concept strong { color: var(--brass); font-weight: 700; }
+
+  /* Header */
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(251, 248, 242, .94); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--navy); }
+  .brand img { width: 40px; height: auto; }
+  .brand span { font: 700 1.35rem/1 var(--serif); letter-spacing: .01em; }
+  .brand small { display: block; font: 600 .7rem/1.4 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  nav.primary ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  nav.primary a { display: block; padding: 10px 14px; border-radius: 999px; text-decoration: none; color: var(--ink); font-weight: 600; font-size: .98rem; }
+  nav.primary a:hover { background: var(--paper); }
+  .header-call { display: none; }
+  .menu { display: none; position: relative; }
+  .menu summary { list-style: none; cursor: pointer; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--line); display: flex; align-items: center; font-weight: 600; color: var(--navy); }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu ul { position: absolute; right: 0; top: calc(100% + 8px); background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); list-style: none; margin: 0; padding: 8px; min-width: 210px; }
+  .menu a { display: block; padding: 12px 14px; border-radius: 10px; text-decoration: none; color: var(--ink); font-weight: 600; }
+  .menu a:hover { background: var(--paper); }
+
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden;
+    background: linear-gradient(180deg, #7f9fbe 0%, #a9c0d5 38%, #d4e0ea 72%, #e9eef1 100%);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1.25fr; align-items: end; gap: 24px; min-height: 560px; }
+  .hero-copy { align-self: center; padding: 64px 0 96px; }
+  .hero-copy .eyebrow { color: var(--navy); opacity: .85; }
+  .hero h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); color: var(--navy-deep); margin: 14px 0 18px; }
+  .hero .lead { color: #22344a; max-width: 30rem; font-size: 1.2rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .hero-photo { align-self: end; margin-right: -20px; }
+  .hero-photo img { width: 100%; height: auto; filter: saturate(1.05) contrast(1.03); }
+
+  /* Times card */
+  .times { position: relative; z-index: 2; margin-top: -20px; }
+  .times-card { background: var(--white); border-radius: 20px; box-shadow: var(--shadow); padding: 32px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .times-card h2 { font-size: 1.9rem; }
+  .day h3 { font: 700 .8rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin-bottom: 10px; }
+  .day ul { list-style: none; margin: 0; padding: 0; }
+  .day li { display: flex; gap: 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--paper); }
+  .day li:last-child { border-bottom: 0; }
+  .day time, .day .t { font: 700 1.35rem/1 var(--serif); color: var(--navy); min-width: 5.4rem; }
+  .times-where { display: flex; flex-direction: column; gap: 14px; justify-content: center; border-left: 1px solid var(--line); padding-left: 32px; }
+  .times-where p { color: var(--muted); }
+  .times-where address { font-style: normal; font-weight: 600; color: var(--ink); font-size: 1.1rem; line-height: 1.4; }
+  .times-where .links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  section { scroll-margin-top: 84px; }
+  .block { padding: 96px 0; }
+
+  /* Plan a visit */
+  .visit-head { max-width: 40rem; margin-bottom: 40px; }
+  .visit-head h2 { margin: 10px 0 14px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
+  .step { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  .step .when { font: 700 2rem/1 var(--serif); color: var(--navy); }
+  .step h3 { font: 700 1.1rem/1.3 var(--sans); color: var(--ink); margin: 12px 0 8px; }
+  .step p { color: var(--muted); }
+  .visit-note { margin-top: 24px; color: var(--muted); }
+  .visit-note a { font-weight: 600; }
+
+  /* Hiring band */
+  .hiring { background: var(--navy); color: #e6edf4; }
+  .hiring .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; padding-top: 72px; padding-bottom: 72px; }
+  .hiring h2 { color: var(--white); margin: 12px 0 16px; }
+  .hiring p { color: #c9d5e2; }
+  .hiring .fine { font-size: .95rem; margin-top: 14px; color: #a9b9ca; }
+  .hiring-card { background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .14); border-radius: var(--radius); padding: 28px; }
+  .hiring-card ul { margin: 0 0 22px; padding-left: 1.1rem; color: #dfe7ef; }
+  .hiring-card li { margin: 6px 0; }
+
+  /* Co-op */
+  .coop { background: var(--paper); }
+  .coop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .coop h2 { margin: 10px 0 14px; }
+  .coop-when { display: inline-flex; align-items: center; gap: 10px; background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-weight: 700; color: var(--navy); margin: 18px 0 8px; }
+  .coop-when svg { width: 18px; height: 18px; }
+  .coop .small { color: var(--muted); font-size: .98rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 28px; padding: 0; list-style: none; }
+  .chips li { background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-weight: 600; font-size: .95rem; }
+  .day-flow { background: var(--white); border-radius: var(--radius); border: 1px solid var(--line); padding: 28px; }
+  .day-flow h3 { margin-bottom: 18px; }
+  .day-flow ol { list-style: none; margin: 0; padding: 0; position: relative; }
+  .day-flow li { position: relative; padding: 0 0 22px 40px; }
+  .day-flow li:last-child { padding-bottom: 0; }
+  .day-flow li::before { content: ""; position: absolute; left: 9px; top: 26px; bottom: 0; width: 2px; background: var(--line); }
+  .day-flow li:last-child::before { display: none; }
+  .day-flow .dot { position: absolute; left: 0; top: 4px; width: 20px; height: 20px; border-radius: 50%; background: var(--brass-soft); border: 2px solid var(--brass); }
+  .day-flow strong { display: block; color: var(--ink); }
+  .day-flow span { color: var(--muted); font-size: .98rem; }
+
+  /* Pastor */
+  .pastor-grid { display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: center; max-width: 920px; margin: 0 auto; }
+  .monogram { width: 168px; height: 168px; border-radius: 50%; background: var(--navy); color: var(--white); display: grid; place-items: center; font: 600 3.4rem/1 var(--serif); box-shadow: 0 0 0 8px var(--paper); }
+  .pastor blockquote { margin: 14px 0 18px; font: 500 clamp(1.6rem, 3.2vw, 2.15rem)/1.25 var(--serif); color: var(--navy); }
+  .pastor .who { font-weight: 700; }
+  .pastor .bio { color: var(--muted); margin-top: 10px; }
+  .pastor .more { display: inline-block; margin-top: 14px; font-weight: 600; }
+
+  /* History */
+  .history { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .history-head { text-align: center; max-width: 40rem; margin: 0 auto 48px; }
+  .history-head h2 { margin: 10px 0 12px; }
+  .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+  .timeline::before { content: ""; position: absolute; left: 0; right: 0; top: 34px; height: 2px; background: var(--line); }
+  .moment { position: relative; padding: 0 24px; text-align: center; }
+  .moment .yr { position: relative; display: inline-block; background: var(--white); padding: 0 14px; font: 700 2.6rem/1.4 var(--serif); color: var(--navy); }
+  .moment p { color: var(--muted); margin-top: 10px; }
+  .history .more { text-align: center; margin-top: 36px; }
+
+  /* Sermons */
+  .sermons { padding: 72px 0; }
+  .sermon-card { display: flex; align-items: center; justify-content: space-between; gap: 32px; background: linear-gradient(120deg, var(--navy) 0%, #24496f 100%); border-radius: 20px; padding: 40px 44px; color: var(--white); }
+  .sermon-card h2 { color: var(--white); font-size: clamp(1.8rem, 3.6vw, 2.4rem); }
+  .sermon-card p { color: #c9d5e2; margin-top: 8px; }
+  .sermon-card .btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Find us */
+  .find { padding: 24px 0 96px; }
+  .find-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 0; background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
+  .find-info { padding: 40px; display: flex; flex-direction: column; gap: 22px; }
+  .find-info h2 { font-size: 2.3rem; }
+  .find-info address { font-style: normal; font-size: 1.15rem; font-weight: 600; line-height: 1.45; }
+  .find-info dl { margin: 0; display: grid; gap: 4px; }
+  .find-info dt { font: 700 .78rem/1.3 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin-top: 8px; }
+  .find-info dd { margin: 0; }
+  .find-info dd a { font-weight: 600; }
+  .find-info .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .map { min-height: 420px; background: #e4e8e6; position: relative; }
+  .map-fallback { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 600; }
+  .map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  /* Footer */
+  footer.site { background: var(--navy-deep); color: #b7c4d3; padding: 48px 0 40px; font-size: .98rem; }
+  .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; }
+  .foot h3 { font: 700 .78rem/1.3 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin-bottom: 10px; }
+  .foot a { color: var(--white); }
+  .foot .name { font: 700 1.6rem/1.1 var(--serif); color: var(--white); margin-bottom: 8px; }
+  .foot ul { list-style: none; margin: 0; padding: 0; }
+  .foot li { margin: 4px 0; }
+  .legal { border-top: 1px solid rgba(255, 255, 255, .12); margin-top: 32px; padding-top: 20px; font-size: .88rem; color: #8ea0b4; }
+
+  /* Mobile action bar */
+  .actionbar { display: none; }
+
+  .icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Cormorant defaults to old-style figures; the `font` shorthand above resets this, so it must come after. */
+  h1, h2, h3, .day time, .step .when, .moment .yr, .monogram { font-variant-numeric: lining-nums; }
+
+  /* ---------- Tablet ---------- */
+  @media (max-width: 960px) {
+    nav.primary { display: none; }
+    .menu { display: block; }
+    .header-call { display: inline-flex; min-height: 44px; padding: 0 16px; }
+    .hero-grid { grid-template-columns: 1fr; min-height: 0; gap: 0; }
+    .hero-copy { padding: 44px 0 8px; }
+    .hero-photo { margin: 0 -20px; }
+    .times { margin-top: -12px; }
+    .times-card { grid-template-columns: 1fr 1fr; }
+    .times-where { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); padding: 24px 0 0; }
+    .steps { grid-template-columns: 1fr; }
+    .hiring .wrap, .coop-grid { grid-template-columns: 1fr; gap: 32px; }
+    .find-grid { grid-template-columns: 1fr; }
+    .map { min-height: 300px; }
+    .foot { grid-template-columns: 1fr 1fr; }
+    .foot > div:first-child { grid-column: 1 / -1; }
+  }
+
+  /* ---------- Phone ---------- */
+  @media (max-width: 640px) {
+    body { font-size: 1.03rem; }
+    footer.site { padding-bottom: calc(40px + 76px + env(safe-area-inset-bottom)); }
+    .bar { min-height: 60px; }
+    .brand img { width: 34px; }
+    .brand span { font-size: 1.2rem; }
+    .brand small { display: none; }
+    .concept .long { display: none; }
+    .header-call { display: none; }
+    .brand span { white-space: nowrap; }
+    .menu summary { padding: 0 14px; }
+    .hero-copy { padding-top: 32px; }
+    .hero .lead { font-size: 1.08rem; }
+    .hero-actions .btn { flex: 1 1 auto; }
+    .times-card { grid-template-columns: 1fr; padding: 24px 20px; gap: 22px; border-radius: 16px; }
+    .times-where { padding-top: 20px; }
+    .block { padding: 64px 0; }
+    .step { padding: 22px; }
+    .pastor-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+    .monogram { width: 120px; height: 120px; font-size: 2.6rem; margin: 0 auto; }
+    .timeline { grid-template-columns: 1fr; gap: 28px; }
+    .timeline::before { display: none; }
+    .moment { padding: 0; }
+    .moment + .moment { border-top: 1px solid var(--line); padding-top: 24px; }
+    .sermon-card { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+    .find-info { padding: 28px 22px; }
+    .find-info h2 { font-size: 2rem; }
+    .foot { grid-template-columns: 1fr; }
+    .foot > div:first-child { grid-column: auto; }
+
+    .actionbar {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+      background: var(--navy-deep); padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+      box-shadow: 0 -6px 20px rgba(0, 0, 0, .18);
+    }
+    .actionbar a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 56px; color: var(--white); text-decoration: none; font-weight: 600; font-size: .85rem; border-radius: 10px; }
+    .actionbar a:first-child { background: var(--brass); color: var(--navy-deep); }
+    .actionbar a + a { margin-left: 8px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="concept" role="note"><strong>Design concept</strong><span class="long"> prepared for Birchwood Baptist Church</span> &middot; not the live website</div>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Birchwood Baptist Church home">
+      <img src="logo.webp" alt="" width="40" height="44">
+      <div><span>Birchwood Baptist</span><small>Birchwood, Tennessee &middot; Est. 1873</small></div>
+    </a>
+    <nav class="primary" aria-label="Main">
+      <ul>
+        <li><a href="#visit">Plan a Visit</a></li>
+        <li><a href="#coop">Homeschool Co-op</a></li>
+        <li><a href="#pastor">About</a></li>
+        <li><a href="#sermons">Sermons</a></li>
+        <li><a href="#find">Find Us</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a class="btn btn-primary header-call" href="tel:+14239612525" aria-label="Call the church">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+        Call
+      </a>
+      <details class="menu">
+        <summary>Menu</summary>
+        <ul>
+          <li><a href="#times">Service Times</a></li>
+          <li><a href="#visit">Plan a Visit</a></li>
+          <li><a href="#hiring">We're Hiring</a></li>
+          <li><a href="#coop">Homeschool Co-op</a></li>
+          <li><a href="#pastor">Our Pastor</a></li>
+          <li><a href="#history">Our History</a></li>
+          <li><a href="#sermons">Sermons</a></li>
+          <li><a href="#find">Find Us</a></li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Birchwood Baptist Church</p>
+        <h1 id="hero-title">Worshiping on Highway&nbsp;60 since&nbsp;1873.</h1>
+        <p class="lead">You're welcome here. Join us this Sunday: Sunday School at 10:00, worship at 11:00.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#visit">Plan your visit</a>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=5436+TN-60%2C+Birchwood%2C+TN+37308" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            Get directions
+          </a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="church.webp" srcset="church-720.webp 720w, church.webp 1080w" sizes="(max-width: 960px) 100vw, 620px" width="1080" height="830" alt="The white clapboard Birchwood Baptist Church building with its steeple and front porch">
+      </div>
+    </div>
+  </section>
+
+  <section class="times" id="times" aria-labelledby="times-title">
+    <div class="wrap">
+      <div class="times-card">
+        <div class="day">
+          <h3 id="times-title">Sunday</h3>
+          <ul>
+            <li><time>10:00</time><span>Sunday School</span></li>
+            <li><time>11:00</time><span>Worship + Message</span></li>
+            <li><time>6:00 pm</time><span>Evening Message</span></li>
+          </ul>
+        </div>
+        <div class="day">
+          <h3>Wednesday</h3>
+          <ul>
+            <li><time>6:00 pm</time><span>KidzLife <small style="color:var(--muted)">(until 7:30)</small></span></li>
+            <li><time>6:30 pm</time><span>Evening Message</span></li>
+            <li><time>6:30 pm</time><span>Youth <small style="color:var(--muted)">(until 7:30)</small></span></li>
+          </ul>
+        </div>
+        <div class="times-where">
+          <address>5436 TN-60<br>Birchwood, TN 37308</address>
+          <p>Questions before you come? We'd love to hear from you.</p>
+          <div class="links">
+            <a class="btn btn-primary" href="tel:+14239612525">(423) 961-2525</a>
+            <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=5436+TN-60%2C+Birchwood%2C+TN+37308" target="_blank" rel="noopener">Directions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="visit" aria-labelledby="visit-title">
+    <div class="wrap">
+      <div class="visit-head">
+        <p class="eyebrow">New here?</p>
+        <h2 id="visit-title">Here's what a week at Birchwood looks like.</h2>
+        <p class="lead">Whether it's your first Sunday or your five-hundredth, there's a seat for you.</p>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <div class="when">10:00</div>
+          <h3>Sunday School</h3>
+          <p>Start your Sunday in a small class, open the Bible together, and get to know people before the service.</p>
+        </article>
+        <article class="step">
+          <div class="when">11:00</div>
+          <h3>Worship + Message</h3>
+          <p>Our main gathering: singing, prayer, and preaching from God's Word. We meet again Sunday evening at 6:00.</p>
+        </article>
+        <article class="step">
+          <div class="when">Wed</div>
+          <h3>KidzLife &amp; Youth</h3>
+          <p>Kids have KidzLife from 6:00 to 7:30 and students meet for Youth from 6:30 to 7:30, while adults gather for the 6:30 message.</p>
+        </article>
+      </div>
+      <p class="visit-note">Have a question first? Call us at <a href="tel:+14239612525">(423) 961-2525</a> or message us on <a href="https://www.facebook.com/birchwoodbaptist/" target="_blank" rel="noopener">Facebook</a>.</p>
+    </div>
+  </section>
+
+  <section class="hiring" id="hiring" aria-labelledby="hiring-title">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Now hiring</p>
+        <h2 id="hiring-title">Youth &amp; Children's Ministry Director</h2>
+        <p>We're looking for someone to develop, lead, and oversee the spiritual growth and discipleship of the children and youth of our church.</p>
+        <p class="fine">Applicants must adhere to the Baptist Faith and Message 2000.</p>
+      </div>
+      <div class="hiring-card">
+        <ul>
+          <li>Plan and run programs for kids and students</li>
+          <li>Build a safe, engaging environment</li>
+          <li>Recruit and equip volunteers to mentor young believers</li>
+        </ul>
+        <a class="btn btn-brass" href="https://drive.google.com/file/d/1ll7LGFsoImN4VhkslFM5B6r-bRNsZqQM/view?usp=sharing" target="_blank" rel="noopener">Read the full job description</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="coop block" id="coop" aria-labelledby="coop-title">
+    <div class="wrap coop-grid">
+      <div>
+        <p class="eyebrow">Homeschool Co-op</p>
+        <h2 id="coop-title">A Christ-centered Friday for homeschool families.</h2>
+        <p class="lead">An educational, fun morning where homeschooled kids from around the area learn and make friends in small groups.</p>
+        <div class="coop-when">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          Fridays &middot; 10:00 am &ndash; 1:00 pm
+        </div>
+        <p class="small">Semesters and breaks follow the Hamilton County Schools calendar.</p>
+        <ul class="chips" aria-label="Classes offered">
+          <li>Infants</li><li>Toddlers</li><li>PreK &amp; Kindergarten</li><li>1st&ndash;2nd</li><li>3rd&ndash;5th</li><li>6th&ndash;12th</li>
+        </ul>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn btn-primary" href="https://www.facebook.com/groups/1109828939604009/" target="_blank" rel="noopener">Join the co-op group</a>
+          <a class="btn btn-ghost" href="tel:+14239612525">Call with questions</a>
+        </div>
+      </div>
+      <div class="day-flow">
+        <h3>A co-op Friday</h3>
+        <ol>
+          <li><i class="dot" aria-hidden="true"></i><strong>Opening together</strong><span>Pledge of Allegiance, prayer, and a devotional</span></li>
+          <li><i class="dot" aria-hidden="true"></i><strong>Classes</strong><span>Kids split up by age for their lessons</span></li>
+          <li><i class="dot" aria-hidden="true"></i><strong>Lunch</strong><span>Everyone comes back together to eat</span></li>
+          <li><i class="dot" aria-hidden="true"></i><strong>Outdoor play</strong><span>Time for all the kids to get outside and play together</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block pastor" id="pastor" aria-labelledby="pastor-title">
+    <div class="wrap pastor-grid">
+      <div class="monogram" aria-hidden="true">JH</div>
+      <div>
+        <p class="eyebrow" id="pastor-title">Meet our pastor</p>
+        <blockquote>&ldquo;I enjoy discipleship and hospitality. I love to see people thrive in their walk with the Lord.&rdquo;</blockquote>
+        <p class="who">Joshua Hollis, Pastor</p>
+        <p class="bio">Joshua grew up in Alabama, graduated from Boyce College in Louisville, and pastored in south-central Kentucky before being called to Birchwood. He and his wife, Amanda, have five children.</p>
+        <a class="more" href="https://www.birchwoodbaptistchurch.com/about-us" target="_blank" rel="noopener">Read Pastor Joshua's story &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="history block" id="history" aria-labelledby="history-title">
+    <div class="wrap">
+      <div class="history-head">
+        <p class="eyebrow">Our story</p>
+        <h2 id="history-title">Rooted in Birchwood for over 150 years.</h2>
+        <p class="lead">The original church still stands at the center of the building we worship in today.</p>
+      </div>
+      <div class="timeline">
+        <div class="moment"><span class="yr">1873</span><p>Organized on the fourth Saturday in September by families from the Old Salem Baptist Church.</p></div>
+        <div class="moment"><span class="yr">1879</span><p>The first church building is raised on land given by Malinda Erwin for the church and cemetery.</p></div>
+        <div class="moment"><span class="yr">1904</span><p>The first addition is built, and later additions are each made to match the original structure.</p></div>
+      </div>
+      <p class="more"><a class="btn btn-ghost" href="https://www.birchwoodbaptistchurch.com/about-us" target="_blank" rel="noopener">Read our full history</a></p>
+    </div>
+  </section>
+
+  <section class="sermons" id="sermons" aria-labelledby="sermons-title">
+    <div class="wrap">
+      <div class="sermon-card">
+        <div>
+          <h2 id="sermons-title">Missed a Sunday?</h2>
+          <p>Catch up on recent messages on our YouTube channel.</p>
+        </div>
+        <div class="btns">
+          <a class="btn btn-light" href="https://www.youtube.com/channel/UCMnwdn6HKMBuZoCQIk0kp7g" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>
+            Watch sermons
+          </a>
+          <a class="btn btn-brass" href="https://www.facebook.com/birchwoodbaptist/" target="_blank" rel="noopener">Follow on Facebook</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="find" id="find" aria-labelledby="find-title">
+    <div class="wrap">
+      <div class="find-grid">
+        <div class="find-info">
+          <div>
+            <p class="eyebrow">Find us</p>
+            <h2 id="find-title">We're on Highway 60.</h2>
+          </div>
+          <address>Birchwood Baptist Church<br>5436 TN-60<br>Birchwood, TN 37308</address>
+          <dl>
+            <dt>Phone</dt><dd><a href="tel:+14239612525">(423) 961-2525</a></dd>
+            <dt>Sunday</dt><dd>10:00 Sunday School &middot; 11:00 Worship &middot; 6:00 pm Evening</dd>
+            <dt>Wednesday</dt><dd>6:00 pm KidzLife &middot; 6:30 pm Message &amp; Youth</dd>
+          </dl>
+          <div class="btns">
+            <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&amp;query=5436+TN-60%2C+Birchwood%2C+TN+37308" target="_blank" rel="noopener">Get directions</a>
+            <a class="btn btn-ghost" href="tel:+14239612525">Call us</a>
+          </div>
+        </div>
+        <div class="map">
+          <a class="map-fallback" href="https://www.google.com/maps/search/?api=1&amp;query=5436+TN-60%2C+Birchwood%2C+TN+37308" target="_blank" rel="noopener">Open in Google Maps</a>
+          <iframe title="Map to Birchwood Baptist Church" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=5436%20TN-60%2C%20Birchwood%2C%20TN%2037308&amp;output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="name">Birchwood Baptist Church</div>
+        <p>5436 TN-60, Birchwood, TN 37308<br><a href="tel:+14239612525">(423) 961-2525</a></p>
+      </div>
+      <div>
+        <h3>Gather with us</h3>
+        <ul>
+          <li>Sunday School &middot; 10:00 am</li>
+          <li>Worship &middot; 11:00 am</li>
+          <li>Wednesday &middot; 6:00 pm</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Follow along</h3>
+        <ul>
+          <li><a href="https://www.facebook.com/birchwoodbaptist/" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://www.youtube.com/channel/UCMnwdn6HKMBuZoCQIk0kp7g" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="#coop">Homeschool Co-op</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">&copy; 2026 Birchwood Baptist Church &middot; Design concept, not the official site.</p>
+  </div>
+</footer>
+
+<nav class="actionbar" aria-label="Quick actions">
+  <a href="tel:+14239612525">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+    Call
+  </a>
+  <a href="https://www.google.com/maps/search/?api=1&amp;query=5436+TN-60%2C+Birchwood%2C+TN+37308" target="_blank" rel="noopener">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+    Directions
+  </a>
+  <a href="#times">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    Times
+  </a>
+</nav>
+</body>
+</html>
