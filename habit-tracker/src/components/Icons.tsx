@@ -93,6 +93,20 @@ export function PlusIcon({ className }: Props) {
   );
 }
 
+export function CameraIcon({ className }: Props) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M3 8.5A1.5 1.5 0 014.5 7h2.3l1.2-2h7l1.2 2h2.3A1.5 1.5 0 0120 8.5v9a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 014 17.5z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="13" r="3.2" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
 export function XIcon({ className }: Props) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">

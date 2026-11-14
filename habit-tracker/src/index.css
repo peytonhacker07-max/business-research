@@ -1728,3 +1728,115 @@ select {
   text-transform: uppercase;
   color: var(--ink-faint);
 }
+
+/* ---------- Photo macro estimates ---------- */
+
+.food-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.food-actions .btn {
+  flex: 1;
+}
+
+.setup-steps {
+  margin: 0 0 12px;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.setup-steps strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.analysing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.analysing p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+.spinner {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--line-strong);
+  border-top-color: var(--accent);
+  animation: spin 700ms linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2s;
+  }
+}
+
+.vision-error {
+  border-left: 3px solid var(--danger);
+}
+.vision-error p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* The estimate is a starting point, and the banner has to keep saying so —
+   a number in an input box looks measured whether or not it is. */
+.estimate-banner {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ink-faint);
+  background: var(--bg);
+  padding: 11px 13px;
+  margin-bottom: 12px;
+}
+.estimate-banner.high {
+  border-left-color: var(--good);
+}
+.estimate-banner.medium {
+  border-left-color: var(--accent);
+}
+.estimate-banner.low {
+  border-left-color: var(--warn);
+}
+.estimate-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.estimate-confidence {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.estimate-note {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin: 5px 0 0;
+}
+.estimate-check {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin: 7px 0 0;
+}
