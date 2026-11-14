@@ -10,6 +10,7 @@ const EMPTY: AppData = {
   workoutEntries: [],
   bodyWeight: {},
   workoutFocus: {},
+  foodEntries: [],
 };
 
 /** Load app data from localStorage, tolerating missing or corrupted data. */
@@ -142,6 +143,57 @@ function normalize(data: unknown): AppData {
     if (Object.keys(cleaned).length > 0) health = cleaned;
   }
 
+  const foodEntries = Array.isArray(d.foodEntries)
+    ? d.foodEntries
+        .filter(
+          (f) =>
+            f &&
+            typeof f.id === "string" &&
+            typeof f.date === "string" &&
+            typeof f.name === "string",
+        )
+        .map((f, i) => ({
+          id: f.id,
+          date: f.date,
+          name: f.name,
+          calories: num(f.calories),
+          protein: num(f.protein),
+          carbs: num(f.carbs),
+          fat: num(f.fat),
+          order: typeof f.order === "number" ? f.order : i,
+        }))
+    : [];
+
+  let macroTargets: AppData["macroTargets"];
+  if (d.macroTargets && typeof d.macroTargets === "object") {
+    const t = d.macroTargets as unknown as Record<string, unknown>;
+    macroTargets = {
+      calories: num(t.calories),
+      protein: num(t.protein),
+      carbs: num(t.carbs),
+      fat: num(t.fat),
+    };
+  }
+
+  let profile: AppData["profile"];
+  if (d.profile && typeof d.profile === "object") {
+    const p = d.profile as Record<string, unknown>;
+    profile = {
+      heightInches: typeof p.heightInches === "number" ? p.heightInches : undefined,
+      birthYear: typeof p.birthYear === "number" ? p.birthYear : undefined,
+      sex: p.sex === "male" || p.sex === "female" ? p.sex : undefined,
+      activity:
+        typeof p.activity === "string" &&
+        ["sedentary", "light", "moderate", "very", "extra"].includes(p.activity)
+          ? (p.activity as NonNullable<AppData["profile"]>["activity"])
+          : undefined,
+      goal:
+        p.goal === "cut" || p.goal === "maintain" || p.goal === "bulk"
+          ? p.goal
+          : undefined,
+    };
+  }
+
   return {
     habits,
     completions,
@@ -153,7 +205,15 @@ function normalize(data: unknown): AppData {
     pinned,
     name,
     health,
+    foodEntries,
+    macroTargets,
+    profile,
   };
+}
+
+/** A finite, non-negative number, or 0. Food maths must never see NaN. */
+function num(v: unknown): number {
+  return typeof v === "number" && Number.isFinite(v) && v >= 0 ? v : 0;
 }
 
 let timer: ReturnType<typeof setTimeout> | undefined;

@@ -3,13 +3,23 @@ import type { AppApi } from "../lib/useAppData";
 import { activeHabits, currentStreak, isDone, todayProgress } from "../lib/streaks";
 import { formatLong } from "../lib/dates";
 import { useDailyQuote } from "../lib/quotes";
+import { dayTotals, macroTargets } from "../lib/nutrition";
 import ProgressRing from "./ProgressRing";
 import HabitFormModal from "./HabitFormModal";
 import { CheckIcon, PencilIcon, PlusIcon } from "./Icons";
 import type { Habit } from "../lib/types";
 
-export default function TodayView({ api }: { api: AppApi }) {
+export default function TodayView({
+  api,
+  onGoToFood,
+}: {
+  api: AppApi;
+  onGoToFood: () => void;
+}) {
   const { data, today } = api;
+
+  const fuelTarget = macroTargets(data, today);
+  const fuelTotals = dayTotals(data, today);
   const habits = activeHabits(data);
   const { done, total } = todayProgress(data);
 
@@ -153,6 +163,26 @@ export default function TodayView({ api }: { api: AppApi }) {
             <PlusIcon className="" /> Add a habit
           </button>
         </>
+      )}
+
+      {/* Food lives under Fitness, but you log it several times a day, so it
+          gets a line here too rather than two taps away. Only once there are
+          targets to count against — an empty bar teaches nothing. */}
+      {fuelTarget && (
+        <button className="fuel-card" onClick={onGoToFood}>
+          <div>
+            <p className="fuel-label">Fuel today</p>
+            <p className="fuel-sub">
+              {fuelTotals.calories === 0
+                ? "Nothing logged yet"
+                : `${Math.round(fuelTotals.protein)}g protein of ${fuelTarget.protein}g`}
+            </p>
+          </div>
+          <p className="fuel-left mono">
+            {Math.max(0, Math.round(fuelTarget.calories - fuelTotals.calories))}
+            <span>left</span>
+          </p>
+        </button>
       )}
 
       {/* Last, not first: the quote is a nice thing to land on once the day's

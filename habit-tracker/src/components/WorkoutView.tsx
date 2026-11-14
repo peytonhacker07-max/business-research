@@ -1,13 +1,22 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent, PointerEvent } from "react";
 import type { AppApi } from "../lib/useAppData";
+import FoodView from "./FoodView";
+import CoachView from "./CoachView";
 import type { WorkoutEntry } from "../lib/types";
 import { addDays, fromKey, formatLong, monthShort, toKey } from "../lib/dates";
 import { addPhoto, deletePhoto, getPhotos, resizeImage } from "../lib/photos";
 import type { Photo } from "../lib/photos";
 import { ChevronDownIcon, PencilIcon, PlusIcon } from "./Icons";
 
-type SubView = "day" | "progress";
+export type SubView = "day" | "food" | "coach" | "progress";
+
+const SUB_LABEL: Record<SubView, string> = {
+  day: "Day",
+  food: "Food",
+  coach: "Coach",
+  progress: "Progress",
+};
 
 /** Hand-rolled SVG line chart for an arbitrary labeled value series. */
 function SimpleLineChart({ series }: { series: { label: string; value: number }[] }) {
@@ -915,26 +924,35 @@ function ProgressSection({ api }: { api: AppApi }) {
   );
 }
 
-export default function WorkoutView({ api }: { api: AppApi }) {
-  const [sub, setSub] = useState<SubView>("day");
+export default function WorkoutView({
+  api,
+  sub,
+  onSubChange,
+}: {
+  api: AppApi;
+  sub: SubView;
+  onSubChange: (s: SubView) => void;
+}) {
 
   return (
     <div className="view">
-      <div className="range-tabs" role="tablist" aria-label="Workout section">
-        {(["day", "progress"] as SubView[]).map((s) => (
+      <div className="range-tabs wide" role="tablist" aria-label="Fitness section">
+        {(Object.keys(SUB_LABEL) as SubView[]).map((s) => (
           <button
             key={s}
             role="tab"
             aria-selected={sub === s}
             className={sub === s ? "active" : ""}
-            onClick={() => setSub(s)}
+            onClick={() => onSubChange(s)}
           >
-            {s === "day" ? "Day" : "Progress"}
+            {SUB_LABEL[s]}
           </button>
         ))}
       </div>
 
       {sub === "day" && <DaySection api={api} />}
+      {sub === "food" && <FoodView api={api} />}
+      {sub === "coach" && <CoachView api={api} />}
       {sub === "progress" && <ProgressSection api={api} />}
     </div>
   );

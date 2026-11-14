@@ -6,7 +6,7 @@ import TodayView from "./components/TodayView";
 import AnalyticsView from "./components/AnalyticsView";
 import TaskView from "./components/TaskView";
 import NotesView from "./components/NotesView";
-import WorkoutView from "./components/WorkoutView";
+import WorkoutView, { type SubView } from "./components/WorkoutView";
 import CalendarView from "./components/CalendarView";
 import ThemeToggle from "./components/ThemeToggle";
 import ColorSchemeSelector from "./components/ColorSchemeSelector";
@@ -22,6 +22,9 @@ function greetingFor(hour: number): string {
 export default function App() {
   const api = useAppData();
   const [view, setView] = useState<ViewName>("today");
+  // Which Fitness sub-view is showing. Owned here so Today can jump
+  // straight to Food rather than landing you on Day to tap again.
+  const [workoutSub, setWorkoutSub] = useState<SubView>("day");
 
   // A Shortcut opens the app with Health figures after a "#". Read them once
   // on mount, then strip the fragment so it isn't left sitting in history.
@@ -139,18 +142,28 @@ export default function App() {
             ) : view === "notes" ? (
               "Journal"
             ) : (
-              "Workout"
+              "Fitness"
             )}
           </h1>
         )}
       </header>
 
-      {view === "today" && <TodayView api={api} />}
+      {view === "today" && (
+        <TodayView
+          api={api}
+          onGoToFood={() => {
+            setWorkoutSub("food");
+            setView("workout");
+          }}
+        />
+      )}
       {view === "calendar" && <CalendarView api={api} />}
       {view === "analytics" && <AnalyticsView api={api} />}
       {view === "todos" && unlocked && <TaskView />}
       {view === "notes" && <NotesView api={api} />}
-      {view === "workout" && <WorkoutView api={api} />}
+      {view === "workout" && (
+        <WorkoutView api={api} sub={workoutSub} onSubChange={setWorkoutSub} />
+      )}
 
       <Nav view={view} onChange={setView} showClasses={unlocked} />
 

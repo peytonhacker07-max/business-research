@@ -1317,3 +1317,414 @@ select {
   line-height: 1.45;
   color: var(--ink-soft);
 }
+
+/* ============================================================
+   Food, Coach and the shared pieces they introduced
+   ============================================================ */
+
+/* A plain content card. Several older screens roll their own; this is the
+   one new work should use. */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 20px 0 8px;
+}
+.card .section-label {
+  margin-top: 0;
+}
+
+.muted {
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+.muted.small {
+  font-size: 12.5px;
+}
+
+/* Four sub-tabs need the full width; two did not. */
+.range-tabs.wide {
+  display: flex;
+  width: 100%;
+}
+.range-tabs.wide button {
+  flex: 1;
+  padding: 8px 6px;
+}
+
+/* ---------- Food ---------- */
+
+.food-headline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.food-remaining {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  color: var(--ink);
+}
+.food-remaining-label {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 4px 0 0;
+}
+.food-burned {
+  text-align: right;
+}
+.food-burned dt {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.food-burned dd {
+  margin: 2px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.macro-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.macro-bar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+.macro-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.macro-value {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.macro-value strong {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 700;
+}
+.macro-value.over strong {
+  color: var(--warn);
+}
+.macro-target {
+  color: var(--ink-faint);
+}
+.macro-track {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--paper-2);
+  overflow: hidden;
+}
+.macro-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.macro-fill.over {
+  background: var(--warn);
+}
+
+.food-no-target h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+
+.food-form .food-name {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.food-macros {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.food-macros label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.food-macros label span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-faint);
+}
+.food-macros input {
+  width: 100%;
+  min-width: 0;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 9px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 100%;
+}
+.chip:active {
+  background: var(--accent-wash);
+  border-color: var(--accent);
+}
+.chip-sub {
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+.food-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.food-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+}
+.food-item-body {
+  flex: 1;
+  min-width: 0;
+}
+.food-item-name {
+  font-size: 15px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.food-item-macros {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+/* ---------- Coach ---------- */
+
+.readiness {
+  border-left: 4px solid var(--ink-faint);
+}
+.readiness.push {
+  border-left-color: var(--good);
+}
+.readiness.ease {
+  border-left-color: var(--warn);
+}
+.readiness.normal {
+  border-left-color: var(--accent);
+}
+.readiness-head {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+.readiness-reasons {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.coach-suggestions,
+.note-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.coach-suggestion {
+  padding: 13px 15px;
+  margin-bottom: 8px;
+}
+.coach-suggestion.stalled {
+  border-left: 3px solid var(--warn);
+}
+.coach-suggestion-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+.coach-suggestion-name {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.coach-suggestion-target {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.coach-suggestion-reason {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+
+.note {
+  padding: 13px 15px;
+  margin-bottom: 8px;
+  border-left: 3px solid var(--ink-faint);
+}
+.note.good {
+  border-left-color: var(--good);
+}
+.note.watch {
+  border-left-color: var(--warn);
+}
+.note-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.note-detail {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 3px 0 0;
+  line-height: 1.5;
+}
+
+.target-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 0 0 12px;
+}
+.target-grid dt {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.target-grid dd {
+  margin: 2px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Segmented choice, as used for sex and goal in the profile form. */
+.seg {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.seg-btn {
+  flex: 1;
+  min-width: 90px;
+  min-height: 42px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 600;
+}
+.seg-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-on);
+}
+
+/* Today's one-line link into food logging. */
+.fuel-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 13px 15px;
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+  color: var(--ink);
+}
+.fuel-card:active {
+  background: var(--paper-2);
+}
+.fuel-label {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.fuel-sub {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 2px 0 0;
+}
+.fuel-left {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0;
+  text-align: right;
+  flex-shrink: 0;
+}
+.fuel-left span {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}

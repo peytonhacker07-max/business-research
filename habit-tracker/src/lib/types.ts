@@ -34,6 +34,40 @@ export interface Todo {
   order: number;
 }
 
+/** One thing eaten on a given day. Macros are grams, calories kcal. */
+export interface FoodEntry {
+  id: string;
+  date: string; // YYYY-MM-DD
+  name: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  order: number;
+}
+
+/** What a day is aiming at. Set by hand, or worked out from the profile. */
+export interface MacroTargets {
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
+
+/**
+ * The few facts needed to turn body weight into calorie and macro targets.
+ * Every field is optional: with nothing set the app falls back to simpler
+ * rules of thumb rather than refusing to suggest anything.
+ */
+export interface Profile {
+  heightInches?: number;
+  birthYear?: number;
+  sex?: "male" | "female";
+  /** Mifflin-St Jeor activity multiplier band. */
+  activity?: "sedentary" | "light" | "moderate" | "very" | "extra";
+  goal?: "cut" | "maintain" | "bulk";
+}
+
 /** One logged set-group for an exercise on a given day. */
 export interface WorkoutEntry {
   id: string;
@@ -71,6 +105,11 @@ export interface AppData {
    * device only — this never reaches the repo or the published site.
    */
   health?: Record<string, HealthDay>;
+  /** Everything eaten, across all days. */
+  foodEntries?: FoodEntry[];
+  /** Explicit daily targets. Unset means "use whatever the profile implies". */
+  macroTargets?: MacroTargets;
+  profile?: Profile;
 }
 
 /** One day of Apple Health figures. Every field is optional — a Shortcut may

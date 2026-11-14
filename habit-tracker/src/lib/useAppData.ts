@@ -1,5 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { AppData, Habit, HealthDay, Todo, WorkoutEntry } from "./types";
+import type {
+  AppData,
+  FoodEntry,
+  Habit,
+  HealthDay,
+  MacroTargets,
+  Profile,
+  Todo,
+  WorkoutEntry,
+} from "./types";
 import { completionKey, loadData, saveData } from "./storage";
 import { todayKey } from "./dates";
 
@@ -48,6 +57,11 @@ export interface AppApi {
   setName: (name: string) => void;
   /** Merge health days from a Shortcut, overwriting same-date entries. */
   mergeHealth: (days: Record<string, HealthDay>) => void;
+  addFood: (date: string, food: Omit<FoodEntry, "id" | "date" | "order">) => void;
+  deleteFood: (id: string) => void;
+  /** Explicit daily targets; undefined hands control back to the profile. */
+  setMacroTargets: (targets: MacroTargets | undefined) => void;
+  setProfile: (profile: Profile) => void;
 }
 
 export function useAppData(): AppApi {
@@ -300,6 +314,38 @@ export function useAppData(): AppApi {
     setData((d) => ({ ...d, health: { ...(d.health ?? {}), ...days } }));
   }, []);
 
+  const addFood = useCallback(
+    (date: string, food: Omit<FoodEntry, "id" | "date" | "order">) => {
+      const name = food.name.trim();
+      if (!name) return;
+      setData((d) => {
+        const entries = d.foodEntries ?? [];
+        const order =
+          entries.filter((f) => f.date === date).reduce((m, f) => Math.max(m, f.order), -1) + 1;
+        return {
+          ...d,
+          foodEntries: [...entries, { ...food, name, id: uid(), date, order }],
+        };
+      });
+    },
+    [],
+  );
+
+  const deleteFood = useCallback((id: string) => {
+    setData((d) => ({
+      ...d,
+      foodEntries: (d.foodEntries ?? []).filter((f) => f.id !== id),
+    }));
+  }, []);
+
+  const setMacroTargets = useCallback((targets: MacroTargets | undefined) => {
+    setData((d) => ({ ...d, macroTargets: targets }));
+  }, []);
+
+  const setProfile = useCallback((profile: Profile) => {
+    setData((d) => ({ ...d, profile }));
+  }, []);
+
   return {
     data,
     today,
@@ -321,5 +367,9 @@ export function useAppData(): AppApi {
     setPinned,
     setName,
     mergeHealth,
+    addFood,
+    deleteFood,
+    setMacroTargets,
+    setProfile,
   };
 }

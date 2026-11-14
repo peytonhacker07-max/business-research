@@ -15,7 +15,7 @@ const ITEMS: { name: ViewName; label: string; Icon: typeof TodayIcon }[] = [
   { name: "analytics", label: "Analytics", Icon: AnalyticsIcon },
   { name: "todos", label: "Classes", Icon: ChecklistIcon },
   { name: "notes", label: "Journal", Icon: NotesIcon },
-  { name: "workout", label: "Workout", Icon: DumbbellIcon },
+  { name: "workout", label: "Fitness", Icon: DumbbellIcon },
 ];
 
 export default function Nav({ view, onChange, showClasses }: Props) {
