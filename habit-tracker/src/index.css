@@ -1,82 +1,140 @@
 /* ============================================================
-   Daily — soft neumorphic habit tracker
-   Soft embossed shapes, dual-tone shadows, rounded and calm.
+   Daily
+   Flat surfaces, hairline edges, one soft elevation. Colour carries
+   meaning — state and data — never decoration. Numbers are the loudest
+   thing on any screen.
+
+   Two tokens do the heavy lifting and are easy to confuse:
+     --bg     the page behind everything
+     --paper  a card or control sitting on it
+   They are deliberately different values. The old embossed look used one
+   colour for both and leaned on shadows to separate them, which is why
+   every surface here reads flatter and cleaner than it used to.
    ============================================================ */
 
 :root {
-  --paper: #e9e5f1; /* soft lavender-grey surface */
-  --paper-2: #e2dcec; /* slightly deeper surface, used for tracks/grooves */
-  --ink: #3b3350; /* dark plum */
-  --ink-soft: #7c7391; /* muted secondary text */
-  --ink-faint: #a79fbc; /* tertiary / placeholders */
-  --line: rgba(61, 53, 80, 0.08); /* rarely used — neumorphism leans on shadow, not borders */
-  --line-strong: rgba(61, 53, 80, 0.16);
-  --color-primary: #8b6fc9; /* soft violet — default, can be overridden */
-  --color-primary-dark: #6a4fa0;
+  --bg: #f4f6f8; /* page behind the cards */
+  --paper: #ffffff; /* card / control surface */
+  --paper-2: #eceef2; /* tracks, grooves, inert fills */
+  --ink: #0f1419; /* near-black: headings and numbers */
+  --ink-soft: #596273; /* secondary text */
+  --ink-faint: #949dab; /* tertiary / placeholders */
+  --line: rgba(15, 20, 25, 0.1); /* hairline — the main separator now */
+  --line-strong: rgba(15, 20, 25, 0.18);
+  --color-primary: #6d4aff; /* violet — default, overridden by the picker */
+  --color-primary-dark: #4f31cc;
   --accent: var(--color-primary);
   --accent-ink: var(--color-primary-dark);
-  --accent-wash: #efe8fa; /* faint tint for fills */
-  --danger: #c2564b;
+  --accent-wash: #f0ecff; /* faint tint for fills */
+  --accent-on: #ffffff; /* text sitting on top of --accent */
+  --danger: #d0372b;
+  --good: #16885f;
+  --warn: #b4690e;
 
-  /* Neumorphic dual-tone shadows: a dark shadow (bottom-right) paired with
-     a light highlight (top-left), both derived from the surface color. */
-  --shadow-xs: 2px 2px 5px rgba(120, 108, 150, 0.28), -2px -2px 5px rgba(255, 255, 255, 0.75);
-  --shadow-sm: 5px 5px 11px rgba(120, 108, 150, 0.3), -5px -5px 11px rgba(255, 255, 255, 0.75);
-  --shadow-md: 9px 9px 18px rgba(120, 108, 150, 0.32), -9px -9px 18px rgba(255, 255, 255, 0.7);
-  --shadow-inset-xs: inset 2px 2px 4px rgba(120, 108, 150, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.7);
-  --shadow-inset-sm: inset 3px 3px 7px rgba(120, 108, 150, 0.3), inset -3px -3px 7px rgba(255, 255, 255, 0.7);
+  /* Flat elevation: light from above, small and soft. Never two-tone. */
+  --shadow-xs: 0 1px 2px rgba(15, 20, 25, 0.06);
+  --shadow-sm: 0 1px 3px rgba(15, 20, 25, 0.08), 0 1px 2px rgba(15, 20, 25, 0.04);
+  --shadow-md: 0 6px 20px rgba(15, 20, 25, 0.1), 0 2px 6px rgba(15, 20, 25, 0.05);
+  /* "Recessed" is a hairline ring now, not an emboss. Kept under the old
+     names so the rules that still reference them read correctly. */
+  --shadow-inset-xs: inset 0 0 0 1px var(--line);
+  --shadow-inset-sm: inset 0 0 0 1px var(--line-strong);
 
   --tap: 46px; /* minimum tap target */
-  --radius: 22px;
+  --radius: 16px;
+  --radius-sm: 10px;
   --maxw: 480px;
 
-  --font-ui: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
-  --font-display: "Quicksand", var(--font-ui);
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-display: var(--font-ui);
   --font-mono: "SF Mono", ui-monospace, "Roboto Mono", "Menlo", "Consolas",
     monospace;
 }
 
-/* Dark theme — same soft-embossed personality, on an ink-plum surface
-   instead of lavender. Applies automatically by system preference, or
-   when the toggle sets data-theme explicitly (which always wins over the
-   media query). */
+/* Dark theme — a true dark ground rather than a tinted one, so the white
+   type and the accent both keep their contrast. Applies by system
+   preference, or when the toggle sets data-theme (which always wins). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #241f33;
-    --paper-2: #2b2540;
-    --ink: #ebe6f5;
-    --ink-soft: #a89fc4;
-    --ink-faint: #6e6488;
-    --line: rgba(0, 0, 0, 0.3);
-    --line-strong: rgba(0, 0, 0, 0.4);
-    --accent-wash: #342b4d;
-    --danger: #e0806a;
+    --bg: #0b0e13;
+    --paper: #161b23;
+    --paper-2: #212833;
+    --ink: #f2f5f8;
+    --ink-soft: #9aa4b2;
+    --ink-faint: #656f7d;
+    --line: rgba(255, 255, 255, 0.1);
+    --line-strong: rgba(255, 255, 255, 0.18);
+    --color-primary: #8b6dff;
+    --color-primary-dark: #a98fff;
+    --accent-wash: #1e1b38;
+    --accent-on: #0b0e13;
+    --danger: #ef6a5d;
+    --good: #3dcf96;
+    --warn: #e0a640;
 
-    --shadow-xs: 2px 2px 5px rgba(0, 0, 0, 0.45), -2px -2px 5px rgba(255, 255, 255, 0.035);
-    --shadow-sm: 5px 5px 11px rgba(0, 0, 0, 0.48), -5px -5px 11px rgba(255, 255, 255, 0.035);
-    --shadow-md: 9px 9px 18px rgba(0, 0, 0, 0.5), -9px -9px 18px rgba(255, 255, 255, 0.03);
-    --shadow-inset-xs: inset 2px 2px 4px rgba(0, 0, 0, 0.45), inset -2px -2px 4px rgba(255, 255, 255, 0.035);
-    --shadow-inset-sm: inset 3px 3px 7px rgba(0, 0, 0, 0.45), inset -3px -3px 7px rgba(255, 255, 255, 0.035);
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.35);
   }
 }
 :root[data-theme="dark"] {
-  --paper: #241f33;
-  --paper-2: #2b2540;
-  --ink: #ebe6f5;
-  --ink-soft: #a89fc4;
-  --ink-faint: #6e6488;
-  --line: rgba(0, 0, 0, 0.3);
-  --line-strong: rgba(0, 0, 0, 0.4);
-  --accent-wash: #342b4d;
-  --danger: #e0806a;
+  --bg: #0b0e13;
+  --paper: #161b23;
+  --paper-2: #212833;
+  --ink: #f2f5f8;
+  --ink-soft: #9aa4b2;
+  --ink-faint: #656f7d;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --color-primary: #8b6dff;
+  --color-primary-dark: #a98fff;
+  --accent-wash: #1e1b38;
+  --accent-on: #0b0e13;
+  --danger: #ef6a5d;
+  --good: #3dcf96;
+  --warn: #e0a640;
 
-  --shadow-xs: 2px 2px 5px rgba(0, 0, 0, 0.45), -2px -2px 5px rgba(255, 255, 255, 0.035);
-  --shadow-sm: 5px 5px 11px rgba(0, 0, 0, 0.48), -5px -5px 11px rgba(255, 255, 255, 0.035);
-  --shadow-md: 9px 9px 18px rgba(0, 0, 0, 0.5), -9px -9px 18px rgba(255, 255, 255, 0.03);
-  --shadow-inset-xs: inset 2px 2px 4px rgba(0, 0, 0, 0.45), inset -2px -2px 4px rgba(255, 255, 255, 0.035);
-  --shadow-inset-sm: inset 3px 3px 7px rgba(0, 0, 0, 0.45), inset -3px -3px 7px rgba(255, 255, 255, 0.035);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.35);
 }
+
+/* ---------- Accent schemes ----------
+   The picker sets data-scheme on <html>. Each scheme names a colour for
+   the light ground and a lighter one for the dark ground: a single value
+   cannot serve both. "All Black" is the clearest case — pure black is
+   invisible on a dark page, so there it becomes near-white, staying a
+   monochrome scheme either way.
+
+   This lives in CSS rather than inline styles so switching the theme
+   re-picks the accent on its own, with no JavaScript to re-run. */
+
+:root[data-scheme="teal"] { --color-primary: #0d7d6c; --color-primary-dark: #0a5f52; --accent-wash: #e6f5f2; }
+:root[data-scheme="blue"] { --color-primary: #2563eb; --color-primary-dark: #1d4ed8; --accent-wash: #e8efff; }
+:root[data-scheme="pink"] { --color-primary: #db2777; --color-primary-dark: #a81d5d; --accent-wash: #fdeaf3; }
+:root[data-scheme="black"] { --color-primary: #1a1a1a; --color-primary-dark: #000000; --accent-wash: #eeeeef; }
+:root[data-scheme="purple"] { --color-primary: #6d4aff; --color-primary-dark: #4f31cc; --accent-wash: #f0ecff; }
+:root[data-scheme="orange"] { --color-primary: #ea580c; --color-primary-dark: #b4440a; --accent-wash: #fdeee4; }
+:root[data-scheme="red"] { --color-primary: #dc2626; --color-primary-dark: #a81c1c; --accent-wash: #fdeaea; }
+
+@media (prefers-color-scheme: dark) {
+  :root[data-scheme="teal"]:not([data-theme="light"]) { --color-primary: #2dd4bf; --color-primary-dark: #5eead4; --accent-wash: #10302c; }
+  :root[data-scheme="blue"]:not([data-theme="light"]) { --color-primary: #60a5fa; --color-primary-dark: #93c5fd; --accent-wash: #132740; }
+  :root[data-scheme="pink"]:not([data-theme="light"]) { --color-primary: #f472b6; --color-primary-dark: #f9a8d4; --accent-wash: #3a1529; }
+  :root[data-scheme="black"]:not([data-theme="light"]) { --color-primary: #e9edf2; --color-primary-dark: #ffffff; --accent-wash: #232931; }
+  :root[data-scheme="purple"]:not([data-theme="light"]) { --color-primary: #a78bfa; --color-primary-dark: #c4b5fd; --accent-wash: #241e3d; }
+  :root[data-scheme="orange"]:not([data-theme="light"]) { --color-primary: #fb923c; --color-primary-dark: #fdba74; --accent-wash: #3a2110; }
+  :root[data-scheme="red"]:not([data-theme="light"]) { --color-primary: #f87171; --color-primary-dark: #fca5a5; --accent-wash: #3a1818; }
+}
+
+:root[data-theme="dark"][data-scheme="teal"] { --color-primary: #2dd4bf; --color-primary-dark: #5eead4; --accent-wash: #10302c; }
+:root[data-theme="dark"][data-scheme="blue"] { --color-primary: #60a5fa; --color-primary-dark: #93c5fd; --accent-wash: #132740; }
+:root[data-theme="dark"][data-scheme="pink"] { --color-primary: #f472b6; --color-primary-dark: #f9a8d4; --accent-wash: #3a1529; }
+:root[data-theme="dark"][data-scheme="black"] { --color-primary: #e9edf2; --color-primary-dark: #ffffff; --accent-wash: #232931; }
+:root[data-theme="dark"][data-scheme="purple"] { --color-primary: #a78bfa; --color-primary-dark: #c4b5fd; --accent-wash: #241e3d; }
+:root[data-theme="dark"][data-scheme="orange"] { --color-primary: #fb923c; --color-primary-dark: #fdba74; --accent-wash: #3a2110; }
+:root[data-theme="dark"][data-scheme="red"] { --color-primary: #f87171; --color-primary-dark: #fca5a5; --accent-wash: #3a1818; }
 
 * {
   box-sizing: border-box;
@@ -90,7 +148,7 @@ body,
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--font-ui);
   font-size: 16px;
@@ -140,7 +198,7 @@ select {
 }
 
 .app-header {
-  padding: 28px 20px 8px;
+  padding: 22px 20px 10px;
 }
 .app-header-row {
   display: flex;
@@ -148,21 +206,21 @@ select {
   justify-content: space-between;
 }
 .app-header .eyebrow {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-soft);
-  margin: 0 0 2px;
+  color: var(--ink-faint);
+  margin: 0 0 4px;
 }
 .theme-toggle {
   margin: -6px -6px 0 0;
 }
 .app-header h1 {
   font-family: var(--font-display);
-  font-size: 27px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   margin: 0;
 }
 
@@ -190,8 +248,10 @@ select {
   width: 100%;
   max-width: var(--maxw);
   display: flex;
-  background: var(--paper);
-  box-shadow: 0 -6px 14px rgba(120, 108, 150, 0.18);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  border-top: 1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
   z-index: 20;
 }
@@ -199,51 +259,43 @@ select {
   flex: 1;
   background: none;
   border: none;
-  padding: 10px 0 12px;
+  padding: 9px 0 10px;
   color: var(--ink-faint);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   min-height: var(--tap);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
+  transition: color 140ms ease;
 }
 .nav button .nav-icon {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   display: block;
 }
 .nav button.active {
   color: var(--accent);
 }
-.nav button.active .nav-icon {
-  filter: drop-shadow(0 1px 1px rgba(120, 108, 150, 0.3));
-}
 
 /* ---------- Progress ring ---------- */
 
-.ring-wrap {
+.ring-card {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 20px 0 12px;
-}
-.ring-shell {
-  width: 210px;
-  height: 210px;
-  border-radius: 50%;
+  gap: 18px;
   background: var(--paper);
-  box-shadow: var(--shadow-inset-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+  padding: 16px;
+  margin-bottom: 14px;
 }
 .ring {
   position: relative;
-  width: 188px;
-  height: 188px;
+  flex-shrink: 0;
 }
 .ring svg {
   transform: rotate(-90deg);
@@ -266,97 +318,131 @@ select {
   align-items: center;
   justify-content: center;
 }
-.ring-inner-disc {
-  width: 132px;
-  height: 132px;
-  border-radius: 50%;
-  background: var(--paper);
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
 .ring-count {
-  font-family: var(--font-display);
-  font-size: 36px;
+  font-size: 23px;
   font-weight: 700;
   line-height: 1;
+  letter-spacing: -0.04em;
   color: var(--ink);
 }
 .ring-count .of {
   color: var(--ink-faint);
-  font-size: 21px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.ring-side {
+  min-width: 0;
+  flex: 1;
 }
 .ring-label {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--ink-soft);
-  letter-spacing: 0.03em;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
 }
 .ring-all-done {
   color: var(--accent);
+}
+.ring-caption {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 2px 0 0;
+}
+.ring-stats {
+  display: flex;
+  gap: 18px;
+  margin: 12px 0 0;
+}
+.ring-stats div {
+  min-width: 0;
+}
+.ring-stats dt {
+  font-size: 10px;
   font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.ring-stats dd {
+  margin: 1px 0 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
 }
 
 /* ---------- Habit list (Today) ---------- */
 
+/* One habit per row, full width. The old two-column grid gave each card
+   about 170px on a phone, which is why a name, a streak and three icon
+   buttons used to collide and wrap mid-phrase. */
 .habit-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .habit-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   background: var(--paper);
-  border: none;
-  border-radius: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   box-shadow: var(--shadow-xs);
-  padding: 9px 11px;
+  padding: 12px 14px;
   text-align: left;
-  min-height: 52px;
+  min-height: 60px;
   color: var(--ink);
-  transition: box-shadow 150ms ease;
+  transition: border-color 150ms ease, background 150ms ease;
 }
 .habit-row.done {
-  box-shadow: var(--shadow-inset-xs);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--accent-wash) 60%, var(--paper));
 }
 .habit-check {
-  width: 25px;
-  height: 25px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  border: none;
-  background: var(--paper);
-  box-shadow: var(--shadow-inset-xs);
+  border: 2px solid var(--line-strong);
+  background: transparent;
+  box-shadow: none;
   flex-shrink: 0;
   display: grid;
   place-items: center;
   color: transparent;
-  transition: background 150ms ease, box-shadow 150ms ease;
+  padding: 0;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+.habit-check svg {
+  width: 15px;
+  height: 15px;
 }
 .habit-row.done .habit-check {
   background: var(--accent);
-  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.18);
-  color: #fff;
+  border-color: var(--accent);
+  color: var(--accent-on);
 }
 .habit-emoji {
-  font-size: 18px;
-  width: 22px;
+  font-size: 19px;
+  width: 24px;
   text-align: center;
   flex-shrink: 0;
 }
 .habit-body {
   flex: 1;
   min-width: 0;
+  /* A <button> centres its text by default, which left the name floating
+     in the middle of the row with a gap beside the checkbox. */
+  text-align: left;
+  font: inherit;
+  color: inherit;
 }
 .habit-name {
-  font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -365,20 +451,23 @@ select {
   color: var(--accent-ink);
 }
 .habit-streak {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-soft);
-  margin-top: 2px;
+  margin-top: 1px;
+  white-space: nowrap;
 }
 .habit-streak .num {
   color: var(--accent);
   font-weight: 700;
 }
 
-/* reorder + edit controls */
+/* Only the pencil lives on the row now. Reordering moved into the edit
+   sheet, where there is room to label it — three 24px targets crammed
+   against the right edge were easy to hit by accident. */
 .habit-row .row-tools {
   display: flex;
   align-items: center;
-  gap: 0px;
+  gap: 2px;
   flex-shrink: 0;
 }
 .icon-btn {
@@ -416,18 +505,22 @@ select {
   gap: 8px;
   min-height: var(--tap);
   padding: 0 18px;
-  border-radius: var(--radius);
-  border: none;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
   background: var(--paper);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
   color: var(--ink);
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 600;
-  transition: box-shadow 120ms ease;
+  letter-spacing: -0.01em;
+  transition: background 120ms ease, border-color 120ms ease, opacity 120ms ease;
 }
 .btn:active {
-  box-shadow: var(--shadow-inset-sm);
+  background: var(--paper-2);
+}
+.btn:disabled {
+  opacity: 0.4;
 }
 .btn svg {
   width: 18px;
@@ -436,28 +529,87 @@ select {
 }
 .btn.primary {
   background: var(--accent);
-  color: #fff;
-  box-shadow: 5px 5px 11px rgba(139, 111, 201, 0.4), -5px -5px 11px rgba(255, 255, 255, 0.55);
+  border-color: var(--accent);
+  color: var(--accent-on);
+  box-shadow: var(--shadow-sm);
 }
 .btn.primary:active {
-  box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.2);
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
 }
 .btn.block {
   width: 100%;
 }
 .btn.ghost {
   background: none;
+  border-color: transparent;
   box-shadow: none;
   color: var(--ink-soft);
 }
 .btn.ghost:active {
-  box-shadow: none;
   background: var(--paper-2);
 }
 .btn.danger {
   background: none;
+  border-color: transparent;
   box-shadow: none;
   color: var(--danger);
+}
+.btn.danger:active {
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+}
+
+/* ---------- Accent picker menu ---------- */
+
+.scheme-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 6px;
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
+  min-width: 168px;
+}
+.scheme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  border-radius: 8px;
+}
+.scheme-option.selected {
+  background: var(--accent-wash);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+.scheme-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* Two equal buttons side by side, as in the habit reorder control. */
+.reorder-row {
+  display: flex;
+  gap: 8px;
+}
+.reorder-row .btn {
+  flex: 1;
+  padding: 0 10px;
+  font-size: 14px;
 }
 
 .add-habit-btn {

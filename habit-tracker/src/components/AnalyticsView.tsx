@@ -89,7 +89,7 @@ export default function AnalyticsView({ api }: { api: AppApi }) {
   const healthSection =
     healthDays === 0 ? null : (
       <div className="health-card">
-        <p className="health-heading">FROM YOUR WATCH</p>
+        <p className="health-heading">FROM YOUR TRACKER</p>
         {insights.length === 0 ? (
           <p className="health-waiting">
             {healthDays} {healthDays === 1 ? "day" : "days"} recorded. Patterns need about
@@ -109,7 +109,6 @@ export default function AnalyticsView({ api }: { api: AppApi }) {
   if (habits.length === 0) {
     return (
       <div className="view">
-        <h2 className="view-title">Analytics</h2>
         {healthSection}
         <div className="empty">
           <div className="mark">📈</div>
@@ -138,7 +137,6 @@ export default function AnalyticsView({ api }: { api: AppApi }) {
 
   return (
     <div className="view">
-      <h2 className="view-title">Analytics</h2>
       {healthSection}
 
       <div className="range-tabs" role="tablist" aria-label="Time range">

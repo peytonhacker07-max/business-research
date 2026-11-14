@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Habit } from "../lib/types";
+import { ChevronDownIcon, ChevronUpIcon } from "./Icons";
 
 interface Props {
   /** When provided, the modal is in edit mode. */
@@ -7,9 +8,25 @@ interface Props {
   onSave: (name: string, icon: string) => void;
   onDelete?: () => void;
   onClose: () => void;
+  /**
+   * Reordering. It used to be two 24px arrows on the habit row itself,
+   * wedged against the delete-adjacent pencil, where a mis-tap silently
+   * rearranged the list. Here there's room to label what the buttons do.
+   */
+  onMove?: (delta: 1 | -1) => void;
+  canMoveUp?: boolean;
+  canMoveDown?: boolean;
 }
 
-export default function HabitFormModal({ habit, onSave, onDelete, onClose }: Props) {
+export default function HabitFormModal({
+  habit,
+  onSave,
+  onDelete,
+  onClose,
+  onMove,
+  canMoveUp,
+  canMoveDown,
+}: Props) {
   const [name, setName] = useState(habit?.name ?? "");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -58,6 +75,30 @@ export default function HabitFormModal({ habit, onSave, onDelete, onClose }: Pro
             onChange={(e) => setName(e.target.value)}
           />
         </div>
+
+        {habit && onMove && (canMoveUp || canMoveDown) && (
+          <div className="field">
+            <label>Position in the list</label>
+            <div className="reorder-row">
+              <button
+                type="button"
+                className="btn"
+                disabled={!canMoveUp}
+                onClick={() => onMove(-1)}
+              >
+                <ChevronUpIcon className="" /> Move up
+              </button>
+              <button
+                type="button"
+                className="btn"
+                disabled={!canMoveDown}
+                onClick={() => onMove(1)}
+              >
+                <ChevronDownIcon className="" /> Move down
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="modal-actions">
           <button type="button" className="btn ghost" onClick={onClose}>

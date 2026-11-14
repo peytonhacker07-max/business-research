@@ -5,19 +5,19 @@ import { formatLong } from "../lib/dates";
 import { useDailyQuote } from "../lib/quotes";
 import ProgressRing from "./ProgressRing";
 import HabitFormModal from "./HabitFormModal";
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  PencilIcon,
-  PlusIcon,
-} from "./Icons";
+import { CheckIcon, PencilIcon, PlusIcon } from "./Icons";
 import type { Habit } from "../lib/types";
 
 export default function TodayView({ api }: { api: AppApi }) {
   const { data, today } = api;
   const habits = activeHabits(data);
   const { done, total } = todayProgress(data);
+
+  // The longest run going right now, and how many habits are still alive.
+  // Both are things you'd otherwise have to open Analytics to learn.
+  const streaks = habits.map((h) => currentStreak(data, h.id));
+  const best = streaks.length > 0 ? Math.max(...streaks) : 0;
+  const alive = streaks.filter((s) => s > 0).length;
 
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<Habit | null>(null);
@@ -67,18 +67,19 @@ export default function TodayView({ api }: { api: AppApi }) {
         </button>
       )}
 
-      <ProgressRing done={done} total={total} />
-
-      <p className="view-title" style={{ textAlign: "center", marginTop: 4 }}>
-        {formatLong(new Date())}
-      </p>
-
-      {quote && (
-        <figure className="quote">
-          <blockquote className="quote-text">{quote.text}</blockquote>
-          <figcaption className="quote-author">{quote.author}</figcaption>
-        </figure>
-      )}
+      <ProgressRing
+        done={done}
+        total={total}
+        caption={formatLong(new Date())}
+        stats={
+          total === 0
+            ? []
+            : [
+                { label: "Best streak", value: best === 0 ? "—" : `${best}d` },
+                { label: "Streaks alive", value: `${alive}/${total}` },
+              ]
+        }
+      />
 
       {habits.length === 0 ? (
         <div className="empty">
@@ -91,7 +92,7 @@ export default function TodayView({ api }: { api: AppApi }) {
       ) : (
         <>
           <ul className="habit-list" style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {habits.map((habit, i) => {
+            {habits.map((habit) => {
               const doneToday = isDone(data, habit.id, today);
               const streak = currentStreak(data, habit.id);
               return (
@@ -133,22 +134,6 @@ export default function TodayView({ api }: { api: AppApi }) {
                     <div className="row-tools">
                       <button
                         className="icon-btn"
-                        aria-label={`Move ${habit.name} up`}
-                        disabled={i === 0}
-                        onClick={() => api.moveHabit(habit.id, -1)}
-                      >
-                        <ChevronUpIcon className="" />
-                      </button>
-                      <button
-                        className="icon-btn"
-                        aria-label={`Move ${habit.name} down`}
-                        disabled={i === habits.length - 1}
-                        onClick={() => api.moveHabit(habit.id, 1)}
-                      >
-                        <ChevronDownIcon className="" />
-                      </button>
-                      <button
-                        className="icon-btn"
                         aria-label={`Edit ${habit.name}`}
                         onClick={() => setEditing(habit)}
                       >
@@ -170,6 +155,15 @@ export default function TodayView({ api }: { api: AppApi }) {
         </>
       )}
 
+      {/* Last, not first: the quote is a nice thing to land on once the day's
+          work is in front of you, not something to read past to reach it. */}
+      {quote && (
+        <figure className="quote">
+          <blockquote className="quote-text">{quote.text}</blockquote>
+          <figcaption className="quote-author">{quote.author}</figcaption>
+        </figure>
+      )}
+
       {adding && (
         <HabitFormModal
           onSave={(name, icon) => {
@@ -183,6 +177,11 @@ export default function TodayView({ api }: { api: AppApi }) {
       {editing && (
         <HabitFormModal
           habit={editing}
+          onMove={(delta) => api.moveHabit(editing.id, delta)}
+          canMoveUp={habits.findIndex((h) => h.id === editing.id) > 0}
+          canMoveDown={
+            habits.findIndex((h) => h.id === editing.id) < habits.length - 1
+          }
           onSave={(name, icon) => {
             api.editHabit(editing.id, name, icon);
             setEditing(null);

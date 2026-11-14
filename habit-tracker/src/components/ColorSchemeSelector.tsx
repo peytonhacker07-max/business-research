@@ -26,46 +26,21 @@ export default function ColorSchemeSelector() {
         aria-label={`Color scheme: ${COLOR_SCHEMES[scheme].name}`}
       />
       {open && (
-        <div
-          style={{
-            position: "absolute",
-            top: "100%",
-            right: 0,
-            marginTop: 8,
-            background: "white",
-            border: "1px solid #ddd",
-            borderRadius: 6,
-            padding: 8,
-            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-            zIndex: 1000,
-            minWidth: 160,
-          }}
-        >
+        /* Themed from tokens rather than hardcoded white — the old menu was
+           white-on-white text once the app was in dark mode. */
+        <div className="scheme-menu" role="menu">
           {COLOR_SCHEME_KEYS.map((s) => (
             <button
               key={s}
+              role="menuitemradio"
+              aria-checked={scheme === s}
+              className={"scheme-option" + (scheme === s ? " selected" : "")}
               onClick={() => handleSelect(s)}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                width: "100%",
-                padding: "8px 10px",
-                border: "none",
-                background: scheme === s ? "#f0f0f0" : "transparent",
-                cursor: "pointer",
-                fontSize: 13,
-                textAlign: "left",
-                borderRadius: 4,
-              }}
             >
-              <div
+              <span
+                className="scheme-swatch"
                 style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: "50%",
                   background: `linear-gradient(135deg, ${COLOR_SCHEMES[s].primary} 50%, ${COLOR_SCHEMES[s].dark} 50%)`,
-                  flexShrink: 0,
                 }}
               />
               {COLOR_SCHEMES[s].name}

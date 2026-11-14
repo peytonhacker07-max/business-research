@@ -99,7 +99,7 @@ and the whole payload is thrown away.
 ## Did it work?
 
 Run the Shortcut. The app opens, then under **Analytics** there should be a
-**FROM YOUR WATCH** card reading *"1 day recorded. Patterns need about a week
+**FROM YOUR TRACKER** card reading *"1 day recorded. Patterns need about a week
 before they mean anything."*
 
 That message is the success signal. The observations themselves stay quiet

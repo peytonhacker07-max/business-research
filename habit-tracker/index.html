@@ -9,27 +9,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Apply any saved theme before first paint, so there's no flash of the
-         wrong theme (light/dark). Falls back to system preference via CSS. -->
+    <!-- Apply the saved theme and accent before first paint, so there's no
+         flash of the wrong one. Both fall back to a default via CSS: no
+         data-theme means follow the system, and the stylesheet carries the
+         purple scheme for a first visit that has chosen nothing. -->
     <script>
       (function () {
+        var root = document.documentElement;
         try {
           var t = localStorage.getItem("daily.theme");
-          if (t === "dark" || t === "light") {
-            document.documentElement.setAttribute("data-theme", t);
-          }
+          if (t === "dark" || t === "light") root.setAttribute("data-theme", t);
         } catch (e) {}
+        try {
+          var s = localStorage.getItem("daily.color-scheme");
+          root.setAttribute("data-scheme", s || "purple");
+        } catch (e) {
+          root.setAttribute("data-scheme", "purple");
+        }
       })();
     </script>
 
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#e9e5f1" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#241f33" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f6f8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0e13" media="(prefers-color-scheme: dark)" />
 
     <!-- iOS home screen support -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
